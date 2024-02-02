@@ -1,0 +1,9 @@
+# Log of the work done on the project
+
+## Week 5
+
+* Create GitHub organisation and repository.
+* Upload original minitwit files to the github repository.
+* Create FileOverview.md file were a high-level understanding of the original files is written down.
+* Update the Control.sh file with ShellCheck.
+* Update dependencies to newest versions.
