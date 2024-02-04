@@ -7,3 +7,6 @@
 * Create FileOverview.md file were a high-level understanding of the original files is written down.
 * Update the Control.sh file with ShellCheck.
 * Update dependencies to newest versions.
+* Update python version to python 3.
+* Change code to support python 3.
+* Updated tests to work with python 3.
