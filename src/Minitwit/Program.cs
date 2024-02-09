@@ -1,6 +1,7 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Minitwit;
 using Minitwit.Core.Entities;
 using Minitwit.Core.Repository;
@@ -17,17 +18,17 @@ var builder = WebApplication.CreateBuilder(args);
 string currentDirectory = Directory.GetCurrentDirectory();
 string dbPath;
 
-if (Directory.Exists(Path.Combine(currentDirectory, "..", "Chirp.Infrastructure", "data")))
+if (Directory.Exists(Path.Combine(currentDirectory, "..", "Minitwit.Infrastructure", "data")))
 {
-    dbPath = Path.Combine(currentDirectory, "..", "Chirp.Infrastructure", "data", "ChirpDBContext.db"); //Build directory
+    dbPath = Path.Combine(currentDirectory, "..", "Minitwit.Infrastructure", "data", "Minitwit.db"); //Build directory
 }
 else 
 {
-    dbPath = Path.Combine(currentDirectory, "data", "ChirpDBContext.db"); //Publish directory
+    dbPath = Path.Combine(currentDirectory, "data", "Minitwit.db"); //Publish directory
 }
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor();
 
 
 builder.Services.AddDbContext<MinitwitDbContext>(options => 
@@ -93,5 +94,5 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
-app.MapRazorPages();
+app.MapBlazorHub();
 app.Run();
