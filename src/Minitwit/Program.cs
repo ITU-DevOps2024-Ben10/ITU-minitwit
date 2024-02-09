@@ -11,7 +11,7 @@ using ITU_minitwit.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddServerSideBlazor();
+builder.Services.AddServerSideBlazor().AddInteractiveServerComponents();
 
 string currentDirectory = Directory.GetCurrentDirectory();
 string dbPath;
