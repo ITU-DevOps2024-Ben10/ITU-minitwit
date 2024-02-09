@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 if [ "$1" = "init" ]; then
 
     if [ -f "/tmp/minitwit.db" ]; then 
@@ -7,6 +7,7 @@ if [ "$1" = "init" ]; then
     fi
     echo "Putting a database to /tmp/minitwit.db..."
     python -c"from minitwit import init_db;init_db()"
+    sqlite3 /tmp/minitwit.db < schema.sql
 elif [ "$1" = "start" ]; then
     echo "Starting minitwit..."
     nohup $(which python) minitwit.py > /tmp/out.log 2>&1 &
