@@ -1,0 +1,308 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/casper/GitHub/ITU-minitwit/test/Chirp.WebTests/Chirp.WebTests.csproj": {}
+  },
+  "projects": {
+    "/home/casper/GitHub/ITU-minitwit/src/Chirp.Core/Chirp.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/casper/GitHub/ITU-minitwit/src/Chirp.Core/Chirp.Core.csproj",
+        "projectName": "Chirp.Core",
+        "projectPath": "/home/casper/GitHub/ITU-minitwit/src/Chirp.Core/Chirp.Core.csproj",
+        "packagesPath": "/home/casper/.nuget/packages/",
+        "outputPath": "/home/casper/GitHub/ITU-minitwit/src/Chirp.Core/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/casper/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[11.9.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Microsoft.Extensions.Identity.Stores": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/casper/GitHub/ITU-minitwit/src/Chirp.Infrastructure/Chirp.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/casper/GitHub/ITU-minitwit/src/Chirp.Infrastructure/Chirp.Infrastructure.csproj",
+        "projectName": "Chirp.Infrastructure",
+        "projectPath": "/home/casper/GitHub/ITU-minitwit/src/Chirp.Infrastructure/Chirp.Infrastructure.csproj",
+        "packagesPath": "/home/casper/.nuget/packages/",
+        "outputPath": "/home/casper/GitHub/ITU-minitwit/src/Chirp.Infrastructure/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/casper/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/casper/GitHub/ITU-minitwit/src/Chirp.Core/Chirp.Core.csproj": {
+                "projectPath": "/home/casper/GitHub/ITU-minitwit/src/Chirp.Core/Chirp.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[11.9.0, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/casper/GitHub/ITU-minitwit/test/Chirp.WebTests/Chirp.WebTests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/casper/GitHub/ITU-minitwit/test/Chirp.WebTests/Chirp.WebTests.csproj",
+        "projectName": "Chirp.WebTests",
+        "projectPath": "/home/casper/GitHub/ITU-minitwit/test/Chirp.WebTests/Chirp.WebTests.csproj",
+        "packagesPath": "/home/casper/.nuget/packages/",
+        "outputPath": "/home/casper/GitHub/ITU-minitwit/test/Chirp.WebTests/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/casper/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/casper/GitHub/ITU-minitwit/src/Chirp.Web/Chirp.Web.csproj": {
+                "projectPath": "/home/casper/GitHub/ITU-minitwit/src/Chirp.Web/Chirp.Web.csproj"
+              },
+              "/home/casper/GitHub/ITU-minitwit/test/Test_Utilities/Test_Utilities.csproj": {
+                "projectPath": "/home/casper/GitHub/ITU-minitwit/test/Test_Utilities/Test_Utilities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.10.0-preview-24080-01, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.20.70, )"
+            },
+            "coverlet.collector": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.6.6, )"
+            },
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.5.6, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/casper/GitHub/ITU-minitwit/test/Test_Utilities/Test_Utilities.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/casper/GitHub/ITU-minitwit/test/Test_Utilities/Test_Utilities.csproj",
+        "projectName": "Test_Utilities",
+        "projectPath": "/home/casper/GitHub/ITU-minitwit/test/Test_Utilities/Test_Utilities.csproj",
+        "packagesPath": "/home/casper/.nuget/packages/",
+        "outputPath": "/home/casper/GitHub/ITU-minitwit/test/Test_Utilities/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/casper/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/casper/GitHub/ITU-minitwit/src/Chirp.Core/Chirp.Core.csproj": {
+                "projectPath": "/home/casper/GitHub/ITU-minitwit/src/Chirp.Core/Chirp.Core.csproj"
+              },
+              "/home/casper/GitHub/ITU-minitwit/src/Chirp.Infrastructure/Chirp.Infrastructure.csproj": {
+                "projectPath": "/home/casper/GitHub/ITU-minitwit/src/Chirp.Infrastructure/Chirp.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

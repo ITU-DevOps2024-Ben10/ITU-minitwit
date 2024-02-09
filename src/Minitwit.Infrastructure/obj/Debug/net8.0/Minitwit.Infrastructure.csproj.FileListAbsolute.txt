@@ -1,0 +1,6 @@
+/home/casper/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/obj/Debug/net8.0/Minitwit.Infrastructure.csproj.AssemblyReference.cache
+/home/casper/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/obj/Debug/net8.0/Minitwit.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/home/casper/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/obj/Debug/net8.0/Minitwit.Infrastructure.AssemblyInfoInputs.cache
+/home/casper/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/obj/Debug/net8.0/Minitwit.Infrastructure.AssemblyInfo.cs
+/home/casper/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/obj/Debug/net8.0/Minitwit.Infrastructure.csproj.CoreCompileInputs.cache
+/home/casper/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/obj/Debug/net8.0/Minitwit.Infrastructure.sourcelink.json
