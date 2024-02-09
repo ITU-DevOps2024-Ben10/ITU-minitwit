@@ -11,6 +11,7 @@ using ITU_minitwit.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddServerSideBlazor();
 
 string currentDirectory = Directory.GetCurrentDirectory();
 string dbPath;
@@ -26,6 +27,9 @@ else
 
 builder.Services.AddRazorComponents();
 
+//Github OAuth:
+builder.Services.AddAuthentication()
+    .AddCookie();
 
 builder.Services.AddDbContext<MinitwitDbContext>(options => 
     options.UseSqlite($"Data Source={dbPath}"));
@@ -50,9 +54,7 @@ builder.Services.AddSession(
     	options.Cookie.IsEssential = true;
 	});
 
-//Github OAuth:
-builder.Services.AddAuthentication()
-    .AddCookie();
+builder.Services.AddDistributedMemoryCache();
 
 var app = builder.Build();
 
@@ -88,8 +90,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.MapRazorComponents<App>();
-
+app.UseAntiforgery();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
+
 app.Run();
