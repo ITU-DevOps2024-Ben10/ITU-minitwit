@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Chirp.Core.Entities;
+namespace Minitwit.Core.Entities;
 
 /// <summary>
 /// This class represents a follow between two authors.

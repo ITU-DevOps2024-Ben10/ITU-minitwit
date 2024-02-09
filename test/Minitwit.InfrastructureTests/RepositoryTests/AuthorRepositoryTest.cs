@@ -1,16 +1,10 @@
-using Chirp.Core.Entities;
-using Chirp.Core.Repository;
-using Chirp.Infrastructure;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
+using Minitwit.Core.Entities;
+using Minitwit.Core.Repository;
 using Minitwit.Infrastructure;
 using Minitwit.Infrastructure.Repository;
 using Test_Utilities;
-using Xunit.Abstractions;
-using Xunit.Sdk;
-using Timer = System.Timers.Timer;
 
-namespace Chirp.InfrastructureTest.RepositoryTests;
+namespace Minitwit.InfrastructureTest.RepositoryTests;
 
 public class AuthorRepositoryTest
 {
@@ -257,8 +251,8 @@ public class AuthorRepositoryTest
         await _authorRepository.RemoveFollow(_author1, _author2);
 
         //Assert
-        Assert.True(_author1.Followers.IsNullOrEmpty());
-        Assert.True(_author2.Followers.IsNullOrEmpty());
+        Assert.True(!_author1.Following.Any());
+        Assert.True(!_author2.Followers.Any());
     }
 
     

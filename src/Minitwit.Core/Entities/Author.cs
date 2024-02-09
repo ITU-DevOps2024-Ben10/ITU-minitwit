@@ -1,10 +1,8 @@
-using System.Collections;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace Chirp.Core.Entities;
+namespace Minitwit.Core.Entities;
 
 /// <summary>
 /// This class represents the user of the _Chirp!_ application. 

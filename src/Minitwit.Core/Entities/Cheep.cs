@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 
-namespace Chirp.Core.Entities;
+namespace Minitwit.Core.Entities;
 
 /// <summary>
 /// This class represents cheeps, created by the users of the _Chirp!_ application.

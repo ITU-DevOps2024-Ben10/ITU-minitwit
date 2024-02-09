@@ -7,7 +7,7 @@
 
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
-        <RootNamespace>Chirp.WebTests</RootNamespace>
+        <RootNamespace>Minitwit.WebTests</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -25,7 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\Chirp.Web\Chirp.Web.csproj" />
+      <ProjectReference Include="..\..\src\Minitwit\Minitwit.csproj" />
       <ProjectReference Include="..\Test_Utilities\Test_Utilities.csproj" />
     </ItemGroup>
 

@@ -1,7 +1,7 @@
-﻿using Chirp.Core.Entities;
+﻿using Minitwit.Core.Entities;
 using Minitwit.Infrastructure.Repository;
 
-namespace Chirp.InfrastructureTest.RepositoryTests;
+namespace Minitwit.InfrastructureTest.RepositoryTests;
 
 public class CheepCreateValidatorTest
 {

@@ -1,7 +1,7 @@
-using Chirp.Core.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Minitwit.Core.Entities;
 
 namespace Minitwit.Infrastructure;
 

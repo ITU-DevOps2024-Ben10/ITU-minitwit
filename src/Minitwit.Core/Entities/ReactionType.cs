@@ -1,4 +1,4 @@
-﻿namespace Chirp.Core.Entities;
+﻿namespace Minitwit.Core.Entities;
 
 public enum ReactionType {
     Like,

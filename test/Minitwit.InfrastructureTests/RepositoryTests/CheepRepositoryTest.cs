@@ -1,12 +1,11 @@
 //Test of cheep repository methods using Test_Utilites in-memory database
 
-using Chirp.Core.Entities;
-using Chirp.Infrastructure;
+using Minitwit.Core.Entities;
 using Minitwit.Infrastructure;
 using Minitwit.Infrastructure.Repository;
 using Test_Utilities;
 
-namespace Chirp.InfrastructureTest.RepositoryTests;
+namespace Minitwit.InfrastructureTest.RepositoryTests;
 public class CheepRepositoryTest{
 
     private readonly CheepRepository CheepRepository;

@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "/home/casper/GitHub/ITU-minitwit/src/Minitwit/obj/Debug/net8.0/scopedcss/projectbundle/Minitwit.bundle.scp.css",
+      "PackagePath": "staticwebassets/Minitwit.bundle.scp.css"
+    },
+    {
+      "Id": "/home/casper/GitHub/ITU-minitwit/src/Minitwit/wwwroot/app.css",
+      "PackagePath": "staticwebassets/app.css"
+    },
+    {
+      "Id": "/home/casper/GitHub/ITU-minitwit/src/Minitwit/wwwroot/bootstrap/bootstrap.min.css",
+      "PackagePath": "staticwebassets/bootstrap/bootstrap.min.css"
+    },
+    {
+      "Id": "/home/casper/GitHub/ITU-minitwit/src/Minitwit/wwwroot/bootstrap/bootstrap.min.css.map",
+      "PackagePath": "staticwebassets/bootstrap/bootstrap.min.css.map"
+    },
+    {
+      "Id": "/home/casper/GitHub/ITU-minitwit/src/Minitwit/wwwroot/favicon.png",
+      "PackagePath": "staticwebassets/favicon.png"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.Minitwit.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.Minitwit.props",
+      "PackagePath": "build\\Minitwit.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.Minitwit.props",
+      "PackagePath": "buildMultiTargeting\\Minitwit.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.Minitwit.props",
+      "PackagePath": "buildTransitive\\Minitwit.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

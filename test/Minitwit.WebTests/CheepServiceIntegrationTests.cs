@@ -1,19 +1,15 @@
-﻿using Chirp.Core.Entities;
-using Chirp.Core.Repository;
-using Chirp.Infrastructure;
-using Chirp.Web;
-using Chirp.Web.Models;
+﻿using ITU_minitwit.Models;
+using Minitwit.Core.Entities;
+using Minitwit.Core.Repository;
 using Minitwit.Infrastructure;
 using Minitwit.Infrastructure.Repository;
-using Moq;
-using SQLitePCL;
 using Test_Utilities;
 
-namespace Chirp.WebTests;
+namespace Minitwit.WebTests;
 
 public class CheepServiceIntegrationTests
 {
-    private CheepService _service;
+    private MinitwitService _service;
 
     private Author _author1;
     private Author _author2;
@@ -28,7 +24,7 @@ public class CheepServiceIntegrationTests
         ICheepRepository cheepRepository = new CheepRepository(context);
         IAuthorRepository authorRepository = new AuthorRepository(context);
         IReactionRepository reactionRepository = new ReactionRepository(context);
-        _service = new CheepService(cheepRepository, authorRepository, reactionRepository);
+        _service = new MinitwitService(cheepRepository, authorRepository, reactionRepository);
 
         _author1 = new Author { Id = Guid.NewGuid(), UserName = "Author1", Email = "email1" };
         _author2 = new Author { Id = Guid.NewGuid(), UserName = "Author2", Email = "email2" };

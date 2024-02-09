@@ -1,10 +1,9 @@
-﻿using Chirp.Core.Entities;
-using Chirp.Infrastructure;
+﻿using Minitwit.Core.Entities;
 using Minitwit.Infrastructure;
 using Minitwit.Infrastructure.Repository;
 using Test_Utilities;
 
-namespace Chirp.InfrastructureTest.RepositoryTests;
+namespace Minitwit.InfrastructureTest.RepositoryTests;
 
 public class FollowRepositoryTest
 {

@@ -1,6 +1,6 @@
-using Chirp.Core.Entities;
+using Minitwit.Core.Entities;
 
-namespace Chirp.Core.Repository;
+namespace Minitwit.Core.Repository;
 
 public interface IAuthorRepository
 {

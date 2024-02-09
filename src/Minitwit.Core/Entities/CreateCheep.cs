@@ -1,8 +1,4 @@
-
-using System.ComponentModel.DataAnnotations;
-using System.Net.Mime;
-
-namespace Chirp.Core.Entities;
+namespace Minitwit.Core.Entities;
 
 public record CreateCheep(Author Author, string Text)
 {

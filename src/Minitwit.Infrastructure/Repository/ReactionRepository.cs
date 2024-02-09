@@ -1,6 +1,6 @@
-using Chirp.Core.Entities;
-using Chirp.Core.Repository;
 using Microsoft.EntityFrameworkCore;
+using Minitwit.Core.Entities;
+using Minitwit.Core.Repository;
 
 namespace Minitwit.Infrastructure.Repository;
 

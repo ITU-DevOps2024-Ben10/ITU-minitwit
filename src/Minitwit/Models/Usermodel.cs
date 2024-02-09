@@ -1,9 +1,7 @@
-﻿using Chirp.Infrastructure;
-using Chirp.Infrastructure.Repository;
-using Chirp.Core.Entities;
-using Chirp.Core.Repository;
+﻿
+using Minitwit.Core.Entities;
 
-namespace Chirp.Web.Models;
+namespace ITU_minitwit.Models;
 
 /// <summary>
 /// This class represents a model of a user,

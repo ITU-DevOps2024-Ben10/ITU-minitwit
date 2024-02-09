@@ -1,5 +1,5 @@
-using Chirp.Core.Entities;
 using FluentValidation;
+using Minitwit.Core.Entities;
 
 namespace Minitwit.Infrastructure.Repository;
 

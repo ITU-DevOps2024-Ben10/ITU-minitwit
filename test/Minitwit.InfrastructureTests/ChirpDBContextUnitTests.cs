@@ -1,12 +1,11 @@
-﻿using Chirp.Core.Entities;
-using Chirp.Core.Repository;
-using Chirp.Infrastructure;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Minitwit.Core.Entities;
+using Minitwit.Core.Repository;
 using Minitwit.Infrastructure;
 using Minitwit.Infrastructure.Repository;
 using Test_Utilities;
 
-namespace Chirp.InfrastructureTest;
+namespace Minitwit.InfrastructureTest;
 
 public class ChirpDbContextUnitTests
 {

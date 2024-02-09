@@ -1,4 +1,4 @@
-﻿namespace Chirp.Core.Entities;
+﻿namespace Minitwit.Core.Entities;
 /// <summary>
 /// This class represents the reaction a User can give to a cheep.
 /// The reactions can be either a Like, Dislike, or Love.

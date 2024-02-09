@@ -8,4 +8,9 @@
     <AssemblyName>$(AssemblyName.Replace(' ', '_'))</AssemblyName>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Minitwit.Core\Minitwit.Core.csproj" />
+    <ProjectReference Include="..\Minitwit.Infrastructure\Minitwit.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
