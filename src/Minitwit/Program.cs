@@ -7,13 +7,10 @@ using Minitwit.Core.Entities;
 using Minitwit.Core.Repository;
 using Minitwit.Infrastructure;
 using Minitwit.Infrastructure.Repository;
-
-/// <summary>
-/// This file is the entry point of the application. 
-/// It is responsible for setting up the application and starting it.
-/// </summary>
+using ITU_minitwit.Components;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 string currentDirectory = Directory.GetCurrentDirectory();
 string dbPath;
@@ -27,8 +24,7 @@ else
     dbPath = Path.Combine(currentDirectory, "data", "Minitwit.db"); //Publish directory
 }
 
-// Add services to the container.
-builder.Services.AddServerSideBlazor();
+builder.Services.AddRazorComponents();
 
 
 builder.Services.AddDbContext<MinitwitDbContext>(options => 
@@ -60,6 +56,7 @@ builder.Services.AddAuthentication()
 
 var app = builder.Build();
 
+
 // Get a scope to manage the liftime of the context
 using (var scope = app.Services.CreateScope())
 {
@@ -90,9 +87,9 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseRouting();
+app.MapRazorComponents<App>();
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
-app.MapBlazorHub();
 app.Run();
