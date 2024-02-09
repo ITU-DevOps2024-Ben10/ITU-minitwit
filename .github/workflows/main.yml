@@ -20,7 +20,7 @@ jobs:
           dotnet-version: '7.0.x'
 
       - name: Restore Dependencies
-        run: dotnet restore src/Chirp.Web/
+        run: dotnet restore src/Minitwit/
 
       - name: Build
         run: |
@@ -32,8 +32,8 @@ jobs:
           # Iterate through the targets and create executables for each
           for target in "${targets[@]}"
           do
-            release_name="Chirp.Web-$tag-$target"
-            dotnet publish src/Chirp.Web/ -c Release --framework net7.0 --runtime $target -o "$release_name"
+            release_name="Minitwit-$tag-$target"
+            dotnet publish src/Minitwit/ -c Release --framework net7.0 --runtime $target -o "$release_name"
           
             7z a -tzip "${release_name}.zip" "./${release_name}/*"
 
@@ -44,7 +44,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            Chirp.Web*.zip
-            Chirp.Web*.tar.gz
+            Minitwit*.zip
+            Minitwit*.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
