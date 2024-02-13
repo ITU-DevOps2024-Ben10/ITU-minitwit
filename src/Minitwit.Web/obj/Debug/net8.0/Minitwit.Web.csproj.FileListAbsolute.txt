@@ -1,0 +1,10 @@
+/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Web/obj/Debug/net8.0/Minitwit.Web.csproj.AssemblyReference.cache
+/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Web/obj/Debug/net8.0/Minitwit.Web.GeneratedMSBuildEditorConfig.editorconfig
+/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Web/obj/Debug/net8.0/Minitwit.Web.AssemblyInfoInputs.cache
+/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Web/obj/Debug/net8.0/Minitwit.Web.AssemblyInfo.cs
+/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Web/obj/Debug/net8.0/Minitwit.Web.csproj.CoreCompileInputs.cache
+/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Web/obj/Debug/net8.0/Minitwit.Web.MvcApplicationPartsAssemblyInfo.cs
+/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Web/obj/Debug/net8.0/Minitwit.Web.MvcApplicationPartsAssemblyInfo.cache
+/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Web/obj/Debug/net8.0/Minitwit.Web.RazorAssemblyInfo.cache
+/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Web/obj/Debug/net8.0/Minitwit.Web.RazorAssemblyInfo.cs
+/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Web/obj/Debug/net8.0/Minitwit.Web.sourcelink.json

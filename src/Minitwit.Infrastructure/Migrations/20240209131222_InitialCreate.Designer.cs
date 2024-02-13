@@ -137,7 +137,7 @@ namespace Minitwit.Infrastructure.Migrations
                     b.ToTable("UserTokens");
                 });
 
-            modelBuilder.Entity("Minitwit.Core.Entities.Author", b =>
+            modelBuilder.Entity("Minitwit.Web.Core.Entities.Author", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -197,7 +197,7 @@ namespace Minitwit.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Minitwit.Core.Entities.Cheep", b =>
+            modelBuilder.Entity("Minitwit.Web.Core.Entities.Cheep", b =>
                 {
                     b.Property<Guid>("CheepId")
                         .ValueGeneratedOnAdd()
@@ -224,7 +224,7 @@ namespace Minitwit.Infrastructure.Migrations
                     b.ToTable("Cheeps");
                 });
 
-            modelBuilder.Entity("Minitwit.Core.Entities.Follow", b =>
+            modelBuilder.Entity("Minitwit.Web.Core.Entities.Follow", b =>
                 {
                     b.Property<Guid>("FollowingAuthorId")
                         .HasColumnType("TEXT");
@@ -239,7 +239,7 @@ namespace Minitwit.Infrastructure.Migrations
                     b.ToTable("Follows");
                 });
 
-            modelBuilder.Entity("Minitwit.Core.Entities.Reaction", b =>
+            modelBuilder.Entity("Minitwit.Web.Core.Entities.Reaction", b =>
                 {
                     b.Property<Guid>("CheepId")
                         .HasColumnType("TEXT");
@@ -258,9 +258,9 @@ namespace Minitwit.Infrastructure.Migrations
                     b.ToTable("Reactions");
                 });
 
-            modelBuilder.Entity("Minitwit.Core.Entities.Cheep", b =>
+            modelBuilder.Entity("Minitwit.Web.Core.Entities.Cheep", b =>
                 {
-                    b.HasOne("Minitwit.Core.Entities.Author", "Author")
+                    b.HasOne("Minitwit.Web.Core.Entities.Author", "Author")
                         .WithMany("Cheeps")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -269,15 +269,15 @@ namespace Minitwit.Infrastructure.Migrations
                     b.Navigation("Author");
                 });
 
-            modelBuilder.Entity("Minitwit.Core.Entities.Follow", b =>
+            modelBuilder.Entity("Minitwit.Web.Core.Entities.Follow", b =>
                 {
-                    b.HasOne("Minitwit.Core.Entities.Author", "FollowedAuthor")
+                    b.HasOne("Minitwit.Web.Core.Entities.Author", "FollowedAuthor")
                         .WithMany("Followers")
                         .HasForeignKey("FollowedAuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Minitwit.Core.Entities.Author", "FollowingAuthor")
+                    b.HasOne("Minitwit.Web.Core.Entities.Author", "FollowingAuthor")
                         .WithMany("Following")
                         .HasForeignKey("FollowingAuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -288,15 +288,15 @@ namespace Minitwit.Infrastructure.Migrations
                     b.Navigation("FollowingAuthor");
                 });
 
-            modelBuilder.Entity("Minitwit.Core.Entities.Reaction", b =>
+            modelBuilder.Entity("Minitwit.Web.Core.Entities.Reaction", b =>
                 {
-                    b.HasOne("Minitwit.Core.Entities.Author", "Author")
+                    b.HasOne("Minitwit.Web.Core.Entities.Author", "Author")
                         .WithMany("Reactions")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Minitwit.Core.Entities.Cheep", "Cheep")
+                    b.HasOne("Minitwit.Web.Core.Entities.Cheep", "Cheep")
                         .WithMany("Reactions")
                         .HasForeignKey("CheepId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -307,7 +307,7 @@ namespace Minitwit.Infrastructure.Migrations
                     b.Navigation("Cheep");
                 });
 
-            modelBuilder.Entity("Minitwit.Core.Entities.Author", b =>
+            modelBuilder.Entity("Minitwit.Web.Core.Entities.Author", b =>
                 {
                     b.Navigation("Cheeps");
 
@@ -318,7 +318,7 @@ namespace Minitwit.Infrastructure.Migrations
                     b.Navigation("Reactions");
                 });
 
-            modelBuilder.Entity("Minitwit.Core.Entities.Cheep", b =>
+            modelBuilder.Entity("Minitwit.Web.Core.Entities.Cheep", b =>
                 {
                     b.Navigation("Reactions");
                 });

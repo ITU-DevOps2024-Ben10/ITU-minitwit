@@ -1,12 +1,12 @@
-// using Minitwit.Core.Entities;
-// using Minitwit.Core.Repository;
-// using Minitwit.Infrastructure;
-// using Minitwit.Infrastructure.Repository;
+// using Minitwit.Web.Core.Entities;
+// using Minitwit.Web.Core.Repository;
+// using Minitwit.Web.Infrastructure;
+// using Minitwit.Web.Infrastructure.Repository;
 // using Chirp.Web;
 // using Chirp.Web.Pages;
 // using Test_Utilities;
 //
-// namespace Minitwit.WebTests;
+// namespace Minitwit.Web.WebTests;
 //
 // public class PublicTest
 // {

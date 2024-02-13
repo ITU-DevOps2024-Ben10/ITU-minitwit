@@ -1,8 +1,9 @@
-﻿using ITU_minitwit.Models;
-using Minitwit.Core.Entities;
+﻿using Minitwit.Core.Entities;
 using Minitwit.Core.Repository;
 using Minitwit.Infrastructure;
 using Minitwit.Infrastructure.Repository;
+using Minitwit.Web;
+using Minitwit.Web.Models;
 using Test_Utilities;
 
 namespace Minitwit.WebTests;

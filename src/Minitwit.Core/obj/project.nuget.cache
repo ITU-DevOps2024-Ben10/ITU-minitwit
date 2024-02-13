@@ -1,22 +1,22 @@
 {
   "version": 2,
-  "dgSpecHash": "da0Hvd13muepREar7/mVVr1peKDINouuJ/vbzaMRVAH5r6B86pazwyXnU8nkogh7tPM9XXV74NoGGjmMGF6W6w==",
+  "dgSpecHash": "0YQ+gPFTv5lOmeCaAHv+Pb6iYAtpFocpR1g7OvvBqwOxryJbR7esf+OO/cZYEeI9enFvrndINGT6oAWD/EdIww==",
   "success": true,
-  "projectFilePath": "C:\\Users\\mikke\\Documents\\GitHub\\ITU-minitwit\\src\\Minitwit.Core\\Minitwit.Core.csproj",
+  "projectFilePath": "/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Core/Minitwit.Core.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\mikke\\.nuget\\packages\\fluentvalidation\\11.9.0\\fluentvalidation.11.9.0.nupkg.sha512",
-    "C:\\Users\\mikke\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\8.0.1\\microsoft.aspnetcore.cryptography.internal.8.0.1.nupkg.sha512",
-    "C:\\Users\\mikke\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\8.0.1\\microsoft.aspnetcore.cryptography.keyderivation.8.0.1.nupkg.sha512",
-    "C:\\Users\\mikke\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\8.0.1\\microsoft.entityframeworkcore.abstractions.8.0.1.nupkg.sha512",
-    "C:\\Users\\mikke\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\8.0.0\\microsoft.extensions.caching.abstractions.8.0.0.nupkg.sha512",
-    "C:\\Users\\mikke\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\8.0.0\\microsoft.extensions.dependencyinjection.8.0.0.nupkg.sha512",
-    "C:\\Users\\mikke\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
-    "C:\\Users\\mikke\\.nuget\\packages\\microsoft.extensions.identity.core\\8.0.1\\microsoft.extensions.identity.core.8.0.1.nupkg.sha512",
-    "C:\\Users\\mikke\\.nuget\\packages\\microsoft.extensions.identity.stores\\8.0.1\\microsoft.extensions.identity.stores.8.0.1.nupkg.sha512",
-    "C:\\Users\\mikke\\.nuget\\packages\\microsoft.extensions.logging\\8.0.0\\microsoft.extensions.logging.8.0.0.nupkg.sha512",
-    "C:\\Users\\mikke\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\8.0.0\\microsoft.extensions.logging.abstractions.8.0.0.nupkg.sha512",
-    "C:\\Users\\mikke\\.nuget\\packages\\microsoft.extensions.options\\8.0.1\\microsoft.extensions.options.8.0.1.nupkg.sha512",
-    "C:\\Users\\mikke\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512"
+    "/Users/oliverlaursen/.nuget/packages/fluentvalidation/11.9.0/fluentvalidation.11.9.0.nupkg.sha512",
+    "/Users/oliverlaursen/.nuget/packages/microsoft.aspnetcore.cryptography.internal/8.0.1/microsoft.aspnetcore.cryptography.internal.8.0.1.nupkg.sha512",
+    "/Users/oliverlaursen/.nuget/packages/microsoft.aspnetcore.cryptography.keyderivation/8.0.1/microsoft.aspnetcore.cryptography.keyderivation.8.0.1.nupkg.sha512",
+    "/Users/oliverlaursen/.nuget/packages/microsoft.entityframeworkcore.abstractions/8.0.1/microsoft.entityframeworkcore.abstractions.8.0.1.nupkg.sha512",
+    "/Users/oliverlaursen/.nuget/packages/microsoft.extensions.caching.abstractions/8.0.0/microsoft.extensions.caching.abstractions.8.0.0.nupkg.sha512",
+    "/Users/oliverlaursen/.nuget/packages/microsoft.extensions.dependencyinjection/8.0.0/microsoft.extensions.dependencyinjection.8.0.0.nupkg.sha512",
+    "/Users/oliverlaursen/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.0/microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
+    "/Users/oliverlaursen/.nuget/packages/microsoft.extensions.identity.core/8.0.1/microsoft.extensions.identity.core.8.0.1.nupkg.sha512",
+    "/Users/oliverlaursen/.nuget/packages/microsoft.extensions.identity.stores/8.0.1/microsoft.extensions.identity.stores.8.0.1.nupkg.sha512",
+    "/Users/oliverlaursen/.nuget/packages/microsoft.extensions.logging/8.0.0/microsoft.extensions.logging.8.0.0.nupkg.sha512",
+    "/Users/oliverlaursen/.nuget/packages/microsoft.extensions.logging.abstractions/8.0.0/microsoft.extensions.logging.abstractions.8.0.0.nupkg.sha512",
+    "/Users/oliverlaursen/.nuget/packages/microsoft.extensions.options/8.0.1/microsoft.extensions.options.8.0.1.nupkg.sha512",
+    "/Users/oliverlaursen/.nuget/packages/microsoft.extensions.primitives/8.0.0/microsoft.extensions.primitives.8.0.0.nupkg.sha512"
   ],
   "logs": []
 }
