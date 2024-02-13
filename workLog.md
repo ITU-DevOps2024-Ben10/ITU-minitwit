@@ -14,7 +14,7 @@
 ## Week 6
 
 * Start using our Chirp project from the BDSA course
-- Create Blazor project with .Net template
-- Move backend code over from Chirp project to the new Minitwit blazor project
-- Refactor code to apply new naming project names
-- Reuse workflows from BDSA
+  - Create Blazor project with .Net template
+  - Move backend code over from Chirp project to the new Minitwit blazor project
+  - Refactor code to apply new naming project names
+  - Reuse workflows from BDSA
