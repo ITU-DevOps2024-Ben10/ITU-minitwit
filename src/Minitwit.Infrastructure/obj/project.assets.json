@@ -2761,32 +2761,40 @@
     ]
   },
   "packageFolders": {
-    "/home/casper/.nuget/packages/": {}
+    "C:\\Users\\mikke\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/casper/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/Minitwit.Infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\mikke\\Documents\\GitHub\\ITU-minitwit\\src\\Minitwit.Infrastructure\\Minitwit.Infrastructure.csproj",
       "projectName": "Minitwit.Infrastructure",
-      "projectPath": "/home/casper/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/Minitwit.Infrastructure.csproj",
-      "packagesPath": "/home/casper/.nuget/packages/",
-      "outputPath": "/home/casper/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/obj/",
+      "projectPath": "C:\\Users\\mikke\\Documents\\GitHub\\ITU-minitwit\\src\\Minitwit.Infrastructure\\Minitwit.Infrastructure.csproj",
+      "packagesPath": "C:\\Users\\mikke\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\mikke\\Documents\\GitHub\\ITU-minitwit\\src\\Minitwit.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/home/casper/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\mikke\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/home/casper/GitHub/ITU-minitwit/src/Minitwit.Core/Minitwit.Core.csproj": {
-              "projectPath": "/home/casper/GitHub/ITU-minitwit/src/Minitwit.Core/Minitwit.Core.csproj"
+            "C:\\Users\\mikke\\Documents\\GitHub\\ITU-minitwit\\src\\Minitwit.Core\\Minitwit.Core.csproj": {
+              "projectPath": "C:\\Users\\mikke\\Documents\\GitHub\\ITU-minitwit\\src\\Minitwit.Core\\Minitwit.Core.csproj"
             }
           }
         }
@@ -2840,7 +2848,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.101/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

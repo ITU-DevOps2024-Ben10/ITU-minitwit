@@ -1,0 +1,48 @@
+﻿@using Minitwit.Core.Entities
+@using Minitwit.Infrastructure.Repository
+@using System.ComponentModel.DataAnnotations
+<h3>CheepBox</h3>
+
+<div>
+    <input type="text" @bind="NewCheepText" />
+    <button @onclick="CreateNewCheep">Post</button>
+</div>
+
+<div class="cheepbox">
+    <h3>What's on your mind @AuthorName?</h3>
+    <EditForm Model="@NewCheep" OnValidSubmit="CreateNewCheep">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <label>Write your text here</label>
+        <InputText @bind-Value="@NewCheep.Text" />
+        <ValidationMessage For="@(() => NewCheep.Text)" />
+
+        <button type="submit">Cheep</button>
+    </EditForm>
+</div>
+
+@code {
+    [Parameter]
+    public string AuthorId { get; set; }
+
+    [Parameter]
+    public string AuthorName { get; set; }
+
+    private CreateCheep NewCheep { get; set; } = new CreateCheep();
+
+    private async Task CreateNewCheep()
+    {
+        NewCheep.AuthorId = AuthorId;
+        var validationResult = await Validator.ValidateAsync(NewCheep);
+        if (validationResult.IsValid)
+        {
+            await CheepRepository.CreateCheep(NewCheep);
+            NewCheep.Text = string.Empty;
+        }
+        else
+        {
+            // Handle validation errors
+        }
+    }
+}
