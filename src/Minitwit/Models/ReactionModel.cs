@@ -1,4 +1,4 @@
-﻿using Minitwit.Core.Entities;
+﻿using Chirp.Core.Entities;
 
 namespace Chirp.Web.Models;
 

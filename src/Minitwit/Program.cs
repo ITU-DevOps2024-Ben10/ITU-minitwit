@@ -1,47 +1,49 @@
+using Chirp.Core.Entities;
+using Chirp.Core.Repository;
+using Chirp.Infrastructure;
+using Chirp.Infrastructure.Repository;
+using Chirp.Web;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Minitwit;
 using Minitwit.Core.Entities;
 using Minitwit.Core.Repository;
-using Minitwit.Infrastructure;
 using Minitwit.Infrastructure.Repository;
-using ITU_minitwit.Components;
+
+/// <summary>
+/// This file is the entry point of the application. 
+/// It is responsible for setting up the application and starting it.
+/// </summary>
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddServerSideBlazor().AddInteractiveServerComponents();
 
 string currentDirectory = Directory.GetCurrentDirectory();
 string dbPath;
 
-if (Directory.Exists(Path.Combine(currentDirectory, "..", "Minitwit.Infrastructure", "data")))
+if (Directory.Exists(Path.Combine(currentDirectory, "..", "Chirp.Infrastructure", "data")))
 {
-    dbPath = Path.Combine(currentDirectory, "..", "Minitwit.Infrastructure", "data", "Minitwit.db"); //Build directory
+    dbPath = Path.Combine(currentDirectory, "..", "Chirp.Infrastructure", "data", "ChirpDBContext.db"); //Build directory
 }
 else 
 {
-    dbPath = Path.Combine(currentDirectory, "data", "Minitwit.db"); //Publish directory
+    dbPath = Path.Combine(currentDirectory, "data", "ChirpDBContext.db"); //Publish directory
 }
 
-builder.Services.AddRazorComponents();
+// Add services to the container.
+builder.Services.AddRazorPages();
 
-//Github OAuth:
-builder.Services.AddAuthentication()
-    .AddCookie();
 
-builder.Services.AddDbContext<MinitwitDbContext>(options => 
+builder.Services.AddDbContext<ChirpDbContext>(options => 
     options.UseSqlite($"Data Source={dbPath}"));
 
-builder.Services.AddIdentity<Author, IdentityRole<Guid>>()
+builder.Services.AddDefaultIdentity<Author>()
     .AddRoles<IdentityRole<Guid>>()
-    .AddEntityFrameworkStores<MinitwitDbContext>();
+    .AddEntityFrameworkStores<ChirpDbContext>();
 
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<IValidator<CreateCheep>, CheepCreateValidator>();
 builder.Services.AddScoped<ICheepRepository, CheepRepository>();
-builder.Services.AddScoped<ICheepService, MinitwitService>();
+builder.Services.AddScoped<ICheepService, CheepService>();
 builder.Services.AddScoped<IReactionRepository, ReactionRepository>();
 builder.Services.AddScoped<IFollowRepository, FollowRepository>();
 
@@ -54,10 +56,11 @@ builder.Services.AddSession(
     	options.Cookie.IsEssential = true;
 	});
 
-builder.Services.AddDistributedMemoryCache();
+//Github OAuth:
+builder.Services.AddAuthentication()
+    .AddCookie();
 
 var app = builder.Build();
-
 
 // Get a scope to manage the liftime of the context
 using (var scope = app.Services.CreateScope())
@@ -65,7 +68,7 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
 
     // Get an instance of the DbContext
-    var context = services.GetRequiredService<MinitwitDbContext>();
+    var context = services.GetRequiredService<ChirpDbContext>();
 
     // Call the method to remove duplicate user Logins
     await context.RemoveDuplicateUserLogins();
@@ -89,10 +92,9 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.MapRazorComponents<App>();
-app.UseAntiforgery();
+app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
-
+app.MapRazorPages();
 app.Run();

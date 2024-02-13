@@ -20,4 +20,43 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\app.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\bootstrap\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\bootstrap\bootstrap.min.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\favicon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Properties\launchSettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="bin\Debug\net8.0\" />
+    <Folder Include="obj\Debug\net8.0\refint\" />
+    <Folder Include="obj\Debug\net8.0\ref\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="obj\Chirp.Web.csproj.nuget.dgspec.json" />
+    <Content Include="obj\Chirp.Web.csproj.nuget.g.props" />
+    <Content Include="obj\Chirp.Web.csproj.nuget.g.targets" />
+    <Content Include="obj\Debug\net8.0\Chirp.Web.AssemblyInfoInputs.cache" />
+    <Content Include="obj\Debug\net8.0\Chirp.Web.assets.cache" />
+    <Content Include="obj\Debug\net8.0\Chirp.Web.csproj.AssemblyReference.cache" />
+    <Content Include="obj\Debug\net8.0\Chirp.Web.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\net8.0\Chirp.Web.GeneratedMSBuildEditorConfig.editorconfig" />
+    <Content Include="obj\Debug\net8.0\Chirp.Web.RazorAssemblyInfo.cache" />
+    <Content Include="obj\Debug\net8.0\project.razor.vscode.bin" />
+    <Content Include="obj\project.assets.json" />
+    <Content Include="obj\project.nuget.cache" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="obj\Debug\net8.0\.NETCoreApp,Version=v8.0.AssemblyAttributes.cs" />
+    <Compile Include="obj\Debug\net8.0\Chirp.Web.AssemblyInfo.cs" />
+    <Compile Include="obj\Debug\net8.0\Chirp.Web.GlobalUsings.g.cs" />
+    <Compile Include="obj\Debug\net8.0\Chirp.Web.RazorAssemblyInfo.cs" />
+  </ItemGroup>
+
 </Project>

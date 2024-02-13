@@ -1,5 +1,5 @@
-﻿using Chirp.Web.Models;
+﻿using Chirp.Core.Entities;
 
-namespace ITU_minitwit.Models;
+namespace Chirp.Web.Models;
 
 public record CheepViewModel(Guid CheepId, UserModel User, string Message, string Timestamp, ICollection<ReactionModel> Reactions);
