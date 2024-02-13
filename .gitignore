@@ -159,3 +159,12 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 *.info
+.idea/.idea.ITU-minitwit/.idea/workspace.xml
+src/Minitwit.Core/obj/Debug/net8.0/Minitwit.Core.AssemblyInfo.cs
+*.cache
+*.editorconfig
+src/Minitwit.Core/obj/Minitwit.Core.csproj.nuget.dgspec.json
+*.props
+*.json
+*.info
+src/Minitwit.Infrastructure/obj/Debug/net8.0/Minitwit.Infrastructure.AssemblyInfo.cs
