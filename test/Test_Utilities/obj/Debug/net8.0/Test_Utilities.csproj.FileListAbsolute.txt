@@ -18,3 +18,6 @@
 /home/casper/GitHub/ITU-minitwit/test/Test_Utilities/obj/Debug/net8.0/refint/Test_Utilities.dll
 /home/casper/GitHub/ITU-minitwit/test/Test_Utilities/obj/Debug/net8.0/Test_Utilities.pdb
 /home/casper/GitHub/ITU-minitwit/test/Test_Utilities/obj/Debug/net8.0/ref/Test_Utilities.dll
+/home/casper/GitHub/ITU-minitwit/test/Test_Utilities/bin/Debug/net8.0/data/MinitwitDBContext.db
+/home/casper/GitHub/ITU-minitwit/test/Test_Utilities/bin/Debug/net8.0/data/MinitwitDBContext.db-shm
+/home/casper/GitHub/ITU-minitwit/test/Test_Utilities/bin/Debug/net8.0/data/MinitwitDBContext.db-wal

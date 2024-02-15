@@ -150,3 +150,6 @@
 /home/casper/GitHub/ITU-minitwit/test/Minitwit.InfrastructureTests/obj/Debug/net8.0/Minitwit.InfrastructureTests.pdb
 /home/casper/GitHub/ITU-minitwit/test/Minitwit.InfrastructureTests/obj/Debug/net8.0/Minitwit.InfrastructureTests.genruntimeconfig.cache
 /home/casper/GitHub/ITU-minitwit/test/Minitwit.InfrastructureTests/obj/Debug/net8.0/ref/Minitwit.InfrastructureTests.dll
+/home/casper/GitHub/ITU-minitwit/test/Minitwit.InfrastructureTests/bin/Debug/net8.0/data/MinitwitDBContext.db
+/home/casper/GitHub/ITU-minitwit/test/Minitwit.InfrastructureTests/bin/Debug/net8.0/data/MinitwitDBContext.db-shm
+/home/casper/GitHub/ITU-minitwit/test/Minitwit.InfrastructureTests/bin/Debug/net8.0/data/MinitwitDBContext.db-wal
