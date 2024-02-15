@@ -2380,19 +2380,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/oliverlaursen/.nuget/packages/": {}
+    "/home/casper/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/test/Minitwit.InfrastructureTests/Minitwit.InfrastructureTests.csproj",
+      "projectUniqueName": "/home/casper/GitHub/ITU-minitwit/test/Minitwit.InfrastructureTests/Minitwit.InfrastructureTests.csproj",
       "projectName": "Minitwit.InfrastructureTests",
-      "projectPath": "/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/test/Minitwit.InfrastructureTests/Minitwit.InfrastructureTests.csproj",
-      "packagesPath": "/Users/oliverlaursen/.nuget/packages/",
-      "outputPath": "/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/test/Minitwit.InfrastructureTests/obj/",
+      "projectPath": "/home/casper/GitHub/ITU-minitwit/test/Minitwit.InfrastructureTests/Minitwit.InfrastructureTests.csproj",
+      "packagesPath": "/home/casper/.nuget/packages/",
+      "outputPath": "/home/casper/GitHub/ITU-minitwit/test/Minitwit.InfrastructureTests/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/oliverlaursen/.nuget/NuGet/NuGet.Config"
+        "/home/casper/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -2404,11 +2404,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Infrastructure/Minitwit.Infrastructure.csproj": {
-              "projectPath": "/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Infrastructure/Minitwit.Infrastructure.csproj"
+            "/home/casper/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/Minitwit.Infrastructure.csproj": {
+              "projectPath": "/home/casper/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/Minitwit.Infrastructure.csproj"
             },
-            "/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/test/Test_Utilities/Test_Utilities.csproj": {
-              "projectPath": "/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/test/Test_Utilities/Test_Utilities.csproj"
+            "/home/casper/GitHub/ITU-minitwit/test/Test_Utilities/Test_Utilities.csproj": {
+              "projectPath": "/home/casper/GitHub/ITU-minitwit/test/Test_Utilities/Test_Utilities.csproj"
             }
           }
         }
@@ -2460,7 +2460,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.101/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.102/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

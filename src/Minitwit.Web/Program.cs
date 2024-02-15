@@ -17,9 +17,9 @@ var builder = WebApplication.CreateBuilder(args);
 string currentDirectory = Directory.GetCurrentDirectory();
 string dbPath;
 
-if (Directory.Exists(Path.Combine(currentDirectory, "..", "Minitwit.Web.Infrastructure", "data")))
+if (Directory.Exists(Path.Combine(currentDirectory, "..", "Minitwit.Infrastructure", "data")))
 {
-    dbPath = Path.Combine(currentDirectory, "..", "Minitwit.Web.Infrastructure", "data", "MinitwitDBContext.db"); //Build directory
+    dbPath = Path.Combine(currentDirectory, "..", "Minitwit.Infrastructure", "data", "MinitwitDBContext.db"); //Build directory
 }
 else 
 {

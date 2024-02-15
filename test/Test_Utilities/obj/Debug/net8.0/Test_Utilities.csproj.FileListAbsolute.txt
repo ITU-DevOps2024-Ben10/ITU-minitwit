@@ -1,11 +1,5 @@
-/home/casper/GitHub/ITU-minitwit/test/Test_Utilities/obj/Debug/net8.0/Test_Utilities.csproj.AssemblyReference.cache
-/home/casper/GitHub/ITU-minitwit/test/Test_Utilities/obj/Debug/net8.0/Test_Utilities.GeneratedMSBuildEditorConfig.editorconfig
-/home/casper/GitHub/ITU-minitwit/test/Test_Utilities/obj/Debug/net8.0/Test_Utilities.AssemblyInfoInputs.cache
-/home/casper/GitHub/ITU-minitwit/test/Test_Utilities/obj/Debug/net8.0/Test_Utilities.AssemblyInfo.cs
-/home/casper/GitHub/ITU-minitwit/test/Test_Utilities/obj/Debug/net8.0/Test_Utilities.csproj.CoreCompileInputs.cache
-/home/casper/GitHub/ITU-minitwit/test/Test_Utilities/obj/Debug/net8.0/Test_Utilities.sourcelink.json
-/home/casper/GitHub/ITU-minitwit/test/Test_Utilities/bin/Debug/net8.0/data/ChirpDBContext.db
 /home/casper/GitHub/ITU-minitwit/test/Test_Utilities/bin/Debug/net8.0/data/DbInitializer.cs
+/home/casper/GitHub/ITU-minitwit/test/Test_Utilities/bin/Debug/net8.0/data/Minitwit.db
 /home/casper/GitHub/ITU-minitwit/test/Test_Utilities/bin/Debug/net8.0/Test_Utilities.deps.json
 /home/casper/GitHub/ITU-minitwit/test/Test_Utilities/bin/Debug/net8.0/Test_Utilities.dll
 /home/casper/GitHub/ITU-minitwit/test/Test_Utilities/bin/Debug/net8.0/Test_Utilities.pdb
@@ -13,6 +7,12 @@
 /home/casper/GitHub/ITU-minitwit/test/Test_Utilities/bin/Debug/net8.0/Minitwit.Infrastructure.dll
 /home/casper/GitHub/ITU-minitwit/test/Test_Utilities/bin/Debug/net8.0/Minitwit.Infrastructure.pdb
 /home/casper/GitHub/ITU-minitwit/test/Test_Utilities/bin/Debug/net8.0/Minitwit.Core.pdb
+/home/casper/GitHub/ITU-minitwit/test/Test_Utilities/obj/Debug/net8.0/Test_Utilities.csproj.AssemblyReference.cache
+/home/casper/GitHub/ITU-minitwit/test/Test_Utilities/obj/Debug/net8.0/Test_Utilities.GeneratedMSBuildEditorConfig.editorconfig
+/home/casper/GitHub/ITU-minitwit/test/Test_Utilities/obj/Debug/net8.0/Test_Utilities.AssemblyInfoInputs.cache
+/home/casper/GitHub/ITU-minitwit/test/Test_Utilities/obj/Debug/net8.0/Test_Utilities.AssemblyInfo.cs
+/home/casper/GitHub/ITU-minitwit/test/Test_Utilities/obj/Debug/net8.0/Test_Utilities.csproj.CoreCompileInputs.cache
+/home/casper/GitHub/ITU-minitwit/test/Test_Utilities/obj/Debug/net8.0/Test_Utilities.sourcelink.json
 /home/casper/GitHub/ITU-minitwit/test/Test_Utilities/obj/Debug/net8.0/Test_Utilities.csproj.CopyComplete
 /home/casper/GitHub/ITU-minitwit/test/Test_Utilities/obj/Debug/net8.0/Test_Utilities.dll
 /home/casper/GitHub/ITU-minitwit/test/Test_Utilities/obj/Debug/net8.0/refint/Test_Utilities.dll

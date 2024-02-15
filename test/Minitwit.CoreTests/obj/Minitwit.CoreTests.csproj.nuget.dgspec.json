@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/test/Minitwit.CoreTests/Minitwit.CoreTests.csproj": {}
+    "/home/casper/GitHub/ITU-minitwit/test/Minitwit.CoreTests/Minitwit.CoreTests.csproj": {}
   },
   "projects": {
-    "/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Core/Minitwit.Core.csproj": {
+    "/home/casper/GitHub/ITU-minitwit/src/Minitwit.Core/Minitwit.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Core/Minitwit.Core.csproj",
+        "projectUniqueName": "/home/casper/GitHub/ITU-minitwit/src/Minitwit.Core/Minitwit.Core.csproj",
         "projectName": "Minitwit.Core",
-        "projectPath": "/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Core/Minitwit.Core.csproj",
-        "packagesPath": "/Users/oliverlaursen/.nuget/packages/",
-        "outputPath": "/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Core/obj/",
+        "projectPath": "/home/casper/GitHub/ITU-minitwit/src/Minitwit.Core/Minitwit.Core.csproj",
+        "packagesPath": "/home/casper/.nuget/packages/",
+        "outputPath": "/home/casper/GitHub/ITU-minitwit/src/Minitwit.Core/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/oliverlaursen/.nuget/NuGet/NuGet.Config"
+          "/home/casper/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -67,21 +67,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/test/Minitwit.CoreTests/Minitwit.CoreTests.csproj": {
+    "/home/casper/GitHub/ITU-minitwit/test/Minitwit.CoreTests/Minitwit.CoreTests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/test/Minitwit.CoreTests/Minitwit.CoreTests.csproj",
+        "projectUniqueName": "/home/casper/GitHub/ITU-minitwit/test/Minitwit.CoreTests/Minitwit.CoreTests.csproj",
         "projectName": "Minitwit.CoreTests",
-        "projectPath": "/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/test/Minitwit.CoreTests/Minitwit.CoreTests.csproj",
-        "packagesPath": "/Users/oliverlaursen/.nuget/packages/",
-        "outputPath": "/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/test/Minitwit.CoreTests/obj/",
+        "projectPath": "/home/casper/GitHub/ITU-minitwit/test/Minitwit.CoreTests/Minitwit.CoreTests.csproj",
+        "packagesPath": "/home/casper/.nuget/packages/",
+        "outputPath": "/home/casper/GitHub/ITU-minitwit/test/Minitwit.CoreTests/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/oliverlaursen/.nuget/NuGet/NuGet.Config"
+          "/home/casper/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -93,8 +93,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Core/Minitwit.Core.csproj": {
-                "projectPath": "/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Core/Minitwit.Core.csproj"
+              "/home/casper/GitHub/ITU-minitwit/src/Minitwit.Core/Minitwit.Core.csproj": {
+                "projectPath": "/home/casper/GitHub/ITU-minitwit/src/Minitwit.Core/Minitwit.Core.csproj"
               }
             }
           }
@@ -146,7 +146,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
