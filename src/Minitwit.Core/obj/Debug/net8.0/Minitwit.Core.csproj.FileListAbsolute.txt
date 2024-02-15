@@ -1,3 +1,16 @@
+/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Core/bin/Debug/net8.0/Minitwit.Core.deps.json
+/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Core/bin/Debug/net8.0/Minitwit.Core.dll
+/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Core/bin/Debug/net8.0/Minitwit.Core.pdb
+/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Core/obj/Debug/net8.0/Minitwit.Core.csproj.AssemblyReference.cache
+/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Core/obj/Debug/net8.0/Minitwit.Core.GeneratedMSBuildEditorConfig.editorconfig
+/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Core/obj/Debug/net8.0/Minitwit.Core.AssemblyInfoInputs.cache
+/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Core/obj/Debug/net8.0/Minitwit.Core.AssemblyInfo.cs
+/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Core/obj/Debug/net8.0/Minitwit.Core.csproj.CoreCompileInputs.cache
+/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Core/obj/Debug/net8.0/Minitwit.Core.sourcelink.json
+/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Core/obj/Debug/net8.0/Minitwit.Core.dll
+/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Core/obj/Debug/net8.0/refint/Minitwit.Core.dll
+/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Core/obj/Debug/net8.0/Minitwit.Core.pdb
+/Users/oliverlaursen/Desktop/Devops/ITU-minitwit/src/Minitwit.Core/obj/Debug/net8.0/ref/Minitwit.Core.dll
 /home/casper/GitHub/ITU-minitwit/src/Minitwit.Core/bin/Debug/net8.0/Minitwit.Core.deps.json
 /home/casper/GitHub/ITU-minitwit/src/Minitwit.Core/bin/Debug/net8.0/Minitwit.Core.dll
 /home/casper/GitHub/ITU-minitwit/src/Minitwit.Core/bin/Debug/net8.0/Minitwit.Core.pdb

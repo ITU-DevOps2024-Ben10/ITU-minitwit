@@ -1,0 +1,92 @@
+﻿@page "/{author}/AboutMe"
+@using Minitwit.Core.Entities
+@model AboutMeModel
+@inject SignInManager<Author> SignInManager
+@inject UserManager<Author> UserManager
+
+<h2>About Me</h2>
+
+@if (SignInManager.IsSignedIn(User) && (User.Identity?.IsAuthenticated ?? false))
+{
+    <div class="cheepbox">
+        <div>
+            <span class="">Username:</span> 
+            <span class="">@Model.UserModel!.Username</span>
+        </div>
+    
+        <div class="form-group">
+            <span>Email:</span>
+            <span class="">@Model.UserModel.Email</span>
+        </div>
+    </div>
+    
+    <hr/>
+
+    <div class="cheepbox">
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Following</h3>
+                @if (Model.Following == null || !Model.Following.Any())
+                {
+                    <p>You are not following anyone yet.</p>
+                }
+                else
+                {
+                    <ul>
+                        @foreach (Author? followingUser in Model.Following)
+                        {
+                            <li>@followingUser!.UserName</li>
+                        }
+                    </ul>
+                }
+            </div>
+        
+            <div class="col-md-6">
+                <h3>Followers</h3>
+                @if (Model.Followers == null || !Model.Followers.Any())
+                {
+                    <p>No followers yet.</p>
+                }
+                else
+                {
+                    <ul>
+                        @foreach (Author? follower in Model.Followers)
+                        {
+                            <li>@follower!.UserName</li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+    </div>
+
+    <hr/>
+    
+    <h3>My Cheeps</h3>
+
+    @if (Model.Cheeps == null || !Model.Cheeps.Any())
+    {
+        <div>
+            <p>You have no cheeps so far.</p>
+        </div>
+    }
+    else 
+    {
+        @await Html.PartialAsync("~/Pages/Shared/_CheepList.cshtml", Model)
+    }
+    
+    <hr/>
+    
+    <h3>Delete account</h3>
+    <div class="cheepbox">
+        <p>Click the button below to delete your account permanently</p>
+        
+        <form method="post" asp-page-handler="DeleteMe">
+            <button type="submit" class="forgetMe" onclick="return confirm('Are you sure you want to delete your account? This cannot be undone.');">Forget Me</button>
+        </form>
+    </div>
+}
+
+
+
+

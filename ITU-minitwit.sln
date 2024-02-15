@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Minitwit.Core", "src\Minitw
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Minitwit.Infrastructure", "src\Minitwit.Infrastructure\Minitwit.Infrastructure.csproj", "{0632BC00-F139-4C88-8802-D53D5A551723}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Minitwit", "src\Minitwit\Minitwit.csproj", "{EF12EDE5-B97E-4E6C-81AE-6ED8EC3FC6F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Minitwit.Web", "src\Minitwit.Web\Minitwit.Web.csproj", "{EF12EDE5-B97E-4E6C-81AE-6ED8EC3FC6F0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{8EAE9117-9694-4C03-A881-6B3B910E7D13}"
 EndProject

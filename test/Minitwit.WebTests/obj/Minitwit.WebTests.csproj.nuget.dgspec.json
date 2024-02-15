@@ -67,7 +67,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
@@ -148,18 +148,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/home/casper/GitHub/ITU-minitwit/src/Minitwit/Minitwit.csproj": {
+    "/home/casper/GitHub/ITU-minitwit/src/Minitwit.Web/Minitwit.Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/casper/GitHub/ITU-minitwit/src/Minitwit/Minitwit.csproj",
-        "projectName": "Minitwit",
-        "projectPath": "/home/casper/GitHub/ITU-minitwit/src/Minitwit/Minitwit.csproj",
+        "projectUniqueName": "/home/casper/GitHub/ITU-minitwit/src/Minitwit.Web/Minitwit.Web.csproj",
+        "projectName": "Minitwit.Web",
+        "projectPath": "/home/casper/GitHub/ITU-minitwit/src/Minitwit.Web/Minitwit.Web.csproj",
         "packagesPath": "/home/casper/.nuget/packages/",
-        "outputPath": "/home/casper/GitHub/ITU-minitwit/src/Minitwit/obj/",
+        "outputPath": "/home/casper/GitHub/ITU-minitwit/src/Minitwit.Web/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/casper/.nuget/NuGet/NuGet.Config"
@@ -193,6 +193,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Identity.UI": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
@@ -219,7 +223,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
@@ -245,8 +249,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/home/casper/GitHub/ITU-minitwit/src/Minitwit/Minitwit.csproj": {
-                "projectPath": "/home/casper/GitHub/ITU-minitwit/src/Minitwit/Minitwit.csproj"
+              "/home/casper/GitHub/ITU-minitwit/src/Minitwit.Web/Minitwit.Web.csproj": {
+                "projectPath": "/home/casper/GitHub/ITU-minitwit/src/Minitwit.Web/Minitwit.Web.csproj"
               },
               "/home/casper/GitHub/ITU-minitwit/test/Test_Utilities/Test_Utilities.csproj": {
                 "projectPath": "/home/casper/GitHub/ITU-minitwit/test/Test_Utilities/Test_Utilities.csproj"
@@ -305,7 +309,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
@@ -371,7 +375,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

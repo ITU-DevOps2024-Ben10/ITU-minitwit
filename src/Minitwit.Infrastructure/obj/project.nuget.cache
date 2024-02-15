@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "BC3ReD7HHc6uwJygn9dpsNCFlHKKGR9zd+gPKKbmu/hZO7lC6jxgsoRNJ62cmGTaEBI9S+k1ysm5Ydl+tI6ymg==",
+  "dgSpecHash": "FotmXE4TtDXQ2eL3vgeUe97QNZqLNJXA5NVGMHmTAfBOZp+sKwvyIgKRPlFFIDqWbgH/8akCxRY92+qrEzerGg==",
   "success": true,
   "projectFilePath": "/home/casper/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/Minitwit.Infrastructure.csproj",
   "expectedPackageFiles": [
