@@ -1,17 +1,23 @@
-# Use the official .NET Core runtime as the base image
-FROM mcr.microsoft.com/dotnet/runtime:8.0 AS base
+# Use the official Microsoft .NET Core runtime base image
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
+
+# Set the working directory
 WORKDIR /app
-# Use the official .NET Core SDK as the build image
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /src
-COPY ["Minitwit.Web.csproj", "./"]
-RUN dotnet restore "./Minitwit.Web.csproj"
+
+# Copy the csproj and restore dependencies
+COPY ["src/Minitwit.Web/Minitwit.Web.csproj", "Minitwit.Web/"]
+RUN dotnet restore "Minitwit.Web/Minitwit.Web.csproj"
+
+# Copy everything else and build the project
 COPY . .
-WORKDIR "/src/"
+WORKDIR "/app/Minitwit.Web"
 RUN dotnet build "Minitwit.Web.csproj" -c Release -o /app/build
+
+# Publish the project
 FROM build AS publish
 RUN dotnet publish "Minitwit.Web.csproj" -c Release -o /app/publish
-# Build the final image using the base image and the published output
+
+# Build runtime image
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
