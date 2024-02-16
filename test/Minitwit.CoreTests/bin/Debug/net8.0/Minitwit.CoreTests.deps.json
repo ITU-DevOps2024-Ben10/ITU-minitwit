@@ -11,8 +11,8 @@
           "Microsoft.NET.Test.Sdk": "17.10.0-preview-24080-01",
           "Minitwit.Core": "1.0.0",
           "coverlet.collector": "6.0.0",
-          "xunit": "2.6.6",
-          "xunit.runner.visualstudio": "2.5.6"
+          "xunit": "2.7.0",
+          "xunit.runner.visualstudio": "2.5.7"
         },
         "runtime": {
           "Minitwit.CoreTests.dll": {}
@@ -27,22 +27,22 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Cryptography.Internal/8.0.1": {
+      "Microsoft.AspNetCore.Cryptography.Internal/8.0.2": {
         "runtime": {
           "lib/net8.0/Microsoft.AspNetCore.Cryptography.Internal.dll": {
             "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.123.58008"
+            "fileVersion": "8.0.224.6804"
           }
         }
       },
-      "Microsoft.AspNetCore.Cryptography.KeyDerivation/8.0.1": {
+      "Microsoft.AspNetCore.Cryptography.KeyDerivation/8.0.2": {
         "dependencies": {
-          "Microsoft.AspNetCore.Cryptography.Internal": "8.0.1"
+          "Microsoft.AspNetCore.Cryptography.Internal": "8.0.2"
         },
         "runtime": {
           "lib/net8.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll": {
             "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.123.58008"
+            "fileVersion": "8.0.224.6804"
           }
         }
       },
@@ -54,11 +54,11 @@
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.Abstractions/8.0.1": {
+      "Microsoft.EntityFrameworkCore.Abstractions/8.0.2": {
         "runtime": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {
-            "assemblyVersion": "8.0.1.0",
-            "fileVersion": "8.0.123.58002"
+            "assemblyVersion": "8.0.2.0",
+            "fileVersion": "8.0.224.6803"
           }
         }
       },
@@ -92,29 +92,29 @@
           }
         }
       },
-      "Microsoft.Extensions.Identity.Core/8.0.1": {
+      "Microsoft.Extensions.Identity.Core/8.0.2": {
         "dependencies": {
-          "Microsoft.AspNetCore.Cryptography.KeyDerivation": "8.0.1",
+          "Microsoft.AspNetCore.Cryptography.KeyDerivation": "8.0.2",
           "Microsoft.Extensions.Logging": "8.0.0",
-          "Microsoft.Extensions.Options": "8.0.1"
+          "Microsoft.Extensions.Options": "8.0.2"
         },
         "runtime": {
           "lib/net8.0/Microsoft.Extensions.Identity.Core.dll": {
             "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.123.58008"
+            "fileVersion": "8.0.224.6804"
           }
         }
       },
-      "Microsoft.Extensions.Identity.Stores/8.0.1": {
+      "Microsoft.Extensions.Identity.Stores/8.0.2": {
         "dependencies": {
           "Microsoft.Extensions.Caching.Abstractions": "8.0.0",
-          "Microsoft.Extensions.Identity.Core": "8.0.1",
+          "Microsoft.Extensions.Identity.Core": "8.0.2",
           "Microsoft.Extensions.Logging": "8.0.0"
         },
         "runtime": {
           "lib/net8.0/Microsoft.Extensions.Identity.Stores.dll": {
             "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.123.58008"
+            "fileVersion": "8.0.224.6804"
           }
         }
       },
@@ -122,7 +122,7 @@
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": "8.0.0",
           "Microsoft.Extensions.Logging.Abstractions": "8.0.0",
-          "Microsoft.Extensions.Options": "8.0.1"
+          "Microsoft.Extensions.Options": "8.0.2"
         },
         "runtime": {
           "lib/net8.0/Microsoft.Extensions.Logging.dll": {
@@ -142,7 +142,7 @@
           }
         }
       },
-      "Microsoft.Extensions.Options/8.0.1": {
+      "Microsoft.Extensions.Options/8.0.2": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0",
           "Microsoft.Extensions.Primitives": "8.0.0"
@@ -150,7 +150,7 @@
         "runtime": {
           "lib/net8.0/Microsoft.Extensions.Options.dll": {
             "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.123.58001"
+            "fileVersion": "8.0.224.6711"
           }
         }
       },
@@ -423,11 +423,11 @@
         }
       },
       "System.Reflection.Metadata/1.6.0": {},
-      "xunit/2.6.6": {
+      "xunit/2.7.0": {
         "dependencies": {
-          "xunit.analyzers": "1.10.0",
-          "xunit.assert": "2.6.6",
-          "xunit.core": "2.6.6"
+          "xunit.analyzers": "1.11.0",
+          "xunit.assert": "2.7.0",
+          "xunit.core": "2.7.0"
         }
       },
       "xunit.abstractions/2.0.3": {
@@ -438,49 +438,49 @@
           }
         }
       },
-      "xunit.analyzers/1.10.0": {},
-      "xunit.assert/2.6.6": {
+      "xunit.analyzers/1.11.0": {},
+      "xunit.assert/2.7.0": {
         "runtime": {
           "lib/net6.0/xunit.assert.dll": {
-            "assemblyVersion": "2.6.6.0",
-            "fileVersion": "2.6.6.0"
+            "assemblyVersion": "2.7.0.0",
+            "fileVersion": "2.7.0.0"
           }
         }
       },
-      "xunit.core/2.6.6": {
+      "xunit.core/2.7.0": {
         "dependencies": {
-          "xunit.extensibility.core": "2.6.6",
-          "xunit.extensibility.execution": "2.6.6"
+          "xunit.extensibility.core": "2.7.0",
+          "xunit.extensibility.execution": "2.7.0"
         }
       },
-      "xunit.extensibility.core/2.6.6": {
+      "xunit.extensibility.core/2.7.0": {
         "dependencies": {
           "xunit.abstractions": "2.0.3"
         },
         "runtime": {
           "lib/netstandard1.1/xunit.core.dll": {
-            "assemblyVersion": "2.6.6.0",
-            "fileVersion": "2.6.6.0"
+            "assemblyVersion": "2.7.0.0",
+            "fileVersion": "2.7.0.0"
           }
         }
       },
-      "xunit.extensibility.execution/2.6.6": {
+      "xunit.extensibility.execution/2.7.0": {
         "dependencies": {
-          "xunit.extensibility.core": "2.6.6"
+          "xunit.extensibility.core": "2.7.0"
         },
         "runtime": {
           "lib/netstandard1.1/xunit.execution.dotnet.dll": {
-            "assemblyVersion": "2.6.6.0",
-            "fileVersion": "2.6.6.0"
+            "assemblyVersion": "2.7.0.0",
+            "fileVersion": "2.7.0.0"
           }
         }
       },
-      "xunit.runner.visualstudio/2.5.6": {},
+      "xunit.runner.visualstudio/2.5.7": {},
       "Minitwit.Core/1.0.0": {
         "dependencies": {
           "FluentValidation": "11.9.0",
-          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.1",
-          "Microsoft.Extensions.Identity.Stores": "8.0.1"
+          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.2",
+          "Microsoft.Extensions.Identity.Stores": "8.0.2"
         },
         "runtime": {
           "Minitwit.Core.dll": {}
@@ -508,19 +508,19 @@
       "path": "fluentvalidation/11.9.0",
       "hashPath": "fluentvalidation.11.9.0.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.Cryptography.Internal/8.0.1": {
+    "Microsoft.AspNetCore.Cryptography.Internal/8.0.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ryzsiEKr1qJ8f/CARxK8/zTX41aGUpoYOrZuKpsWiK6LwnuynxSFrzBDF04bT7xHF/i0EOeqkIRvfIohI/EsTg==",
-      "path": "microsoft.aspnetcore.cryptography.internal/8.0.1",
-      "hashPath": "microsoft.aspnetcore.cryptography.internal.8.0.1.nupkg.sha512"
+      "sha512": "sha512-eZecZwgDIIK3QdtDHE2ndH1Yw/Mbo/b4HpyB135eZsIWYVr4dyO4vYa6s/IRIaWEMUdPNT2qU8mILF0MwDl+FQ==",
+      "path": "microsoft.aspnetcore.cryptography.internal/8.0.2",
+      "hashPath": "microsoft.aspnetcore.cryptography.internal.8.0.2.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.Cryptography.KeyDerivation/8.0.1": {
+    "Microsoft.AspNetCore.Cryptography.KeyDerivation/8.0.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-soX8sz1IUCEpsx3UEZUhdZ0RIi890qr6l1LEbFWMcbzSs0MhYM/WK+W889dkEBycVMh/fUzodMBbFVSp9tM0AQ==",
-      "path": "microsoft.aspnetcore.cryptography.keyderivation/8.0.1",
-      "hashPath": "microsoft.aspnetcore.cryptography.keyderivation.8.0.1.nupkg.sha512"
+      "sha512": "sha512-CwDgt9+kOI1z98acdXrVQRbkvEQM3j5VS8dt5b4PRL91Z7bZb6TSzWT9h4qm9C/GkXL1Y7fQmmyuY8qDLNCRww==",
+      "path": "microsoft.aspnetcore.cryptography.keyderivation/8.0.2",
+      "hashPath": "microsoft.aspnetcore.cryptography.keyderivation.8.0.2.nupkg.sha512"
     },
     "Microsoft.CodeCoverage/17.10.0-preview-24080-01": {
       "type": "package",
@@ -529,12 +529,12 @@
       "path": "microsoft.codecoverage/17.10.0-preview-24080-01",
       "hashPath": "microsoft.codecoverage.17.10.0-preview-24080-01.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Abstractions/8.0.1": {
+    "Microsoft.EntityFrameworkCore.Abstractions/8.0.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-KBj2meUDWmMDRYpxyebyYQMf7+aGyTWvKD9UTuFKPP/NQGVsJUqbCCM+p/LCxSppcm2dQt+z73e/yBFlq/2jmA==",
-      "path": "microsoft.entityframeworkcore.abstractions/8.0.1",
-      "hashPath": "microsoft.entityframeworkcore.abstractions.8.0.1.nupkg.sha512"
+      "sha512": "sha512-DjDKp++BTKFZmX+xLTow7grQTY+pImKfhGW68Zf8myiL3zyJ3b8RZbnLsWGNCqKQIF6hJIz/zA/zmERobFwV0A==",
+      "path": "microsoft.entityframeworkcore.abstractions/8.0.2",
+      "hashPath": "microsoft.entityframeworkcore.abstractions.8.0.2.nupkg.sha512"
     },
     "Microsoft.Extensions.Caching.Abstractions/8.0.0": {
       "type": "package",
@@ -557,19 +557,19 @@
       "path": "microsoft.extensions.dependencyinjection.abstractions/8.0.0",
       "hashPath": "microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512"
     },
-    "Microsoft.Extensions.Identity.Core/8.0.1": {
+    "Microsoft.Extensions.Identity.Core/8.0.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-/8GGtoIIoaeqk3PLV++ClqmVvHvzimhiSiWEdM9kdaNVkfR0JSDjx2AQHZcuekqiSPyNprFcSAg81uGWtdqP3w==",
-      "path": "microsoft.extensions.identity.core/8.0.1",
-      "hashPath": "microsoft.extensions.identity.core.8.0.1.nupkg.sha512"
+      "sha512": "sha512-I2sTDgH/5ZC71qkIyQOY3AF2eew+/2AtLN5rPyp7hAaUp3KAQV0s5b6clqQUZ5RoeT7RRK27+ZFrYLrsLlKvsQ==",
+      "path": "microsoft.extensions.identity.core/8.0.2",
+      "hashPath": "microsoft.extensions.identity.core.8.0.2.nupkg.sha512"
     },
-    "Microsoft.Extensions.Identity.Stores/8.0.1": {
+    "Microsoft.Extensions.Identity.Stores/8.0.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-yFfKr8NSb178uc8hA2k1Pqr8QB+dUCTbhesO4ooskPKor0ulCWvv7v9kmdCEqloIlxlO+8fuGnzSSvfRx80aeA==",
-      "path": "microsoft.extensions.identity.stores/8.0.1",
-      "hashPath": "microsoft.extensions.identity.stores.8.0.1.nupkg.sha512"
+      "sha512": "sha512-m8v0s0gVgKo3ML03Si+FdhL+ZCotRR6qTxlbZ8co/zqXl0vlsFIS/SJQBaKxnht8LtAv04T6seK7T97SPXO0iQ==",
+      "path": "microsoft.extensions.identity.stores/8.0.2",
+      "hashPath": "microsoft.extensions.identity.stores.8.0.2.nupkg.sha512"
     },
     "Microsoft.Extensions.Logging/8.0.0": {
       "type": "package",
@@ -585,12 +585,12 @@
       "path": "microsoft.extensions.logging.abstractions/8.0.0",
       "hashPath": "microsoft.extensions.logging.abstractions.8.0.0.nupkg.sha512"
     },
-    "Microsoft.Extensions.Options/8.0.1": {
+    "Microsoft.Extensions.Options/8.0.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-wmpp+BSU3oGifaev6Z9rrlwHoITLFfpVOSbgBrOXjkbJSCXnZVCsoRGE5c3fJFI4VlNgnNkNlI9y+5jC4fmOEA==",
-      "path": "microsoft.extensions.options/8.0.1",
-      "hashPath": "microsoft.extensions.options.8.0.1.nupkg.sha512"
+      "sha512": "sha512-dWGKvhFybsaZpGmzkGCbNNwBD1rVlWzrZKANLW/CcbFJpCEceMCGzT7zZwHOGBCbwM0SzBuceMj5HN1LKV1QqA==",
+      "path": "microsoft.extensions.options/8.0.2",
+      "hashPath": "microsoft.extensions.options.8.0.2.nupkg.sha512"
     },
     "Microsoft.Extensions.Primitives/8.0.0": {
       "type": "package",
@@ -634,12 +634,12 @@
       "path": "system.reflection.metadata/1.6.0",
       "hashPath": "system.reflection.metadata.1.6.0.nupkg.sha512"
     },
-    "xunit/2.6.6": {
+    "xunit/2.7.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-MAbOOMtZIKyn2lrAmMlvhX0BhDOX/smyrTB+8WTXnSKkrmTGBS2fm8g1PZtHBPj91Dc5DJA7fY+/81TJ/yUFZw==",
-      "path": "xunit/2.6.6",
-      "hashPath": "xunit.2.6.6.nupkg.sha512"
+      "sha512": "sha512-KcCI5zxh8zbUfQTeErc4oT7YokViVND2V0p4vDJ2VD4lhF9V5qCYMMDNixme7FdwYy3SwPHF+2xC2Dq4Z9GSlA==",
+      "path": "xunit/2.7.0",
+      "hashPath": "xunit.2.7.0.nupkg.sha512"
     },
     "xunit.abstractions/2.0.3": {
       "type": "package",
@@ -648,47 +648,47 @@
       "path": "xunit.abstractions/2.0.3",
       "hashPath": "xunit.abstractions.2.0.3.nupkg.sha512"
     },
-    "xunit.analyzers/1.10.0": {
+    "xunit.analyzers/1.11.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Lw8CiDy5NaAWcO6keqD7iZHYUTIuCOcoFrUHw5Sv84ITZ9gFeDybdkVdH0Y2maSlP9fUjtENyiykT44zwFQIHA==",
-      "path": "xunit.analyzers/1.10.0",
-      "hashPath": "xunit.analyzers.1.10.0.nupkg.sha512"
+      "sha512": "sha512-SCv+Ihxv+fCqotGeM8sVwLhw8nzAJ2aFRN5lcoKn9QtGdbVJ79JqDc+4u8/Ddnp2udxtmv+xYFWkHNlb/sk01w==",
+      "path": "xunit.analyzers/1.11.0",
+      "hashPath": "xunit.analyzers.1.11.0.nupkg.sha512"
     },
-    "xunit.assert/2.6.6": {
+    "xunit.assert/2.7.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-74Cm9lAZOk5TKCz2MvCBCByKsS23yryOKDIMxH3XRDHXmfGM02jKZWzRA7g4mGB41GnBnv/pcWP3vUYkrCtEcg==",
-      "path": "xunit.assert/2.6.6",
-      "hashPath": "xunit.assert.2.6.6.nupkg.sha512"
+      "sha512": "sha512-CCTs3bUhmIS4tDwK6Cn/IiabG3RhYzdf65eIkO7u9/grKoN9MrN780LzVED3E8v+vwmmj7b5TW3/GFuZHPAzWA==",
+      "path": "xunit.assert/2.7.0",
+      "hashPath": "xunit.assert.2.7.0.nupkg.sha512"
     },
-    "xunit.core/2.6.6": {
+    "xunit.core/2.7.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-tqi7RfaNBqM7t8zx6QHryuBPzmotsZXKGaWnopQG2Ez5UV7JoWuyoNdT6gLpDIcKdGYey6YTXJdSr9IXDMKwjg==",
-      "path": "xunit.core/2.6.6",
-      "hashPath": "xunit.core.2.6.6.nupkg.sha512"
+      "sha512": "sha512-98tzqYAbtc/p/2Ba455XTNbD12Qoo8kPehjC4oDT46CAsLli5JOCU9hFF2MV3HHWMw/Y3yFUV2Vcukplbs6kuA==",
+      "path": "xunit.core/2.7.0",
+      "hashPath": "xunit.core.2.7.0.nupkg.sha512"
     },
-    "xunit.extensibility.core/2.6.6": {
+    "xunit.extensibility.core/2.7.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ty6VKByzbx4Toj4/VGJLEnlmOawqZiMv0in/tLju+ftA+lbWuAWDERM+E52Jfhj4ZYHrAYVa14KHK5T+dq0XxA==",
-      "path": "xunit.extensibility.core/2.6.6",
-      "hashPath": "xunit.extensibility.core.2.6.6.nupkg.sha512"
+      "sha512": "sha512-JLnx4PI0vn1Xr1Ust6ydrp2t/ktm2dyGPAVoDJV5gQuvBMSbd2K7WGzODa2ttiz030CeQ8nbsXl05+cvf7QNyA==",
+      "path": "xunit.extensibility.core/2.7.0",
+      "hashPath": "xunit.extensibility.core.2.7.0.nupkg.sha512"
     },
-    "xunit.extensibility.execution/2.6.6": {
+    "xunit.extensibility.execution/2.7.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-UDjIVGj2TepVKN3n32/qXIdb3U6STwTb9L6YEwoQO2A8OxiJS5QAVv2l1aT6tDwwv/9WBmm8Khh/LyHALipcng==",
-      "path": "xunit.extensibility.execution/2.6.6",
-      "hashPath": "xunit.extensibility.execution.2.6.6.nupkg.sha512"
+      "sha512": "sha512-bjY+crT1jOyxKagFjCMdEVzoenO2v66ru8+CK/0UaXvyG4U9Q3UTieJkbQXbi7/1yZIK1sGh01l5/jh2CwLJtQ==",
+      "path": "xunit.extensibility.execution/2.7.0",
+      "hashPath": "xunit.extensibility.execution.2.7.0.nupkg.sha512"
     },
-    "xunit.runner.visualstudio/2.5.6": {
+    "xunit.runner.visualstudio/2.5.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-CW6uhMXNaQQNMSG1IWhHkBT+V5eqHqn7MP0zfNMhU9wS/sgKX7FGL3rzoaUgt26wkY3bpf7pDVw3IjXhwfiP4w==",
-      "path": "xunit.runner.visualstudio/2.5.6",
-      "hashPath": "xunit.runner.visualstudio.2.5.6.nupkg.sha512"
+      "sha512": "sha512-31Rl7dBJriX0DNwZfDp8gqFOPsiM0c9kqpcH/HvNi9vDp+K7Ydf42H7mVIvYT918Ywzn1ymLg1c4DDC6iU754w==",
+      "path": "xunit.runner.visualstudio/2.5.7",
+      "hashPath": "xunit.runner.visualstudio.2.5.7.nupkg.sha512"
     },
     "Minitwit.Core/1.0.0": {
       "type": "project",

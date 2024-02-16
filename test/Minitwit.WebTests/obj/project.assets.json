@@ -66,11 +66,11 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Identity.EntityFrameworkCore/8.0.1": {
+      "Microsoft.AspNetCore.Identity.EntityFrameworkCore/8.0.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Relational": "8.0.1",
-          "Microsoft.Extensions.Identity.Stores": "8.0.1"
+          "Microsoft.EntityFrameworkCore.Relational": "8.0.2",
+          "Microsoft.Extensions.Identity.Stores": "8.0.2"
         },
         "compile": {
           "lib/net8.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll": {
@@ -122,7 +122,7 @@
           "build/netstandard2.0/Microsoft.CodeCoverage.targets": {}
         }
       },
-      "Microsoft.Data.Sqlite.Core/8.0.1": {
+      "Microsoft.Data.Sqlite.Core/8.0.2": {
         "type": "package",
         "dependencies": {
           "SQLitePCLRaw.core": "2.1.6"
@@ -138,11 +138,11 @@
           }
         }
       },
-      "Microsoft.EntityFrameworkCore/8.0.1": {
+      "Microsoft.EntityFrameworkCore/8.0.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.1",
-          "Microsoft.EntityFrameworkCore.Analyzers": "8.0.1",
+          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.2",
+          "Microsoft.EntityFrameworkCore.Analyzers": "8.0.2",
           "Microsoft.Extensions.Caching.Memory": "8.0.0",
           "Microsoft.Extensions.Logging": "8.0.0"
         },
@@ -160,7 +160,7 @@
           "buildTransitive/net8.0/Microsoft.EntityFrameworkCore.props": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.Abstractions/8.0.1": {
+      "Microsoft.EntityFrameworkCore.Abstractions/8.0.2": {
         "type": "package",
         "compile": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {
@@ -173,7 +173,7 @@
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.Analyzers/8.0.1": {
+      "Microsoft.EntityFrameworkCore.Analyzers/8.0.2": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/_._": {}
@@ -182,10 +182,10 @@
           "lib/netstandard2.0/_._": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.Relational/8.0.1": {
+      "Microsoft.EntityFrameworkCore.Relational/8.0.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore": "8.0.1",
+          "Microsoft.EntityFrameworkCore": "8.0.2",
           "Microsoft.Extensions.Configuration.Abstractions": "8.0.0"
         },
         "compile": {
@@ -199,10 +199,10 @@
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.Sqlite/8.0.1": {
+      "Microsoft.EntityFrameworkCore.Sqlite/8.0.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Sqlite.Core": "8.0.1",
+          "Microsoft.EntityFrameworkCore.Sqlite.Core": "8.0.2",
           "SQLitePCLRaw.bundle_e_sqlite3": "2.1.6"
         },
         "compile": {
@@ -212,11 +212,11 @@
           "lib/net8.0/_._": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.Sqlite.Core/8.0.1": {
+      "Microsoft.EntityFrameworkCore.Sqlite.Core/8.0.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Data.Sqlite.Core": "8.0.1",
-          "Microsoft.EntityFrameworkCore.Relational": "8.0.1",
+          "Microsoft.Data.Sqlite.Core": "8.0.2",
+          "Microsoft.EntityFrameworkCore.Relational": "8.0.2",
           "Microsoft.Extensions.DependencyModel": "8.0.0"
         },
         "compile": {
@@ -1017,12 +1017,12 @@
           "buildTransitive/net6.0/System.Text.Json.targets": {}
         }
       },
-      "xunit/2.6.6": {
+      "xunit/2.7.0": {
         "type": "package",
         "dependencies": {
-          "xunit.analyzers": "1.10.0",
-          "xunit.assert": "2.6.6",
-          "xunit.core": "[2.6.6]"
+          "xunit.analyzers": "1.11.0",
+          "xunit.assert": "2.7.0",
+          "xunit.core": "[2.7.0]"
         }
       },
       "xunit.abstractions/2.0.3": {
@@ -1038,10 +1038,10 @@
           }
         }
       },
-      "xunit.analyzers/1.10.0": {
+      "xunit.analyzers/1.11.0": {
         "type": "package"
       },
-      "xunit.assert/2.6.6": {
+      "xunit.assert/2.7.0": {
         "type": "package",
         "compile": {
           "lib/net6.0/xunit.assert.dll": {
@@ -1054,11 +1054,11 @@
           }
         }
       },
-      "xunit.core/2.6.6": {
+      "xunit.core/2.7.0": {
         "type": "package",
         "dependencies": {
-          "xunit.extensibility.core": "[2.6.6]",
-          "xunit.extensibility.execution": "[2.6.6]"
+          "xunit.extensibility.core": "[2.7.0]",
+          "xunit.extensibility.execution": "[2.7.0]"
         },
         "build": {
           "build/xunit.core.props": {},
@@ -1069,7 +1069,7 @@
           "buildMultiTargeting/xunit.core.targets": {}
         }
       },
-      "xunit.extensibility.core/2.6.6": {
+      "xunit.extensibility.core/2.7.0": {
         "type": "package",
         "dependencies": {
           "xunit.abstractions": "2.0.3"
@@ -1085,10 +1085,10 @@
           }
         }
       },
-      "xunit.extensibility.execution/2.6.6": {
+      "xunit.extensibility.execution/2.7.0": {
         "type": "package",
         "dependencies": {
-          "xunit.extensibility.core": "[2.6.6]"
+          "xunit.extensibility.core": "[2.7.0]"
         },
         "compile": {
           "lib/netstandard1.1/xunit.execution.dotnet.dll": {
@@ -1101,7 +1101,7 @@
           }
         }
       },
-      "xunit.runner.visualstudio/2.5.6": {
+      "xunit.runner.visualstudio/2.5.7": {
         "type": "package",
         "compile": {
           "lib/net6.0/_._": {}
@@ -1118,8 +1118,8 @@
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "FluentValidation": "11.9.0",
-          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.1",
-          "Microsoft.Extensions.Identity.Stores": "8.0.1"
+          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.2",
+          "Microsoft.Extensions.Identity.Stores": "8.0.2"
         },
         "compile": {
           "bin/placeholder/Minitwit.Core.dll": {}
@@ -1133,9 +1133,9 @@
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "FluentValidation": "11.9.0",
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.1",
-          "Microsoft.EntityFrameworkCore": "8.0.1",
-          "Microsoft.EntityFrameworkCore.Sqlite": "8.0.1",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.2",
+          "Microsoft.EntityFrameworkCore": "8.0.2",
+          "Microsoft.EntityFrameworkCore.Sqlite": "8.0.2",
           "Minitwit.Core": "1.0.0"
         },
         "compile": {
@@ -1167,7 +1167,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Sqlite": "8.0.1",
+          "Microsoft.EntityFrameworkCore.Sqlite": "8.0.2",
           "Minitwit.Core": "1.0.0",
           "Minitwit.Infrastructure": "1.0.0"
         },
@@ -1321,10 +1321,10 @@
         "microsoft.aspnetcore.cryptography.keyderivation.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.Identity.EntityFrameworkCore/8.0.1": {
-      "sha512": "V2hjI1Sh6AmmjfU+oCWcyGyDSB9wAz+y2fKReY6g90PTITKH5dIMJv19mTHUlcVaYv+w2GSF6BRrJ+IitfyhqA==",
+    "Microsoft.AspNetCore.Identity.EntityFrameworkCore/8.0.2": {
+      "sha512": "TmNREmXjfHB9ptbtVZT/j+6/0hg/bB7JN5h45FzckvTLo0+WgpMRdQMCwQgGK0QoH4XqbY3oRkWwizQryFNUPw==",
       "type": "package",
-      "path": "microsoft.aspnetcore.identity.entityframeworkcore/8.0.1",
+      "path": "microsoft.aspnetcore.identity.entityframeworkcore/8.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1332,7 +1332,7 @@
         "THIRD-PARTY-NOTICES.TXT",
         "lib/net8.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll",
         "lib/net8.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.xml",
-        "microsoft.aspnetcore.identity.entityframeworkcore.8.0.1.nupkg.sha512",
+        "microsoft.aspnetcore.identity.entityframeworkcore.8.0.2.nupkg.sha512",
         "microsoft.aspnetcore.identity.entityframeworkcore.nuspec"
       ]
     },
@@ -1521,10 +1521,10 @@
         "microsoft.codecoverage.nuspec"
       ]
     },
-    "Microsoft.Data.Sqlite.Core/8.0.1": {
-      "sha512": "s8C8xbwMb79EqzTaIhwiBrYtbv6ATnUW19pJed4fKVgN5K4VPQ7JUGqBLztknvD6EJIMKrfRnINGTjnZghrDGw==",
+    "Microsoft.Data.Sqlite.Core/8.0.2": {
+      "sha512": "C7VelOBNUrVlatmOoJ9P+vc/gegduv7d2uB5oy7bFxfgZBfaGr+eREW+QuppXwi3MHp0WBxxWjqkK5gD7ymDQA==",
       "type": "package",
-      "path": "microsoft.data.sqlite.core/8.0.1",
+      "path": "microsoft.data.sqlite.core/8.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1535,14 +1535,14 @@
         "lib/net8.0/Microsoft.Data.Sqlite.xml",
         "lib/netstandard2.0/Microsoft.Data.Sqlite.dll",
         "lib/netstandard2.0/Microsoft.Data.Sqlite.xml",
-        "microsoft.data.sqlite.core.8.0.1.nupkg.sha512",
+        "microsoft.data.sqlite.core.8.0.2.nupkg.sha512",
         "microsoft.data.sqlite.core.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore/8.0.1": {
-      "sha512": "hPagYIuWPpZF6AwOR7mlKv+GLEk8wrbsIVr8qYHqSWN2zDghOYTu2Qxi6CtrJP3V9UgzZ6sjQVM/jnrodpz10Q==",
+    "Microsoft.EntityFrameworkCore/8.0.2": {
+      "sha512": "6QlvBx4rdawW3AkkCsGVV+8qRLk34aknV5JD40s1hbVR18vKmT2KDl2DW83nHcPX7f4oebQ3BD1UMNCI/gkE0g==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore/8.0.1",
+      "path": "microsoft.entityframeworkcore/8.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1550,76 +1550,76 @@
         "buildTransitive/net8.0/Microsoft.EntityFrameworkCore.props",
         "lib/net8.0/Microsoft.EntityFrameworkCore.dll",
         "lib/net8.0/Microsoft.EntityFrameworkCore.xml",
-        "microsoft.entityframeworkcore.8.0.1.nupkg.sha512",
+        "microsoft.entityframeworkcore.8.0.2.nupkg.sha512",
         "microsoft.entityframeworkcore.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Abstractions/8.0.1": {
-      "sha512": "KBj2meUDWmMDRYpxyebyYQMf7+aGyTWvKD9UTuFKPP/NQGVsJUqbCCM+p/LCxSppcm2dQt+z73e/yBFlq/2jmA==",
+    "Microsoft.EntityFrameworkCore.Abstractions/8.0.2": {
+      "sha512": "DjDKp++BTKFZmX+xLTow7grQTY+pImKfhGW68Zf8myiL3zyJ3b8RZbnLsWGNCqKQIF6hJIz/zA/zmERobFwV0A==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.abstractions/8.0.1",
+      "path": "microsoft.entityframeworkcore.abstractions/8.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll",
         "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.xml",
-        "microsoft.entityframeworkcore.abstractions.8.0.1.nupkg.sha512",
+        "microsoft.entityframeworkcore.abstractions.8.0.2.nupkg.sha512",
         "microsoft.entityframeworkcore.abstractions.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Analyzers/8.0.1": {
-      "sha512": "8HgodfPiUEMu5rlkcGa9CJdEpF5VeaeWhHAdKuKstgr6GBFc91xCJo/haOVzM8jKPS167PrlC8ChYdtzFVpp4A==",
+    "Microsoft.EntityFrameworkCore.Analyzers/8.0.2": {
+      "sha512": "LI7awhc0fiAKvcUemsqxXUWqzAH9ywTSyM1rpC1un4p5SE1bhr5nRLvyRVbKRzKakmnNNY3to8NPDnoySEkxVw==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.analyzers/8.0.1",
+      "path": "microsoft.entityframeworkcore.analyzers/8.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "analyzers/dotnet/cs/Microsoft.EntityFrameworkCore.Analyzers.dll",
         "lib/netstandard2.0/_._",
-        "microsoft.entityframeworkcore.analyzers.8.0.1.nupkg.sha512",
+        "microsoft.entityframeworkcore.analyzers.8.0.2.nupkg.sha512",
         "microsoft.entityframeworkcore.analyzers.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Relational/8.0.1": {
-      "sha512": "uL1tO14kbsi0EqtfvElGJ68irUlu2DbkTMKz4+8WvVc1TV2GwVgfwQWv7uwDqsB5+JK9alfP3tZjHkWiSpk3oA==",
+    "Microsoft.EntityFrameworkCore.Relational/8.0.2": {
+      "sha512": "NoGfcq2OPw0z8XAPf74YFwGlTKjedWdsIEJqq4SvKcPjcu+B+/XDDNrDRxTvILfz4Ug8POSF49s1jz1JvUqTAg==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.relational/8.0.1",
+      "path": "microsoft.entityframeworkcore.relational/8.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "lib/net8.0/Microsoft.EntityFrameworkCore.Relational.dll",
         "lib/net8.0/Microsoft.EntityFrameworkCore.Relational.xml",
-        "microsoft.entityframeworkcore.relational.8.0.1.nupkg.sha512",
+        "microsoft.entityframeworkcore.relational.8.0.2.nupkg.sha512",
         "microsoft.entityframeworkcore.relational.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Sqlite/8.0.1": {
-      "sha512": "9OF1gaBzZy/eYwogfNCXkkA0t6jy/Wcno6o9dzT27P1yZ3bdKSR45OqOLsa2+lN+QLJaiv8pJSIWymugfdLQyA==",
+    "Microsoft.EntityFrameworkCore.Sqlite/8.0.2": {
+      "sha512": "tnpTylrGLYUKZ+Jw8Y5PmROYhIvqA51EqYRdHgUDCFsVbs3AKsw3SY1reaZk/tBfWHtC7nWR+IN2MwYrdtkgTQ==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.sqlite/8.0.1",
+      "path": "microsoft.entityframeworkcore.sqlite/8.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "lib/net8.0/_._",
-        "microsoft.entityframeworkcore.sqlite.8.0.1.nupkg.sha512",
+        "microsoft.entityframeworkcore.sqlite.8.0.2.nupkg.sha512",
         "microsoft.entityframeworkcore.sqlite.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Sqlite.Core/8.0.1": {
-      "sha512": "kmNSZbVxbRFn1tRySkzRJFa2lNE1olgGyCB1FzcReua6jMkyRxr6v9rTv/idNVkSGHSnHitlu4DvZ//y1YFzjA==",
+    "Microsoft.EntityFrameworkCore.Sqlite.Core/8.0.2": {
+      "sha512": "cUOohC2oMaHG8rAvF1bvg5U5Hmeio8nTvCJghyPSnnKtWPu6U/Ozw4jcdJn1UjeYe7X0udP8ax/IB6wb9BOLWw==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.sqlite.core/8.0.1",
+      "path": "microsoft.entityframeworkcore.sqlite.core/8.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "lib/net8.0/Microsoft.EntityFrameworkCore.Sqlite.dll",
         "lib/net8.0/Microsoft.EntityFrameworkCore.Sqlite.xml",
-        "microsoft.entityframeworkcore.sqlite.core.8.0.1.nupkg.sha512",
+        "microsoft.entityframeworkcore.sqlite.core.8.0.2.nupkg.sha512",
         "microsoft.entityframeworkcore.sqlite.core.nuspec"
       ]
     },
@@ -2589,16 +2589,16 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "xunit/2.6.6": {
-      "sha512": "MAbOOMtZIKyn2lrAmMlvhX0BhDOX/smyrTB+8WTXnSKkrmTGBS2fm8g1PZtHBPj91Dc5DJA7fY+/81TJ/yUFZw==",
+    "xunit/2.7.0": {
+      "sha512": "KcCI5zxh8zbUfQTeErc4oT7YokViVND2V0p4vDJ2VD4lhF9V5qCYMMDNixme7FdwYy3SwPHF+2xC2Dq4Z9GSlA==",
       "type": "package",
-      "path": "xunit/2.6.6",
+      "path": "xunit/2.7.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "_content/README.md",
         "_content/logo-128-transparent.png",
-        "xunit.2.6.6.nupkg.sha512",
+        "xunit.2.7.0.nupkg.sha512",
         "xunit.nuspec"
       ]
     },
@@ -2619,10 +2619,10 @@
         "xunit.abstractions.nuspec"
       ]
     },
-    "xunit.analyzers/1.10.0": {
-      "sha512": "Lw8CiDy5NaAWcO6keqD7iZHYUTIuCOcoFrUHw5Sv84ITZ9gFeDybdkVdH0Y2maSlP9fUjtENyiykT44zwFQIHA==",
+    "xunit.analyzers/1.11.0": {
+      "sha512": "SCv+Ihxv+fCqotGeM8sVwLhw8nzAJ2aFRN5lcoKn9QtGdbVJ79JqDc+4u8/Ddnp2udxtmv+xYFWkHNlb/sk01w==",
       "type": "package",
-      "path": "xunit.analyzers/1.10.0",
+      "path": "xunit.analyzers/1.11.0",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -2631,8 +2631,6 @@
         "_content/logo-128-transparent.png",
         "analyzers/dotnet/roslyn3.11/cs/xunit.analyzers.dll",
         "analyzers/dotnet/roslyn3.11/cs/xunit.analyzers.fixes.dll",
-        "analyzers/dotnet/roslyn4.2/cs/xunit.analyzers.dll",
-        "analyzers/dotnet/roslyn4.2/cs/xunit.analyzers.fixes.dll",
         "analyzers/dotnet/roslyn4.4/cs/xunit.analyzers.dll",
         "analyzers/dotnet/roslyn4.4/cs/xunit.analyzers.fixes.dll",
         "analyzers/dotnet/roslyn4.6/cs/xunit.analyzers.dll",
@@ -2641,14 +2639,14 @@
         "analyzers/dotnet/roslyn4.8/cs/xunit.analyzers.fixes.dll",
         "tools/install.ps1",
         "tools/uninstall.ps1",
-        "xunit.analyzers.1.10.0.nupkg.sha512",
+        "xunit.analyzers.1.11.0.nupkg.sha512",
         "xunit.analyzers.nuspec"
       ]
     },
-    "xunit.assert/2.6.6": {
-      "sha512": "74Cm9lAZOk5TKCz2MvCBCByKsS23yryOKDIMxH3XRDHXmfGM02jKZWzRA7g4mGB41GnBnv/pcWP3vUYkrCtEcg==",
+    "xunit.assert/2.7.0": {
+      "sha512": "CCTs3bUhmIS4tDwK6Cn/IiabG3RhYzdf65eIkO7u9/grKoN9MrN780LzVED3E8v+vwmmj7b5TW3/GFuZHPAzWA==",
       "type": "package",
-      "path": "xunit.assert/2.6.6",
+      "path": "xunit.assert/2.7.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2658,14 +2656,14 @@
         "lib/net6.0/xunit.assert.xml",
         "lib/netstandard1.1/xunit.assert.dll",
         "lib/netstandard1.1/xunit.assert.xml",
-        "xunit.assert.2.6.6.nupkg.sha512",
+        "xunit.assert.2.7.0.nupkg.sha512",
         "xunit.assert.nuspec"
       ]
     },
-    "xunit.core/2.6.6": {
-      "sha512": "tqi7RfaNBqM7t8zx6QHryuBPzmotsZXKGaWnopQG2Ez5UV7JoWuyoNdT6gLpDIcKdGYey6YTXJdSr9IXDMKwjg==",
+    "xunit.core/2.7.0": {
+      "sha512": "98tzqYAbtc/p/2Ba455XTNbD12Qoo8kPehjC4oDT46CAsLli5JOCU9hFF2MV3HHWMw/Y3yFUV2Vcukplbs6kuA==",
       "type": "package",
-      "path": "xunit.core/2.6.6",
+      "path": "xunit.core/2.7.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2675,14 +2673,14 @@
         "build/xunit.core.targets",
         "buildMultiTargeting/xunit.core.props",
         "buildMultiTargeting/xunit.core.targets",
-        "xunit.core.2.6.6.nupkg.sha512",
+        "xunit.core.2.7.0.nupkg.sha512",
         "xunit.core.nuspec"
       ]
     },
-    "xunit.extensibility.core/2.6.6": {
-      "sha512": "ty6VKByzbx4Toj4/VGJLEnlmOawqZiMv0in/tLju+ftA+lbWuAWDERM+E52Jfhj4ZYHrAYVa14KHK5T+dq0XxA==",
+    "xunit.extensibility.core/2.7.0": {
+      "sha512": "JLnx4PI0vn1Xr1Ust6ydrp2t/ktm2dyGPAVoDJV5gQuvBMSbd2K7WGzODa2ttiz030CeQ8nbsXl05+cvf7QNyA==",
       "type": "package",
-      "path": "xunit.extensibility.core/2.6.6",
+      "path": "xunit.extensibility.core/2.7.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2695,14 +2693,14 @@
         "lib/net452/xunit.runner.utility.net452.dll",
         "lib/netstandard1.1/xunit.core.dll",
         "lib/netstandard1.1/xunit.core.xml",
-        "xunit.extensibility.core.2.6.6.nupkg.sha512",
+        "xunit.extensibility.core.2.7.0.nupkg.sha512",
         "xunit.extensibility.core.nuspec"
       ]
     },
-    "xunit.extensibility.execution/2.6.6": {
-      "sha512": "UDjIVGj2TepVKN3n32/qXIdb3U6STwTb9L6YEwoQO2A8OxiJS5QAVv2l1aT6tDwwv/9WBmm8Khh/LyHALipcng==",
+    "xunit.extensibility.execution/2.7.0": {
+      "sha512": "bjY+crT1jOyxKagFjCMdEVzoenO2v66ru8+CK/0UaXvyG4U9Q3UTieJkbQXbi7/1yZIK1sGh01l5/jh2CwLJtQ==",
       "type": "package",
-      "path": "xunit.extensibility.execution/2.6.6",
+      "path": "xunit.extensibility.execution/2.7.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2712,14 +2710,14 @@
         "lib/net452/xunit.execution.desktop.xml",
         "lib/netstandard1.1/xunit.execution.dotnet.dll",
         "lib/netstandard1.1/xunit.execution.dotnet.xml",
-        "xunit.extensibility.execution.2.6.6.nupkg.sha512",
+        "xunit.extensibility.execution.2.7.0.nupkg.sha512",
         "xunit.extensibility.execution.nuspec"
       ]
     },
-    "xunit.runner.visualstudio/2.5.6": {
-      "sha512": "CW6uhMXNaQQNMSG1IWhHkBT+V5eqHqn7MP0zfNMhU9wS/sgKX7FGL3rzoaUgt26wkY3bpf7pDVw3IjXhwfiP4w==",
+    "xunit.runner.visualstudio/2.5.7": {
+      "sha512": "31Rl7dBJriX0DNwZfDp8gqFOPsiM0c9kqpcH/HvNi9vDp+K7Ydf42H7mVIvYT918Ywzn1ymLg1c4DDC6iU754w==",
       "type": "package",
-      "path": "xunit.runner.visualstudio/2.5.6",
+      "path": "xunit.runner.visualstudio/2.5.7",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2737,7 +2735,7 @@
         "build/net6.0/xunit.runner.visualstudio.testadapter.dll",
         "lib/net462/_._",
         "lib/net6.0/_._",
-        "xunit.runner.visualstudio.2.5.6.nupkg.sha512",
+        "xunit.runner.visualstudio.2.5.7.nupkg.sha512",
         "xunit.runner.visualstudio.nuspec"
       ]
     },
@@ -2769,8 +2767,8 @@
       "Moq >= 4.20.70",
       "Test_Utilities >= 1.0.0",
       "coverlet.collector >= 6.0.0",
-      "xunit >= 2.6.6",
-      "xunit.runner.visualstudio >= 2.5.6"
+      "xunit >= 2.7.0",
+      "xunit.runner.visualstudio >= 2.5.7"
     ]
   },
   "packageFolders": {
@@ -2833,13 +2831,13 @@
           },
           "xunit": {
             "target": "Package",
-            "version": "[2.6.6, )"
+            "version": "[2.7.0, )"
           },
           "xunit.runner.visualstudio": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
             "suppressParent": "All",
             "target": "Package",
-            "version": "[2.5.6, )"
+            "version": "[2.5.7, )"
           }
         },
         "imports": [

@@ -21,7 +21,7 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Cryptography.Internal/8.0.1": {
+      "Microsoft.AspNetCore.Cryptography.Internal/8.0.2": {
         "type": "package",
         "compile": {
           "lib/net8.0/Microsoft.AspNetCore.Cryptography.Internal.dll": {
@@ -34,10 +34,10 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Cryptography.KeyDerivation/8.0.1": {
+      "Microsoft.AspNetCore.Cryptography.KeyDerivation/8.0.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.AspNetCore.Cryptography.Internal": "8.0.1"
+          "Microsoft.AspNetCore.Cryptography.Internal": "8.0.2"
         },
         "compile": {
           "lib/net8.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll": {
@@ -63,7 +63,7 @@
           "build/netstandard2.0/Microsoft.CodeCoverage.targets": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.Abstractions/8.0.1": {
+      "Microsoft.EntityFrameworkCore.Abstractions/8.0.2": {
         "type": "package",
         "compile": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {
@@ -130,12 +130,12 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "Microsoft.Extensions.Identity.Core/8.0.1": {
+      "Microsoft.Extensions.Identity.Core/8.0.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.AspNetCore.Cryptography.KeyDerivation": "8.0.1",
+          "Microsoft.AspNetCore.Cryptography.KeyDerivation": "8.0.2",
           "Microsoft.Extensions.Logging": "8.0.0",
-          "Microsoft.Extensions.Options": "8.0.1"
+          "Microsoft.Extensions.Options": "8.0.2"
         },
         "compile": {
           "lib/net8.0/Microsoft.Extensions.Identity.Core.dll": {
@@ -148,11 +148,11 @@
           }
         }
       },
-      "Microsoft.Extensions.Identity.Stores/8.0.1": {
+      "Microsoft.Extensions.Identity.Stores/8.0.2": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.Caching.Abstractions": "8.0.0",
-          "Microsoft.Extensions.Identity.Core": "8.0.1",
+          "Microsoft.Extensions.Identity.Core": "8.0.2",
           "Microsoft.Extensions.Logging": "8.0.0"
         },
         "compile": {
@@ -206,7 +206,7 @@
           "buildTransitive/net6.0/Microsoft.Extensions.Logging.Abstractions.targets": {}
         }
       },
-      "Microsoft.Extensions.Options/8.0.1": {
+      "Microsoft.Extensions.Options/8.0.2": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0",
@@ -537,12 +537,12 @@
           }
         }
       },
-      "xunit/2.6.6": {
+      "xunit/2.7.0": {
         "type": "package",
         "dependencies": {
-          "xunit.analyzers": "1.10.0",
-          "xunit.assert": "2.6.6",
-          "xunit.core": "[2.6.6]"
+          "xunit.analyzers": "1.11.0",
+          "xunit.assert": "2.7.0",
+          "xunit.core": "[2.7.0]"
         }
       },
       "xunit.abstractions/2.0.3": {
@@ -558,10 +558,10 @@
           }
         }
       },
-      "xunit.analyzers/1.10.0": {
+      "xunit.analyzers/1.11.0": {
         "type": "package"
       },
-      "xunit.assert/2.6.6": {
+      "xunit.assert/2.7.0": {
         "type": "package",
         "compile": {
           "lib/net6.0/xunit.assert.dll": {
@@ -574,11 +574,11 @@
           }
         }
       },
-      "xunit.core/2.6.6": {
+      "xunit.core/2.7.0": {
         "type": "package",
         "dependencies": {
-          "xunit.extensibility.core": "[2.6.6]",
-          "xunit.extensibility.execution": "[2.6.6]"
+          "xunit.extensibility.core": "[2.7.0]",
+          "xunit.extensibility.execution": "[2.7.0]"
         },
         "build": {
           "build/xunit.core.props": {},
@@ -589,7 +589,7 @@
           "buildMultiTargeting/xunit.core.targets": {}
         }
       },
-      "xunit.extensibility.core/2.6.6": {
+      "xunit.extensibility.core/2.7.0": {
         "type": "package",
         "dependencies": {
           "xunit.abstractions": "2.0.3"
@@ -605,10 +605,10 @@
           }
         }
       },
-      "xunit.extensibility.execution/2.6.6": {
+      "xunit.extensibility.execution/2.7.0": {
         "type": "package",
         "dependencies": {
-          "xunit.extensibility.core": "[2.6.6]"
+          "xunit.extensibility.core": "[2.7.0]"
         },
         "compile": {
           "lib/netstandard1.1/xunit.execution.dotnet.dll": {
@@ -621,7 +621,7 @@
           }
         }
       },
-      "xunit.runner.visualstudio/2.5.6": {
+      "xunit.runner.visualstudio/2.5.7": {
         "type": "package",
         "compile": {
           "lib/net6.0/_._": {}
@@ -638,8 +638,8 @@
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "FluentValidation": "11.9.0",
-          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.1",
-          "Microsoft.Extensions.Identity.Stores": "8.0.1"
+          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.2",
+          "Microsoft.Extensions.Identity.Stores": "8.0.2"
         },
         "compile": {
           "bin/placeholder/Minitwit.Core.dll": {}
@@ -729,10 +729,10 @@
         "lib/netstandard2.1/FluentValidation.xml"
       ]
     },
-    "Microsoft.AspNetCore.Cryptography.Internal/8.0.1": {
-      "sha512": "ryzsiEKr1qJ8f/CARxK8/zTX41aGUpoYOrZuKpsWiK6LwnuynxSFrzBDF04bT7xHF/i0EOeqkIRvfIohI/EsTg==",
+    "Microsoft.AspNetCore.Cryptography.Internal/8.0.2": {
+      "sha512": "eZecZwgDIIK3QdtDHE2ndH1Yw/Mbo/b4HpyB135eZsIWYVr4dyO4vYa6s/IRIaWEMUdPNT2qU8mILF0MwDl+FQ==",
       "type": "package",
-      "path": "microsoft.aspnetcore.cryptography.internal/8.0.1",
+      "path": "microsoft.aspnetcore.cryptography.internal/8.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -744,14 +744,14 @@
         "lib/net8.0/Microsoft.AspNetCore.Cryptography.Internal.xml",
         "lib/netstandard2.0/Microsoft.AspNetCore.Cryptography.Internal.dll",
         "lib/netstandard2.0/Microsoft.AspNetCore.Cryptography.Internal.xml",
-        "microsoft.aspnetcore.cryptography.internal.8.0.1.nupkg.sha512",
+        "microsoft.aspnetcore.cryptography.internal.8.0.2.nupkg.sha512",
         "microsoft.aspnetcore.cryptography.internal.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.Cryptography.KeyDerivation/8.0.1": {
-      "sha512": "soX8sz1IUCEpsx3UEZUhdZ0RIi890qr6l1LEbFWMcbzSs0MhYM/WK+W889dkEBycVMh/fUzodMBbFVSp9tM0AQ==",
+    "Microsoft.AspNetCore.Cryptography.KeyDerivation/8.0.2": {
+      "sha512": "CwDgt9+kOI1z98acdXrVQRbkvEQM3j5VS8dt5b4PRL91Z7bZb6TSzWT9h4qm9C/GkXL1Y7fQmmyuY8qDLNCRww==",
       "type": "package",
-      "path": "microsoft.aspnetcore.cryptography.keyderivation/8.0.1",
+      "path": "microsoft.aspnetcore.cryptography.keyderivation/8.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -763,7 +763,7 @@
         "lib/net8.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.xml",
         "lib/netstandard2.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll",
         "lib/netstandard2.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.xml",
-        "microsoft.aspnetcore.cryptography.keyderivation.8.0.1.nupkg.sha512",
+        "microsoft.aspnetcore.cryptography.keyderivation.8.0.2.nupkg.sha512",
         "microsoft.aspnetcore.cryptography.keyderivation.nuspec"
       ]
     },
@@ -834,17 +834,17 @@
         "microsoft.codecoverage.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Abstractions/8.0.1": {
-      "sha512": "KBj2meUDWmMDRYpxyebyYQMf7+aGyTWvKD9UTuFKPP/NQGVsJUqbCCM+p/LCxSppcm2dQt+z73e/yBFlq/2jmA==",
+    "Microsoft.EntityFrameworkCore.Abstractions/8.0.2": {
+      "sha512": "DjDKp++BTKFZmX+xLTow7grQTY+pImKfhGW68Zf8myiL3zyJ3b8RZbnLsWGNCqKQIF6hJIz/zA/zmERobFwV0A==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.abstractions/8.0.1",
+      "path": "microsoft.entityframeworkcore.abstractions/8.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll",
         "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.xml",
-        "microsoft.entityframeworkcore.abstractions.8.0.1.nupkg.sha512",
+        "microsoft.entityframeworkcore.abstractions.8.0.2.nupkg.sha512",
         "microsoft.entityframeworkcore.abstractions.nuspec"
       ]
     },
@@ -942,10 +942,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Microsoft.Extensions.Identity.Core/8.0.1": {
-      "sha512": "/8GGtoIIoaeqk3PLV++ClqmVvHvzimhiSiWEdM9kdaNVkfR0JSDjx2AQHZcuekqiSPyNprFcSAg81uGWtdqP3w==",
+    "Microsoft.Extensions.Identity.Core/8.0.2": {
+      "sha512": "I2sTDgH/5ZC71qkIyQOY3AF2eew+/2AtLN5rPyp7hAaUp3KAQV0s5b6clqQUZ5RoeT7RRK27+ZFrYLrsLlKvsQ==",
       "type": "package",
-      "path": "microsoft.extensions.identity.core/8.0.1",
+      "path": "microsoft.extensions.identity.core/8.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -957,14 +957,14 @@
         "lib/net8.0/Microsoft.Extensions.Identity.Core.xml",
         "lib/netstandard2.0/Microsoft.Extensions.Identity.Core.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Identity.Core.xml",
-        "microsoft.extensions.identity.core.8.0.1.nupkg.sha512",
+        "microsoft.extensions.identity.core.8.0.2.nupkg.sha512",
         "microsoft.extensions.identity.core.nuspec"
       ]
     },
-    "Microsoft.Extensions.Identity.Stores/8.0.1": {
-      "sha512": "yFfKr8NSb178uc8hA2k1Pqr8QB+dUCTbhesO4ooskPKor0ulCWvv7v9kmdCEqloIlxlO+8fuGnzSSvfRx80aeA==",
+    "Microsoft.Extensions.Identity.Stores/8.0.2": {
+      "sha512": "m8v0s0gVgKo3ML03Si+FdhL+ZCotRR6qTxlbZ8co/zqXl0vlsFIS/SJQBaKxnht8LtAv04T6seK7T97SPXO0iQ==",
       "type": "package",
-      "path": "microsoft.extensions.identity.stores/8.0.1",
+      "path": "microsoft.extensions.identity.stores/8.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -976,7 +976,7 @@
         "lib/net8.0/Microsoft.Extensions.Identity.Stores.xml",
         "lib/netstandard2.0/Microsoft.Extensions.Identity.Stores.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Identity.Stores.xml",
-        "microsoft.extensions.identity.stores.8.0.1.nupkg.sha512",
+        "microsoft.extensions.identity.stores.8.0.2.nupkg.sha512",
         "microsoft.extensions.identity.stores.nuspec"
       ]
     },
@@ -1085,10 +1085,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Microsoft.Extensions.Options/8.0.1": {
-      "sha512": "wmpp+BSU3oGifaev6Z9rrlwHoITLFfpVOSbgBrOXjkbJSCXnZVCsoRGE5c3fJFI4VlNgnNkNlI9y+5jC4fmOEA==",
+    "Microsoft.Extensions.Options/8.0.2": {
+      "sha512": "dWGKvhFybsaZpGmzkGCbNNwBD1rVlWzrZKANLW/CcbFJpCEceMCGzT7zZwHOGBCbwM0SzBuceMj5HN1LKV1QqA==",
       "type": "package",
-      "path": "microsoft.extensions.options/8.0.1",
+      "path": "microsoft.extensions.options/8.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1127,7 +1127,7 @@
         "lib/netstandard2.0/Microsoft.Extensions.Options.xml",
         "lib/netstandard2.1/Microsoft.Extensions.Options.dll",
         "lib/netstandard2.1/Microsoft.Extensions.Options.xml",
-        "microsoft.extensions.options.8.0.1.nupkg.sha512",
+        "microsoft.extensions.options.8.0.2.nupkg.sha512",
         "microsoft.extensions.options.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -1403,16 +1403,16 @@
         "version.txt"
       ]
     },
-    "xunit/2.6.6": {
-      "sha512": "MAbOOMtZIKyn2lrAmMlvhX0BhDOX/smyrTB+8WTXnSKkrmTGBS2fm8g1PZtHBPj91Dc5DJA7fY+/81TJ/yUFZw==",
+    "xunit/2.7.0": {
+      "sha512": "KcCI5zxh8zbUfQTeErc4oT7YokViVND2V0p4vDJ2VD4lhF9V5qCYMMDNixme7FdwYy3SwPHF+2xC2Dq4Z9GSlA==",
       "type": "package",
-      "path": "xunit/2.6.6",
+      "path": "xunit/2.7.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "_content/README.md",
         "_content/logo-128-transparent.png",
-        "xunit.2.6.6.nupkg.sha512",
+        "xunit.2.7.0.nupkg.sha512",
         "xunit.nuspec"
       ]
     },
@@ -1433,10 +1433,10 @@
         "xunit.abstractions.nuspec"
       ]
     },
-    "xunit.analyzers/1.10.0": {
-      "sha512": "Lw8CiDy5NaAWcO6keqD7iZHYUTIuCOcoFrUHw5Sv84ITZ9gFeDybdkVdH0Y2maSlP9fUjtENyiykT44zwFQIHA==",
+    "xunit.analyzers/1.11.0": {
+      "sha512": "SCv+Ihxv+fCqotGeM8sVwLhw8nzAJ2aFRN5lcoKn9QtGdbVJ79JqDc+4u8/Ddnp2udxtmv+xYFWkHNlb/sk01w==",
       "type": "package",
-      "path": "xunit.analyzers/1.10.0",
+      "path": "xunit.analyzers/1.11.0",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -1445,8 +1445,6 @@
         "_content/logo-128-transparent.png",
         "analyzers/dotnet/roslyn3.11/cs/xunit.analyzers.dll",
         "analyzers/dotnet/roslyn3.11/cs/xunit.analyzers.fixes.dll",
-        "analyzers/dotnet/roslyn4.2/cs/xunit.analyzers.dll",
-        "analyzers/dotnet/roslyn4.2/cs/xunit.analyzers.fixes.dll",
         "analyzers/dotnet/roslyn4.4/cs/xunit.analyzers.dll",
         "analyzers/dotnet/roslyn4.4/cs/xunit.analyzers.fixes.dll",
         "analyzers/dotnet/roslyn4.6/cs/xunit.analyzers.dll",
@@ -1455,14 +1453,14 @@
         "analyzers/dotnet/roslyn4.8/cs/xunit.analyzers.fixes.dll",
         "tools/install.ps1",
         "tools/uninstall.ps1",
-        "xunit.analyzers.1.10.0.nupkg.sha512",
+        "xunit.analyzers.1.11.0.nupkg.sha512",
         "xunit.analyzers.nuspec"
       ]
     },
-    "xunit.assert/2.6.6": {
-      "sha512": "74Cm9lAZOk5TKCz2MvCBCByKsS23yryOKDIMxH3XRDHXmfGM02jKZWzRA7g4mGB41GnBnv/pcWP3vUYkrCtEcg==",
+    "xunit.assert/2.7.0": {
+      "sha512": "CCTs3bUhmIS4tDwK6Cn/IiabG3RhYzdf65eIkO7u9/grKoN9MrN780LzVED3E8v+vwmmj7b5TW3/GFuZHPAzWA==",
       "type": "package",
-      "path": "xunit.assert/2.6.6",
+      "path": "xunit.assert/2.7.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1472,14 +1470,14 @@
         "lib/net6.0/xunit.assert.xml",
         "lib/netstandard1.1/xunit.assert.dll",
         "lib/netstandard1.1/xunit.assert.xml",
-        "xunit.assert.2.6.6.nupkg.sha512",
+        "xunit.assert.2.7.0.nupkg.sha512",
         "xunit.assert.nuspec"
       ]
     },
-    "xunit.core/2.6.6": {
-      "sha512": "tqi7RfaNBqM7t8zx6QHryuBPzmotsZXKGaWnopQG2Ez5UV7JoWuyoNdT6gLpDIcKdGYey6YTXJdSr9IXDMKwjg==",
+    "xunit.core/2.7.0": {
+      "sha512": "98tzqYAbtc/p/2Ba455XTNbD12Qoo8kPehjC4oDT46CAsLli5JOCU9hFF2MV3HHWMw/Y3yFUV2Vcukplbs6kuA==",
       "type": "package",
-      "path": "xunit.core/2.6.6",
+      "path": "xunit.core/2.7.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1489,14 +1487,14 @@
         "build/xunit.core.targets",
         "buildMultiTargeting/xunit.core.props",
         "buildMultiTargeting/xunit.core.targets",
-        "xunit.core.2.6.6.nupkg.sha512",
+        "xunit.core.2.7.0.nupkg.sha512",
         "xunit.core.nuspec"
       ]
     },
-    "xunit.extensibility.core/2.6.6": {
-      "sha512": "ty6VKByzbx4Toj4/VGJLEnlmOawqZiMv0in/tLju+ftA+lbWuAWDERM+E52Jfhj4ZYHrAYVa14KHK5T+dq0XxA==",
+    "xunit.extensibility.core/2.7.0": {
+      "sha512": "JLnx4PI0vn1Xr1Ust6ydrp2t/ktm2dyGPAVoDJV5gQuvBMSbd2K7WGzODa2ttiz030CeQ8nbsXl05+cvf7QNyA==",
       "type": "package",
-      "path": "xunit.extensibility.core/2.6.6",
+      "path": "xunit.extensibility.core/2.7.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1509,14 +1507,14 @@
         "lib/net452/xunit.runner.utility.net452.dll",
         "lib/netstandard1.1/xunit.core.dll",
         "lib/netstandard1.1/xunit.core.xml",
-        "xunit.extensibility.core.2.6.6.nupkg.sha512",
+        "xunit.extensibility.core.2.7.0.nupkg.sha512",
         "xunit.extensibility.core.nuspec"
       ]
     },
-    "xunit.extensibility.execution/2.6.6": {
-      "sha512": "UDjIVGj2TepVKN3n32/qXIdb3U6STwTb9L6YEwoQO2A8OxiJS5QAVv2l1aT6tDwwv/9WBmm8Khh/LyHALipcng==",
+    "xunit.extensibility.execution/2.7.0": {
+      "sha512": "bjY+crT1jOyxKagFjCMdEVzoenO2v66ru8+CK/0UaXvyG4U9Q3UTieJkbQXbi7/1yZIK1sGh01l5/jh2CwLJtQ==",
       "type": "package",
-      "path": "xunit.extensibility.execution/2.6.6",
+      "path": "xunit.extensibility.execution/2.7.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1526,14 +1524,14 @@
         "lib/net452/xunit.execution.desktop.xml",
         "lib/netstandard1.1/xunit.execution.dotnet.dll",
         "lib/netstandard1.1/xunit.execution.dotnet.xml",
-        "xunit.extensibility.execution.2.6.6.nupkg.sha512",
+        "xunit.extensibility.execution.2.7.0.nupkg.sha512",
         "xunit.extensibility.execution.nuspec"
       ]
     },
-    "xunit.runner.visualstudio/2.5.6": {
-      "sha512": "CW6uhMXNaQQNMSG1IWhHkBT+V5eqHqn7MP0zfNMhU9wS/sgKX7FGL3rzoaUgt26wkY3bpf7pDVw3IjXhwfiP4w==",
+    "xunit.runner.visualstudio/2.5.7": {
+      "sha512": "31Rl7dBJriX0DNwZfDp8gqFOPsiM0c9kqpcH/HvNi9vDp+K7Ydf42H7mVIvYT918Ywzn1ymLg1c4DDC6iU754w==",
       "type": "package",
-      "path": "xunit.runner.visualstudio/2.5.6",
+      "path": "xunit.runner.visualstudio/2.5.7",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1551,7 +1549,7 @@
         "build/net6.0/xunit.runner.visualstudio.testadapter.dll",
         "lib/net462/_._",
         "lib/net6.0/_._",
-        "xunit.runner.visualstudio.2.5.6.nupkg.sha512",
+        "xunit.runner.visualstudio.2.5.7.nupkg.sha512",
         "xunit.runner.visualstudio.nuspec"
       ]
     },
@@ -1566,8 +1564,8 @@
       "Microsoft.NET.Test.Sdk >= 17.10.0-preview-24080-01",
       "Minitwit.Core >= 1.0.0",
       "coverlet.collector >= 6.0.0",
-      "xunit >= 2.6.6",
-      "xunit.runner.visualstudio >= 2.5.6"
+      "xunit >= 2.7.0",
+      "xunit.runner.visualstudio >= 2.5.7"
     ]
   },
   "packageFolders": {
@@ -1623,13 +1621,13 @@
           },
           "xunit": {
             "target": "Package",
-            "version": "[2.6.6, )"
+            "version": "[2.7.0, )"
           },
           "xunit.runner.visualstudio": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
             "suppressParent": "All",
             "target": "Package",
-            "version": "[2.5.6, )"
+            "version": "[2.5.7, )"
           }
         },
         "imports": [

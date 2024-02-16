@@ -4,6 +4,9 @@
 /home/casper/GitHub/ITU-minitwit/test/Minitwit.WebTests/bin/Debug/net8.0/Minitwit.Web.runtimeconfig.json
 /home/casper/GitHub/ITU-minitwit/test/Minitwit.WebTests/bin/Debug/net8.0/data/DbInitializer.cs
 /home/casper/GitHub/ITU-minitwit/test/Minitwit.WebTests/bin/Debug/net8.0/data/Minitwit.db
+/home/casper/GitHub/ITU-minitwit/test/Minitwit.WebTests/bin/Debug/net8.0/data/MinitwitDBContext.db
+/home/casper/GitHub/ITU-minitwit/test/Minitwit.WebTests/bin/Debug/net8.0/data/MinitwitDBContext.db-shm
+/home/casper/GitHub/ITU-minitwit/test/Minitwit.WebTests/bin/Debug/net8.0/data/MinitwitDBContext.db-wal
 /home/casper/GitHub/ITU-minitwit/test/Minitwit.WebTests/bin/Debug/net8.0/Minitwit.Web.staticwebassets.runtime.json
 /home/casper/GitHub/ITU-minitwit/test/Minitwit.WebTests/bin/Debug/net8.0/Minitwit.Web
 /home/casper/GitHub/ITU-minitwit/test/Minitwit.WebTests/bin/Debug/net8.0/xunit.runner.visualstudio.testadapter.dll
@@ -152,6 +155,3 @@
 /home/casper/GitHub/ITU-minitwit/test/Minitwit.WebTests/obj/Debug/net8.0/Minitwit.WebTests.pdb
 /home/casper/GitHub/ITU-minitwit/test/Minitwit.WebTests/obj/Debug/net8.0/Minitwit.WebTests.genruntimeconfig.cache
 /home/casper/GitHub/ITU-minitwit/test/Minitwit.WebTests/obj/Debug/net8.0/ref/Minitwit.WebTests.dll
-/home/casper/GitHub/ITU-minitwit/test/Minitwit.WebTests/bin/Debug/net8.0/data/MinitwitDBContext.db
-/home/casper/GitHub/ITU-minitwit/test/Minitwit.WebTests/bin/Debug/net8.0/data/MinitwitDBContext.db-shm
-/home/casper/GitHub/ITU-minitwit/test/Minitwit.WebTests/bin/Debug/net8.0/data/MinitwitDBContext.db-wal

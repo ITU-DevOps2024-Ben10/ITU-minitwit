@@ -2,6 +2,9 @@
 /home/casper/GitHub/ITU-minitwit/test/Minitwit.InfrastructureTests/bin/Debug/net8.0/CoverletSourceRootsMapping_Minitwit.InfrastructureTests
 /home/casper/GitHub/ITU-minitwit/test/Minitwit.InfrastructureTests/bin/Debug/net8.0/data/DbInitializer.cs
 /home/casper/GitHub/ITU-minitwit/test/Minitwit.InfrastructureTests/bin/Debug/net8.0/data/Minitwit.db
+/home/casper/GitHub/ITU-minitwit/test/Minitwit.InfrastructureTests/bin/Debug/net8.0/data/MinitwitDBContext.db
+/home/casper/GitHub/ITU-minitwit/test/Minitwit.InfrastructureTests/bin/Debug/net8.0/data/MinitwitDBContext.db-shm
+/home/casper/GitHub/ITU-minitwit/test/Minitwit.InfrastructureTests/bin/Debug/net8.0/data/MinitwitDBContext.db-wal
 /home/casper/GitHub/ITU-minitwit/test/Minitwit.InfrastructureTests/bin/Debug/net8.0/xunit.runner.visualstudio.testadapter.dll
 /home/casper/GitHub/ITU-minitwit/test/Minitwit.InfrastructureTests/bin/Debug/net8.0/xunit.runner.reporters.netcoreapp10.dll
 /home/casper/GitHub/ITU-minitwit/test/Minitwit.InfrastructureTests/bin/Debug/net8.0/xunit.runner.utility.netcoreapp10.dll
@@ -150,6 +153,3 @@
 /home/casper/GitHub/ITU-minitwit/test/Minitwit.InfrastructureTests/obj/Debug/net8.0/Minitwit.InfrastructureTests.pdb
 /home/casper/GitHub/ITU-minitwit/test/Minitwit.InfrastructureTests/obj/Debug/net8.0/Minitwit.InfrastructureTests.genruntimeconfig.cache
 /home/casper/GitHub/ITU-minitwit/test/Minitwit.InfrastructureTests/obj/Debug/net8.0/ref/Minitwit.InfrastructureTests.dll
-/home/casper/GitHub/ITU-minitwit/test/Minitwit.InfrastructureTests/bin/Debug/net8.0/data/MinitwitDBContext.db
-/home/casper/GitHub/ITU-minitwit/test/Minitwit.InfrastructureTests/bin/Debug/net8.0/data/MinitwitDBContext.db-shm
-/home/casper/GitHub/ITU-minitwit/test/Minitwit.InfrastructureTests/bin/Debug/net8.0/data/MinitwitDBContext.db-wal

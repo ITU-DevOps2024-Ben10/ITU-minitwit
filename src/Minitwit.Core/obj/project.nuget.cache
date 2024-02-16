@@ -1,21 +1,21 @@
 {
   "version": 2,
-  "dgSpecHash": "IGhmGrJnm0jAKmhcy2xFZMafTZ/OoU4EphuZXnlFSfLpWU8ybTCVbbAO9sulnPpkWU/8ZfUSXGUq5b15v/nNEA==",
+  "dgSpecHash": "ex+gwlZQ73e/+q5qV2BRZtizFWMgcu7x4fCa2F3Hl7YaIKYpImKpDsP2qB4CzmbV1dzVjD8Yk9l8SJrFbC3ADw==",
   "success": true,
   "projectFilePath": "/home/casper/GitHub/ITU-minitwit/src/Minitwit.Core/Minitwit.Core.csproj",
   "expectedPackageFiles": [
     "/home/casper/.nuget/packages/fluentvalidation/11.9.0/fluentvalidation.11.9.0.nupkg.sha512",
-    "/home/casper/.nuget/packages/microsoft.aspnetcore.cryptography.internal/8.0.1/microsoft.aspnetcore.cryptography.internal.8.0.1.nupkg.sha512",
-    "/home/casper/.nuget/packages/microsoft.aspnetcore.cryptography.keyderivation/8.0.1/microsoft.aspnetcore.cryptography.keyderivation.8.0.1.nupkg.sha512",
-    "/home/casper/.nuget/packages/microsoft.entityframeworkcore.abstractions/8.0.1/microsoft.entityframeworkcore.abstractions.8.0.1.nupkg.sha512",
+    "/home/casper/.nuget/packages/microsoft.aspnetcore.cryptography.internal/8.0.2/microsoft.aspnetcore.cryptography.internal.8.0.2.nupkg.sha512",
+    "/home/casper/.nuget/packages/microsoft.aspnetcore.cryptography.keyderivation/8.0.2/microsoft.aspnetcore.cryptography.keyderivation.8.0.2.nupkg.sha512",
+    "/home/casper/.nuget/packages/microsoft.entityframeworkcore.abstractions/8.0.2/microsoft.entityframeworkcore.abstractions.8.0.2.nupkg.sha512",
     "/home/casper/.nuget/packages/microsoft.extensions.caching.abstractions/8.0.0/microsoft.extensions.caching.abstractions.8.0.0.nupkg.sha512",
     "/home/casper/.nuget/packages/microsoft.extensions.dependencyinjection/8.0.0/microsoft.extensions.dependencyinjection.8.0.0.nupkg.sha512",
     "/home/casper/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.0/microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
-    "/home/casper/.nuget/packages/microsoft.extensions.identity.core/8.0.1/microsoft.extensions.identity.core.8.0.1.nupkg.sha512",
-    "/home/casper/.nuget/packages/microsoft.extensions.identity.stores/8.0.1/microsoft.extensions.identity.stores.8.0.1.nupkg.sha512",
+    "/home/casper/.nuget/packages/microsoft.extensions.identity.core/8.0.2/microsoft.extensions.identity.core.8.0.2.nupkg.sha512",
+    "/home/casper/.nuget/packages/microsoft.extensions.identity.stores/8.0.2/microsoft.extensions.identity.stores.8.0.2.nupkg.sha512",
     "/home/casper/.nuget/packages/microsoft.extensions.logging/8.0.0/microsoft.extensions.logging.8.0.0.nupkg.sha512",
     "/home/casper/.nuget/packages/microsoft.extensions.logging.abstractions/8.0.0/microsoft.extensions.logging.abstractions.8.0.0.nupkg.sha512",
-    "/home/casper/.nuget/packages/microsoft.extensions.options/8.0.1/microsoft.extensions.options.8.0.1.nupkg.sha512",
+    "/home/casper/.nuget/packages/microsoft.extensions.options/8.0.2/microsoft.extensions.options.8.0.2.nupkg.sha512",
     "/home/casper/.nuget/packages/microsoft.extensions.primitives/8.0.0/microsoft.extensions.primitives.8.0.0.nupkg.sha512"
   ],
   "logs": []
