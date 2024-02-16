@@ -16,5 +16,8 @@
 * Start using our Chirp project from the BDSA course
   - Create Blazor project with .Net template
   - Move backend code over from Chirp project to the new Minitwit blazor project
+  - Upgrade .NET version to 8.0.0
+  - Upgrade dependencies, and refactor program.cs to adhere to new Asp.Net Core changes 
   - Refactor code to apply new naming project names
   - Reuse workflows from BDSA
+  - Change back to razorpages
