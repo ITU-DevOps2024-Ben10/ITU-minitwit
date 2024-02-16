@@ -28,6 +28,8 @@ else
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+//API Controllers
+builder.Services.AddControllers();
 
 
 builder.Services.AddDbContext<MinitwitDbContext>(options => 
@@ -94,4 +96,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
 app.MapRazorPages();
+app.MapControllers();
 app.Run();
