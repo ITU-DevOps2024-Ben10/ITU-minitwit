@@ -21,3 +21,9 @@
   - Refactor code to apply new naming project names
   - Reuse workflows from BDSA
   - Change back to razorpages
+* Setup project board
+  * Added GitHub workflows to automate movement of issues
+* Started creating issues for tasks
+* Remove OAuth (GitHub Authentication) from the project
+* Attempt to setup Dockerfile for the project (Not finished)
+  * Attempted to build the Minitwit.Web.csproj, but will now attempt to publish the project using the .sln and use that as an image.
