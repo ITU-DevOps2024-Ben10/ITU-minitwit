@@ -33,7 +33,7 @@ jobs:
           for target in "${targets[@]}"
           do
             release_name="Minitwit-$tag-$target"
-            dotnet publish src/Minitwit/ -c Release --framework net7.0 --runtime $target -o "$release_name"
+            dotnet publish src/Minitwit.Web/ -c Release --framework net7.0 --runtime $target -o "$release_name"
           
             7z a -tzip "${release_name}.zip" "./${release_name}/*"
 
