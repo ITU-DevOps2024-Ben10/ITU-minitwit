@@ -168,3 +168,5 @@ src/Minitwit.Core/obj/Minitwit.Core.csproj.nuget.dgspec.json
 *.json
 *.info
 src/Minitwit.Infrastructure/obj/Debug/net8.0/Minitwit.Infrastructure.AssemblyInfo.cs
+ITU-minitwit.sln.DotSettings.user
+Folder.DotSettings.user
