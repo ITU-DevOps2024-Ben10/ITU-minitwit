@@ -1,23 +1,25 @@
-# Use the official Microsoft .NET Core runtime base image
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
-
-# Set the working directory
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
+EXPOSE 5000
+EXPOSE 5001
 
-# Copy the csproj and restore dependencies
-COPY ["src/Minitwit.Web/Minitwit.Web.csproj", "Minitwit.Web/"]
-RUN dotnet restore "Minitwit.Web/Minitwit.Web.csproj"
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["src/Minitwit.Web/Minitwit.Web.csproj", "/Minitwit.Web/"]
+COPY ["src/Minitwit.Core/Minitwit.Core.csproj", "/Minitwit.Core/"]
+COPY ["src/Minitwit.Infrastructure/Minitwit.Infrastructure.csproj", "/Minitwit.Infrastructure/"]
+RUN dotnet restore "src/Minitwit.Web/Minitwit.Web.csproj"
 
-# Copy everything else and build the project
 COPY . .
-WORKDIR "/app/Minitwit.Web"
-RUN dotnet build "Minitwit.Web.csproj" -c Release -o /app/build
 
-# Publish the project
+WORKDIR "/src/Minitwit.Web"
+RUN dotnet build "Minitwit.Web.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
 FROM build AS publish
-RUN dotnet publish "Minitwit.Web.csproj" -c Release -o /app/publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "Minitwit.Web.csproj" -c $BUILD_CONFIGURATION -o /app/publish appHost=false
 
-# Build runtime image
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
