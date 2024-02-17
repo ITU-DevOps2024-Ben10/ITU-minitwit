@@ -49,21 +49,21 @@ namespace Minitwit.Web.ApiControllers;
 
        
         [HttpGet("msgs/{username}")]
-        public IActionResult GetUserMessages(string username)
+        public IActionResult GetUserMessages([FromQuery] string username)
         {
             return Ok();
         }
 
         
         [HttpGet("fllws/{username}")]
-        public IActionResult GetUserFollowers(string username)
+        public IActionResult GetUserFollowers([FromQuery] string username)
         {
             return Ok(); 
             
         }
         
         [HttpPost("fllws/{username}")]
-        public IActionResult FollowerUser()
+        public IActionResult FollowerUser([FromQuery] string username)
         {
             return Ok(); 
             
