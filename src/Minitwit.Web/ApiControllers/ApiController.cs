@@ -1,43 +1,32 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic.CompilerServices;
 using Minitwit.Core.Entities;
 using Minitwit.Core.Repository;
+using Minitwit.Web;
+using Minitwit.Core.Repository;
+using Minitwit.Infrastructure.Repository;
 
 namespace Minitwit.Web.ApiControllers;
-
-    /*
-     * Endpoints that needs to be exposed:
-     * "/latest" GET
-     * Should return the latest value
-     * 
-     * "/register" POST
-     * err: 400, Suc: 204
-     * "/msgs" GET
-     * 
-     * "/msgs/<username>" GET POST
-     * Abort: 404, Suc: 204
-     * "/fllws/<username>" GET POST
-     */
     
-    
-    [Route("api")]
+    //Isn't needed as the endpoints we need to expose doesn't clash with any endpoints we already use
+    //[Route("api")]
     [ApiController]
     public class ApiController : ControllerBase
-    
+
     {
-        private readonly ICheepRepository _cheepRepository;
-        private readonly IAuthorRepository _authorRepository;
-        public ApiController( ICheepRepository cheepRepository, IAuthorRepository authorRepository)
+        private readonly ICheepService _cheepService;
+        private ObjectResult? latestResponse;
+        public ApiController(ICheepService cheepService)
         {
-            _cheepRepository = cheepRepository;
-            _authorRepository = authorRepository;
+            
+            _cheepService = cheepService; 
         }
         
         [HttpGet("latest")]
         public IActionResult GetLatest()
         {
-            
             //Should return the latest command called from the simulator 
-            return Ok();
+            return Ok(latestResponse);
         }
 
         
@@ -45,15 +34,27 @@ namespace Minitwit.Web.ApiControllers;
         public IActionResult RegisterUser()
         {
            
-            return Ok();
+            return Ok("Register a user");
         }
 
         
         [HttpGet("msgs")]
-        public IActionResult GetAllMessagesFromPublicTimeline()
+        public IActionResult GetMessagesFromPublicTimeline()
         {
-              
-            return Ok("All messages");
+            //TODO Validate input and generally finalize the handling of this endpoint
+            var numberOfCheeps = IntegerType.FromString(Request.Query["no"]) ;
+
+            if (numberOfCheeps < 32)
+            {
+                var result = _cheepService.GetCheeps(1).Take(numberOfCheeps + 1);
+                var response = Ok(result);
+
+                latestResponse = response;
+
+                return response;
+            }
+
+            return BadRequest("Parameter 'no' is invalid");
         }
         
 
@@ -61,21 +62,29 @@ namespace Minitwit.Web.ApiControllers;
         [HttpGet("msgs/{username}")]
         public IActionResult GetUserMessages([FromQuery] string username)
         {
-            return Ok();
+            //TODO Check if user is authorized
+            
+            //TODO check if the requested user exists
+            
+            //TODO Return result
+            
+            
+            
+            return Ok("User message endpoint");
         }
 
         
         [HttpGet("fllws/{username}")]
         public IActionResult GetUserFollowers([FromQuery] string username)
         {
-            return Ok(); 
+            return Ok("See a users followers"); 
             
         }
         
         [HttpPost("fllws/{username}")]
         public IActionResult FollowerUser([FromQuery] string username)
         {
-            return Ok(); 
+            return Ok("Follow a user"); 
             
         }
     }
