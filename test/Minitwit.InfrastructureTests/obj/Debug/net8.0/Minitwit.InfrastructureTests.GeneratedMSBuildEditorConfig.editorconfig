@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Minitwit.InfrastructureTest
-build_property.ProjectDir = /home/casper/GitHub/ITU-minitwit/test/Minitwit.InfrastructureTests/
+build_property.ProjectDir = C:\Users\madsd\Documents\GitHub\ITU-minitwit\test\Minitwit.InfrastructureTests\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
