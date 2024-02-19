@@ -67,6 +67,7 @@ namespace Minitwit.Web.ApiControllers;
             //TODO check if the requested user exists
             
             //TODO Return result
+            var result = _cheepService.GetCheepsFromAuthor()
             
             
             

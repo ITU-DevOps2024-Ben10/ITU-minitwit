@@ -8,6 +8,7 @@ namespace Minitwit.Web;
 public interface ICheepService
 {
     public ICollection<CheepViewModel> GetCheeps(int page);
+    public ICollection<CheepViewModel> GetCheepsFromAuthor(string authorName, int page);
     public ICollection<CheepViewModel> GetCheepsFromAuthor(Guid authorId, int page);
     public ICollection<CheepViewModel> GetCheepsFromAuthorAndFollowing(Guid authorId, int page);
 
@@ -88,5 +89,12 @@ public class MinitwitService : ICheepService
         }
 
         return reactions.Values.ToList();
+    }
+
+    public ICollection<CheepViewModel> GetCheepsFromAuthor(string authorName, int page)
+    {
+        var author = _authorRepository.GetAuthorByName(authorName);
+        var cheeps = GetCheepsFromAuthor(author.Id, page);
+        return cheeps;
     }
 }
