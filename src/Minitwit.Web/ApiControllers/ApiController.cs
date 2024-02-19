@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using Minitwit.Core.Entities;
+using Minitwit.Core.Repository;
 
 namespace Minitwit.Web.ApiControllers;
-
-
 
     /*
      * Endpoints that needs to be exposed:
@@ -18,15 +18,25 @@ namespace Minitwit.Web.ApiControllers;
      * "/fllws/<username>" GET POST
      */
     
+    
     [Route("api")]
     [ApiController]
     public class ApiController : ControllerBase
+    
     {
+        private readonly ICheepRepository _cheepRepository;
+        private readonly IAuthorRepository _authorRepository;
+        public ApiController( ICheepRepository cheepRepository, IAuthorRepository authorRepository)
+        {
+            _cheepRepository = cheepRepository;
+            _authorRepository = authorRepository;
+        }
         
         [HttpGet("latest")]
         public IActionResult GetLatest()
         {
             
+            //Should return the latest command called from the simulator 
             return Ok();
         }
 
@@ -42,7 +52,7 @@ namespace Minitwit.Web.ApiControllers;
         [HttpGet("msgs")]
         public IActionResult GetAllMessagesFromPublicTimeline()
         {
-           
+              
             return Ok("All messages");
         }
         
