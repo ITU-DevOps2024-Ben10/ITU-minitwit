@@ -27,27 +27,38 @@ namespace Minitwit.Web.ApiControllers;
             _cheepService = cheepService;
             _authorRepository = authorRepository;
         }
+
+
+        // TODO: Writes the id of the latest command to a text file
+        private void Update_Latest(int latestId)
+        {
+            
+        }
         
         
+        // TODO: Returns the id of the latest command read from a text file and defaults to -1
         [HttpGet("latest")]
         public IActionResult GetLatest()
         {
-            //Should return the latest command called from the simulator 
+            //Should return the latest command id called from the simulator 
             return Ok(latestResponse);
         }
 
         
         [HttpPost("register")]
-        public IActionResult RegisterUser()
+        public IActionResult RegisterUser([FromQuery] int latest)
         {
+            Update_Latest(latest);
            
             return Ok("Register a user");
         }
 
         
         [HttpGet("msgs")]
-        public IActionResult GetMessagesFromPublicTimeline()
+        public IActionResult GetMessagesFromPublicTimeline([FromQuery] int latest)
         {
+            Update_Latest(latest);
+            
             //TODO Validate input and generally finalize the handling of this endpoint
             var numberOfCheeps = IntegerType.FromString(Request.Query["no"]) ;
             
@@ -86,8 +97,10 @@ namespace Minitwit.Web.ApiControllers;
 
        
         [HttpGet("msgs/{username}")]
-        public IActionResult GetUserMessages([FromQuery] string username)
+        public IActionResult GetUserMessages([FromRoute] string username, [FromQuery] int latest)
         {
+            Update_Latest(latest);
+
             //TODO Check if user is authorized
             bool isAuthorized = true;
             if (!isAuthorized)
@@ -109,22 +122,25 @@ namespace Minitwit.Web.ApiControllers;
 
         
         [HttpGet("fllws/{username}")]
-        public IActionResult GetUserFollowers([FromRoute] string username)
+        public IActionResult GetUserFollowers([FromRoute] string username, [FromQuery] int latest)
         {
+            Update_Latest(latest);
+
             //TODO Add check of author, check if request is authorized
-            var queriedAuthor = _authorRepository.GetAuthorByName(username);
-            var result = queriedAuthor.Followers;
+            var authorFollowers = _authorRepository.GetFollowersById(
+                                                        _authorRepository.GetAuthorByName(username).Id);
             
-            latestResponse = Ok(result);
-            return Ok(result);
+            latestResponse = Ok(authorFollowers);
+            return Ok(authorFollowers);
             
 
         }
         
         [HttpPost("fllws/{username}")]
-        public IActionResult FollowUser([FromRoute] string username)
+        public IActionResult FollowUser([FromRoute] string username, [FromQuery] int latest)
         {
-            
+            Update_Latest(latest);
+
             return Ok(""); 
             
         }
