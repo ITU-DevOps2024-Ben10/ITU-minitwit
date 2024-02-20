@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "wPS6YH4lhB4mLvyBEAzeRIyvFu5TyvoYUaMYQqWxYlJF4/a41bhaXYXoA6HpvrYGSlKxM2LkIbr4y7l11Qrspg==",
+  "dgSpecHash": "Pc9jdX+L2Ka5DTLPPksEJPXS08yE52+BVU03Q+rFFcqP/JLZiFjOviy4+y5l1ExrjXhkG6A2EcWKX5Cz+7Kh4Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\mikke\\Documents\\GitHub\\ITU-minitwit\\test\\Minitwit.InfrastructureTests\\Minitwit.InfrastructureTests.csproj",
   "expectedPackageFiles": [
