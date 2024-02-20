@@ -169,7 +169,9 @@ _ReSharper/
 
 # Ignore build output directories
 /bin/
+\bin\
 /obj/
+\obj\
 
 # Ignore user-specific files
 *.user
