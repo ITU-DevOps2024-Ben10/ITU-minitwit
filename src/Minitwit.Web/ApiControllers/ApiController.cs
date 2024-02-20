@@ -5,7 +5,12 @@ using Minitwit.Core.Repository;
 using Minitwit.Web;
 using Minitwit.Core.Repository;
 using Minitwit.Infrastructure.Repository;
-
+/*
+ * TODO REMOVE THIS COMMENT WHEN THE API IS DONE
+ *
+ * This is a rough draft of our API, logic its not perfect and it is not complete.
+ * For now we're just experimenting with the API and how it should be structured.
+ */
 namespace Minitwit.Web.ApiControllers;
     
     //Isn't needed as the endpoints we need to expose doesn't clash with any endpoints we already use
@@ -15,12 +20,14 @@ namespace Minitwit.Web.ApiControllers;
 
     {
         private readonly ICheepService _cheepService;
+        private readonly IAuthorRepository _authorRepository;
         private ObjectResult? latestResponse;
-        public ApiController(ICheepService cheepService)
+        public ApiController(ICheepService cheepService, IAuthorRepository authorRepository)
         {
-            
-            _cheepService = cheepService; 
+            _cheepService = cheepService;
+            _authorRepository = authorRepository;
         }
+        
         
         [HttpGet("latest")]
         public IActionResult GetLatest()
@@ -43,17 +50,36 @@ namespace Minitwit.Web.ApiControllers;
         {
             //TODO Validate input and generally finalize the handling of this endpoint
             var numberOfCheeps = IntegerType.FromString(Request.Query["no"]) ;
-
-            if (numberOfCheeps < 32)
+            
+            switch (numberOfCheeps)
             {
-                var result = _cheepService.GetCheeps(1).Take(numberOfCheeps + 1);
-                var response = Ok(result);
+                case < 32:
+                {
+                    var result = _cheepService.GetCheeps(1).Take(numberOfCheeps);
+                    var response = Ok(result);
 
-                latestResponse = response;
+                    latestResponse = response;
 
-                return response;
+                    return response;
+                }
+                case > 32:
+                {
+                    var result = _cheepService.GetCheeps(1).Take(32);
+                    for (int i = 2; i < (numberOfCheeps-32)/32; i++)
+                    {
+                        result = result.Concat(_cheepService.GetCheeps(i).Take(32));
+                    }
+                    
+                    result = result.Take(numberOfCheeps);
+                    
+                    var response = Ok(result);
+                    latestResponse = response;
+                    
+                    return Ok(result);
+                    
+                }
             }
-
+            
             return BadRequest("Parameter 'no' is invalid");
         }
         
@@ -63,29 +89,43 @@ namespace Minitwit.Web.ApiControllers;
         public IActionResult GetUserMessages([FromQuery] string username)
         {
             //TODO Check if user is authorized
+            bool isAuthorized = true;
+            if (!isAuthorized)
+            {
+                return Unauthorized("You are not authorized to view this user's cheeps");
+            }
             
             //TODO check if the requested user exists
             
             //TODO Return result
-            var result = _cheepService.GetCheepsFromAuthor()
             
-            
-            
-            return Ok("User message endpoint");
+            var result = _cheepService.GetCheepsFromAuthor(username, 1);
+            if (result.Count == 0)
+            {
+                return NotFound("This User does not have any Cheeps");
+            }
+            return Ok(result);
         }
 
         
         [HttpGet("fllws/{username}")]
-        public IActionResult GetUserFollowers([FromQuery] string username)
+        public IActionResult GetUserFollowers([FromRoute] string username)
         {
-            return Ok("See a users followers"); 
+            //TODO Add check of author, check if request is authorized
+            var queriedAuthor = _authorRepository.GetAuthorByName(username);
+            var result = queriedAuthor.Followers;
             
+            latestResponse = Ok(result);
+            return Ok(result);
+            
+
         }
         
         [HttpPost("fllws/{username}")]
-        public IActionResult FollowerUser([FromQuery] string username)
+        public IActionResult FollowUser([FromRoute] string username)
         {
-            return Ok("Follow a user"); 
+            
+            return Ok(""); 
             
         }
     }
