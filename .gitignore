@@ -191,7 +191,6 @@ _ReSharper/
 *.dll
 *.dll.config
 *.cache
-*.log
 *.json
 *.xml
 *.csproj.user
@@ -201,13 +200,9 @@ _ReSharper/
 *.info
 .idea/.idea.ITU-minitwit/.idea/workspace.xml
 src/Minitwit.Core/obj/Debug/net8.0/Minitwit.Core.AssemblyInfo.cs
-*.cache
 *.editorconfig
 src/Minitwit.Core/obj/Minitwit.Core.csproj.nuget.dgspec.json
 *.props
-*.json
-*.info
 src/Minitwit.Infrastructure/obj/Debug/net8.0/Minitwit.Infrastructure.AssemblyInfo.cs
 ITU-minitwit.sln.DotSettings.user
 Folder.DotSettings.user
-*.info
