@@ -21,7 +21,6 @@ namespace Minitwit.Web.ApiControllers;
     {
         private readonly ICheepService _cheepService;
         private readonly IAuthorRepository _authorRepository;
-        private ObjectResult? latestResponse;
         public ApiController(ICheepService cheepService, IAuthorRepository authorRepository)
         {
             _cheepService = cheepService;
@@ -29,19 +28,48 @@ namespace Minitwit.Web.ApiControllers;
         }
 
 
-        // TODO: Writes the id of the latest command to a text file
+        private const string LatestCommandIdFilePath = "./latest_processed_sim_action_id.txt";
+
+        //Writes the id of the latest command to a text file
         private void Update_Latest(int latestId)
         {
-            
+            try
+            {
+                using StreamWriter writer = new StreamWriter(LatestCommandIdFilePath);
+                writer.Write(latestId.ToString());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error occurred while updating latest id: " + ex.Message);
+            }
         }
-        
-        
-        // TODO: Returns the id of the latest command read from a text file and defaults to -1
+
+        //Returns the id of the latest command read from a text file and defaults to -1
         [HttpGet("latest")]
         public IActionResult GetLatest()
         {
-            //Should return the latest command id called from the simulator 
-            return Ok(latestResponse);
+            try
+            {
+                if (System.IO.File.Exists(LatestCommandIdFilePath))
+                {
+                    string content = System.IO.File.ReadAllText(LatestCommandIdFilePath);
+                    if (!int.TryParse(content, out var latestProcessedCommandId))
+                    {
+                        latestProcessedCommandId = -1;
+                    }
+                    return Ok(new { latest = latestProcessedCommandId });
+                }
+                else
+                {
+                    return Ok(new { latest = -1 });
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exception appropriately, e.g., log it
+                Console.WriteLine("Error occurred while getting latest id: " + ex.Message);
+                return StatusCode(500, "Internal server error");
+            }
         }
 
         
@@ -69,7 +97,7 @@ namespace Minitwit.Web.ApiControllers;
                     var result = _cheepService.GetCheeps(1).Take(numberOfCheeps);
                     var response = Ok(result);
 
-                    latestResponse = response;
+                    Update_Latest(latest);
 
                     return response;
                 }
@@ -84,7 +112,7 @@ namespace Minitwit.Web.ApiControllers;
                     result = result.Take(numberOfCheeps);
                     
                     var response = Ok(result);
-                    latestResponse = response;
+                    Update_Latest(latest);
                     
                     return Ok(result);
                     
@@ -130,7 +158,6 @@ namespace Minitwit.Web.ApiControllers;
             var authorFollowers = _authorRepository.GetFollowersById(
                                                         _authorRepository.GetAuthorByName(username).Id);
             
-            latestResponse = Ok(authorFollowers);
             return Ok(authorFollowers);
             
 
