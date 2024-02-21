@@ -1434,42 +1434,35 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\madsd\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "/home/madsd/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\madsd\\Documents\\GitHub\\ITU-minitwit\\test\\Test_Utilities\\Test_Utilities.csproj",
+      "projectUniqueName": "/home/madsd/Documents/GitHub/ITU-minitwit/test/Test_Utilities/Test_Utilities.csproj",
       "projectName": "Test_Utilities",
-      "projectPath": "C:\\Users\\madsd\\Documents\\GitHub\\ITU-minitwit\\test\\Test_Utilities\\Test_Utilities.csproj",
-      "packagesPath": "C:\\Users\\madsd\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\madsd\\Documents\\GitHub\\ITU-minitwit\\test\\Test_Utilities\\obj\\",
+      "projectPath": "/home/madsd/Documents/GitHub/ITU-minitwit/test/Test_Utilities/Test_Utilities.csproj",
+      "packagesPath": "/home/madsd/.nuget/packages/",
+      "outputPath": "/home/madsd/Documents/GitHub/ITU-minitwit/test/Test_Utilities/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\madsd\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/home/madsd/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\madsd\\Documents\\GitHub\\ITU-minitwit\\src\\Minitwit.Core\\Minitwit.Core.csproj": {
-              "projectPath": "C:\\Users\\madsd\\Documents\\GitHub\\ITU-minitwit\\src\\Minitwit.Core\\Minitwit.Core.csproj"
+            "/home/madsd/Documents/GitHub/ITU-minitwit/src/Minitwit.Core/Minitwit.Core.csproj": {
+              "projectPath": "/home/madsd/Documents/GitHub/ITU-minitwit/src/Minitwit.Core/Minitwit.Core.csproj"
             },
-            "C:\\Users\\madsd\\Documents\\GitHub\\ITU-minitwit\\src\\Minitwit.Infrastructure\\Minitwit.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\madsd\\Documents\\GitHub\\ITU-minitwit\\src\\Minitwit.Infrastructure\\Minitwit.Infrastructure.csproj"
+            "/home/madsd/Documents/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/Minitwit.Infrastructure.csproj": {
+              "projectPath": "/home/madsd/Documents/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/Minitwit.Infrastructure.csproj"
             }
           }
         }
@@ -1478,11 +1471,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -1510,7 +1498,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.201/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.102/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
