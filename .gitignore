@@ -340,3 +340,4 @@ test/Test_Utilities/obj/rider.project.restore.info
 test/Test_Utilities/obj/Test_Utilities.csproj.nuget.dgspec.json
 test/Test_Utilities/obj/Test_Utilities.csproj.nuget.g.props
 test/Test_Utilities/obj/Test_Utilities.csproj.nuget.g.targets
+*.info
