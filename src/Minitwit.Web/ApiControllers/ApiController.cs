@@ -35,7 +35,7 @@ namespace Minitwit.Web.ApiControllers;
         {
             try
             {
-                using StreamWriter writer = new StreamWriter(LatestCommandIdFilePath);
+                using StreamWriter writer = new StreamWriter(LatestCommandIdFilePath, false);
                 writer.Write(latestId.ToString());
             }
             catch (Exception ex)
@@ -52,17 +52,14 @@ namespace Minitwit.Web.ApiControllers;
             {
                 if (System.IO.File.Exists(LatestCommandIdFilePath))
                 {
-                    string content = System.IO.File.ReadAllText(LatestCommandIdFilePath);
-                    if (!int.TryParse(content, out var latestProcessedCommandId))
+                    string fileContent = System.IO.File.ReadAllText(LatestCommandIdFilePath);
+                    if (!int.TryParse(fileContent, out var latestProcessedCommandId))
                     {
                         latestProcessedCommandId = -1;
                     }
                     return Ok(new { latest = latestProcessedCommandId });
                 }
-                else
-                {
-                    return Ok(new { latest = -1 });
-                }
+                return Ok(new { latest = -1 });
             }
             catch (Exception ex)
             {
