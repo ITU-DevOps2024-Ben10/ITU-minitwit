@@ -172,6 +172,8 @@ _ReSharper/
 \bin\
 /obj/
 \obj\
+obj
+bin
 
 # Ignore user-specific files
 *.user
