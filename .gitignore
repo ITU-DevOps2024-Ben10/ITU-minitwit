@@ -157,14 +157,54 @@ cython_debug/
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
+
+# Ignore Visual Studio files
+.vs/
+
+# Ignore ReSharper files
+_ReSharper/
+
+# Ignore NuGet package directory
+/packages/
+
+# Ignore build output directories
+/bin/
+\bin\
+/obj/
+\obj\
+
+# Ignore user-specific files
+*.user
+*.suo
+*.userprefs
+*.sln.docstates
+
+# Ignore Rider specific files
+.idea/
+*.idea/
+
+# Ignore build and publish directories
+/publish/
+/published/
+
+# Ignore .NET Core and .NET Framework artifacts
+*.exe
+*.pdb
+*.dll
+*.dll.config
+*.cache
+*.json
+*.xml
+*.csproj.user
+*.swp
+
 #.idea/
 *.info
 .idea/.idea.ITU-minitwit/.idea/workspace.xml
 src/Minitwit.Core/obj/Debug/net8.0/Minitwit.Core.AssemblyInfo.cs
-*.cache
 *.editorconfig
 src/Minitwit.Core/obj/Minitwit.Core.csproj.nuget.dgspec.json
 *.props
-*.json
-*.info
 src/Minitwit.Infrastructure/obj/Debug/net8.0/Minitwit.Infrastructure.AssemblyInfo.cs
+ITU-minitwit.sln.DotSettings.user
+Folder.DotSettings.user
