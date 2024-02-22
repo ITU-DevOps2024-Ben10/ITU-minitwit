@@ -177,17 +177,21 @@ namespace Minitwit.Web.ApiControllers;
 
         
         [HttpGet("fllws/{username}")]
-        public IActionResult GetUserFollowers([FromRoute] string username, [FromQuery] int latest)
+        public IActionResult GetUserFollowers([FromRoute] string username, [FromQuery] int latest, [FromQuery] int no=100)
         {
             Update_Latest(latest);
 
             //TODO Add check of author, check if request is authorized
             var authorFollowers = _authorRepository.GetFollowersById(
                                                         _authorRepository.GetAuthorByName(username).Id);
+            var output = new List<String>();
+            for (int i = 0; i < authorFollowers.Count; i++)
+            {
+                if(i>no-1) break;
+                output.Add(authorFollowers.ElementAt(i).UserName);
+            }
             
-            return Ok(authorFollowers);
-            
-
+            return Ok(output.GetRange(0,no));
         }
         
         [HttpPost("fllws/{username}")]
