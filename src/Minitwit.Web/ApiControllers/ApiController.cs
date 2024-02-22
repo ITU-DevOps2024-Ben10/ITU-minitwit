@@ -28,22 +28,19 @@ namespace Minitwit.Web.ApiControllers;
         private readonly UserManager<Author> _userManager;
         private readonly IUserStore<Author> _userStore;
         private readonly IUserEmailStore<Author> _emailStore;
-        private readonly IFollowRepository _followRepository;
         
         
         public ApiController(
             ICheepService cheepService, 
             IAuthorRepository authorRepository,
             UserManager<Author> userManager,
-            IUserStore<Author> userStore,
-            IFollowRepository followRepository)
+            IUserStore<Author> userStore)
         {
             _cheepService = cheepService;
             _authorRepository = authorRepository;
             _userManager = userManager;
             _userStore = userStore;
             _emailStore = GetEmailStore();
-            _followRepository = followRepository;
         }
 
 
@@ -186,7 +183,7 @@ namespace Minitwit.Web.ApiControllers;
 
             //TODO Add check of author, check if request is authorized
             var authorFollowers = _authorRepository.GetFollowersById(
-                                                        _authorRepository.GetAuthorByName(username).Id);
+                _authorRepository.GetAuthorByName(username).Id);
             var output = new List<String>();
             for (int i = 0; i < authorFollowers.Count; i++)
             {
@@ -198,17 +195,46 @@ namespace Minitwit.Web.ApiControllers;
         }
         
         [HttpPost("fllws/{username}")]
-        public IActionResult FollowUser([FromRoute] string username, [FromQuery] int latest)
+        public IActionResult FollowUser([FromRoute] string username, [FromQuery] int latest, [FromBody] FollowData followData)
         {
             Update_Latest(latest);
 
-            return Ok(""); 
             
+            // Continue from here!
+            try
+            {   
+                if (followData.follow is not null or "")
+                {
+                    var followed = _authorRepository.GetAuthorByName(username);
+                    var follower = _authorRepository.GetAuthorByName(followData.follow);
+                    _authorRepository.AddFollow(follower, followed);
+                    return Ok($"{followData.follow} now follows {username}");
+                }
+            
+                if (followData.unfollow is not null or "")
+                {
+                    var followed = _authorRepository.GetAuthorByName(username);
+                    var follower = _authorRepository.GetAuthorByName(followData.unfollow);
+                    _authorRepository.RemoveFollow(follower, followed);
+                    return Ok($"{followData.unfollow} no longer follows {username}");
+                }
+            }
+            catch (Exception)
+            {
+                return BadRequest("");
+            }
+            return BadRequest("");
         }
         
         
         
         // ######################## TEMP
+
+        public class FollowData
+        {
+            public string follow { get; set; }
+            public string unfollow { get; set; }
+        }
         
         public class RegisterUserData
         {
