@@ -136,13 +136,19 @@ namespace Minitwit.Web.ApiControllers;
             //TODO check if the requested user exists
             
             //TODO Return result
-            
-            var result = _cheepService.GetCheepsFromAuthor(username, 1);
-            if (result.Count == 0)
+            try
             {
-                return NotFound("This User does not have any Cheeps");
+                var result = _cheepService.GetCheepsFromAuthor(username, 1);
+                if (result.Count == 0)
+                {
+                    return NotFound("This User does not have any Cheeps");
+                }
+                Update_Latest(latest);
+                return Ok(result);
+            } catch
+            {
+                return NotFound("The user was not found");
             }
-            return Ok(result);
         }
 
         
