@@ -28,19 +28,22 @@ namespace Minitwit.Web.ApiControllers;
         private readonly UserManager<Author> _userManager;
         private readonly IUserStore<Author> _userStore;
         private readonly IUserEmailStore<Author> _emailStore;
+        private readonly IFollowRepository _followRepository;
         
         
         public ApiController(
             ICheepService cheepService, 
             IAuthorRepository authorRepository,
             UserManager<Author> userManager,
-            IUserStore<Author> userStore)
+            IUserStore<Author> userStore,
+            IFollowRepository followRepository)
         {
             _cheepService = cheepService;
             _authorRepository = authorRepository;
             _userManager = userManager;
             _userStore = userStore;
             _emailStore = GetEmailStore();
+            _followRepository = followRepository;
         }
 
 
