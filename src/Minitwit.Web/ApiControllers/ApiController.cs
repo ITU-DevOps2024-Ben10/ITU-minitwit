@@ -145,9 +145,9 @@ namespace Minitwit.Web.ApiControllers;
                 }
                 Update_Latest(latest);
                 return Ok(result);
-            } catch
+            } catch (Exception ex)
             {
-                return NotFound("The user was not found");
+                return NotFound(ex.Message);
             }
         }
 
