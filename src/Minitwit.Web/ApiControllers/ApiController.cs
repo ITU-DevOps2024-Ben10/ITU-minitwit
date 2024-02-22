@@ -50,7 +50,7 @@ namespace Minitwit.Web.ApiControllers;
         private const string LatestCommandIdFilePath = "./latest_processed_sim_action_id.txt";
 
         //Writes the id of the latest command to a text file
-        private void Update_Latest(int latestId)
+        private void Update_Latest(int latestId = -1)
         {
             try
             {
