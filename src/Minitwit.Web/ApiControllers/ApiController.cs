@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic.CompilerServices;
 using Minitwit.Core.Entities;
@@ -5,6 +7,8 @@ using Minitwit.Core.Repository;
 using Minitwit.Web;
 using Minitwit.Core.Repository;
 using Minitwit.Infrastructure.Repository;
+using Minitwit.Web.Areas.Identity.Pages.Account;
+
 /*
  * TODO REMOVE THIS COMMENT WHEN THE API IS DONE
  *
@@ -21,10 +25,22 @@ namespace Minitwit.Web.ApiControllers;
     {
         private readonly ICheepService _cheepService;
         private readonly IAuthorRepository _authorRepository;
-        public ApiController(ICheepService cheepService, IAuthorRepository authorRepository)
+        private readonly UserManager<Author> _userManager;
+        private readonly IUserStore<Author> _userStore;
+        private readonly IUserEmailStore<Author> _emailStore;
+        
+        
+        public ApiController(
+            ICheepService cheepService, 
+            IAuthorRepository authorRepository,
+            UserManager<Author> userManager,
+            IUserStore<Author> userStore)
         {
             _cheepService = cheepService;
             _authorRepository = authorRepository;
+            _userManager = userManager;
+            _userStore = userStore;
+            _emailStore = GetEmailStore();
         }
 
 
@@ -71,11 +87,19 @@ namespace Minitwit.Web.ApiControllers;
 
         
         [HttpPost("register")]
-        public IActionResult RegisterUser([FromQuery] int latest)
+        public async Task<IActionResult> RegisterUser([FromQuery] int latest, [FromBody] RegisterUserData data)
         {
+               
             Update_Latest(latest);
            
-            return Ok("Register a user");
+            var user = CreateUser();
+
+            await _userStore.SetUserNameAsync(user, data.username, CancellationToken.None);
+            await _emailStore.SetEmailAsync(user, data.email, CancellationToken.None);
+            var result = await _userManager.CreateAsync(user, data.pwd);
+            
+            if (result.Succeeded) return Ok("Register a user");
+            return StatusCode(401);
         }
 
         
@@ -174,4 +198,41 @@ namespace Minitwit.Web.ApiControllers;
             return Ok(""); 
             
         }
+        
+        
+        
+        // ######################## TEMP
+        
+        public class RegisterUserData
+        {
+            public string username { get; set; }
+            public string email { get; set; }
+            public string pwd { get; set; }
+        }
+        
+        
+        private IUserEmailStore<Author> GetEmailStore()
+        {
+            if (!_userManager.SupportsUserEmail)
+            {
+                throw new NotSupportedException("The default UI requires a user store with email support.");
+            }
+            return (IUserEmailStore<Author>)_userStore;
+        }
+        
+        private Author CreateUser()
+        {
+            try
+            {
+                return Activator.CreateInstance<Author>();
+            }
+            catch
+            {
+                throw new InvalidOperationException($"Can't create an instance of 'Author'. " +
+                                                    $"Ensure that 'Author' is not an abstract class and has a parameterless constructor, or alternatively " +
+                                                    $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
+            }
+        }
+        
+        
     }
