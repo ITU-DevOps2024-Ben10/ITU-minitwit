@@ -78,7 +78,7 @@ namespace Minitwit.Web.Areas.Identity.Pages.Account
             /// </summary>
             [Required]
             [DataType(DataType.Text)]
-            [Display(Name = "Usnername")]
+            [Display(Name = "Username")]
             public string Username { get; set; }
 
             /// <summary>
