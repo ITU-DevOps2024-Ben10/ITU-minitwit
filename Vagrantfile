@@ -7,6 +7,10 @@ Vagrant.configure("2") do |config| # Note: Ensure you're using the latest config
   config.vm.box_url = "https://github.com/devopsgroup-io/vagrant-digitalocean/raw/master/box/digital_ocean.box"
   config.ssh.private_key_path = '~/.ssh/id_rsa'
   config.vm.synced_folder ".", "/vagrant", type: "rsync"
+  config.vm.provision "shell", inline: <<-SHELL
+      systemctl disable apt-daily.service
+      systemctl disable apt-daily.timer
+    SHELL
 
   config.vm.define "webserver", primary: true do |server|
     # Correctly configure the DigitalOcean provider
@@ -18,14 +22,22 @@ Vagrant.configure("2") do |config| # Note: Ensure you're using the latest config
       provider.privatenetworking = false
     end
 
-    config.vm.provision "shell", inline: <<-SHELL
-      systemctl disable apt-daily.service
-      systemctl disable apt-daily.timer
-    SHELL
-
     server.vm.hostname = "webserver"
 
     server.vm.provision "shell", inline: <<-SHELL
+
+      echo "Updating host machine and adding Microsoft packages to Aptitude"
+
+      wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+      sudo dpkg -i packages-microsoft-prod.deb
+
+      # Wait for dpkg locks to be released
+      while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1 || sudo fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1; do
+        echo "Waiting for other dpkg processes to finish..."
+        sleep 1
+      done
+
+      sudo apt-get update
 
       echo "Installing .NET 8 and ASP.NET Core..."
 
@@ -38,25 +50,20 @@ Vagrant.configure("2") do |config| # Note: Ensure you're using the latest config
 
       echo "Running C# Project..."
 
-      cd $HOME/ITU-minitwit/Minitwit.Web
-
       THIS_IP=`hostname -I | cut -d" " -f1`
-
-      export ASPNETCORE_URLS=http://${THIS_IP}:8080;https://${THIS_IP}:8081
       
-      dotnet restore
-      dotnet build
-      #nohup dotnet run > dotnet_app.log &
+      dotnet restore $HOME/ITU-minitwit/Minitwit.Web
+      dotnet publish $HOME/ITU-minitwit/Minitwit.Web -o webserver
+      
+      cd $HOME/webserver
+
+      nohup ./Minitwit.Web --urls http://${THIS_IP}:8080;https://${THIS_IP}:8081 > dotnet_app.log &
 
       echo "================================================================="
       echo "=                            DONE                               ="
       echo "================================================================="
       echo "The webserver is exposing HTTPS on http://${THIS_IP}:8080"
-      echo "The webserver is exposing HTTPS on http://${THIS_IP}:8080"
+      echo "The webserver is exposing HTTPS on http://${THIS_IP}:8081"
     SHELL
   end
-
-  config.vm.provision "shell", privileged: false, inline: <<-SHELL
-    sudo apt-get update
-  SHELL
 end
