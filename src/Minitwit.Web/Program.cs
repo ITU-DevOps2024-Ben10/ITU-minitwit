@@ -30,7 +30,12 @@ else
 builder.Services.AddRazorPages();
 
 //API Controllers
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+    options.JsonSerializerOptions.IgnoreNullValues = true;
+});
 
 builder.Services.AddDbContext<MinitwitDbContext>(options => 
     options.UseSqlite($"Data Source={dbPath}"));
