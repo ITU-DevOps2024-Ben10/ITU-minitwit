@@ -18,6 +18,11 @@ Vagrant.configure("2") do |config| # Note: Ensure you're using the latest config
       provider.privatenetworking = false
     end
 
+    config.vm.provision "shell", inline: <<-SHELL
+      systemctl disable apt-daily.service
+      systemctl disable apt-daily.timer
+    SHELL
+
     server.vm.hostname = "webserver"
 
     server.vm.provision "shell", inline: <<-SHELL
@@ -37,7 +42,7 @@ Vagrant.configure("2") do |config| # Note: Ensure you're using the latest config
 
       THIS_IP=`hostname -I | cut -d" " -f1`
 
-      export ASPNETCORE_URLS=http://{$THIS_IP}:8080;https://{$THIS_IP}:8081;
+      export ASPNETCORE_URLS=http://${THIS_IP}:8080;https://${THIS_IP}:8081
       
       dotnet restore
       dotnet build
