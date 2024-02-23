@@ -16,21 +16,22 @@ using Minitwit.Web.Areas.Identity.Pages.Account;
  * For now we're just experimenting with the API and how it should be structured.
  */
 namespace Minitwit.Web.ApiControllers;
-    
+
 //Isn't needed as the endpoints we need to expose doesn't clash with any endpoints we already use
 [Route("api")]
 [ApiController]
 public class ApiController : ControllerBase
+
 {
     private readonly ICheepService _cheepService;
     private readonly IAuthorRepository _authorRepository;
     private readonly UserManager<Author> _userManager;
     private readonly IUserStore<Author> _userStore;
     private readonly IUserEmailStore<Author> _emailStore;
-        
-        
+
+
     public ApiController(
-        ICheepService cheepService, 
+        ICheepService cheepService,
         IAuthorRepository authorRepository,
         UserManager<Author> userManager,
         IUserStore<Author> userStore)
@@ -84,68 +85,66 @@ public class ApiController : ControllerBase
         }
     }
 
-        
+
     [HttpPost("register")]
     public async Task<IActionResult> RegisterUser([FromQuery] int latest, [FromBody] RegisterUserData data)
     {
-               
+
         Update_Latest(latest);
-           
+
         var user = CreateUser();
 
         await _userStore.SetUserNameAsync(user, data.username, CancellationToken.None);
         await _emailStore.SetEmailAsync(user, data.email, CancellationToken.None);
         var result = await _userManager.CreateAsync(user, data.pwd);
-            
+
         if (result.Succeeded) return Ok("Register a user");
         return StatusCode(401);
     }
 
-        
+
     [HttpGet("msgs")]
-    public IActionResult GetMessagesFromPublicTimeline([FromQuery] int latest)
+    public IActionResult GetMessagesFromPublicTimeline([FromQuery] int latest, [FromQuery] int no)
     {
         Update_Latest(latest);
-            
-        //TODO Validate input and generally finalize the handling of this endpoint
-        var numberOfCheeps = IntegerType.FromString(Request.Query["no"]) ;
-            
-        switch (numberOfCheeps)
+
+
+        switch (no)
         {
-            case < 32:
-            {
-                var result = _cheepService.GetCheeps(1).Take(numberOfCheeps);
-                var response = Ok(result);
-
-                Update_Latest(latest);
-
-                return response;
-            }
-            case > 32:
-            {
-                var result = _cheepService.GetCheeps(1).Take(32);
-                for (int i = 2; i < (numberOfCheeps-32)/32; i++)
+            case < 0:
                 {
-                    result = result.Concat(_cheepService.GetCheeps(i).Take(32));
+                    return BadRequest("'no' cannot be negative");
                 }
-                    
-                result = result.Take(numberOfCheeps);
-                    
-                var response = Ok(result);
-                Update_Latest(latest);
-                    
-                return Ok(result);
-                    
-            }
+            case < 32:
+                {
+                    var result = _cheepService.GetCheeps(1).Take(no);
+
+                    return Ok(result);
+                }
+            case > 32:
+                {
+                    var result = _cheepService.GetCheeps(1).Take(32);
+                    for (int i = 2; i < (no - 32) / 32; i++)
+                    {
+                        result = result.Concat(_cheepService.GetCheeps(i).Take(32));
+                    }
+
+                    result = result.Take(no);
+
+                    var response = Ok(result);
+
+                    return Ok(result);
+
+                }
         }
-            
+
         return BadRequest("Parameter 'no' is invalid");
     }
-        
 
-       
+
+
     [HttpGet("msgs/{username}")]
-    public IActionResult GetUserMessages([FromRoute] string username, [FromQuery] int latest)
+    public IActionResult GetUserMessages([FromRoute] string username, [FromQuery] int latest, [FromQuery] int no)
     {
         Update_Latest(latest);
 
@@ -155,28 +154,75 @@ public class ApiController : ControllerBase
         {
             return Unauthorized("You are not authorized to view this user's cheeps");
         }
-            
+
         //TODO check if the requested user exists
-            
+
         //TODO Return result
         try
         {
-            var result = _cheepService.GetCheepsFromAuthor(username, 1);
-            if (result.Count == 0)
+            switch (no)
             {
-                return NotFound("This User does not have any Cheeps");
+                case < 0:
+                    {
+                        return BadRequest("'no' cannot be negative");
+                    }
+                case < 32:
+                    {
+                        var result = _cheepService.GetCheepsFromAuthor(username, 1).Take(no);
+                        if (result.Count() == 0)
+                        {
+                            return NotFound("This User does not have any Cheeps");
+                        }
+                        return Ok(result);
+                    }
+                case > 32:
+                    {
+                        var result = _cheepService.GetCheeps(1).Take(32);
+                        for (int i = 2; i < (no - 32) / 32; i++)
+                        {
+                            result = result.Concat(_cheepService.GetCheepsFromAuthor(username, i).Take(32));
+                        }
+
+                        result = result.Take(no);
+
+                        var response = Ok(result);
+
+                        return Ok(result);
+
+                    }
             }
-            Update_Latest(latest);
-            return Ok(result);
-        } catch (Exception ex)
-        {
-            return NotFound(ex.Message);
+
+            return BadRequest("Parameter 'no' is invalid");
         }
+        catch (Exception e)
+        {
+            return NotFound(e.Message);
+        }
+
+        return BadRequest();
     }
 
-        
+    [HttpPost("msgs/{username}")]
+    public IActionResult PostUserMessage([FromRoute] string username, [FromQuery] int latest)
+    {
+        Update_Latest(latest);
+
+        //TODO Check if user is authorized
+        bool isAuthorized = true;
+
+        if (!isAuthorized)
+        {
+            return Unauthorized("You are not authorized to view this user's cheeps");
+        }
+
+        //TODO check if the requested user exists
+
+        return Ok(new NotImplementedException("Not implemented"));
+    }
+
+
     [HttpGet("fllws/{username}")]
-    public IActionResult GetUserFollowers([FromRoute] string username, [FromQuery] int latest, [FromQuery] int no=100)
+    public IActionResult GetUserFollowers([FromRoute] string username, [FromQuery] int latest, [FromQuery] int no = 100)
     {
         Update_Latest(latest);
 
@@ -186,11 +232,11 @@ public class ApiController : ControllerBase
         var output = new List<String>();
         for (int i = 0; i < authorFollowers.Count; i++)
         {
-            if(i>no-1) break;
+            if (i > no - 1) break;
             output.Add(authorFollowers.ElementAt(i).UserName);
         }
-            
-        return Ok(output.GetRange(0,no));
+
+        return Ok(output.GetRange(0, no));
     }
 
     [HttpPost("fllws/{username}")]
@@ -244,15 +290,15 @@ public class ApiController : ControllerBase
         public string? unfollow { get; set; }
 
     }
-        
+
     public class RegisterUserData
     {
         public string username { get; set; }
         public string email { get; set; }
         public string pwd { get; set; }
     }
-        
-        
+
+
     private IUserEmailStore<Author> GetEmailStore()
     {
         if (!_userManager.SupportsUserEmail)
@@ -261,7 +307,7 @@ public class ApiController : ControllerBase
         }
         return (IUserEmailStore<Author>)_userStore;
     }
-        
+
     private Author CreateUser()
     {
         try
@@ -275,6 +321,6 @@ public class ApiController : ControllerBase
                                                 $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
         }
     }
-        
-        
+
+
 }
