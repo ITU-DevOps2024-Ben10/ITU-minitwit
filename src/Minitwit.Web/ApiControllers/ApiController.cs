@@ -14,7 +14,7 @@ using Minitwit.Infrastructure.Repository;
 namespace Minitwit.Web.ApiControllers;
     
     //Isn't needed as the endpoints we need to expose doesn't clash with any endpoints we already use
-    //[Route("api")]
+    [Route("api")]
     [ApiController]
     public class ApiController : ControllerBase
 
