@@ -25,6 +25,7 @@ public class ApiController : ControllerBase
 {
     private readonly ICheepService _cheepService;
     private readonly IAuthorRepository _authorRepository;
+    private readonly ICheepRepository _cheepRepository;
     private readonly UserManager<Author> _userManager;
     private readonly IUserStore<Author> _userStore;
     private readonly IUserEmailStore<Author> _emailStore;
@@ -33,11 +34,13 @@ public class ApiController : ControllerBase
     public ApiController(
         ICheepService cheepService,
         IAuthorRepository authorRepository,
+        ICheepRepository cheepRepository,
         UserManager<Author> userManager,
         IUserStore<Author> userStore)
     {
         _cheepService = cheepService;
         _authorRepository = authorRepository;
+        _cheepRepository = cheepRepository;
         _userManager = userManager;
         _userStore = userStore;
         _emailStore = GetEmailStore();
@@ -203,24 +206,30 @@ public class ApiController : ControllerBase
     }
 
     [HttpPost("msgs/{username}")]
-    public IActionResult PostUserMessage([FromRoute] string username, [FromQuery] int latest)
+    public async Task<IActionResult> PostMessage([FromRoute] string username, [FromQuery] int latest, [FromBody] MsgsData Msgsdata)
     {
-        Update_Latest(latest);
-
-        //TODO Check if user is authorized
-        bool isAuthorized = true;
-
-        if (!isAuthorized)
-        {
-            return Unauthorized("You are not authorized to view this user's cheeps");
+        try
+        {   
+            
+            Author user =_authorRepository.GetAuthorByName(username);
+            
+            CreateCheep cheep = new CreateCheep(user, Msgsdata.content);
+            
+            var result =_cheepRepository.AddCreateCheep(cheep);
+            
+            Update_Latest(latest);
+            return Ok(result);
+            
         }
-
-        //TODO check if the requested user exists
-
-        return Ok(new NotImplementedException("Not implemented"));
+        catch (Exception ex)
+        {
+            return BadRequest();
+        }
+       
+        
     }
 
-
+    
     [HttpGet("fllws/{username}")]
     public IActionResult GetUserFollowers([FromRoute] string username, [FromQuery] int latest, [FromQuery] int no = 100)
     {
@@ -283,7 +292,10 @@ public class ApiController : ControllerBase
 
 
     // ######################## TEMP
-
+    public class MsgsData
+    {
+        public string content { get; set; }
+    }
     public class FollowData
     {
         public string? follow { get; set; }
