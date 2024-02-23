@@ -24,8 +24,7 @@ Vagrant.configure("2") do |config| # Note: Ensure you're using the latest config
 
       echo "Installing .NET 8 and ASP.NET Core..."
 
-      sudo apt-get update
-      sudo apt-get install -y dotnet-sdk-8.0 && \\
+      sudo apt-get install -y dotnet-sdk-8.0
       sudo apt-get install -y aspnetcore-runtime-8.0
 
       echo "Copying C# Project files..."
@@ -36,17 +35,19 @@ Vagrant.configure("2") do |config| # Note: Ensure you're using the latest config
 
       cd $HOME/ITU-minitwit/Minitwit.Web
 
-      export ASPNETCORE_URLS=http://*:5000
+      THIS_IP=`hostname -I | cut -d" " -f1`
+
+      export ASPNETCORE_URLS=http://{$THIS_IP}:8080;https://{$THIS_IP}:8081;
       
       dotnet restore
       dotnet build
-      nohup dotnet run > dotnet_app.log &
+      #nohup dotnet run > dotnet_app.log &
 
       echo "================================================================="
       echo "=                            DONE                               ="
       echo "================================================================="
-      THIS_IP=`hostname -I | cut -d" " -f1`
-      echo "Your application is now running on http://${THIS_IP}:8080"
+      echo "The webserver is exposing HTTPS on http://${THIS_IP}:8080"
+      echo "The webserver is exposing HTTPS on http://${THIS_IP}:8080"
     SHELL
   end
 
