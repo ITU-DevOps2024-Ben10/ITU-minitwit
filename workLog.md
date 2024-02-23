@@ -27,3 +27,7 @@
 * Remove OAuth (GitHub Authentication) from the project
 * Attempt to setup Dockerfile for the project (Not finished)
   * Attempted to build the Minitwit.Web.csproj, but will now attempt to publish the project using the .sln and use that as an image.
+
+## Week 7
+* We've added pipeline middleware(builer.Services.AddController and app.MapControllers();) to support a controller for the API.
+  * We've roughly implemented the API for the Minitwit project, it still needs refinement and testing. 
