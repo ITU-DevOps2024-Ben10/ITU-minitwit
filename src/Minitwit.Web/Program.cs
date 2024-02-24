@@ -29,6 +29,13 @@ else
 // Add services to the container.
 builder.Services.AddRazorPages();
 
+//API Controllers
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+    options.JsonSerializerOptions.IgnoreNullValues = true;
+});
 
 builder.Services.AddDbContext<MinitwitDbContext>(options => 
     options.UseSqlite($"Data Source={dbPath}"));
@@ -88,7 +95,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.MapControllers();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
