@@ -37,36 +37,11 @@ public sealed class MinitwitDbContext : IdentityDbContext<Author, IdentityRole<G
             
             entity.Property(e => e.Id);
 
-             entity.HasMany(a => a.Following)
-            .WithOne(f => f.FollowingAuthor)
-            .HasForeignKey(f => f.FollowingAuthorId);
-
-            entity.HasMany(a => a.Followers)
-            .WithOne(f => f.FollowedAuthor)
-            .HasForeignKey(f => f.FollowedAuthorId);
-
-            entity.HasMany(a => a.Cheeps)
-                .WithOne(c => c.Author)
-                .HasForeignKey(c => c.AuthorId)
-                .IsRequired(); // Cascade delete for Cheeps
-
-            entity.HasMany(a => a.Reactions)
-                .WithOne(r => r.Author)
-                .HasForeignKey(r => r.AuthorId)
-                .IsRequired();
         });
 
         modelBuilder.Entity<Follow>(entity =>
         {
             entity.HasKey(f => new { f.FollowingAuthorId, f.FollowedAuthorId });
-
-            entity.HasOne(f => f.FollowingAuthor)
-            .WithMany(a => a.Following)
-            .HasForeignKey(f => f.FollowingAuthorId);
-
-            entity.HasOne(f => f.FollowedAuthor)
-            .WithMany(a => a.Followers)
-            .HasForeignKey(f => f.FollowedAuthorId);
         });
         
         // Cheep entity
@@ -76,14 +51,6 @@ public sealed class MinitwitDbContext : IdentityDbContext<Author, IdentityRole<G
             entity.Property(e => e.Text).IsRequired();
             entity.Property(e => e.TimeStamp).IsRequired();
 
-            entity.HasOne(c => c.Author)
-                .WithMany(a => a.Cheeps)
-                .HasForeignKey(c => c.AuthorId); // Cascade delete for Cheeps
-
-            entity.HasMany(c => c.Reactions)
-                .WithOne(r => r.Cheep)
-                .HasForeignKey(r => r.CheepId)
-                .IsRequired(); // Cascade delete for Reactions
         });
 
         modelBuilder.Entity<Reaction>().Property(m => m.ReactionType)
@@ -93,10 +60,6 @@ public sealed class MinitwitDbContext : IdentityDbContext<Author, IdentityRole<G
         {
             entity.HasKey(r => new { r.CheepId, r.AuthorId });
 
-            entity.HasOne(r => r.Author)
-                .WithMany(a => a.Reactions)
-                .HasForeignKey(r => r.AuthorId)
-                .IsRequired(); // Restrict delete for Reactions
         });
 
         modelBuilder.Entity<IdentityUserLogin<Guid>>().HasKey(e => e.UserId);

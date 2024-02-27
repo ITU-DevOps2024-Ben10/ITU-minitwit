@@ -15,8 +15,7 @@ public class UserModel
     public Guid Id { get; set; }
     public string Username { get; set; }
     public string Email { get; set; }
-    public ICollection<Follow> Followers { get; set; }
-    public ICollection<Follow> Following { get; set; }
+
     
     // Constructor to initialize properties based on an Author entity
     public UserModel(Author author)
@@ -24,8 +23,7 @@ public class UserModel
         Id = author.Id;
         Username = author.UserName;
         Email = author.Email;
-        Followers = author.Followers;
-        Following = author.Following;
+
     }
 
     public bool UserHasFollowers(Guid userId)

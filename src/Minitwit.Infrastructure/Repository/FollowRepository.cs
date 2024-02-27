@@ -39,4 +39,9 @@ public class FollowRepository : BaseRepository, IFollowRepository
 
         return isFollowing;
     }
+
+    public bool HasFollowers(Guid authorId)
+    {
+        return db.Follows.Any(e => e.FollowedAuthorId == authorId);
+    }
 }
