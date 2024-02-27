@@ -52,12 +52,24 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
 
 
     // ----- Get Cheeps By Author and Page Methods ----- //
-    public ICollection<Cheep> GetCheepsByAuthor(Guid id, int page)
+
+
+    public ICollection<Cheep> GetCheepsByAuthor(Guid id)
     {
         Author author = GetAuthorById(id);
+        return db.Cheeps
+            .Where(e => e.AuthorId == author.Id)
+            .ToList();
+    }
+    
+    public ICollection<Cheep> GetCheepsByAuthor(Guid id, int page)
+    {
+
+        Author author = GetAuthorById(id);
+        var cheeps = GetCheepsByAuthor(id);
         
         //Check that author has cheeps
-        if (author.Cheeps == null || !(author.Cheeps.Any()))
+        if (cheeps == null || cheeps.Count == 0)
         {
             throw new Exception("Author " + author.UserName + " has no cheeps");
         }
@@ -68,37 +80,51 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
 
         int pageSizeIndex = (page - 1) * PageSize;
 
-        if (author.Cheeps.Count < pageSizeIndex + PageSize)
-            return author.Cheeps.ToList<Cheep>().GetRange(pageSizeIndex, author.Cheeps.Count - pageSizeIndex)
+        if (cheeps.Count < pageSizeIndex + PageSize)
+            return cheeps.ToList().GetRange(pageSizeIndex, cheeps.Count - pageSizeIndex)
                 .OrderByDescending(c => c.TimeStamp).ToList();
-        if(author.Cheeps.Count > PageSize) return author.Cheeps.ToList<Cheep>().GetRange(pageSizeIndex,PageSize).OrderByDescending(c => c.TimeStamp).ToList();
-        return author.Cheeps.OrderByDescending(c => c.TimeStamp).ToList();
+        if(cheeps.Count > PageSize) return cheeps.ToList().GetRange(pageSizeIndex,PageSize).OrderByDescending(c => c.TimeStamp).ToList();
+        return cheeps.OrderByDescending(c => c.TimeStamp).ToList();
+    }
+
+    public ICollection<Cheep> GetCheepsByAuthorAndFollowing(Guid id)
+    {
+        ICollection<Cheep> cheeps = new List<Cheep>();
+        cheeps.Concat(GetCheepsByAuthor(id)).ToList();
+        
+        foreach (Author author in GetFollowingById(id))
+        {
+            cheeps.Add(GetCheepsByAuthor(author.Id));
+        }
+
+        return cheeps;
     }
     
     public ICollection<Cheep> GetCheepsByAuthorAndFollowing(Guid id, int page)
     {
         Author author = GetAuthorById(id);
         //Get cheeps from the author, and append cheeps from followers to that list
-        ICollection<Author?> following = GetFollowingById(id);
+        ICollection<Author> following = GetFollowingById(id);
         ICollection<Cheep> cheeps = new List<Cheep>();
 
         // Add all the users cheeps to the list without pagination
-        foreach (var cheepDto in author.Cheeps)
+        foreach (var cheepDto in GetCheepsByAuthor(id))
         {
             cheeps.Add(cheepDto);
         }
 
         foreach (Author? follower in following)
         {
+            ICollection<Cheep> followingCheeps = GetCheepsByAuthor(follower.Id);
             //If follower has no cheeps, skip them
-            if (follower.Cheeps == null || !(follower.Cheeps.Any()))
+            if (followingCheeps.Count == 0)
             {
                 continue;
             }
 
             //Add each cheep from the follower to the list
             //TODO Try to find alternative to foreach
-            foreach (var cheepDto in follower.Cheeps)
+            foreach (var cheepDto in followingCheeps)
             {
                 cheeps.Add(cheepDto);
             }
@@ -118,30 +144,19 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
     // ----- Get Cheeps By Author Methods ----- //
     public int GetCheepCountByAuthor(Guid authorId)
     {
-        Author author = GetAuthorById(authorId);
+        ICollection<Cheep> cheeps = GetCheepsByAuthor(authorId);
         //Check that author has cheeps
-        if (!author.Cheeps.Any())
+        if (cheeps.Count == 0 || cheeps == null)
         {
             return 0;
         }
 
-        return author.Cheeps.Count;
+        return cheeps.Count;
     }
     
     public int GetCheepCountByAuthorAndFollowing(Guid authorId)
     {
-        Author author = GetAuthorById(authorId);
-        int amountOfCheeps = 0;
-        //Check that author has cheeps
-        if (!author.Cheeps.Any())
-        {
-            amountOfCheeps = 0;
-        }
-        amountOfCheeps += GetCheepCountByAuthor(authorId);
-        foreach (Follow follow in author.Following)
-        {
-            amountOfCheeps += GetCheepCountByAuthor(follow.FollowedAuthorId);
-        }
+        GetCheepsByAuthorAndFollowing(authorId).Count;
 
         return amountOfCheeps;
     }
@@ -171,20 +186,24 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
 
         return followers;
     }
-
-    public ICollection<Author?> GetFollowingById(Guid id)
+    public ICollection<Author> GetFollowingById(Guid id)
     {
-        Author author = db.Users.Include(a => a.Following).ThenInclude(f => f.FollowedAuthor).ThenInclude(a => a.Cheeps).SingleOrDefault(a => a.Id == id);
-        
-        ICollection<Author?> following = new List<Author?>();
-        
-        foreach (Follow follow in author.Following)
-        {
-            following.Add(follow.FollowedAuthor);
-        }
-        
-        return following;
+        // Initialize a collection to store the authors followed by the specified author
+
+        // Query to retrieve the IDs of authors followed by the specified author
+        var followingAuthorIds = db.Follows
+            .Where(f => f.FollowedAuthorId == id)
+            .Select(f => f.FollowingAuthorId)
+            .ToList();
+
+        // Query to retrieve the author entities based on the followed author IDs
+        ICollection<Author> followingAuthors = db.Users
+            .Where(a => followingAuthorIds.Contains(a.Id))
+            .ToList();
+
+        return followingAuthors;
     }
+
 
 
     // ----- Add/Remove Follow Methods ----- //

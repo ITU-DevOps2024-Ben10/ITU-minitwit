@@ -24,7 +24,7 @@ public interface IAuthorRepository
 
 
     public ICollection<Author?> GetFollowersById(Guid authorId);
-    public ICollection<Author?> GetFollowingById(Guid authorId);
+    public ICollection<Author> GetFollowingById(Guid authorId);
     
 
     public Task AddFollow(Author? followingAuthor, Author? followedAuthor);
