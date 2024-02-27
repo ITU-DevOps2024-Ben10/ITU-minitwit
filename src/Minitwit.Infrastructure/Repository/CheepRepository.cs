@@ -26,7 +26,8 @@ public class CheepRepository : BaseRepository, ICheepRepository
     public ICollection<Cheep> GetCheepsByCount(int count)
     {
         //Use EF to get the specified page of cheeps from the database
-        ICollection<Cheep> cheeps = db.Cheeps.Include(e => e.Author)
+        ICollection<Cheep> cheeps = db.Cheeps
+            .Include(e => e.Author)
             .Include(e => e.Reactions)
             .OrderByDescending(c => c.TimeStamp)
             .Take(count)

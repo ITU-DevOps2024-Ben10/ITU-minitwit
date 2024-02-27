@@ -49,6 +49,16 @@ public class ApiController : ControllerBase
 
     private const string LatestCommandIdFilePath = "./latest_processed_sim_action_id.txt";
 
+    public bool NotReqFromSimulator(HttpRequest request)
+    {
+        string fromSimulator = request.Headers["Authorization"];
+        if (fromSimulator != "Basic c2ltdWxhdG9yOnN1cGVyX3NhZmUh")
+        {
+            return true;
+        }
+        return false;
+    }
+    
     //Writes the id of the latest command to a text file
     private void Update_Latest(int latestId = -1)
     {
@@ -67,6 +77,14 @@ public class ApiController : ControllerBase
     [HttpGet("latest")]
     public IActionResult GetLatest()
     {
+        
+        // Checks authorization
+        if (NotReqFromSimulator(Request))
+        {
+            return BadRequest("You are not authorized to use this resource");
+        }
+
+        
         try
         {
             if (System.IO.File.Exists(LatestCommandIdFilePath))
@@ -92,6 +110,13 @@ public class ApiController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> RegisterUser([FromQuery] int latest, [FromBody] RegisterUserData data)
     {
+        
+        // Checks authorization
+        if (NotReqFromSimulator(Request))
+        {
+            return BadRequest("You are not authorized to use this resource");
+        }
+
 
         Update_Latest(latest);
 
@@ -109,39 +134,33 @@ public class ApiController : ControllerBase
     [HttpGet("msgs")]
     public IActionResult GetMessagesFromPublicTimeline([FromQuery] int latest, [FromQuery] int no)
     {
+        
+        // Checks authorization
+        if (NotReqFromSimulator(Request))
+        {
+            return BadRequest("You are not authorized to use this resource");
+        }
+        
+        
         Update_Latest(latest);
 
-
-        switch (no)
+        if (no < 0)
         {
-            case < 0:
-                {
-                    return BadRequest("'no' cannot be negative");
-                }
-            case < 32:
-                {
-                    var result = _cheepService.GetCheeps(1).Take(no);
-
-                    return Ok(result);
-                }
-            case > 32:
-                {
-                    var result = _cheepService.GetCheeps(1).Take(32);
-                    for (int i = 2; i < (no - 32) / 32; i++)
-                    {
-                        result = result.Concat(_cheepService.GetCheeps(i).Take(32));
-                    }
-
-                    result = result.Take(no);
-
-                    var response = Ok(result);
-
-                    return Ok(result);
-
-                }
+            return BadRequest("Parameter 'no' is invalid");
         }
 
-        return BadRequest("Parameter 'no' is invalid");
+
+        try
+        {
+            var result = _cheepRepository.GetCheepsByCount(no);
+
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+        return BadRequest();
     }
 
 
@@ -149,6 +168,14 @@ public class ApiController : ControllerBase
     [HttpGet("msgs/{username}")]
     public IActionResult GetUserMessages([FromRoute] string username, [FromQuery] int latest, [FromQuery] int no)
     {
+        
+        // Checks authorization
+        if (NotReqFromSimulator(Request))
+        {
+            return BadRequest("You are not authorized to use this resource");
+        }
+
+        
         Update_Latest(latest);
 
         //TODO Check if user is authorized
@@ -208,6 +235,14 @@ public class ApiController : ControllerBase
     [HttpPost("msgs/{username}")]
     public async Task<IActionResult> PostMessage([FromRoute] string username, [FromQuery] int latest, [FromBody] MsgsData Msgsdata)
     {
+        
+        // Checks authorization
+        if (NotReqFromSimulator(Request))
+        {
+            return BadRequest("You are not authorized to use this resource");
+        }
+
+        
         try
         {   
             
@@ -233,6 +268,14 @@ public class ApiController : ControllerBase
     [HttpGet("fllws/{username}")]
     public IActionResult GetUserFollowers([FromRoute] string username, [FromQuery] int latest, [FromQuery] int no = 100)
     {
+        
+        // Checks authorization
+        if (NotReqFromSimulator(Request))
+        {
+            return BadRequest("You are not authorized to use this resource");
+        }
+
+        
         Update_Latest(latest);
 
         //TODO Add check of author, check if request is authorized
@@ -251,6 +294,14 @@ public class ApiController : ControllerBase
     [HttpPost("fllws/{username}")]
     public IActionResult FollowUser([FromRoute] string username, [FromQuery] int latest, [FromBody] FollowData followData)
     {
+        
+        // Checks authorization
+        if (NotReqFromSimulator(Request))
+        {
+            return BadRequest("You are not authorized to use this resource");
+        }
+
+        
         Update_Latest(latest);
 
         // Check if at least one action is specified
