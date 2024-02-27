@@ -9,8 +9,6 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
     private readonly IFollowRepository _followRepository;
     public AuthorRepository(MinitwitDbContext minitwitDbContext) : base(minitwitDbContext)
     {
-        db.Users.Include(e => e.Followers);
-        db.Users.Include(e => e.Following);
         _followRepository = new FollowRepository(minitwitDbContext);
     }
 
@@ -90,11 +88,11 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
     public ICollection<Cheep> GetCheepsByAuthorAndFollowing(Guid id)
     {
         ICollection<Cheep> cheeps = new List<Cheep>();
-        cheeps.Concat(GetCheepsByAuthor(id)).ToList();
+        cheeps = cheeps.Concat(GetCheepsByAuthor(id)).ToList();
         
         foreach (Author author in GetFollowingById(id))
         {
-            cheeps.Add(GetCheepsByAuthor(author.Id));
+            cheeps = cheeps.Concat(GetCheepsByAuthor(author.Id)).ToList();
         }
 
         return cheeps;
@@ -156,9 +154,7 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
     
     public int GetCheepCountByAuthorAndFollowing(Guid authorId)
     {
-        GetCheepsByAuthorAndFollowing(authorId).Count;
-
-        return amountOfCheeps;
+        return GetCheepsByAuthorAndFollowing(authorId).Count;
     }
 
 
@@ -173,18 +169,22 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
         return GetCheepCountByAuthorAndFollowing(authorId) / PageSize + 1;
     }
     // ----- Get Followers and Following Methods ----- //
-    public ICollection<Author?> GetFollowersById(Guid id)
+    public ICollection<Author> GetFollowersById(Guid id)
     {
-        Author author = db.Users.Include(a => a.Followers).ThenInclude(f => f.FollowingAuthor).SingleOrDefault(a => a.Id == id);
-        
-        ICollection<Author?> followers = new List<Author?>();
-        
-        foreach (var follow in author.Followers)
-        {
-            followers.Add(follow.FollowingAuthor);
-        }
+        // Initialize a collection to store the authors followed by the specified author
 
-        return followers;
+        // Query to retrieve the IDs of authors followed by the specified author
+        var followedAuthorIds = db.Follows
+            .Where(f => f.FollowingAuthorId == id)
+            .Select(f => f.FollowedAuthorId)
+            .ToList();
+
+        // Query to retrieve the author entities based on the followed author IDs
+        ICollection<Author> followedAuthors = db.Users
+            .Where(a => followedAuthorIds.Contains(a.Id))
+            .ToList();
+
+        return followedAuthors;
     }
     public ICollection<Author> GetFollowingById(Guid id)
     {
@@ -209,48 +209,37 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
     // ----- Add/Remove Follow Methods ----- //
     public async Task AddFollow(Author? followingAuthor, Author? followedAuthor)
     {
-        Follow follow = _followRepository.CreateFollow(followingAuthor, followedAuthor);
+        await _followRepository.CreateFollow(followingAuthor, followedAuthor);
         
-        followingAuthor.Following.Add(follow);
-        followedAuthor.Followers.Add(follow);
-        
-        db.Users.Update(followingAuthor);
-        db.Users.Update(followedAuthor);
-        
-        await db.SaveChangesAsync();
     }
     
-    public async Task RemoveFollow(Author? followingAuthor, Author? followedAuthor) {
-        // Load the Follow collections explicitly
-        await db.Entry(followingAuthor).Collection(f => f.Followers).LoadAsync();
-        await db.Entry(followedAuthor).Collection(u => u.Followers).LoadAsync();
-
-        followingAuthor.Following.Remove(followingAuthor.Followers.FirstOrDefault(f => f.FollowedAuthorId == followedAuthor.Id)!);
-        followedAuthor.Followers.Remove(followedAuthor.Followers.FirstOrDefault(f => f.FollowingAuthorId == followingAuthor.Id)!);
-
-        db.Users.Update(followingAuthor);
-        db.Users.Update(followedAuthor);
-        
-        await SaveContextAsync();
+    public async Task RemoveFollow(Author? followingAuthor, Author? followedAuthor)
+    {
+        Follow follow = db.Follows
+            .FirstOrDefault(e => e.FollowedAuthorId == followedAuthor!.Id && e.FollowingAuthorId == followingAuthor!.Id)!;
+        await _followRepository.DeleteFollow(follow);
     }
     
 
     // ----- Delete Author Data Methods ----- //
     public async Task DeleteCheepsByAuthorId(Guid id)
     {
-        Author? author = await GetAuthorByIdAsync(id);
-        
-        foreach (var cheep in author.Cheeps.ToList())
+        var cheeps = GetCheepsByAuthor(id);
+
+        foreach (var cheep in cheeps)
         {
-            if (cheep.Reactions.Any())    
-            {
-                db.Reactions.RemoveRange(cheep.Reactions);
-            }
-            
-            author.Cheeps.Remove(cheep);
+            // Find reactions associated with the current cheep and delete them
+            var reactions = db.Reactions
+                .Where(r => r.CheepId == cheep.CheepId)
+                .ToList();
+
+            db.Reactions.RemoveRange(reactions);
+
+            // Delete the cheep itself
+            db.Cheeps.Remove(cheep);
         }
 
-        db.SaveChanges();
+        await db.SaveChangesAsync();
     }
 
     public async Task RemoveAllFollowersByAuthorId(Guid id)

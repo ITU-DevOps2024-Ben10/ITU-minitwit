@@ -9,38 +9,34 @@ public class FollowRepository : BaseRepository, IFollowRepository
     public FollowRepository(MinitwitDbContext minitwitDbContext) : base(minitwitDbContext)
     {
     }
-    public Follow CreateFollow(Author? followingAuthor, Author? followedAuthor)
+    public async Task<Follow> CreateFollow(Author? followingAuthor, Author? followedAuthor)
     {
         Follow follow = new()
         {
-            FollowingAuthor = followingAuthor,
-            FollowingAuthorId = followingAuthor.Id,
-            FollowedAuthor = followedAuthor,
-            FollowedAuthorId = followedAuthor.Id
+            FollowingAuthorId = followingAuthor!.Id,
+            FollowedAuthorId = followedAuthor!.Id
         };
+        db.Follows.Add(follow);
+        await db.SaveChangesAsync();
         return follow;
+    }
+    
+    public async Task DeleteFollow(Follow follow)
+    {
+        db.Follows.Remove(follow);
+        await db.SaveChangesAsync();
     }
 
     public bool IsFollowing(Guid followingUserId, Guid followedUserId)
     {
-        if (followingUserId == Guid.Empty || followedUserId == Guid.Empty)
+        if (followingUserId == Guid.Empty || followedUserId == Guid.Empty) 
             return false;
 
-        Author author = db.Users
-            .Include(e => e.Following)
-            .ThenInclude(f => f.FollowedAuthor)
-            .FirstOrDefault(a => a.Id == followingUserId);
+        // Check if there exists a Follow record where the following user ID matches followingUserId
+        // and the followed user ID matches followedUserId
+        var isFollowing = db.Follows
+            .Any(f => f.FollowingAuthorId == followingUserId && f.FollowedAuthorId == followedUserId);
 
-        if (author == null || author.Following == null)
-            return false;
-
-        // Ensure FollowedAuthor is loaded for each Following entry
-        foreach (var following in author.Following)
-        {
-            if (following.FollowedAuthor == null)
-                db.Entry(following).Reference(f => f.FollowedAuthor).Load();
-        }
-
-        return author.Following.Any(f => f.FollowedAuthor?.Id == followedUserId);
+        return isFollowing;
     }
 }

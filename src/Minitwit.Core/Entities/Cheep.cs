@@ -25,6 +25,5 @@ public class Cheep
     [Required]
     public DateTime TimeStamp {get; set;}
     
-    public ICollection<Reaction> Reactions { get; set; }
 
 }

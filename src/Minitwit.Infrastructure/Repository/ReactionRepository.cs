@@ -8,16 +8,12 @@ public class ReactionRepository(MinitwitDbContext dbContext) : BaseRepository(db
 {
     public async Task AddReaction(ReactionType reaction, Guid cheepId, Guid authorId)
     {
-        Cheep? cheep = await db.Cheeps.FindAsync(cheepId);
-        Author? author = await db.Users.FindAsync(authorId);
-        if (cheep != null)
+        if (cheepId != Guid.Empty && authorId != Guid.Empty)
         {
             Reaction entity = new Reaction()
             {
                 CheepId = cheepId,
-                Cheep = cheep,
                 AuthorId = authorId,
-                Author = author,
                 ReactionType = reaction
             };
             db.Reactions.Add(entity);
@@ -43,9 +39,9 @@ public class ReactionRepository(MinitwitDbContext dbContext) : BaseRepository(db
     {
            Cheep? cheep = await db.Cheeps.FindAsync(cheepId);
            int count = 0; 
-            if (cheep != null)
+           if (cheep != null)
            { 
-               count = await db.Reactions.CountAsync(r => r.Cheep == cheep && r.ReactionType == reactionType);
+               count = await db.Reactions.CountAsync(r => r.CheepId == cheepId && r.ReactionType == reactionType);
            }
            else
            {

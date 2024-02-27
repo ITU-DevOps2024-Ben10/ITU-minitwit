@@ -23,6 +23,5 @@ public class Author : IdentityUser<Guid> {
     [Required]
     public override required string Email {get; set;}
     
-    public ICollection<Follow> Followers { get; set; } = new List<Follow>();
-    public ICollection<Follow> Following { get; set; } = new List<Follow>();
+
 }

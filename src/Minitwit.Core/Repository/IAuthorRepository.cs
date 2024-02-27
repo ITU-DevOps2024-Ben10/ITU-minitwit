@@ -23,7 +23,7 @@ public interface IAuthorRepository
     public int GetPageCountByAuthorAndFollowing(Guid authorId);
 
 
-    public ICollection<Author?> GetFollowersById(Guid authorId);
+    public ICollection<Author> GetFollowersById(Guid authorId);
     public ICollection<Author> GetFollowingById(Guid authorId);
     
 
