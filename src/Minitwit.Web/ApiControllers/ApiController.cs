@@ -160,7 +160,6 @@ public class ApiController : ControllerBase
         {
             return StatusCode(500, ex.Message);
         }
-        return BadRequest();
     }
 
 
@@ -174,20 +173,13 @@ public class ApiController : ControllerBase
         {
             return BadRequest("You are not authorized to use this resource");
         }
-
         
         Update_Latest(latest);
-
-        //TODO Check if user is authorized
-        bool isAuthorized = true;
-        if (!isAuthorized)
-        {
-            return Unauthorized("You are not authorized to view this user's cheeps");
-        }
-
-        //TODO check if the requested user exists
-
+        
         //TODO Return result
+        
+        
+        
         try
         {
             switch (no)
