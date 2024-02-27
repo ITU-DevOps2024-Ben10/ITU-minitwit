@@ -25,40 +25,27 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
     // ----- Get Author Methods ----- //
     public Author GetAuthorById(Guid authorId)
     {
-        Author author = db.Users
-            .Include(e => e.Cheeps)
-            .Include(e => e.Followers)
-            .Where(a => a.Id == authorId).FirstOrDefault()!;
+        Author author = db.Users.FirstOrDefault(a => a.Id == authorId)!;
             
         return author;
     }
     
     public async Task<Author?> GetAuthorByIdAsync(Guid authorId)
     {
-        Author? author = await db.Users
-            .Include(e => e.Cheeps)
-            .ThenInclude(c => c.Reactions)
-            .Include(e => e.Followers)
-            .Include(e => e.Following)
-            .Where(a => a.Id == authorId).FirstOrDefaultAsync();
-         
-         
+        Author? author = await db.Users.FirstOrDefaultAsync(a => a.Id == authorId);
         return author!;
     }
     
     public Author GetAuthorByName(string name)
     {
-        Author author = db.Users
-            .Include(e => e.Cheeps)
-            .Include(e => e.Followers).FirstOrDefault(a => a.UserName == name)!;
+        Author author = db.Users.FirstOrDefault(a => a.UserName == name)!;
             
         return author;
     }
     
     public Author GetAuthorByEmail(string email)
     {
-        Author author = db.Users
-            .Include(e => e.Cheeps).FirstOrDefault(a => a.Email == email)!;
+        Author author = db.Users.FirstOrDefault(a => a.Email == email)!;
             
         return author;
     }
