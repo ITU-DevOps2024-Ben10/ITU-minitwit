@@ -9,12 +9,12 @@ public class FollowRepository : BaseRepository, IFollowRepository
     public FollowRepository(MinitwitDbContext minitwitDbContext) : base(minitwitDbContext)
     {
     }
-    public async Task<Follow> CreateFollow(Author? followingAuthor, Author? followedAuthor)
+    public async Task<Follow> CreateFollow(Guid followingAuthorId, Guid followedAuthorId)
     {
         Follow follow = new()
         {
-            FollowingAuthorId = followingAuthor!.Id,
-            FollowedAuthorId = followedAuthor!.Id
+            FollowingAuthorId = followingAuthorId,
+            FollowedAuthorId = followedAuthorId
         };
         db.Follows.Add(follow);
         await db.SaveChangesAsync();

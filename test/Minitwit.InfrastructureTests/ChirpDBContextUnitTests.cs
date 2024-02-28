@@ -28,8 +28,8 @@ public class ChirpDbContextUnitTests
         Author1 = new Author { Id = Guid.NewGuid(), UserName = "Author1", Email = "email1" };
         Author2 = new Author { Id = Guid.NewGuid(), UserName = "Author2", Email = "email2" };
 
-        Cheep1 = new CreateCheep(Author1, "Cheep 1");
-        Cheep2 = new CreateCheep(Author2, "Cheep 2");
+        Cheep1 = new CreateCheep(Author1.Id, "Cheep 1");
+        Cheep2 = new CreateCheep(Author2.Id, "Cheep 2");
         
         authorRepository.AddAuthor(Author1);
         authorRepository.AddAuthor(Author2);
@@ -79,12 +79,12 @@ public class ChirpDbContextUnitTests
         cheepRepository.AddCreateCheep(Cheep1);
         cheepRepository.AddCreateCheep(Cheep2);
         
-        Db.Cheeps.Include(e => e.Author);
+        Db.Cheeps.Include(e => e.AuthorId);
         
-        Author returnedAuthor = Db.Users.Find(Author1.Id);
+        Author? returnedAuthor = Db.Users.Find(Author1.Id);
         
         Assert.NotNull(returnedAuthor);
         Assert.Equal(returnedAuthor.Id, Author1.Id);
-        Assert.True(returnedAuthor.Cheeps.Any());
+        Assert.True(authorRepository.GetCheepsByAuthor(returnedAuthor.Id).Any());
     }
 }

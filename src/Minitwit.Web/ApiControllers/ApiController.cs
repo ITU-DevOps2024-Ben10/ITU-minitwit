@@ -259,7 +259,7 @@ public class ApiController : ControllerBase
             {
                 var followed = _authorRepository.GetAuthorByName(followData.follow);
                 var follower = _authorRepository.GetAuthorByName(username);
-                _authorRepository.AddFollow(follower, followed);
+                _authorRepository.AddFollow(follower.Id, followed.Id);
                 return Ok($"{follower.UserName} now follows {followed.UserName}");
             }
 
@@ -267,7 +267,7 @@ public class ApiController : ControllerBase
             {
                 var followed = _authorRepository.GetAuthorByName(followData.unfollow);
                 var follower = _authorRepository.GetAuthorByName(username);
-                _authorRepository.RemoveFollow(follower, followed);
+                _authorRepository.RemoveFollow(follower.Id, followed.Id);
                 return Ok($"{follower.UserName} no longer follows {followed.UserName}");
             }
         }

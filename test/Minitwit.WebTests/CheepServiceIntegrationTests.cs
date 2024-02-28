@@ -51,7 +51,7 @@ public class CheepServiceIntegrationTests
             TimeStamp = DateTime.Now,
         };
 
-        Follow f = followRepository.CreateFollow(_author1, _author2).Result;
+        Follow f = followRepository.CreateFollow(_author1.Id, _author2.Id).Result;
 
         context.Add(_author1);
         context.Add(_author2);
