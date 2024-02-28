@@ -13,8 +13,8 @@ public class ReactionRepositoryTest
     public ReactionRepositoryTest()
     {
         db = SqliteInMemoryBuilder.GetContext();
-        
     }
+    
     [Theory]
     [InlineData(ReactionType.Like)]
     [InlineData(ReactionType.Dislike)]
@@ -189,10 +189,15 @@ public class ReactionRepositoryTest
             
         db.Users.Add(authorDto);
         db.Cheeps.Add(cheepDto);
+        await _ReactionRepository.AddReaction(ReactionType.Like, cheepDto.CheepId, authorDto.Id);
+        
         await db.SaveChangesAsync(); 
         
-        //Act&Assert
-        Assert.True(await _ReactionRepository.HasUserReacted(cheepDto.CheepId, authorDto.Id));
+        //Act
+        bool hasReacted = await _ReactionRepository.HasUserReacted(cheepDto.CheepId, authorDto.Id);
+        
+        //Assert
+        Assert.True(hasReacted);
         
     }
     [Fact]

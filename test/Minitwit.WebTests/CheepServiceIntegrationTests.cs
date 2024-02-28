@@ -60,7 +60,7 @@ public class CheepServiceIntegrationTests
         context.Add(_cheep3);
         context.Add(f);
 
-        context.SaveChanges();
+        context.SaveChangesAsync();
     }
 
     [Fact]
