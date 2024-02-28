@@ -218,12 +218,19 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
 
 
     // ----- Add/Remove Follow Methods ----- //
-    public async Task AddFollow(Author? followingAuthor, Author? followedAuthor)
+    public async Task AddFollow(Guid followingAuthorId, Guid followedAuthorId)
     {
-        await _followRepository.CreateFollow(followingAuthor, followedAuthor);
+        await _followRepository.CreateFollow(followingAuthorId, followedAuthorId);
         
     }
-    
+
+    public Task RemoveFollow(Guid followingAuthorId, Guid followedAuthorId)
+    {
+        Follow follow = db.Follows
+            .FirstOrDefault(e => e.FollowedAuthorId == followedAuthorId && e.FollowingAuthorId == followingAuthorId)!;
+        return _followRepository.DeleteFollow(follow);
+    }
+
     public async Task RemoveFollow(Author? followingAuthor, Author? followedAuthor)
     {
         Follow follow = db.Follows
