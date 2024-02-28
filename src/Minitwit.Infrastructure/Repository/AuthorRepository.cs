@@ -60,9 +60,8 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
 
     public ICollection<Cheep> GetCheepsByAuthor(Guid id)
     {
-        Author author = GetAuthorById(id);
         return db.Cheeps
-            .Where(e => e.AuthorId == author.Id)
+            .Where(e => e.AuthorId == id)
             .ToList();
     }
     
