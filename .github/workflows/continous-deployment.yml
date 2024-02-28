@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - CDWorkflow
   workflow_dispatch: {}
 
 jobs:
