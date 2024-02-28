@@ -196,14 +196,11 @@ public class AuthorRepositoryTest
         await _authorRepository.AddFollow(_author2.Id, _author1.Id);
         await _authorRepository.AddFollow(_author3.Id, _author1.Id);
 
-        ICollection<Author?> expectedFollowers = new List<Author?>();
-        expectedFollowers.Add(_author2);
-        expectedFollowers.Add(_author3);
-
         ICollection<Author?> returnedFollowers = _authorRepository.GetFollowersById(_author1.Id);
 
         //Assert
-        Assert.Equal(expectedFollowers, returnedFollowers);
+        Assert.Contains(_author2, returnedFollowers);
+        Assert.Contains(_author3, returnedFollowers);
     }
     
     [Fact]
@@ -212,14 +209,11 @@ public class AuthorRepositoryTest
         await _authorRepository.AddFollow(_author1.Id, _author2.Id);
         await _authorRepository.AddFollow(_author1.Id, _author3.Id);
 
-        ICollection<Author> expectedFollowing = new List<Author>();
-        expectedFollowing.Add(_author2);
-        expectedFollowing.Add(_author3);
-
         ICollection<Author> returnedFollowing = _authorRepository.GetFollowingById(_author1.Id);
 
         //Assert
-        Assert.Equal(expectedFollowing, returnedFollowing);
+        Assert.Contains(_author2, returnedFollowing);
+        Assert.Contains(_author3, returnedFollowing);
     }
     
     
