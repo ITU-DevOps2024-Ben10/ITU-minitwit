@@ -32,6 +32,7 @@ public class CheepServiceIntegrationTests
 
         _cheep1 = new Cheep
         {
+            CheepId = new Guid(),
             AuthorId = _author1.Id,
             Text = "Cheep 1",
             TimeStamp = DateTime.Now,
@@ -39,6 +40,7 @@ public class CheepServiceIntegrationTests
         
         _cheep2 = new Cheep
         {
+            CheepId = new Guid(),
             AuthorId = _author2.Id,
             Text = "Cheep 2",
             TimeStamp = DateTime.Now,
@@ -46,6 +48,7 @@ public class CheepServiceIntegrationTests
 
         _cheep3 = new Cheep()
         {
+            CheepId = new Guid(),
             AuthorId = _author2.Id,
             Text = "Cheep 3",
             TimeStamp = DateTime.Now,
