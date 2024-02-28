@@ -42,6 +42,6 @@ jobs:
           SSH_KEY: ${{ secrets.SSH_KEY }}
       - name: Deploy to server
         run: |
-          ssh -i ~/.ssh/minitwit.key ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}
+          ssh -i ~/.ssh/minitwit.key ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
           docker pull ${{ secrets.DOCKER_USERNAME }}
           echo "Vary is nace"
