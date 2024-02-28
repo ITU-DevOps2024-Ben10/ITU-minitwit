@@ -44,3 +44,4 @@ jobs:
         run: |
           ssh -i ~/.ssh/minitwit.key ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}
           docker pull ${{ secrets.DOCKER_USERNAME }}
+          echo "is nace"
