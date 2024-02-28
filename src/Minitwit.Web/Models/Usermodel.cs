@@ -26,24 +26,5 @@ public class UserModel
 
     }
 
-    public bool UserHasFollowers(Guid userId)
-    {
-        // check if id is in followers
-        return Following.Any(Follow => Follow.FollowingAuthor!.Id == userId);
-    }
     
-    public bool UserIsFollowing(Guid followedUser)
-    {
-        if (Following != null && Following.Any())
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    public bool IsFollowing(Guid followedUserId)
-    {
-        return Following.Any(f => f.FollowedAuthor!.Id == followedUserId);
-    }   
 }

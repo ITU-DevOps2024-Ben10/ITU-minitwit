@@ -21,6 +21,12 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
 
 
     // ----- Get Author Methods ----- //
+
+    public ICollection<Author> GetAuthors()
+    {
+        return db.Users.ToList();
+    }
+    
     public Author GetAuthorById(Guid authorId)
     {
         Author author = db.Users.FirstOrDefault(a => a.Id == authorId)!;

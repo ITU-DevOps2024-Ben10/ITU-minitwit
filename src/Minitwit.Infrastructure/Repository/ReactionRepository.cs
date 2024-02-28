@@ -25,6 +25,12 @@ public class ReactionRepository(MinitwitDbContext dbContext) : BaseRepository(db
             throw new Exception("Cheep with id " + cheepId + " not found");
         }
     }
+
+    public ICollection<Reaction> GetReactionsFromCheepId(Guid id)
+    {
+        return db.Reactions.Where(r => r.CheepId == id).ToList();
+    }
+    
     public async Task RemoveReaction(ReactionType reaction, Guid cheepId, Guid authorId)
     {
         Reaction? entity = await db.Reactions.FindAsync(cheepId, authorId);

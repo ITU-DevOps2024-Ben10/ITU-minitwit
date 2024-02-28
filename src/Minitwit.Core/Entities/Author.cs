@@ -23,5 +23,4 @@ public class Author : IdentityUser<Guid> {
     [Required]
     public override required string Email {get; set;}
     
-
 }

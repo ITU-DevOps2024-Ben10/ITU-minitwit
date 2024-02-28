@@ -32,32 +32,26 @@ public class CheepServiceIntegrationTests
 
         _cheep1 = new Cheep
         {
-            Author = _author1,
             AuthorId = _author1.Id,
             Text = "Cheep 1",
             TimeStamp = DateTime.Now,
-            Reactions = new List<Reaction>(),
         };
         
         _cheep2 = new Cheep
         {
-            Author = _author2,
             AuthorId = _author2.Id,
             Text = "Cheep 2",
             TimeStamp = DateTime.Now,
-            Reactions = new List<Reaction>()
         };
 
         _cheep3 = new Cheep()
         {
-            Author = _author2,
             AuthorId = _author2.Id,
             Text = "Cheep 3",
             TimeStamp = DateTime.Now,
-            Reactions = new List<Reaction>()
         };
 
-        Follow f = followRepository.CreateFollow(_author1, _author2);
+        Follow f = followRepository.CreateFollow(_author1, _author2).Result;
 
         context.Add(_author1);
         context.Add(_author2);

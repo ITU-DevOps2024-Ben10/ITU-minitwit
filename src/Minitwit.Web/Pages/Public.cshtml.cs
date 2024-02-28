@@ -54,7 +54,7 @@ using ValidationException = FluentValidation.ValidationException;
             }
            
             var author = await _userManager.GetUserAsync(User);
-            var cheep = new CreateCheep(author!, NewCheep!.Text!);
+            var cheep = new CreateCheep(author!.Id, NewCheep!.Text!);
 
             await CreateCheep(cheep);
             

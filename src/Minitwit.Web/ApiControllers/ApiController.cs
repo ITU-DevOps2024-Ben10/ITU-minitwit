@@ -213,7 +213,7 @@ public class ApiController : ControllerBase
             
             Author user =_authorRepository.GetAuthorByName(username);
             
-            CreateCheep cheep = new CreateCheep(user, Msgsdata.content);
+            CreateCheep cheep = new CreateCheep(user.Id, Msgsdata.content);
             
             var result =_cheepRepository.AddCreateCheep(cheep);
             
