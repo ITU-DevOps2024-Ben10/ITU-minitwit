@@ -64,48 +64,48 @@ public class CheepServiceIntegrationTests
     }
 
     [Fact]
-        public void GetCheeps_ReturnsCheepViewModels()
-        {
-            // Act
-            List<CheepViewModel> result = _service.GetCheeps(0).ToList();
+    public void GetCheeps_ReturnsCheepViewModels()
+    {
+        // Act
+        List<CheepViewModel> result = _service.GetCheeps(0).ToList();
 
-            result.Sort((a, b) => String.Compare(a.User.Username, b.User.Username, StringComparison.Ordinal));
-            
-            // Assert
-            Assert.Equal(3, result.Count);
-            Assert.Equal("Author1", result[0].User.Username);
-            Assert.Equal("Cheep 1", result[0].Message);
-            Assert.NotNull(result[0].Timestamp);
-        }
-    
-    
-        [Fact]
-        public void GetCheepsFromAuthor_ReturnsCheepViewModels()
-        {
-            // Act
-            ICollection<CheepViewModel> result = _service.GetCheepsFromAuthor(_author2.Id, 1);
-
-            CheepViewModel returnedCheep = result.ElementAt(0);
+        result.Sort((a, b) => String.Compare(a.User.Username, b.User.Username, StringComparison.Ordinal));
         
-            // Assert
-            Assert.Equal(2, result.Count);
-            Assert.Equal(_author2.UserName, returnedCheep.User.Username);
-            Assert.Equal("Cheep 3", returnedCheep.Message);
-            Assert.NotNull(returnedCheep.Timestamp);
-        }
+        // Assert
+        Assert.Equal(3, result.Count);
+        Assert.Equal("Author1", result[0].User.Username);
+        Assert.Equal("Cheep 1", result[0].Message);
+        Assert.NotNull(result[0].Timestamp);
+    }
 
-        [Fact]
-        public void GetCheepsFromAuthorAndFollowing_returnsCheepsFromAuthorAndFollowingAuthor()
-        {
-            //act
-            ICollection<CheepViewModel> result = _service.GetCheepsFromAuthorAndFollowing(_author1.Id, 1);
-            
-            //assert
-            Assert.Equal(3, result.Count);
-            Assert.Equal("Author2", result.ElementAt(0).User.Username);
-            Assert.Equal("Author2", result.ElementAt(1).User.Username);
-            Assert.Equal("Author1", result.ElementAt(2).User.Username);
-            
-        }
+
+    [Fact]
+    public void GetCheepsFromAuthor_ReturnsCheepViewModels()
+    {
+        // Act
+        ICollection<CheepViewModel> result = _service.GetCheepsFromAuthor(_author2.Id, 1);
+
+        CheepViewModel returnedCheep = result.ElementAt(0);
+    
+        // Assert
+        Assert.Equal(2, result.Count);
+        Assert.Equal(_author2.UserName, returnedCheep.User.Username);
+        Assert.Equal("Cheep 3", returnedCheep.Message);
+        Assert.NotNull(returnedCheep.Timestamp);
+    }
+
+    [Fact]
+    public void GetCheepsFromAuthorAndFollowing_returnsCheepsFromAuthorAndFollowingAuthor()
+    {
+        //act
+        ICollection<CheepViewModel> result = _service.GetCheepsFromAuthorAndFollowing(_author1.Id, 1);
+        
+        //assert
+        Assert.Equal(3, result.Count);
+        Assert.Equal("Author2", result.ElementAt(0).User.Username);
+        Assert.Equal("Author2", result.ElementAt(1).User.Username);
+        Assert.Equal("Author1", result.ElementAt(2).User.Username);
         
     }
+        
+}
