@@ -53,7 +53,7 @@ public class ReactionRepository(MinitwitDbContext dbContext) : BaseRepository(db
            {
                throw new Exception("Cheep with id " + cheepId + " not found");
            }
-            return count;
+           return count;
     }
     public async Task<bool> HasUserReacted(Guid cheepId, Guid authorId)
     {

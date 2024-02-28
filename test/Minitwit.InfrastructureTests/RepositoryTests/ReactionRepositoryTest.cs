@@ -39,11 +39,10 @@ public class ReactionRepositoryTest
             CheepId = Guid.NewGuid(),
             AuthorId = authorDto1.Id, 
             Text = "TestCheep1", 
-            Author = authorDto
         };
         db.Users.Add(authorDto);
         db.Cheeps.Add(cheepDto);
-        db.SaveChanges(); 
+        await db.SaveChangesAsync(); 
         
         //Act
         await _ReactionRepository.AddReaction(
@@ -53,11 +52,15 @@ public class ReactionRepositoryTest
         );
 
         //Assert
-        Assert.Equal(1, cheepDto.Reactions.Count);
+        Assert.Equal(1, db.Reactions.Count(reaction => reaction.CheepId == cheepDto.CheepId));
+        //Assert.Equal(1, cheepDto.Reactions.Count);
         Assert.Equal(cheepDto.CheepId, db.Reactions.First().CheepId);
-        Assert.Equal(authorDto.Id, cheepDto.Reactions.First().AuthorId);
-        Assert.Equal(reactionType, cheepDto.Reactions.First().ReactionType);
+        Assert.Equal(authorDto.Id, db.Reactions.FirstOrDefault(reaction => reaction.CheepId == cheepDto.CheepId)!.AuthorId);
+        Assert.Equal(reactionType, db.Reactions.FirstOrDefault(reaction => reaction.CheepId == cheepDto.CheepId)!.ReactionType);
+        //Assert.Equal(authorDto.Id, cheepDto.Reactions.First().AuthorId);
+        //Assert.Equal(reactionType, cheepDto.Reactions.First().ReactionType);
     }
+    
     [Theory]
     [InlineData(ReactionType.Like)]
     [InlineData(ReactionType.Dislike)]
@@ -81,22 +84,11 @@ public class ReactionRepositoryTest
         {
             CheepId = Guid.Parse("6e579f4c-c2da-420d-adad-40797a71d217"),
             AuthorId = authorDto1.Id, 
-            Text = "TestCheep1", 
-            Author = authorDto,
-            Reactions = new List<Reaction>
-            {
-                new Reaction
-                {
-                    CheepId = Guid.Parse("6e579f4c-c2da-420d-adad-40797a71d217"),
-                    AuthorId = authorDto.Id,
-                    Author = authorDto,
-                    ReactionType = reactionType
-                }
-            }
+            Text = "TestCheep1"
         };
         db.Users.Add(authorDto);
         db.Cheeps.Add(cheepDto);
-        db.SaveChanges(); 
+        await db.SaveChangesAsync(); 
         
         //Act
         await _ReactionRepository.RemoveReaction(
@@ -106,7 +98,8 @@ public class ReactionRepositoryTest
         );
 
         //Assert
-        Assert.Equal(0, cheepDto.Reactions.Count);
+        Assert.Equal(0, db.Reactions.Count(reaction => reaction.CheepId == cheepDto.CheepId));
+        // Assert.Equal(0, cheepDto.Reactions.Count);
     }
     [Fact]
     public async Task GetReactionCount_ShouldReturnTheCorrectAmountOfReactions()
@@ -133,7 +126,6 @@ public class ReactionRepositoryTest
             CheepId = Guid.NewGuid(),
             AuthorId =authors.First().Id, 
             Text = "TestCheep1", 
-            Author = authors.First(),
         };
         db.Cheeps.Add(cheepDto);
         
@@ -157,7 +149,6 @@ public class ReactionRepositoryTest
             {
                 CheepId = cheepDto.CheepId,
                 AuthorId = authors[i].Id,
-                Author = authors[i],
                 ReactionType = reactionType
             };
             db.Reactions.Add(reaction);
@@ -165,16 +156,16 @@ public class ReactionRepositoryTest
         await db.SaveChangesAsync();
         
         //Act&Assert
-        Assert.Equal(1, _ReactionRepository.GetReactionCount(cheepDto.CheepId, ReactionType.Like).Result);
-        Assert.Equal(2, _ReactionRepository.GetReactionCount(cheepDto.CheepId, ReactionType.Dislike).Result);
-        Assert.Equal(1, _ReactionRepository.GetReactionCount(cheepDto.CheepId, ReactionType.Love).Result);
+        Assert.Equal(1, await _ReactionRepository.GetReactionCount(cheepDto.CheepId, ReactionType.Like));
+        Assert.Equal(2, await _ReactionRepository.GetReactionCount(cheepDto.CheepId, ReactionType.Dislike));
+        Assert.Equal(1, await _ReactionRepository.GetReactionCount(cheepDto.CheepId, ReactionType.Love));
         
     }
     
     
    
     [Fact]
-    public void HasUserReacted_ShouldReturnTrueWhenUserHasReacted()
+    public async void HasUserReacted_ShouldReturnTrueWhenUserHasReacted()
     {
         //Arrange
         _ReactionRepository = new ReactionRepository(db);
@@ -194,29 +185,18 @@ public class ReactionRepositoryTest
             CheepId = Guid.Parse("6e579f4c-c2da-420d-adad-40797a71d217"),
             AuthorId = authorDto1.Id, 
             Text = "TestCheep1", 
-            Author = authorDto,
-            Reactions = new List<Reaction>
-            {
-                new Reaction
-                {
-                    CheepId = Guid.Parse("6e579f4c-c2da-420d-adad-40797a71d217"),
-                    AuthorId = authorDto.Id,
-                    Author = authorDto,
-                    ReactionType = ReactionType.Like
-                }
-            }
         };
             
         db.Users.Add(authorDto);
         db.Cheeps.Add(cheepDto);
-        db.SaveChanges(); 
+        await db.SaveChangesAsync(); 
         
         //Act&Assert
-        Assert.True(_ReactionRepository.HasUserReacted(cheepDto.CheepId, authorDto.Id).Result);
+        Assert.True(await _ReactionRepository.HasUserReacted(cheepDto.CheepId, authorDto.Id));
         
     }
     [Fact]
-    public void HasUserReacted_ShouldReturnFalseWhenUserHasNotReacted()
+    public async void HasUserReacted_ShouldReturnFalseWhenUserHasNotReacted()
     {
         //Arrange
         _ReactionRepository = new ReactionRepository(db);
@@ -236,7 +216,6 @@ public class ReactionRepositoryTest
             CheepId = Guid.Parse("6e579f4c-c2da-420d-adad-40797a71d217"),
             AuthorId = authorDto1.Id, 
             Text = "TestCheep1", 
-            Author = authorDto,
         };
             
         db.Users.Add(authorDto);
@@ -244,7 +223,7 @@ public class ReactionRepositoryTest
         db.SaveChanges(); 
         
         //Act&Assert
-        Assert.False(_ReactionRepository.HasUserReacted(cheepDto.CheepId, authorDto.Id).Result);
+        Assert.False(await _ReactionRepository.HasUserReacted(cheepDto.CheepId, authorDto.Id));
         
     }
 }

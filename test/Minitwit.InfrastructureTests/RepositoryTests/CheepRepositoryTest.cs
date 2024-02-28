@@ -96,11 +96,11 @@ public class CheepRepositoryTest{
     }
     
     [Fact]
-    public void CreateCheepCreatesCheep()
+    public async void CreateCheepCreatesCheep()
     {
         CreateCheep createCheep = new CreateCheep(_author.Id, "TestCheep");
 
-        Cheep cheep = CheepRepository.AddCreateCheep(createCheep).Result;
+        Cheep cheep = await CheepRepository.AddCreateCheep(createCheep);
         
         Assert.True(CheepRepository.GetCheepsByPage(0).Contains(cheep));
     }

@@ -81,7 +81,7 @@ public class ChirpDbContextUnitTests
         
         Db.Cheeps.Include(e => e.AuthorId);
         
-        Author returnedAuthor = Db.Users.Find(Author1.Id);
+        Author? returnedAuthor = Db.Users.Find(Author1.Id);
         
         Assert.NotNull(returnedAuthor);
         Assert.Equal(returnedAuthor.Id, Author1.Id);
