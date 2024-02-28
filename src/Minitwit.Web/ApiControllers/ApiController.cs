@@ -48,30 +48,7 @@ public class ApiController : ControllerBase
 
 
     private const string LatestCommandIdFilePath = "./latest_processed_sim_action_id.txt";
-
-    public bool NotReqFromSimulator(HttpRequest request)
-    {
-        string fromSimulator = request.Headers["Authorization"];
-        if (fromSimulator != "Basic c2ltdWxhdG9yOnN1cGVyX3NhZmUh")
-        {
-            return true;
-        }
-        return false;
-    }
     
-    //Writes the id of the latest command to a text file
-    private void Update_Latest(int latestId = -1)
-    {
-        try
-        {
-            using StreamWriter writer = new StreamWriter(LatestCommandIdFilePath, false);
-            writer.Write(latestId.ToString());
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Error occurred while updating latest id: " + ex.Message);
-        }
-    }
 
     //Returns the id of the latest command read from a text file and defaults to -1
     [HttpGet("latest")]
@@ -126,8 +103,8 @@ public class ApiController : ControllerBase
         await _emailStore.SetEmailAsync(user, data.email, CancellationToken.None);
         var result = await _userManager.CreateAsync(user, data.pwd);
 
-        if (result.Succeeded) return Ok("Register a user");
-        return StatusCode(401);
+        if (result.Succeeded) return Ok($"Successfully registered user {data.username}");
+        return BadRequest($"Registration failed. User {data.username} likely already exists");
     }
 
 
@@ -242,7 +219,7 @@ public class ApiController : ControllerBase
             
             CreateCheep cheep = new CreateCheep(user.Id, Msgsdata.content);
             
-            var result =_cheepRepository.AddCreateCheep(cheep);
+            var result = await _cheepRepository.AddCreateCheep(cheep);
             
             Update_Latest(latest);
             return Ok(result);
@@ -269,18 +246,24 @@ public class ApiController : ControllerBase
 
         
         Update_Latest(latest);
-
-        //TODO Add check of author, check if request is authorized
-        var authorFollowers = _authorRepository.GetFollowersById(
-            _authorRepository.GetAuthorByName(username).Id);
         var output = new List<String>();
-        for (int i = 0; i < authorFollowers.Count; i++)
+
+        try
         {
-            if (i > no - 1) break;
-            output.Add(authorFollowers.ElementAt(i).UserName);
+            var authorFollowers = _authorRepository.GetFollowersById(_authorRepository.GetAuthorByName(username).Id);
+            for (int i = 0; i < authorFollowers.Count; i++)
+            {
+                if (i > no - 1) break;
+                output.Add(authorFollowers.ElementAt(i).UserName);
+            }
+
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
         }
 
-        return Ok(output.GetRange(0, no));
+        return Ok(output.Take(no));
     }
 
     [HttpPost("fllws/{username}")]
@@ -296,7 +279,7 @@ public class ApiController : ControllerBase
         
         Update_Latest(latest);
 
-        // Check if at least one action is specified
+        // Check if exactly one action is specified
         if (string.IsNullOrEmpty(followData.follow) && string.IsNullOrEmpty(followData.unfollow))
         {
             return BadRequest("Only one of 'follow' xor 'unfollow' should be provided.");
@@ -310,18 +293,18 @@ public class ApiController : ControllerBase
         {
             if (!string.IsNullOrEmpty(followData.follow))
             {
-                var followed = _authorRepository.GetAuthorByName(username);
-                var follower = _authorRepository.GetAuthorByName(followData.follow);
+                var followed = _authorRepository.GetAuthorByName(followData.follow);
+                var follower = _authorRepository.GetAuthorByName(username);
                 _authorRepository.AddFollow(follower, followed);
-                return Ok($"{followData.follow} now follows {username}");
+                return Ok($"{follower.UserName} now follows {followed.UserName}");
             }
 
             if (!string.IsNullOrEmpty(followData.unfollow))
             {
-                var followed = _authorRepository.GetAuthorByName(username);
-                var follower = _authorRepository.GetAuthorByName(followData.unfollow);
+                var followed = _authorRepository.GetAuthorByName(followData.unfollow);
+                var follower = _authorRepository.GetAuthorByName(username);
                 _authorRepository.RemoveFollow(follower, followed);
-                return Ok($"{followData.unfollow} no longer follows {username}");
+                return Ok($"{follower.UserName} no longer follows {followed.UserName}");
             }
         }
         catch (Exception)
@@ -334,7 +317,7 @@ public class ApiController : ControllerBase
 
 
 
-    // ######################## TEMP
+    // Data containers
     public class MsgsData
     {
         public string content { get; set; }
@@ -353,6 +336,8 @@ public class ApiController : ControllerBase
         public string pwd { get; set; }
     }
 
+    
+    // Helper methods
 
     private IUserEmailStore<Author> GetEmailStore()
     {
@@ -376,6 +361,30 @@ public class ApiController : ControllerBase
                                                 $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
         }
     }
-
+    
+    
+    public bool NotReqFromSimulator(HttpRequest request)
+    {
+        string fromSimulator = request.Headers["Authorization"];
+        if (fromSimulator != "Basic c2ltdWxhdG9yOnN1cGVyX3NhZmUh")
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    //Writes the id of the latest command to a text file
+    private void Update_Latest(int latestId = -1)
+    {
+        try
+        {
+            using StreamWriter writer = new StreamWriter(LatestCommandIdFilePath, false);
+            writer.Write(latestId.ToString());
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error occurred while updating latest id: " + ex.Message);
+        }
+    }
 
 }

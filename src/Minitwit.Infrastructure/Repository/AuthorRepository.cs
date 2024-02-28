@@ -210,6 +210,11 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
         return followingAuthors;
     }
 
+    public bool AuthorExists(Guid id)
+    {
+        Author author = GetAuthorById(id);
+        return author.Id != Guid.Empty;
+    }
 
 
     // ----- Add/Remove Follow Methods ----- //
