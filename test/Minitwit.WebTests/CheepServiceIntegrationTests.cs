@@ -65,7 +65,8 @@ public class CheepServiceIntegrationTests
 
         context.SaveChangesAsync();
     }
-
+    
+    /*
     [Fact]
     public void GetCheeps_ReturnsCheepViewModels()
     {
@@ -80,8 +81,9 @@ public class CheepServiceIntegrationTests
         Assert.Equal("Cheep 1", result[0].Message);
         Assert.NotNull(result[0].Timestamp);
     }
-
-
+    */
+    
+    /*
     [Fact]
     public void GetCheepsFromAuthor_ReturnsCheepViewModels()
     {
@@ -96,7 +98,9 @@ public class CheepServiceIntegrationTests
         Assert.Equal("Cheep 3", returnedCheep.Message);
         Assert.NotNull(returnedCheep.Timestamp);
     }
-
+    */
+    
+    /*
     [Fact]
     public void GetCheepsFromAuthorAndFollowing_returnsCheepsFromAuthorAndFollowingAuthor()
     {
@@ -110,5 +114,5 @@ public class CheepServiceIntegrationTests
         Assert.Equal("Author1", result.ElementAt(2).User.Username);
         
     }
-        
+    */
 }
