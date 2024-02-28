@@ -30,8 +30,8 @@ public interface IAuthorRepository
     
 
     
-    public Task AddFollow(Author? followingAuthor, Author? followedAuthor);
-    public Task RemoveFollow(Author? followingAuthor, Author? followedAuthor);
+    public Task AddFollow(Guid followingAuthorId, Guid followedAuthorId);
+    public Task RemoveFollow(Guid followingAuthorId, Guid followedAuthorId);
     
     
     
