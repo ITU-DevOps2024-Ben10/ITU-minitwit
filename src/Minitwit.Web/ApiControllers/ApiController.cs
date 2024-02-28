@@ -153,52 +153,16 @@ public class ApiController : ControllerBase
         
         Update_Latest(latest);
         
-        //TODO Return result
-        
-        
-        
         try
         {
-            switch (no)
-            {
-                case < 0:
-                    {
-                        return BadRequest("'no' cannot be negative");
-                    }
-                case < 32:
-                    {
-                        var result = _cheepService.GetCheepsFromAuthor(username, 1).Take(no);
-                        if (result.Count() == 0)
-                        {
-                            return NotFound("This User does not have any Cheeps");
-                        }
-                        return Ok(result);
-                    }
-                case > 32:
-                    {
-                        var result = _cheepService.GetCheeps(1).Take(32);
-                        for (int i = 2; i < (no - 32) / 32; i++)
-                        {
-                            result = result.Concat(_cheepService.GetCheepsFromAuthor(username, i).Take(32));
-                        }
+            Guid authorId = _authorRepository.GetAuthorByName(username).Id;
+            return Ok(_cheepRepository.GetCheepsFromAuthorByCount(authorId, no).ToList());
 
-                        result = result.Take(no);
-
-                        var response = Ok(result);
-
-                        return Ok(result);
-
-                    }
-            }
-
-            return BadRequest("Parameter 'no' is invalid");
         }
         catch (Exception e)
         {
-            return NotFound(e.Message);
+            return BadRequest(e.Message);
         }
-
-        return BadRequest();
     }
 
     [HttpPost("msgs/{username}")]
