@@ -12,11 +12,11 @@ public class CheepServiceIntegrationTests
 {
     private MinitwitService _service;
 
-    private Author _author1;
-    private Author _author2;
-    private Cheep _cheep1;
-    private Cheep _cheep2;
-    private Cheep _cheep3;
+    private readonly Author _author1;
+    private readonly Author _author2;
+    private readonly Cheep _cheep1;
+    private readonly Cheep _cheep2;
+    private readonly Cheep _cheep3;
 
     public CheepServiceIntegrationTests()
     {
