@@ -44,4 +44,4 @@ jobs:
         run: |
           ssh -i ~/.ssh/minitwit.key ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
           docker pull ${{ secrets.DOCKER_USERNAME }}
-          echo "Is nace"
+          echo "NU VIRKER DU FANDEME DIN BANDIT"
