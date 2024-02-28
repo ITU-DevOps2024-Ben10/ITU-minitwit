@@ -181,8 +181,8 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
 
         // Query to retrieve the IDs of authors followed by the specified author
         var followedAuthorIds = db.Follows
-            .Where(f => f.FollowingAuthorId == id)
-            .Select(f => f.FollowedAuthorId)
+            .Where(f => f.FollowedAuthorId == id)
+            .Select(f => f.FollowingAuthorId)
             .ToList();
 
         // Query to retrieve the author entities based on the followed author IDs
@@ -198,8 +198,8 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
 
         // Query to retrieve the IDs of authors followed by the specified author
         var followingAuthorIds = db.Follows
-            .Where(f => f.FollowedAuthorId == id)
-            .Select(f => f.FollowingAuthorId)
+            .Where(f => f.FollowingAuthorId == id)
+            .Select(f => f.FollowedAuthorId)
             .ToList();
 
         // Query to retrieve the author entities based on the followed author IDs
