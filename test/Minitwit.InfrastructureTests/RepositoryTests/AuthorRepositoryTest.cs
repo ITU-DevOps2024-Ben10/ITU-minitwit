@@ -193,8 +193,8 @@ public class AuthorRepositoryTest
     [Fact]
     public async void GetFollowersByAuthorId_ShouldReturnCorrectFollowers()
     {
-        await _authorRepository.AddFollow(_author2, _author1);
-        await _authorRepository.AddFollow(_author3, _author1);
+        await _authorRepository.AddFollow(_author2.Id, _author1.Id);
+        await _authorRepository.AddFollow(_author3.Id, _author1.Id);
 
         ICollection<Author?> expectedFollowers = new List<Author?>();
         expectedFollowers.Add(_author2);
@@ -209,8 +209,8 @@ public class AuthorRepositoryTest
     [Fact]
     public async void GetFollowingByAuthorId_ShouldReturnCorrectFollowing()
     {
-        await _authorRepository.AddFollow(_author1, _author2);
-        await _authorRepository.AddFollow(_author1, _author3);
+        await _authorRepository.AddFollow(_author1.Id, _author2.Id);
+        await _authorRepository.AddFollow(_author1.Id, _author3.Id);
 
         ICollection<Author?> expectedFollowing = new List<Author?>();
         expectedFollowing.Add(_author2);
@@ -275,8 +275,8 @@ public class AuthorRepositoryTest
     [Fact]
     public async void RemoveAllFollowersByAuthorId_ShouldRemoveAllFollowersByAuthor()
     {
-        await _authorRepository.AddFollow(_author1, _author2);
-        await _authorRepository.AddFollow(_author1, _author3);
+        await _authorRepository.AddFollow(_author1.Id, _author2.Id);
+        await _authorRepository.AddFollow(_author1.Id, _author3.Id);
         
         Assert.Equal(2, _authorRepository.GetFollowingById(_author1.Id).Count);
         Assert.Single(_authorRepository.GetFollowersById(_author2.Id));
@@ -323,8 +323,8 @@ public class AuthorRepositoryTest
         await context.SaveChangesAsync();
         // Assert
         Assert.Equal(0, context.Reactions.Count());
-        Assert.Null(_author1.Reactions);
-        Assert.Empty(_cheep1.Reactions);
+        Assert.Null(context.Reactions.FirstOrDefault(reaction => reaction.AuthorId == _author1.Id));
+        Assert.Empty(context.Reactions.Where(reaction => reaction.CheepId == _cheep1.CheepId));
         
     }
     
