@@ -202,7 +202,7 @@ public class ApiController : ControllerBase
     }
 
     [HttpPost("msgs/{username}")]
-    public async Task<IActionResult> PostMessage([FromRoute] string username, [FromQuery] int latest, [FromBody] MsgsData Msgsdata)
+    public async Task<IActionResult> PostMessage([FromRoute] string username, [FromQuery] int latest, [FromBody] MsgsData msgsdata)
     {
         
         // Checks authorization
@@ -217,7 +217,7 @@ public class ApiController : ControllerBase
             
             Author user =_authorRepository.GetAuthorByName(username);
             
-            CreateCheep cheep = new CreateCheep(user.Id, Msgsdata.content);
+            CreateCheep cheep = new CreateCheep(user.Id, msgsdata.content);
             
             var result = await _cheepRepository.AddCreateCheep(cheep);
             
@@ -227,7 +227,7 @@ public class ApiController : ControllerBase
         }
         catch (Exception ex)
         {
-            return BadRequest();
+            return BadRequest(ex.Message);
         }
        
         
