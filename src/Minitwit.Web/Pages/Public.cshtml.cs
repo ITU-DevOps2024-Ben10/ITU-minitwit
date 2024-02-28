@@ -106,7 +106,7 @@ using ValidationException = FluentValidation.ValidationException;
 
             if (author == null) return Page();
 
-            await _authorRepository.AddFollow(author, authorToFollow);
+            if (authorToFollow != null) await _authorRepository.AddFollow(author.Id, authorToFollow.Id);
             return Page();
         }
         
@@ -121,7 +121,7 @@ using ValidationException = FluentValidation.ValidationException;
 
             if (authorToUnfollow == null || author == null) return Page();
 
-            await _authorRepository.RemoveFollow(author!, authorToUnfollow);
+            await _authorRepository.RemoveFollow(author.Id, authorToUnfollow.Id);
             return Page();
         }
 
