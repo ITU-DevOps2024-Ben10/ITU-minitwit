@@ -172,17 +172,19 @@ public class ReactionRepositoryTest
         
         Author authorDto = new Author
         {
+            Id = Guid.NewGuid(),
             UserName = "TestAuthor1", 
             Email = "mock1@email.com"
         };
         Author authorDto1 = new Author
         { 
+            Id = Guid.NewGuid(),
             UserName = "TestAuthor2", 
             Email = "mock2@email.com" 
         };
         Cheep cheepDto = new Cheep
         {
-            CheepId = Guid.Parse("6e579f4c-c2da-420d-adad-40797a71d217"),
+            CheepId = Guid.NewGuid(),
             AuthorId = authorDto1.Id, 
             Text = "TestCheep1", 
         };
@@ -192,7 +194,18 @@ public class ReactionRepositoryTest
         await db.SaveChangesAsync(); 
         
         //Act&Assert
+        Assert.False(await _ReactionRepository.HasUserReacted(cheepDto.CheepId, authorDto.Id));
+
+        Reaction reaction = new Reaction
+        {
+            CheepId = cheepDto.CheepId,
+            AuthorId = authorDto.Id
+        };
+        db.Reactions.Add(reaction);
+        await db.SaveChangesAsync();
+        
         Assert.True(await _ReactionRepository.HasUserReacted(cheepDto.CheepId, authorDto.Id));
+
         
     }
     [Fact]

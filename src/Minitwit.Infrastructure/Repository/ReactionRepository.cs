@@ -58,9 +58,8 @@ public class ReactionRepository(MinitwitDbContext dbContext) : BaseRepository(db
     public async Task<bool> HasUserReacted(Guid cheepId, Guid authorId)
     {
         //check if the user has reacted to the cheep
-        bool hasReacted = await db.Reactions.AnyAsync(r => r.CheepId == cheepId && r.AuthorId == authorId);
-      
-        return hasReacted;
+        return await db.Reactions.AnyAsync(r => r.CheepId == cheepId && r.AuthorId == authorId);
+        
     }
 }
 
