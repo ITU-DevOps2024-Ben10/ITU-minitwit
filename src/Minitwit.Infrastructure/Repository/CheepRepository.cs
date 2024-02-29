@@ -74,12 +74,6 @@ public class CheepRepository : BaseRepository, ICheepRepository
 
     public async Task AddCheep(Cheep cheep)
     {
-      
-        /*//Check if author is in database, if not add them too
-        if (!db.Users.Any(a => a.Id == cheep.Author.Id)) db.Users.Add(cheep.Author); ### WHY?
-        */
-        
-
         db.Cheeps.Add(cheep);
         await db.SaveChangesAsync();
         Console.WriteLine("Cheep added async");
