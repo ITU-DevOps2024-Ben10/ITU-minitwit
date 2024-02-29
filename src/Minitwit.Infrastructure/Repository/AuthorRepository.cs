@@ -174,8 +174,6 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
     // ----- Get Followers and Following Methods ----- //
     public ICollection<Author> GetFollowersById(Guid id)
     {
-        // Initialize a collection to store the authors followed by the specified author
-
         // Query to retrieve the IDs of authors followed by the specified author
         var followedAuthorIds = db.Follows
             .Where(f => f.FollowedAuthorId == id)
@@ -191,8 +189,6 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
     }
     public ICollection<Author> GetFollowingById(Guid id)
     {
-        // Initialize a collection to store the authors followed by the specified author
-
         // Query to retrieve the IDs of authors followed by the specified author
         var followingAuthorIds = db.Follows
             .Where(f => f.FollowingAuthorId == id)
