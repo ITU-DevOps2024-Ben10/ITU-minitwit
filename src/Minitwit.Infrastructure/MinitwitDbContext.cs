@@ -48,6 +48,7 @@ public sealed class MinitwitDbContext : IdentityDbContext<Author, IdentityRole<G
         modelBuilder.Entity<Cheep>(entity =>
         {
             entity.HasKey(e => e.CheepId);
+            entity.Property(e => e.AuthorId).IsRequired();
             entity.Property(e => e.Text).IsRequired();
             entity.Property(e => e.TimeStamp).IsRequired();
 
