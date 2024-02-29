@@ -48,7 +48,7 @@ public class ApiController : ControllerBase
 
 
     private const string LatestCommandIdFilePath = "./latest_processed_sim_action_id.txt";
-    
+
 
     //Returns the id of the latest command read from a text file and defaults to -1
     [HttpGet("latest")]
@@ -207,7 +207,6 @@ public class ApiController : ControllerBase
         {
             return BadRequest("You are not authorized to use this resource");
         }
-
         
         Update_Latest(latest);
         var output = new List<String>();
