@@ -8,16 +8,12 @@ public class ReactionRepository(MinitwitDbContext dbContext) : BaseRepository(db
 {
     public async Task AddReaction(ReactionType reaction, Guid cheepId, Guid authorId)
     {
-        Cheep? cheep = await db.Cheeps.FindAsync(cheepId);
-        Author? author = await db.Users.FindAsync(authorId);
-        if (cheep != null)
+        if (cheepId != Guid.Empty && authorId != Guid.Empty)
         {
             Reaction entity = new Reaction()
             {
                 CheepId = cheepId,
-                Cheep = cheep,
                 AuthorId = authorId,
-                Author = author,
                 ReactionType = reaction
             };
             db.Reactions.Add(entity);
@@ -29,6 +25,12 @@ public class ReactionRepository(MinitwitDbContext dbContext) : BaseRepository(db
             throw new Exception("Cheep with id " + cheepId + " not found");
         }
     }
+
+    public ICollection<Reaction> GetReactionsFromCheepId(Guid id)
+    {
+        return db.Reactions.Where(r => r.CheepId == id).ToList();
+    }
+    
     public async Task RemoveReaction(ReactionType reaction, Guid cheepId, Guid authorId)
     {
         Reaction? entity = await db.Reactions.FindAsync(cheepId, authorId);
@@ -43,22 +45,21 @@ public class ReactionRepository(MinitwitDbContext dbContext) : BaseRepository(db
     {
            Cheep? cheep = await db.Cheeps.FindAsync(cheepId);
            int count = 0; 
-            if (cheep != null)
+           if (cheep != null)
            { 
-               count = await db.Reactions.CountAsync(r => r.Cheep == cheep && r.ReactionType == reactionType);
+               count = await db.Reactions.CountAsync(r => r.CheepId == cheepId && r.ReactionType == reactionType);
            }
            else
            {
                throw new Exception("Cheep with id " + cheepId + " not found");
            }
-            return count;
+           return count;
     }
     public async Task<bool> HasUserReacted(Guid cheepId, Guid authorId)
     {
         //check if the user has reacted to the cheep
-        bool hasReacted = await db.Reactions.AnyAsync(r => r.CheepId == cheepId && r.AuthorId == authorId);
-      
-        return hasReacted;
+        return await db.Reactions.AnyAsync(r => r.CheepId == cheepId && r.AuthorId == authorId);
+        
     }
 }
 

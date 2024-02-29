@@ -6,8 +6,6 @@
 /// </summary>
 public class Reaction {
     public Guid CheepId { get; set; }
-    public Cheep Cheep { get; set; }
-    public Author Author { get; set; }
 
     public Guid AuthorId { get; set; }
     

@@ -15,7 +15,7 @@ public class FollowRepositoryTest
     }
 
     [Fact]
-    public void CreateFollow_ShouldCreateFollow()
+    public async void CreateFollow_ShouldCreateFollow()
     {
         // Arrange
         FollowRepository followRepository = new(context);
@@ -35,19 +35,17 @@ public class FollowRepositoryTest
         
         Follow manuelFollow = new()
         {
-            FollowingAuthor = authorThatFollows,
             FollowingAuthorId = authorThatFollows.Id,
-            FollowedAuthor = authorBeingFollowed,
             FollowedAuthorId = authorBeingFollowed.Id
         };
         
         // Act
-        Follow generatedFollow = followRepository.CreateFollow(authorThatFollows, authorBeingFollowed);
+        Follow generatedFollow = await followRepository.CreateFollow(authorThatFollows.Id, authorBeingFollowed.Id);
         
         // Assert
-        Assert.Equal(generatedFollow.FollowingAuthor, manuelFollow.FollowingAuthor);
         Assert.Equal(generatedFollow.FollowingAuthorId, manuelFollow.FollowingAuthorId);
-        Assert.Equal(generatedFollow.FollowedAuthor, manuelFollow.FollowedAuthor);
+        Assert.Equal(generatedFollow.FollowingAuthorId, manuelFollow.FollowingAuthorId);
+        Assert.Equal(generatedFollow.FollowedAuthorId, manuelFollow.FollowedAuthorId);
         Assert.Equal(generatedFollow.FollowedAuthorId, manuelFollow.FollowedAuthorId);
     }
 
@@ -72,9 +70,7 @@ public class FollowRepositoryTest
         
         Follow follow = new()
         {
-            FollowingAuthor = authorThatFollows,
             FollowingAuthorId = authorThatFollows.Id,
-            FollowedAuthor = authorBeingFollowed,
             FollowedAuthorId = authorBeingFollowed.Id
         };
         

@@ -31,12 +31,14 @@ public class MinitwitService : ICheepService
     {
         ICollection<Cheep> cheepDtos = _cheepRepository.GetCheepsByPage(page);
         List<CheepViewModel> cheeps = new List<CheepViewModel>();
+        ICollection<Author> authors = _authorRepository.GetAllAuthors();
 
         foreach (Cheep cheepDto in cheepDtos)
         {
             List<ReactionModel> reactionTypeCounts = CheepReactions(cheepDto);
+            Author? author = authors.FirstOrDefault(a => a.Id == cheepDto.AuthorId);
             
-            cheeps.Add(new CheepViewModel(cheepDto.CheepId, new UserModel(cheepDto.Author), cheepDto.Text, cheepDto.TimeStamp.ToString(CultureInfo.InvariantCulture), reactionTypeCounts));
+            cheeps.Add(new CheepViewModel(cheepDto.CheepId, new UserModel(author), cheepDto.Text, cheepDto.TimeStamp.ToString(CultureInfo.InvariantCulture), reactionTypeCounts));
         }
 
         return cheeps;
@@ -46,12 +48,13 @@ public class MinitwitService : ICheepService
     {
         ICollection<Cheep> cheepDtos = _authorRepository.GetCheepsByAuthor(id, page);
         ICollection<CheepViewModel> cheeps = new List<CheepViewModel>();
-
+        Author author = _authorRepository.GetAuthorById(id);
+        
         foreach (Cheep cheepDto in cheepDtos)
         {
             List<ReactionModel> reactionTypeCounts = CheepReactions(cheepDto);
 
-            cheeps.Add(new CheepViewModel(cheepDto.CheepId, new UserModel(cheepDto.Author), cheepDto.Text, cheepDto.TimeStamp.ToString(CultureInfo.InvariantCulture), reactionTypeCounts));
+            cheeps.Add(new CheepViewModel(cheepDto.CheepId, new UserModel(author), cheepDto.Text, cheepDto.TimeStamp.ToString(CultureInfo.InvariantCulture), reactionTypeCounts));
         }
         
         return cheeps;
@@ -60,13 +63,16 @@ public class MinitwitService : ICheepService
     public ICollection<CheepViewModel> GetCheepsFromAuthorAndFollowing(Guid authorId, int page)
     {
         ICollection<Cheep> cheepDtos = _authorRepository.GetCheepsByAuthorAndFollowing(authorId, page);
+        ICollection<Author> authors = _authorRepository.GetFollowingById(authorId);
+                            authors.Add(_authorRepository.GetAuthorById(authorId));
         ICollection<CheepViewModel> cheeps = new List<CheepViewModel>();
 
         foreach (Cheep cheepDto in cheepDtos)
         {
             List<ReactionModel> reactionTypeCounts = CheepReactions(cheepDto);
+            Author? author = authors.FirstOrDefault(a => a.Id == cheepDto.AuthorId);
 
-            cheeps.Add(new CheepViewModel(cheepDto.CheepId, new UserModel(cheepDto.Author), cheepDto.Text, cheepDto.TimeStamp.ToString(CultureInfo.InvariantCulture), reactionTypeCounts));
+            cheeps.Add(new CheepViewModel(cheepDto.CheepId, new UserModel(author!), cheepDto.Text, cheepDto.TimeStamp.ToString(CultureInfo.InvariantCulture), reactionTypeCounts));
         }
         
         return cheeps;
@@ -79,10 +85,11 @@ public class MinitwitService : ICheepService
             .Cast<ReactionType>()
             .ToDictionary(rt => rt, rt => new ReactionModel(rt, 0));
 
+        ICollection<Reaction> reactionDTOs = _reactionRepository.GetReactionsFromCheepId(cheepDto.CheepId);
         // If cheepDto.Reactions is not null and has elements, process them.
-        if (cheepDto.Reactions?.Any() == true)
+        if (reactionDTOs.Any() == true)
         {
-            foreach (Reaction reaction in cheepDto.Reactions)
+            foreach (Reaction reaction in reactionDTOs)
             {
                 reactions[reaction.ReactionType].ReactionCount++;
             }

@@ -66,7 +66,7 @@ public class AuthorDTOTests
         Assert.True(indexAttribute.IsUnique);
     }
 
-    [Fact]
+    /*[Fact] // Unnecessary test due to collection of cheeps being removed from author
     public void AuthorDTO_Cheeps_ShouldBeInitialized()
     {
         // Arrange and Act
@@ -79,5 +79,5 @@ public class AuthorDTOTests
         // Assert
         Assert.NotNull(author.Cheeps);
         Assert.Empty(author.Cheeps);
-    }
+    }*/
 }

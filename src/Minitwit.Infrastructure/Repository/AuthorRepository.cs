@@ -9,8 +9,6 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
     private readonly IFollowRepository _followRepository;
     public AuthorRepository(MinitwitDbContext minitwitDbContext) : base(minitwitDbContext)
     {
-        db.Users.Include(e => e.Followers);
-        db.Users.Include(e => e.Following);
         _followRepository = new FollowRepository(minitwitDbContext);
     }
 
@@ -23,56 +21,58 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
 
 
     // ----- Get Author Methods ----- //
+
+    public ICollection<Author> GetAllAuthors()
+    {
+        return db.Users.ToList();
+    }
+    
     public Author GetAuthorById(Guid authorId)
     {
-        Author author = db.Users
-            .Include(e => e.Cheeps)
-            .Include(e => e.Followers)
-            .Where(a => a.Id == authorId).FirstOrDefault()!;
+        Author author = db.Users.FirstOrDefault(a => a.Id == authorId)!;
             
         return author;
     }
     
     public async Task<Author?> GetAuthorByIdAsync(Guid authorId)
     {
-        Author? author = await db.Users
-            .Include(e => e.Cheeps)
-            .ThenInclude(c => c.Reactions)
-            .Include(e => e.Followers)
-            .Include(e => e.Following)
-            .Where(a => a.Id == authorId).FirstOrDefaultAsync();
-         
-         
+        Author? author = await db.Users.FirstOrDefaultAsync(a => a.Id == authorId);
         return author!;
     }
     
     public Author GetAuthorByName(string name)
     {
-        Author author = db.Users
-            .Include(e => e.Cheeps)
-            .Include(e => e.Followers).FirstOrDefault(a => a.UserName == name)!;
+        Author author = db.Users.FirstOrDefault(a => a.UserName == name)!;
             
         return author;
     }
     
     public Author GetAuthorByEmail(string email)
     {
-        Author author = db.Users
-            .Include(e => e.Cheeps).FirstOrDefault(a => a.Email == email)!;
+        Author author = db.Users.FirstOrDefault(a => a.Email == email)!;
             
         return author;
     }
 
 
     // ----- Get Cheeps By Author and Page Methods ----- //
+
+
+    public ICollection<Cheep> GetCheepsByAuthor(Guid id)
+    {
+        return db.Cheeps
+            .Where(e => e.AuthorId == id)
+            .ToList();
+    }
+    
     public ICollection<Cheep> GetCheepsByAuthor(Guid id, int page)
     {
-        Author author = GetAuthorById(id);
+        var cheeps = GetCheepsByAuthor(id);
         
         //Check that author has cheeps
-        if (author.Cheeps == null || !(author.Cheeps.Any()))
+        if (cheeps == null || cheeps.Count == 0)
         {
-            throw new Exception("Author " + author.UserName + " has no cheeps");
+            throw new Exception("This author has no cheeps");
         }
 
         if(page < 1){
@@ -81,37 +81,51 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
 
         int pageSizeIndex = (page - 1) * PageSize;
 
-        if (author.Cheeps.Count < pageSizeIndex + PageSize)
-            return author.Cheeps.ToList<Cheep>().GetRange(pageSizeIndex, author.Cheeps.Count - pageSizeIndex)
+        if (cheeps.Count < pageSizeIndex + PageSize)
+            return cheeps.ToList().GetRange(pageSizeIndex, cheeps.Count - pageSizeIndex)
                 .OrderByDescending(c => c.TimeStamp).ToList();
-        if(author.Cheeps.Count > PageSize) return author.Cheeps.ToList<Cheep>().GetRange(pageSizeIndex,PageSize).OrderByDescending(c => c.TimeStamp).ToList();
-        return author.Cheeps.OrderByDescending(c => c.TimeStamp).ToList();
+        if(cheeps.Count > PageSize) return cheeps.ToList().GetRange(pageSizeIndex,PageSize).OrderByDescending(c => c.TimeStamp).ToList();
+        return cheeps.OrderByDescending(c => c.TimeStamp).ToList();
+    }
+
+    public ICollection<Cheep> GetCheepsByAuthorAndFollowing(Guid id)
+    {
+        ICollection<Cheep> cheeps = new List<Cheep>();
+        cheeps = cheeps.Concat(GetCheepsByAuthor(id)).ToList();
+        
+        foreach (Author author in GetFollowingById(id))
+        {
+            cheeps = cheeps.Concat(GetCheepsByAuthor(author.Id)).ToList();
+        }
+
+        return cheeps;
     }
     
     public ICollection<Cheep> GetCheepsByAuthorAndFollowing(Guid id, int page)
     {
         Author author = GetAuthorById(id);
         //Get cheeps from the author, and append cheeps from followers to that list
-        ICollection<Author?> following = GetFollowingById(id);
+        ICollection<Author> following = GetFollowingById(id);
         ICollection<Cheep> cheeps = new List<Cheep>();
 
         // Add all the users cheeps to the list without pagination
-        foreach (var cheepDto in author.Cheeps)
+        foreach (var cheepDto in GetCheepsByAuthor(id))
         {
             cheeps.Add(cheepDto);
         }
 
         foreach (Author? follower in following)
         {
+            ICollection<Cheep> followingCheeps = GetCheepsByAuthor(follower.Id);
             //If follower has no cheeps, skip them
-            if (follower.Cheeps == null || !(follower.Cheeps.Any()))
+            if (followingCheeps.Count == 0)
             {
                 continue;
             }
 
             //Add each cheep from the follower to the list
             //TODO Try to find alternative to foreach
-            foreach (var cheepDto in follower.Cheeps)
+            foreach (var cheepDto in followingCheeps)
             {
                 cheeps.Add(cheepDto);
             }
@@ -131,32 +145,19 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
     // ----- Get Cheeps By Author Methods ----- //
     public int GetCheepCountByAuthor(Guid authorId)
     {
-        Author author = GetAuthorById(authorId);
+        ICollection<Cheep> cheeps = GetCheepsByAuthor(authorId);
         //Check that author has cheeps
-        if (!author.Cheeps.Any())
+        if (cheeps.Count == 0 || cheeps == null)
         {
             return 0;
         }
 
-        return author.Cheeps.Count;
+        return cheeps.Count;
     }
     
     public int GetCheepCountByAuthorAndFollowing(Guid authorId)
     {
-        Author author = GetAuthorById(authorId);
-        int amountOfCheeps = 0;
-        //Check that author has cheeps
-        if (!author.Cheeps.Any())
-        {
-            amountOfCheeps = 0;
-        }
-        amountOfCheeps += GetCheepCountByAuthor(authorId);
-        foreach (Follow follow in author.Following)
-        {
-            amountOfCheeps += GetCheepCountByAuthor(follow.FollowedAuthorId);
-        }
-
-        return amountOfCheeps;
+        return GetCheepsByAuthorAndFollowing(authorId).Count;
     }
 
 
@@ -171,80 +172,85 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
         return GetCheepCountByAuthorAndFollowing(authorId) / PageSize + 1;
     }
     // ----- Get Followers and Following Methods ----- //
-    public ICollection<Author?> GetFollowersById(Guid id)
+    public ICollection<Author> GetFollowersById(Guid id)
     {
-        Author author = db.Users.Include(a => a.Followers).ThenInclude(f => f.FollowingAuthor).SingleOrDefault(a => a.Id == id);
-        
-        ICollection<Author?> followers = new List<Author?>();
-        
-        foreach (var follow in author.Followers)
-        {
-            followers.Add(follow.FollowingAuthor);
-        }
+        // Query to retrieve the IDs of authors followed by the specified author
+        var followedAuthorIds = db.Follows
+            .Where(f => f.FollowedAuthorId == id)
+            .Select(f => f.FollowingAuthorId)
+            .ToList();
 
-        return followers;
+        // Query to retrieve the author entities based on the followed author IDs
+        ICollection<Author> followedAuthors = db.Users
+            .Where(a => followedAuthorIds.Contains(a.Id))
+            .ToList();
+
+        return followedAuthors;
+    }
+    public ICollection<Author> GetFollowingById(Guid id)
+    {
+        // Query to retrieve the IDs of authors followed by the specified author
+        var followingAuthorIds = db.Follows
+            .Where(f => f.FollowingAuthorId == id)
+            .Select(f => f.FollowedAuthorId)
+            .ToList();
+
+        // Query to retrieve the author entities based on the followed author IDs
+        ICollection<Author> followingAuthors = db.Users
+            .Where(a => followingAuthorIds.Contains(a.Id))
+            .ToList();
+
+        return followingAuthors;
     }
 
-    public ICollection<Author?> GetFollowingById(Guid id)
+    public bool AuthorExists(Guid id)
     {
-        Author author = db.Users.Include(a => a.Following).ThenInclude(f => f.FollowedAuthor).ThenInclude(a => a.Cheeps).SingleOrDefault(a => a.Id == id);
-        
-        ICollection<Author?> following = new List<Author?>();
-        
-        foreach (Follow follow in author.Following)
-        {
-            following.Add(follow.FollowedAuthor);
-        }
-        
-        return following;
+        Author author = GetAuthorById(id);
+        return author.Id != Guid.Empty;
     }
 
 
     // ----- Add/Remove Follow Methods ----- //
-    public async Task AddFollow(Author? followingAuthor, Author? followedAuthor)
+    public async Task AddFollow(Guid followingAuthorId, Guid followedAuthorId)
     {
-        Follow follow = _followRepository.CreateFollow(followingAuthor, followedAuthor);
+        await _followRepository.CreateFollow(followingAuthorId, followedAuthorId);
         
-        followingAuthor.Following.Add(follow);
-        followedAuthor.Followers.Add(follow);
-        
-        db.Users.Update(followingAuthor);
-        db.Users.Update(followedAuthor);
-        
-        await db.SaveChangesAsync();
     }
-    
-    public async Task RemoveFollow(Author? followingAuthor, Author? followedAuthor) {
-        // Load the Follow collections explicitly
-        await db.Entry(followingAuthor).Collection(f => f.Followers).LoadAsync();
-        await db.Entry(followedAuthor).Collection(u => u.Followers).LoadAsync();
 
-        followingAuthor.Following.Remove(followingAuthor.Followers.FirstOrDefault(f => f.FollowedAuthorId == followedAuthor.Id)!);
-        followedAuthor.Followers.Remove(followedAuthor.Followers.FirstOrDefault(f => f.FollowingAuthorId == followingAuthor.Id)!);
+    public Task RemoveFollow(Guid followingAuthorId, Guid followedAuthorId)
+    {
+        Follow follow = db.Follows
+            .FirstOrDefault(e => e.FollowedAuthorId == followedAuthorId && e.FollowingAuthorId == followingAuthorId)!;
+        return _followRepository.DeleteFollow(follow);
+    }
 
-        db.Users.Update(followingAuthor);
-        db.Users.Update(followedAuthor);
-        
-        await SaveContextAsync();
+    public async Task RemoveFollow(Author? followingAuthor, Author? followedAuthor)
+    {
+        Follow follow = db.Follows
+            .FirstOrDefault(e => e.FollowedAuthorId == followedAuthor!.Id && e.FollowingAuthorId == followingAuthor!.Id)!;
+        await _followRepository.DeleteFollow(follow);
     }
     
 
     // ----- Delete Author Data Methods ----- //
     public async Task DeleteCheepsByAuthorId(Guid id)
     {
-        Author? author = await GetAuthorByIdAsync(id);
-        
-        foreach (var cheep in author.Cheeps.ToList())
+        var cheeps = GetCheepsByAuthor(id);
+
+        foreach (var cheep in cheeps)
         {
-            if (cheep.Reactions.Any())    
-            {
-                db.Reactions.RemoveRange(cheep.Reactions);
-            }
-            
-            author.Cheeps.Remove(cheep);
+            // Find reactions associated with the current cheep and delete them
+            var reactions = db.Reactions
+                .Where(r => r.CheepId == cheep.CheepId)
+                .ToList();
+
+            db.Reactions.RemoveRange(reactions);
+
+            // Delete the cheep itself
+            db.Cheeps.Remove(cheep);
         }
 
-        db.SaveChanges();
+        await db.SaveChangesAsync();
     }
 
     public async Task RemoveAllFollowersByAuthorId(Guid id)
