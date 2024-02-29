@@ -31,7 +31,7 @@ public class MinitwitService : ICheepService
     {
         ICollection<Cheep> cheepDtos = _cheepRepository.GetCheepsByPage(page);
         List<CheepViewModel> cheeps = new List<CheepViewModel>();
-        ICollection<Author> authors = _authorRepository.GetAuthors();
+        ICollection<Author> authors = _authorRepository.GetAllAuthors();
 
         foreach (Cheep cheepDto in cheepDtos)
         {

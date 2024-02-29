@@ -7,7 +7,7 @@ public interface IAuthorRepository
     public void AddAuthor(Author authorDto);
 
 
-    public ICollection<Author> GetAuthors();
+    public ICollection<Author> GetAllAuthors();
     public Author GetAuthorById(Guid authorId);
     public Task<Author?> GetAuthorByIdAsync(Guid authorId);
     public Author GetAuthorByName(string name);

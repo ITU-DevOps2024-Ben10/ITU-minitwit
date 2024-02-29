@@ -22,7 +22,7 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
 
     // ----- Get Author Methods ----- //
 
-    public ICollection<Author> GetAuthors()
+    public ICollection<Author> GetAllAuthors()
     {
         return db.Users.ToList();
     }
