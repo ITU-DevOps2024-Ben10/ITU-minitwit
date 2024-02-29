@@ -67,14 +67,12 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
     
     public ICollection<Cheep> GetCheepsByAuthor(Guid id, int page)
     {
-
-        Author author = GetAuthorById(id);
         var cheeps = GetCheepsByAuthor(id);
         
         //Check that author has cheeps
         if (cheeps == null || cheeps.Count == 0)
         {
-            throw new Exception("Author " + author.UserName + " has no cheeps");
+            throw new Exception("This author has no cheeps");
         }
 
         if(page < 1){
