@@ -28,7 +28,9 @@
             tag=${git describe --tag --abbrev=0}
 
             targets=("osx-arm64" "osx-x64" "win-x64" "linux-x64")
-            for target in
+            for target in "${target[@]}"
+            do
+              release_name="Minitwit-"
           
           
       
