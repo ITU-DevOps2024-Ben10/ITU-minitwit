@@ -5,7 +5,7 @@ Vagrant.configure("2") do |config| # Note: Ensure you're using the latest config
 
   config.vm.box = 'digital_ocean'
   config.vm.box_url = "https://github.com/devopsgroup-io/vagrant-digitalocean/raw/master/box/digital_ocean.box"
-  config.ssh.private_key_path = '~/.ssh/id_rsa'
+  config.ssh.private_key_path = '~/.ssh/do_ssh_key'
   config.vm.synced_folder ".", "/vagrant", type: "rsync"
   config.vm.provision "shell", inline: <<-SHELL
       systemctl disable apt-daily.service
