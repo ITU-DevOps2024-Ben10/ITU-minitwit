@@ -42,6 +42,7 @@ jobs:
           SSH_KEY: ${{ secrets.SSH_KEY }}
       - name: Deploy to server
         run: |
-          ssh -i ~/.ssh/minitwit.key ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
+          ssh -i ~/.ssh/minitwit.key ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << EOF
           docker pull ${{ secrets.DOCKER_USERNAME }}/minitwitimage:latest
           echo "NU VIRKER DU FANDEME DIN BANDIT"
+          EOF
