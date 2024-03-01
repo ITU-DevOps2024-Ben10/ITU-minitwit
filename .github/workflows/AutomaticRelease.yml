@@ -1,11 +1,9 @@
   name : Automatic Release
   on:
     schedule:
-      # - Time of day
+      # - 16:56 every Thursday
     - cron: '56 16 * * 4'
   
-  #Fetches the latest tag from the repository
-  #git describe --abbrev=0 --tags
   jobs:
    release:
       runs-on: ubuntu-latest
