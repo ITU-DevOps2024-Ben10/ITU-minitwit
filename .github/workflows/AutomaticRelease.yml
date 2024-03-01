@@ -1,9 +1,10 @@
   name : Automatic Release
   
   on:
-    schedule:
-      # - 16:56 every Thursday
-    - cron: '27 13 * * 5'
+    push:
+#    schedule:
+#      # - 16:56 every Thursday
+#    - cron: '27 13 * * 5'
   
   jobs:
    release:
