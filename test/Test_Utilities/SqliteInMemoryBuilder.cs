@@ -8,7 +8,7 @@ public class SqliteInMemoryBuilder
 {   
     //This class is used to create an in memory database for testing purposes
     //Create a new instance of this class in your test class,
-    //then call the GetContext() method to get a new instance of the ChirpDbContext
+    //then call the GetContext() method to get a new instance of the MinitwitDbContext
 
     public static MinitwitDbContext GetContext()
     {

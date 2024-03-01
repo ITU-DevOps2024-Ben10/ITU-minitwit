@@ -9,12 +9,6 @@ using Minitwit.Core.Repository;
 using Minitwit.Infrastructure.Repository;
 using Minitwit.Web.Areas.Identity.Pages.Account;
 
-/*
- * TODO REMOVE THIS COMMENT WHEN THE API IS DONE
- *
- * This is a rough draft of our API, logic its not perfect and it is not complete.
- * For now we're just experimenting with the API and how it should be structured.
- */
 namespace Minitwit.Web.ApiControllers;
 
 //Isn't needed as the endpoints we need to expose doesn't clash with any endpoints we already use
