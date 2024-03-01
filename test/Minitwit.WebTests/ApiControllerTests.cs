@@ -56,8 +56,20 @@ public class ApiControllerTests
 
         _mockCheepRepository.Setup(repo => repo.GetCheepsByCount(count))
             .Returns(cheeps);
-        HttpClient client = new HttpClient();
-        client.DefaultRequestHeaders.Authorization = ;
+        // Arrange
+        
+        var request = new Mock<HttpRequest>();
+        request.Setup(r => r.Headers["Authorization"]).Returns("Basic c2ltdWxhdG9yOnN1cGVyX3NhZmUh");
+
+        var httpContext = new DefaultHttpContext();
+        httpContext.Request.Headers["Authorization"] = "NotValidToken";
+
+        _apiController.ControllerContext = new ControllerContext
+        {
+            HttpContext = httpContext
+        };
+
+        
     
         //Act
         var result = _apiController.GetMessagesFromPublicTimeline(1, count);
@@ -69,7 +81,19 @@ public class ApiControllerTests
 
 
     }
+    /*
+     var request = new Mock<HttpRequest>();
+       request.Setup(r => r.Headers["Authorization"]).Returns("NotValidToken");
+
+       var httpContext = new DefaultHttpContext();
+       httpContext.Request.Headers["Authorization"] = "NotValidToken";
+
+       _apiController.ControllerContext = new ControllerContext
+       {
+           HttpContext = httpContext
+       };
     
+    */
 
     
 }

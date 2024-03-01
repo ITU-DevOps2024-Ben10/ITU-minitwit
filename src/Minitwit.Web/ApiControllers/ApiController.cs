@@ -322,6 +322,7 @@ public class ApiController : ControllerBase
     
     public bool NotReqFromSimulator(HttpRequest request)
     {
+        
         string fromSimulator = request.Headers["Authorization"];
         if (fromSimulator != "Basic c2ltdWxhdG9yOnN1cGVyX3NhZmUh")
         {
