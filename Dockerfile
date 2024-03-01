@@ -11,6 +11,8 @@ COPY ["src/Minitwit.Core/Minitwit.Core.csproj", "src/Minitwit.Core/"]
 COPY ["src/Minitwit.Infrastructure/Minitwit.Infrastructure.csproj", "src/Minitwit.Infrastructure/"]
 RUN dotnet restore "src/Minitwit.Web/Minitwit.Web.csproj"
 
+COPY . .
+
 WORKDIR "/src"
 RUN dotnet build "src/Minitwit.Web/Minitwit.Web.csproj" -c $BUILD_CONFIGURATION -o /app/build
 

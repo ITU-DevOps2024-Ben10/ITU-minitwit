@@ -226,7 +226,8 @@ public class ApiController : ControllerBase
             return BadRequest(e.Message);
         }
 
-        return Ok(output.Take(no));
+        return Ok(new { follows = output.Take(no) });
+        
     }
 
     [HttpPost("fllws/{username}")]
@@ -298,7 +299,6 @@ public class ApiController : ControllerBase
         public string email { get; set; }
         public string pwd { get; set; }
     }
-
     
     // Helper methods
 
