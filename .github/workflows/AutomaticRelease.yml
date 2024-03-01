@@ -1,0 +1,55 @@
+  name : Automatic Release
+  
+  on:
+    push:
+#    schedule:
+#      # - 16:56 every Thursday
+#    - cron: '27 13 * * 5'
+  
+  jobs:
+   release:
+      runs-on: ubuntu-latest
+      name: automatic release of main branch
+          
+      steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v3
+          
+        - name: Setup .NET
+          uses: actions/setup-dotnet@v1
+          with:
+            dotnet-version: '8.0.x'
+
+        - name: Restore Dependencies
+          run: dotnet restore src/Minitwit.Web
+          
+        - name: Determine Tag
+          id: get_tag
+          run: echo ::set-output name=TAG::$(git describe --tags --abbrev=0)
+          
+        - name: Build
+          run: |
+            tag=$TAG
+
+            targets=("osx-arm64" "osx-x64" "win-x64" "linux-x64")
+            for target in "${targets[@]}"
+            do
+              release_name="Minitwit-$tag-$target"
+              dotnet publish src/Minitwit.Web/ -c Release --framework net8.0 --runtime $target -o "$release_name"
+            
+              7z a -tzip "${release_name}.zip" "./${release_name}/*"
+  
+              rm -r "$release_name"
+            done
+
+        - name: Publish
+          uses: softprops/action-gh-release@v1
+          with:
+            files: |
+              Minitwit*.zip
+              Minitwit*.tar.gz
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      
+        
