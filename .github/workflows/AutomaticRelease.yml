@@ -7,9 +7,10 @@
   #Fetches the latest tag from the repository
   #git describe --abbrev=0 --tags
   jobs:
-      release:
-          name: automatic release of main branch
-          runs-on: ubuntu 22.04.x
+   release:
+      runs-on: ubuntu-latest
+      name: automatic release of main branch
+          
       steps:
         - name: Checkout Repository
           uses: actions/checkout@v3
@@ -18,7 +19,17 @@
           uses: actions/setup-dotnet@v1
           with:
             dotnet-version: '8.0.x'
+
+        - name: Restore Dependencies
+          run: dotnet restore src/Minitwit.Web
+
+        - name: Build
+          run: |
+            tag=${git describe --tag --abbrev=0}
+
+            targets=("osx-arm64" "osx-x64" "win-x64" "linux-x64")
+            for target in
           
           
-      env:
+      
         
