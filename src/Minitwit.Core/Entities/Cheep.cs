@@ -19,15 +19,11 @@ public class Cheep
     [Required]
     public Guid AuthorId {get; set;}
     
-    [Required]
-    public required Author Author {get; set;}
-
     [StringLength(160, MinimumLength = 5)] [Required] 
     public required string Text { get; set; }
     
     [Required]
     public DateTime TimeStamp {get; set;}
     
-    public ICollection<Reaction> Reactions { get; set; }
 
 }

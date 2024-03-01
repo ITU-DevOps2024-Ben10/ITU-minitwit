@@ -34,7 +34,7 @@ public class CheepDTOTests
         public void CheepDTO_AuthorDto_ShouldHaveRequiredAttribute()
         {
             // Arrange and Act
-            var propertyInfo = typeof(Cheep).GetProperty("Author");
+            var propertyInfo = typeof(Cheep).GetProperty("AuthorId");
             var requiredAttribute = propertyInfo.GetCustomAttributes(typeof(RequiredAttribute), true).FirstOrDefault() as RequiredAttribute;
             
             // Assert

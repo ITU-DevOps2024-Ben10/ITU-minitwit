@@ -31,13 +31,19 @@ Vagrant.configure("2") do |config| # Note: Ensure you're using the latest config
       wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
       sudo dpkg -i packages-microsoft-prod.deb
 
-      # Wait for dpkg locks to be released
-      while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1 || sudo fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1; do
-        echo "Waiting for other dpkg processes to finish..."
+      # Ensure APT lock files are not held
+      while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1 || sudo fuser /var/lib/apt/lists/lock >/dev/null 2>&1 || sudo fuser /var/cache/apt/archives/lock >/dev/null 2>&1; do
+        echo "Waiting for other APT processes to finish..."
         sleep 1
       done
 
       sudo apt-get update
+      
+      # Ensure APT lock files are not held
+            while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1 || sudo fuser /var/lib/apt/lists/lock >/dev/null 2>&1 || sudo fuser /var/cache/apt/archives/lock >/dev/null 2>&1; do
+              echo "Waiting for other APT processes to finish..."
+              sleep 1
+            done
 
       echo "Installing .NET 8 and ASP.NET Core..."
 

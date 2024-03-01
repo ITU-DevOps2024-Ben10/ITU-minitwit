@@ -13,8 +13,7 @@ public class CheepRepository : BaseRepository, ICheepRepository
     public ICollection<Cheep> GetCheepsByPage(int page)
     {
         //Use EF to get the specified page of cheeps from the database
-        ICollection<Cheep> cheeps = db.Cheeps.Include(e => e.Author)
-            .Include(e => e.Reactions)
+        ICollection<Cheep> cheeps = db.Cheeps
             .OrderByDescending(c => c.TimeStamp)
             .Skip(PageSize * (page - 1))
             .Take(PageSize)
@@ -25,9 +24,20 @@ public class CheepRepository : BaseRepository, ICheepRepository
 
     public ICollection<Cheep> GetCheepsByCount(int count)
     {
-        //Use EF to get the specified page of cheeps from the database
-        ICollection<Cheep> cheeps = db.Cheeps.Include(e => e.Author)
-            .Include(e => e.Reactions)
+        //Use EF to get the specified count of cheeps from the database
+        ICollection<Cheep> cheeps = db.Cheeps
+            .OrderByDescending(c => c.TimeStamp)
+            .Take(count)
+            .ToList();
+
+        return cheeps;
+    }
+    
+    public ICollection<Cheep> GetCheepsFromAuthorByCount(Guid authorId, int count)
+    {
+        //Use EF to get the specified count of cheeps from an author from the database
+        ICollection<Cheep> cheeps = db.Cheeps
+            .Where(c => c.AuthorId == authorId)
             .OrderByDescending(c => c.TimeStamp)
             .Take(count)
             .ToList();
@@ -64,11 +74,6 @@ public class CheepRepository : BaseRepository, ICheepRepository
 
     public async Task AddCheep(Cheep cheep)
     {
-      
-        //Check if author is in database, if not add them too
-        if (!db.Users.Any(a => a.Id == cheep.Author.Id)) db.Users.Add(cheep.Author);
-        
-
         db.Cheeps.Add(cheep);
         await db.SaveChangesAsync();
         Console.WriteLine("Cheep added async");
@@ -81,8 +86,7 @@ public class CheepRepository : BaseRepository, ICheepRepository
             CheepId = new Guid(),
             Text = cheep.Text,
             TimeStamp = DateTime.Now,
-            Author = cheep.Author,
-            AuthorId = cheep.Author.Id
+            AuthorId = cheep.AuthorId
         };
         
         await AddCheep(entity);

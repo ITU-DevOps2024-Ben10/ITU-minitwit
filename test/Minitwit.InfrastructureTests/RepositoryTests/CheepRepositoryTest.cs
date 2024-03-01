@@ -11,7 +11,7 @@ public class CheepRepositoryTest{
     private readonly CheepRepository CheepRepository;
     private readonly MinitwitDbContext db;
 
-    private Author _author;
+    private readonly Author _author;
 
     public CheepRepositoryTest()
     {
@@ -37,8 +37,7 @@ public class CheepRepositoryTest{
             {
                 CheepId = Guid.NewGuid(),
                 AuthorId = authorDto.Id,
-                Text = "TestCheep" + i,
-                Author = authorDto
+                Text = "TestCheep" + i
             };
             
             db.Users.Add(authorDto);
@@ -84,10 +83,11 @@ public class CheepRepositoryTest{
             AuthorId = _author.Id,
             Text = "TestCheep",
             TimeStamp = DateTime.Now,
-            Author = _author
         };
 
+        #pragma warning disable xUnit1031
         CheepRepository.AddCheep(cheepDto).Wait();
+        #pragma warning restore xUnit1031
 
         ICollection<Cheep> updatedCheeps = CheepRepository.GetCheepsByPage(0);
         
@@ -96,11 +96,11 @@ public class CheepRepositoryTest{
     }
     
     [Fact]
-    public void CreateCheepCreatesCheep()
+    public async void CreateCheepCreatesCheep()
     {
-        CreateCheep createCheep = new CreateCheep(_author, "TestCheep");
+        CreateCheep createCheep = new CreateCheep(_author.Id, "TestCheep");
 
-        Cheep cheep = CheepRepository.AddCreateCheep(createCheep).Result;
+        Cheep cheep = await CheepRepository.AddCreateCheep(createCheep);
         
         Assert.True(CheepRepository.GetCheepsByPage(0).Contains(cheep));
     }
