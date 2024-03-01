@@ -1,0 +1,24 @@
+  name : Automatic Release
+  on:
+    schedule:
+      # - Time of day
+    - cron: '56 16 * * 4'
+  
+  #Fetches the latest tag from the repository
+  #git describe --abbrev=0 --tags
+  jobs:
+      release:
+          name: automatic release of main branch
+          runs-on: ubuntu 22.04.x
+      steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v3
+          
+        - name: Setup .NET
+          uses: actions/setup-dotnet@v1
+          with:
+            dotnet-version: '8.0.x'
+          
+          
+      env:
+        
