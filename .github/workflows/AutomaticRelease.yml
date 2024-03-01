@@ -22,10 +22,14 @@
 
         - name: Restore Dependencies
           run: dotnet restore src/Minitwit.Web
-
+          
+        - name: Determine Tag
+          id: get_tag
+          run: echo ::set-output name=TAG::$(git describe --tags --abbrev=0)
+          
         - name: Build
           run: |
-            tag=${git describe --tag --abbrev=0}
+            tag=$TAG
 
             targets=("osx-arm64" "osx-x64" "win-x64" "linux-x64")
             for target in "${targets[@]}"
