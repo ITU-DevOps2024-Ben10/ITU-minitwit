@@ -47,10 +47,11 @@
         - name: Publish
           uses: softprops/action-gh-release@v1
           with:
+            tag_name: ${{ steps.get_tag.outputs.TAG }}
             files: |
               Minitwit*.zip
               Minitwit*.tar.gz
-            tag: ${{ steps.get_tag.outputs.TAG }}
+            
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
