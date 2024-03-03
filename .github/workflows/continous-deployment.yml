@@ -48,4 +48,5 @@ jobs:
         run: |
           ssh -i ~/.ssh/minitwit ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
           docker pull ${{ secrets.DOCKER_USERNAME }}/minitwitimage:latest
-          echo "NU VIRKER DU FANDEME DIN BANDIT"
+          docker stop webserver
+          docker run -d --name webserver ${{ secrests.DOCKER_SERNAME }}/minitwitimage:latest
