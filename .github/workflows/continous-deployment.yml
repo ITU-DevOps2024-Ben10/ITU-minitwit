@@ -49,5 +49,5 @@ jobs:
           ssh -i ~/.ssh/minitwit ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
           docker pull ${{ secrets.DOCKER_USERNAME }}/minitwitimage:latest
           docker stop webserver
-          docker remoe webserver
+          docker remove webserver
           docker run -d -p 80:80 -p 81:81 --name webserver ${{ secrets.DOCKER_USERNAME }}/minitwitimage:latest
