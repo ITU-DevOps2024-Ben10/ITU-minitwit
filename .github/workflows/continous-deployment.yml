@@ -46,8 +46,9 @@ jobs:
 
       - name: Deploy to server
         run: |
-          ssh -i ~/.ssh/minitwit ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
+          ssh -i ~/.ssh/minitwit ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << EOF
           docker pull ${{ secrets.DOCKER_USERNAME }}/minitwitimage:latest
           docker stop webserver || true
           docker rm webserver || true
           docker run --rm -d -p 8080:8080 -p 8081:8081 --name webserver ${{ secrets.DOCKER_USERNAME }}/minitwitimage:latest
+          EOF
