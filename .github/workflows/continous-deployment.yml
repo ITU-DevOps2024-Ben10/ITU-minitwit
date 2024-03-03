@@ -36,13 +36,13 @@ jobs:
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh/
-          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/minitwit.key
-          chmod 600 ~/.ssh/minitwit.key
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/minitwit
+          chmod 600 ~/.ssh/minitwit
         env:
           SSH_KEY: ${{ secrets.SSH_KEY }}
       - name: Deploy to server
         run: |
-          ssh -i ~/.ssh/minitwit.key ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << EOF
+          ssh -i ~/.ssh/minitwit ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
           docker pull ${{ secrets.DOCKER_USERNAME }}/minitwitimage:latest
           echo "NU VIRKER DU FANDEME DIN BANDIT"
-          EOF
+
