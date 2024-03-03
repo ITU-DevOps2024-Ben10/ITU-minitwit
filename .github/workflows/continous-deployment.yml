@@ -50,4 +50,4 @@ jobs:
           docker pull ${{ secrets.DOCKER_USERNAME }}/minitwitimage:latest
           docker stop webserver || true
           docker rm webserver || true
-          docker run --rm -d -p 80:80 -p 81:81 --name webserver ${{ secrets.DOCKER_USERNAME }}/minitwitimage:latest
+          docker run --rm -d -p 8080:8080 -p 8081:8081 --name webserver ${{ secrets.DOCKER_USERNAME }}/minitwitimage:latest
