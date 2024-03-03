@@ -49,4 +49,4 @@ jobs:
           ssh -i ~/.ssh/minitwit ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
           docker pull ${{ secrets.DOCKER_USERNAME }}/minitwitimage:latest
           docker stop webserver
-          docker run -d --name webserver ${{ secrests.DOCKER_SERNAME }}/minitwitimage:latest
+          docker run -d --name webserver ${{ secrets.DOCKER_SERNAME }}/minitwitimage:latest
