@@ -3,10 +3,9 @@
     contents: write
   
   on:
-    push:
-#    schedule:
-#      # - 16:56 every Thursday
-#    - cron: '27 13 * * 5'
+    schedule:
+    #- 16:56 every Thursday
+    - cron: '56 16 * * 4'
   
   jobs:
    release:
@@ -47,7 +46,7 @@
         - name: Publish
           uses: softprops/action-gh-release@v1
           with:
-            tag_name: ${{ steps.get_tag.outputs.TAG }}
+            tag_name: $TAG
             files: |
               Minitwit*.zip
               Minitwit*.tar.gz
