@@ -38,7 +38,9 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 });
 
 builder.Services.AddDbContext<MinitwitDbContext>(options => 
-    options.UseSqlite($"Data Source={dbPath}"));
+    options.UseSqlServer($"Data Source={dbPath}"));
+    
+    
 
 builder.Services.AddDefaultIdentity<Author>()
     .AddRoles<IdentityRole<Guid>>()
