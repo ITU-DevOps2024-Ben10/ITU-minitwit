@@ -38,7 +38,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 });
 
 builder.Services.AddDbContext<MinitwitDbContext>(options => 
-    options.UseSqlServer($"Server=database;Database=;User Id=myUsername;Password=myPassword;"));
+    options.UseSqlServer($"Server=database;Database=minitwit_database;User Id=sa;Password=123;"));
     //
     
 
@@ -78,15 +78,6 @@ using (var scope = app.Services.CreateScope())
 
     // Call the method to remove duplicate user Logins
     await context.RemoveDuplicateUserLogins();
-
-    // Call the method to seed the database
-    try {
-        DbInitializer.SeedDatabase(context);
-    } catch (Exception ex) {
-        var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred seeding the DB.");
-    }
-    
 }
 
 if (!app.Environment.IsDevelopment())
