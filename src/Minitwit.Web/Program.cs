@@ -38,8 +38,8 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 });
 
 builder.Services.AddDbContext<MinitwitDbContext>(options => 
-    options.UseSqlServer($"Data Source={dbPath}"));
-    
+    options.UseSqlServer($"Server=database;Database=;User Id=myUsername;Password=myPassword;"));
+    //
     
 
 builder.Services.AddDefaultIdentity<Author>()

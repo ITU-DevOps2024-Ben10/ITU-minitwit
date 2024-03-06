@@ -1,0 +1,10 @@
+ FROM mcr.microsoft.com/mssql/server:2022-latest
+ COPY ./Configuration .
+ WORKDIR /Configuration
+ RUN chmod +x ./entrypoint.sh
+ RUN chmod +x ./configure-dbs.sh
+    
+ ENTRYPOINT [ "./entrypoint.sh" ]
+    
+ 
+ 
