@@ -30,4 +30,21 @@
 
 ## Week 7
 * We've added pipeline middleware(builer.Services.AddController and app.MapControllers();) to support a controller for the API.
-  * We've roughly implemented the API for the Minitwit project, it still needs refinement and testing. 
+  * We've roughly implemented the API for the Minitwit project, it still needs refinement and testing.
+
+## Week 8
+*
+
+## Week 9
+* Refactor 
+
+## Week 10
+* Preparation for Session 6:
+  * CPU load during the last hour/the last day.
+    * 
+  * Average response time of your application's front page.
+    * 136,6ms
+  * Amount of users registered in your system.
+    * 
+  * Average amount of followers a user has.
+    * 
