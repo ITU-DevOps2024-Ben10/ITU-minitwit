@@ -3,9 +3,10 @@
     contents: write
   
   on:
-    schedule:
+    push
+    #schedule:
     #- 16:56 every Thursday
-    - cron: '56 16 * * 4'
+    #- cron: '56 16 * * 4'
   
   jobs:
    release:
@@ -30,7 +31,7 @@
           
         - name: Build
           run: |
-            tag=$TAG
+            tag= ${{ steps.get_tag.outputs.TAG }}
 
             targets=("osx-arm64" "osx-x64" "win-x64" "linux-x64")
             for target in "${targets[@]}"
@@ -46,7 +47,7 @@
         - name: Publish
           uses: softprops/action-gh-release@v1
           with:
-            tag_name: $TAG
+            tag_name: ${{ steps.get_tag.outputs.TAG }}
             files: |
               Minitwit*.zip
               Minitwit*.tar.gz
