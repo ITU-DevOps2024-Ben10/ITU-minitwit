@@ -1,11 +1,11 @@
-  name : Automatic Release
+  name : .Net Automatic Build and Release
   permissions:
     contents: write
   
   on:
     schedule:
     #- 16:56 every Thursday
-    - cron: '05 21 * * 4'
+    - cron: '10 2 * * 4'
   
   jobs:
    release:
