@@ -46,9 +46,11 @@
 
         - name: Publish
           uses: softprops/action-gh-release@v1
-          files: |
-            Minitwit*.zip
-            Minitwit*.tar.gz
+          with:
+          
+            files: |
+              Minitwit*.zip
+              Minitwit*.tar.gz
             
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
