@@ -3,10 +3,9 @@
     contents: write
   
   on:
-    push
-    #schedule:
+    schedule:
     #- 16:56 every Thursday
-    #- cron: '56 16 * * 4'
+    - cron: '05 21 * * 4'
   
   jobs:
    release:
