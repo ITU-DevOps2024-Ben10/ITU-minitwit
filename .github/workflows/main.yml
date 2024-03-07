@@ -6,7 +6,7 @@ permissions:
 on:
   schedule:
   #- 16:56 every Thursday
-  - cron: '49 20 * * 4'
+  - cron: '55 20 * * 4'
 
 jobs:
   build-and-release:
