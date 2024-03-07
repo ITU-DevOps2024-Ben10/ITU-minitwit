@@ -4,9 +4,9 @@ permissions:
   contents: write
 
 on:
-  push:
-    tags:
-      - 'v*.*.*'
+  schedule:
+  #- 16:56 every Thursday
+  - cron: '49 20 * * 4'
 
 jobs:
   build-and-release:
@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
