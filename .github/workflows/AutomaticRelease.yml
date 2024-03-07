@@ -31,7 +31,7 @@
           
         - name: Build
           run: |
-            tag= ${{ steps.get_tag.outputs.TAG }}
+            tag=${{ steps.get_tag.outputs.TAG }}
 
             targets=("osx-arm64" "osx-x64" "win-x64" "linux-x64")
             for target in "${targets[@]}"
