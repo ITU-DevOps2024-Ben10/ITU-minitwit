@@ -4,9 +4,9 @@ services:
   minitwit_database:
     container_name: database
     #Sql server docker image package name
-    image: minitwit-database
+    image: mysql:latest
     ports:
-      - "1433:1433"
+      - "3306:3306"
     env_file:
       - .env
     networks:
@@ -20,9 +20,8 @@ services:
       - "8081:8081"
     networks: 
       - minitwit-network
-  
+    command: [ "dockerize", "-wait", "tcp://database:3306", "-timeout", "30s", "./start-webserver.sh" ]
+
 networks:
     minitwit-network:
-        name: minitwit-network
-        external: false
-        
+        name: minitwit-network  

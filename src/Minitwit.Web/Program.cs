@@ -37,10 +37,12 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.IgnoreNullValues = true;
 });
 
-builder.Services.AddDbContext<MinitwitDbContext>(options => 
-    options.UseSqlServer($"Server=database;Database=minitwit_database;User Id=sa;Password=123;"));
-    //
-    
+builder.Services.AddDbContext<MinitwitDbContext>(options =>
+{
+    var connectionString = "server=minitwit_database;port=3306;database=minitwit_database;user=root;password=123;";
+    options.UseMySQL(connectionString);
+});
+
 
 builder.Services.AddDefaultIdentity<Author>()
     .AddRoles<IdentityRole<Guid>>()
