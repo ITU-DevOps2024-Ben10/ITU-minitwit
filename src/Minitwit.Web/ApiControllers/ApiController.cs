@@ -115,6 +115,7 @@ public class ApiController : ControllerBase
         // Checks authorization
         if (NotReqFromSimulator(Request))
         {
+            Console.WriteLine($"Request Headers: {Request.Headers.Authorization}");
             return BadRequest("You are not authorized to use this resource");
         }
         
