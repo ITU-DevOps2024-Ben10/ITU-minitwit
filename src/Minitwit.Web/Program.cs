@@ -38,12 +38,18 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 });
 
 
-string database = Environment.GetEnvironmentVariable("MYSQL_DATABASE");
-string databasePassword = Environment.GetEnvironmentVariable("MYSQL_ROOT_PASSWORD");
+string username = Environment.GetEnvironmentVariable("MYSQL_DATABASE");
+string password = Environment.GetEnvironmentVariable("MYSQL_DATABASE");
+string host = Environment.GetEnvironmentVariable("MYSQL_DATABASE");
+
+string port = Environment.GetEnvironmentVariable("MYSQL_DATABASE");
+
+string database = Environment.GetEnvironmentVariable("MYSQL_ROOT_PASSWORD");
+string sslmode = Environment.GetEnvironmentVariable("MYSQL_ROOT_PASSWORD");
 
 builder.Services.AddDbContext<MinitwitDbContext>(options =>
 {
-    var connectionString = $"server=minitwit_database;port=3306;database={database};user=root;password={databasePassword};";
+    var connectionString = $"host={host};port={port};database={database};user={username};password={password};sslmode={sslmode}";
     options.UseMySQL(connectionString);
 });
 

@@ -26,3 +26,4 @@ services:
 networks:
     minitwit-network:
         name: minitwit-network  
+        external: true
