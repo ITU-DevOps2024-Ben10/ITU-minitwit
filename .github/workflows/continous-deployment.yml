@@ -49,6 +49,6 @@ jobs:
           docker pull ${{ secrets.DOCKER_USERNAME }}/minitwitimage:latest
           docker stop webserver || true
           docker rm webserver || true
-          docker-compose up
+          docker-compose up -d
           docker image prune -a --force
           EOF
