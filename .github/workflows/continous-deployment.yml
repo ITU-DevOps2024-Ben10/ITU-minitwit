@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - main
-      - CDWorkflow
   workflow_dispatch: {}
 
 jobs:
@@ -43,13 +42,13 @@ jobs:
           ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
         env:
           SSH_KEY: ${{ secrets.SSH_KEY }}
-
+    
       - name: Deploy to server
         run: |
           ssh -i ~/.ssh/minitwit ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << EOF
           docker pull ${{ secrets.DOCKER_USERNAME }}/minitwitimage:latest
           docker stop webserver || true
           docker rm webserver || true
-          docker run --rm -d -p 8080:8080 -p 8081:8081 --name webserver ${{ secrets.DOCKER_USERNAME }}/minitwitimage:latest
+          docker-compose up -d
           docker image prune -a --force
           EOF
