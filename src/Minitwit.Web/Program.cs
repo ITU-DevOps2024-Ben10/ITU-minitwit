@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Minitwit.Core.Repository;
 using Minitwit.Infrastructure.Repository;
 
+using Prometheus;
+
 /// <summary>
 /// This file is the entry point of the application. 
 /// It is responsible for setting up the application and starting it.
@@ -37,7 +39,8 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.IgnoreNullValues = true;
 });
 
-
+//Client that prometheus uses to report metric
+builder.Services.AddHttpClient
 string database = Environment.GetEnvironmentVariable("MYSQL_DATABASE");
 string databasePassword = Environment.GetEnvironmentVariable("MYSQL_ROOT_PASSWORD");
 

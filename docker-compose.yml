@@ -22,7 +22,25 @@ services:
     networks: 
       - minitwit-network
     command: [ "dockerize", "-wait", "tcp://database:3306", "-timeout", "30s", "./start-webserver.sh" ]
+  
+  prometheus_server:
+    container_name: prometheus
+    image: prom/prometheus
+    volumes:
+    #Specify where prometheus should persist data
+    ports:
+      - "9090:9090"
+    networks:
+      - minitwit-network
+  
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    networks:
+      - minitwit-network
 
 networks:
     minitwit-network:
-        name: minitwit-network  
+        name: minitwit-network
+        
