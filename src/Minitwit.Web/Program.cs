@@ -37,8 +37,16 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.IgnoreNullValues = true;
 });
 
-builder.Services.AddDbContext<MinitwitDbContext>(options => 
-    options.UseSqlite($"Data Source={dbPath}"));
+
+string database = Environment.GetEnvironmentVariable("MYSQL_DATABASE");
+string databasePassword = Environment.GetEnvironmentVariable("MYSQL_ROOT_PASSWORD");
+
+builder.Services.AddDbContext<MinitwitDbContext>(options =>
+{
+    var connectionString = $"server=minitwit_database;port=3306;database={database};user=root;password={databasePassword};";
+    options.UseMySQL(connectionString);
+});
+
 
 builder.Services.AddDefaultIdentity<Author>()
     .AddRoles<IdentityRole<Guid>>()
@@ -52,13 +60,13 @@ builder.Services.AddScoped<IReactionRepository, ReactionRepository>();
 builder.Services.AddScoped<IFollowRepository, FollowRepository>();
 
 builder.Services.AddSession(
-	options =>
-	{
-		options.Cookie.Name = ".Minitwit.Web.Session";
-    	options.IdleTimeout = TimeSpan.FromMinutes(10);
-    	options.Cookie.HttpOnly = false;
-    	options.Cookie.IsEssential = true;
-	});
+    options =>
+    {
+        options.Cookie.Name = ".Minitwit.Web.Session";
+        options.IdleTimeout = TimeSpan.FromMinutes(10);
+        options.Cookie.HttpOnly = false;
+        options.Cookie.IsEssential = true;
+    });
 
 //Github OAuth:
 builder.Services.AddAuthentication()
@@ -73,18 +81,18 @@ using (var scope = app.Services.CreateScope())
 
     // Get an instance of the DbContext
     var context = services.GetRequiredService<MinitwitDbContext>();
-
-    // Call the method to remove duplicate user Logins
-    await context.RemoveDuplicateUserLogins();
-
-    // Call the method to seed the database
-    try {
-        DbInitializer.SeedDatabase(context);
-    } catch (Exception ex) {
-        var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred seeding the DB.");
+    
+    try
+    {
+        context.Database.Migrate();
+    } 
+    catch (Exception e)
+    {
+        Console.WriteLine(e);
     }
     
+    // Call the method to remove duplicate user Logins
+    //await context.RemoveDuplicateUserLogins();
 }
 
 if (!app.Environment.IsDevelopment())
