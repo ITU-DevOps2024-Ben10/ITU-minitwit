@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Minitwit.Core.Repository;
 using Minitwit.Infrastructure.Repository;
-
+using OpenTelemetry.Metrics;
 using Prometheus;
 
 /// <summary>
@@ -40,8 +40,13 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 });
 
 //Client that prometheus uses to report metric
+//Src: https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/src/OpenTelemetry.Exporter.Prometheus.AspNetCore/README.md
 //builder.Services.AddHttpClient();
 //builder.Services.UseHttpClientMetrics();
+builder.Services.AddOpenTelemetry()
+    .WithMetrics(builder => 
+        builder.AddPrometheusExporter());
+
 
 string database = Environment.GetEnvironmentVariable("MYSQL_DATABASE");
 string databasePassword = Environment.GetEnvironmentVariable("MYSQL_ROOT_PASSWORD");
@@ -110,13 +115,14 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.MapControllers();
 app.UseRouting();
-app.UseHttpMetrics();
+//app.UseHttpMetrics();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
 app.MapRazorPages();
-app.UseEndpoints(endpoints=>{
-    endpoints.MapMetrics();
-});
+app.UseOpenTelemetryPrometheusScrapingEndpoint();
+//app.UseEndpoints(endpoints=>{
+//    endpoints.MapMetrics();
+//});
 
 app.Run();

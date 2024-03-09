@@ -1,0 +1,15 @@
+global:
+  scrape_interval: 1m
+  evaluation_interval: 1m
+  
+rule_files: null
+
+scrape_configs:
+  - job_name: prometheus
+    static_configs: 
+      - targets: [prometheus:9090]
+    
+  - job_name: "minitwit-monitoring"
+    scrape_interval: 15s
+    static_configs: 
+      - targets: [webserver:8080]

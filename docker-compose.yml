@@ -27,7 +27,7 @@ services:
     container_name: prometheus
     image: prom/prometheus
     volumes:
-    #Specify where prometheus should persist data
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
     networks:
