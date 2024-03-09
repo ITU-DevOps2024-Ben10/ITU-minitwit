@@ -40,7 +40,9 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 });
 
 //Client that prometheus uses to report metric
-builder.Services.AddHttpClient
+//builder.Services.AddHttpClient();
+//builder.Services.UseHttpClientMetrics();
+
 string database = Environment.GetEnvironmentVariable("MYSQL_DATABASE");
 string databasePassword = Environment.GetEnvironmentVariable("MYSQL_ROOT_PASSWORD");
 
@@ -108,8 +110,13 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.MapControllers();
 app.UseRouting();
+app.UseHttpMetrics();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
 app.MapRazorPages();
+app.UseEndpoints(endpoints=>{
+    endpoints.MapMetrics();
+});
+
 app.Run();
