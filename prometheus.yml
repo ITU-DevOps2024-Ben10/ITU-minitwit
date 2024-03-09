@@ -1,7 +1,15 @@
 global:
   scrape_interval: 1m
   evaluation_interval: 1m
-  
+
+#For Alert managers we could make something like:
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            # - alertmanager:9093
+
+#If we want certain rules we can reference a prometheus.rule.txt file containing these here
 rule_files: null
 
 scrape_configs:
@@ -13,3 +21,5 @@ scrape_configs:
     scrape_interval: 15s
     static_configs: 
       - targets: ['webserver:8080', 'webserver:8081']
+        
+  #possibly missing a config to connect to a local instance of Grafana here

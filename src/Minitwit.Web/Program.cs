@@ -41,8 +41,6 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 
 //Client that prometheus uses to report metric
 //Src: https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/src/OpenTelemetry.Exporter.Prometheus.AspNetCore/README.md
-//builder.Services.AddHttpClient();
-//builder.Services.UseHttpClientMetrics();
 builder.Services.AddOpenTelemetry()
     .WithMetrics(builder => 
         builder.AddPrometheusExporter());
@@ -115,14 +113,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.MapControllers();
 app.UseRouting();
-//app.UseHttpMetrics();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
 app.MapRazorPages();
 app.UseOpenTelemetryPrometheusScrapingEndpoint();
-//app.UseEndpoints(endpoints=>{
-//    endpoints.MapMetrics();
-//});
+
 
 app.Run();
