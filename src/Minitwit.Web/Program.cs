@@ -6,13 +6,17 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Minitwit.Core.Repository;
 using Minitwit.Infrastructure.Repository;
+using OpenTelemetry;
 using OpenTelemetry.Metrics;
-using Prometheus;
 
 /// <summary>
 /// This file is the entry point of the application. 
 /// It is responsible for setting up the application and starting it.
 /// </summary>
+
+using var meterProvider = Sdk.CreateMeterProviderBuilder().AddMeter("myMeter").AddPrometheusExporter().Build();
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
