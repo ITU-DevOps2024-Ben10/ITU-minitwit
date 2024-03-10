@@ -33,13 +33,6 @@ services:
     networks:
       - minitwit-network
   
-  grafana:
-    image: grafana/grafana:latest
-    ports:
-      - "3000:3000"
-    networks:
-      - minitwit-network
-
 networks:
     minitwit-network:
         name: minitwit-network
