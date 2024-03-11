@@ -60,22 +60,19 @@ public class ApiController : ControllerBase
         // Checks authorization
         if (NotReqFromSimulator(Request))
         {
-            return StatusCode(403, "You are not authorized to use this resource");
+            return StatusCode(403, "You are not authorized to use this resource!");
         }
 
         
         try
         {
-            if (System.IO.File.Exists(LatestCommandIdFilePath))
+            if (!System.IO.File.Exists(LatestCommandIdFilePath)) return Ok(new { latest = -1 });
+            string fileContent = System.IO.File.ReadAllText(LatestCommandIdFilePath);
+            if (!int.TryParse(fileContent, out var latestProcessedCommandId))
             {
-                string fileContent = System.IO.File.ReadAllText(LatestCommandIdFilePath);
-                if (!int.TryParse(fileContent, out var latestProcessedCommandId))
-                {
-                    latestProcessedCommandId = -1;
-                }
-                return Ok(new { latest = latestProcessedCommandId });
+                latestProcessedCommandId = -1;
             }
-            return Ok(new { latest = -1 });
+            return Ok(new { latest = latestProcessedCommandId });
         }
         catch (Exception ex)
         {
@@ -144,9 +141,9 @@ public class ApiController : ControllerBase
             
             return Ok(lst);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            return StatusCode(500, ex.Message);
+            return NotFound();
         }
     }
 
@@ -184,9 +181,9 @@ public class ApiController : ControllerBase
             return Ok(formattedCheeps);
 
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            return BadRequest(e.Message);
+            return NotFound();
         }
     }
 
@@ -216,7 +213,7 @@ public class ApiController : ControllerBase
         }
         catch (Exception ex)
         {
-            return BadRequest(ex.Message);
+            return NotFound();
         }
        
         
@@ -234,7 +231,7 @@ public class ApiController : ControllerBase
         }
         
         Update_Latest(latest);
-        var output = new List<String>();
+        var output = new List<string>();
 
         try
         {
@@ -246,9 +243,9 @@ public class ApiController : ControllerBase
             }
 
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            return BadRequest(e.Message);
+            return NotFound();
         }
 
         return Ok(new { follows = output.Take(no) });
@@ -298,9 +295,9 @@ public class ApiController : ControllerBase
         }
         catch (Exception)
         {
-            return BadRequest("");
+            return NotFound();
         }
-        return BadRequest("");
+        return NotFound();
     }
 
 
