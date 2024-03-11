@@ -1,15 +1,5 @@
 version: "3.8"
 services:
-  
-  minitwit_database:
-    container_name: database
-    image: mysql:latest
-    ports:
-      - "3306:3306"
-    env_file:
-      - .env
-    networks:
-      - minitwit-network
 
   minitwit:
     container_name: webserver
@@ -21,9 +11,3 @@ services:
       - .env
     networks: 
       - minitwit-network
-    command: [ "dockerize", "-wait", "tcp://database:3306", "-timeout", "30s", "./start-webserver.sh" ]
-
-networks:
-    minitwit-network:
-        name: minitwit-network  
-        external: true
