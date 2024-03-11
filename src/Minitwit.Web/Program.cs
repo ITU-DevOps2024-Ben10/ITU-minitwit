@@ -46,11 +46,11 @@ string sslmode = Environment.GetEnvironmentVariable("MYSQL_SSL_MODE");
 
 builder.Services.AddDbContext<MinitwitDbContext>(options =>
 {
-    var connectionString = $"host={host};port={port};database={database};user={username};password={password};sslmode={sslmode}";
+    var connectionString = $"server={host};port={port};database={database};user={username};password={password};";
     options.UseMySQL(connectionString);
 });
 
-Console.Write($"Connection string: host={host}; port={port}; database={database}; user={username}; password={password}; sslmode={sslmode}");
+Console.Write($"Connection string: server={host}; port={port}; database={database}; user={username}; password={password};");
 
 
 builder.Services.AddDefaultIdentity<Author>()
