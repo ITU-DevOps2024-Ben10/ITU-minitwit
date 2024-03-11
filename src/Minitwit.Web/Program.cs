@@ -50,7 +50,7 @@ builder.Services.AddDbContext<MinitwitDbContext>(options =>
     options.UseMySQL(connectionString);
 });
 
-Console.Write("Oliver er sej");
+Console.Write($"Connection string: host={host}; port={port}; database={database}; user={username}; password={password}; sslmode={sslmode}");
 
 
 builder.Services.AddDefaultIdentity<Author>()

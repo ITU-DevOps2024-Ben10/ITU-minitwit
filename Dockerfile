@@ -24,12 +24,5 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-# Install wget and dockerize
-RUN apt-get update \
-    && apt-get install -y wget \
-    && wget https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz \
-    && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-v0.6.1.tar.gz \
-    && rm dockerize-linux-amd64-v0.6.1.tar.gz
-
 # Use dockerize in the ENTRYPOINT to wait for the database service
-ENTRYPOINT ["dockerize", "-wait", "tcp://database:3306", "-timeout", "30s", "dotnet", "Minitwit.Web.dll"]
+ENTRYPOINT ["dotnet", "Minitwit.Web.dll"]
