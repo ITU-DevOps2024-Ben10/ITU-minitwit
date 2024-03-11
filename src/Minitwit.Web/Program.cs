@@ -37,15 +37,20 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.IgnoreNullValues = true;
 });
 
-
+string username = Environment.GetEnvironmentVariable("MYSQL_USERNAME");
+string password = Environment.GetEnvironmentVariable("MYSQL_PASSWORD");
+string host = Environment.GetEnvironmentVariable("MYSQL_HOST");
+string port = Environment.GetEnvironmentVariable("MYSQL_PORT");
 string database = Environment.GetEnvironmentVariable("MYSQL_DATABASE");
-string databasePassword = Environment.GetEnvironmentVariable("MYSQL_ROOT_PASSWORD");
+string sslmode = Environment.GetEnvironmentVariable("MYSQL_SSL_MODE");
 
 builder.Services.AddDbContext<MinitwitDbContext>(options =>
 {
-    var connectionString = $"server=minitwit_database;port=3306;database={database};user=root;password={databasePassword};";
+    var connectionString = $"host={host};port={port};database={database};user={username};password={password};sslmode={sslmode}";
     options.UseMySQL(connectionString);
 });
+
+Console.Write("Oliver er sej");
 
 
 builder.Services.AddDefaultIdentity<Author>()
