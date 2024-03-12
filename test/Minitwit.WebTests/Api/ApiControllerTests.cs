@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Minitwit.Infrastructure;
+using Minitwit.Web;
 using Minitwit.Web.ApiControllers;
 using Test_Utilities;
 
@@ -16,7 +17,7 @@ public class ApiControllerTests
         _db = SqliteInMemoryBuilder.GetContext();
         
         _apiController = new ApiController(
-            new CheepSer
+            new MinitwitService()
             )
     }
     

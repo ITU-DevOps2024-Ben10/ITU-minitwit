@@ -18,7 +18,6 @@ namespace Minitwit.Web.ApiControllers;
 public class ApiController : ControllerBase
 
 {
-    private readonly ITwitService _twitService;
     private readonly IAuthorRepository _authorRepository;
     private readonly ITwitRepository _twitRepository;
     private readonly UserManager<Author> _userManager;
@@ -27,13 +26,11 @@ public class ApiController : ControllerBase
 
 
     public ApiController(
-        ITwitService twitService,
         IAuthorRepository authorRepository,
         ITwitRepository twitRepository,
         UserManager<Author> userManager,
         IUserStore<Author> userStore)
     {
-        _twitService = twitService;
         _authorRepository = authorRepository;
         _twitRepository = twitRepository;
         _userManager = userManager;
