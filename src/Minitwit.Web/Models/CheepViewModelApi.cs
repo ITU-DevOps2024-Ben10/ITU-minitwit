@@ -1,3 +1,3 @@
 namespace Minitwit.Web.Models;
 
-public record CheepViewModelApi(Guid CheepId, string Username, string Message, string Timestamp);
+public record CheepViewModelApi(string user, string content, DateTime pub_date);

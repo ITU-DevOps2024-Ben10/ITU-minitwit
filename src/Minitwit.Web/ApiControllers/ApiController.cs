@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ using Minitwit.Web;
 using Minitwit.Core.Repository;
 using Minitwit.Infrastructure.Repository;
 using Minitwit.Web.Areas.Identity.Pages.Account;
+using Minitwit.Web.Models;
 
 /*
  * TODO REMOVE THIS COMMENT WHEN THE API IS DONE
@@ -58,22 +60,19 @@ public class ApiController : ControllerBase
         // Checks authorization
         if (NotReqFromSimulator(Request))
         {
-            return BadRequest("You are not authorized to use this resource");
+            return StatusCode(403, "You are not authorized to use this resource!");
         }
 
         
         try
         {
-            if (System.IO.File.Exists(LatestCommandIdFilePath))
+            if (!System.IO.File.Exists(LatestCommandIdFilePath)) return Ok(new { latest = -1 });
+            string fileContent = System.IO.File.ReadAllText(LatestCommandIdFilePath);
+            if (!int.TryParse(fileContent, out var latestProcessedCommandId))
             {
-                string fileContent = System.IO.File.ReadAllText(LatestCommandIdFilePath);
-                if (!int.TryParse(fileContent, out var latestProcessedCommandId))
-                {
-                    latestProcessedCommandId = -1;
-                }
-                return Ok(new { latest = latestProcessedCommandId });
+                latestProcessedCommandId = -1;
             }
-            return Ok(new { latest = -1 });
+            return Ok(new { latest = latestProcessedCommandId });
         }
         catch (Exception ex)
         {
@@ -91,7 +90,7 @@ public class ApiController : ControllerBase
         // Checks authorization
         if (NotReqFromSimulator(Request))
         {
-            return BadRequest("You are not authorized to use this resource");
+            return StatusCode(403, "You are not authorized to use this resource");
         }
 
 
@@ -103,20 +102,19 @@ public class ApiController : ControllerBase
         await _emailStore.SetEmailAsync(user, data.email, CancellationToken.None);
         var result = await _userManager.CreateAsync(user, data.pwd);
 
-        if (result.Succeeded) return Ok($"Successfully registered user {data.username}");
+        if (result.Succeeded) return StatusCode(204,"");
         return BadRequest($"Registration failed. User {data.username} likely already exists");
     }
 
 
     [HttpGet("msgs")]
-    public IActionResult GetMessagesFromPublicTimeline([FromQuery] int latest, [FromQuery] int no)
+    public IActionResult GetMessagesFromPublicTimeline([FromQuery] int latest, [FromQuery] int no = 100)
     {
         
         // Checks authorization
         if (NotReqFromSimulator(Request))
         {
-            Console.WriteLine($"Request Headers: {Request.Headers.Authorization}");
-            return BadRequest("You are not authorized to use this resource");
+            return StatusCode(403, "You are not authorized to use this resource");
         }
         
         
@@ -124,45 +122,68 @@ public class ApiController : ControllerBase
 
         if (no < 0)
         {
-            return BadRequest("Parameter 'no' is invalid");
+            no = 100;
         }
 
 
         try
         {
-            var result = _cheepRepository.GetCheepsByCount(no);
+            var cheeps = _cheepRepository.GetCheepsByCount(no).ToList();
+            var users = _authorRepository.GetAllAuthors().Where(a => cheeps.Any(c => a.Id == c.AuthorId)).ToList();
 
-            return Ok(result);
+            List<CheepViewModelApi> lst = new();
+
+            foreach (var cheep in cheeps)
+            {
+                lst.Add(new CheepViewModelApi(users.FirstOrDefault(a => a.Id == cheep.AuthorId)!.UserName,
+                    cheep.Text, cheep.TimeStamp));
+            }
+            
+            return Ok(lst);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            return StatusCode(500, ex.Message);
+            return NotFound();
         }
     }
 
 
 
     [HttpGet("msgs/{username}")]
-    public IActionResult GetUserMessages([FromRoute] string username, [FromQuery] int latest, [FromQuery] int no)
+    public IActionResult GetUserMessages([FromRoute] string username, [FromQuery] int latest, [FromQuery] int no = 100)
     {
         
         // Checks authorization
         if (NotReqFromSimulator(Request))
         {
-            return BadRequest("You are not authorized to use this resource");
+            return StatusCode(403, "You are not authorized to use this resource");
         }
         
         Update_Latest(latest);
         
+        if (no < 0)
+        {
+            no = 100;
+        }
+        
         try
         {
             Guid authorId = _authorRepository.GetAuthorByName(username).Id;
-            return Ok(_cheepRepository.GetCheepsFromAuthorByCount(authorId, no).ToList());
+            var cheeps = _cheepRepository.GetCheepsFromAuthorByCount(authorId, no);
+
+            List<CheepViewModelApi> formattedCheeps = new();
+
+            foreach (var cheep in cheeps)
+            {
+                formattedCheeps.Add(new CheepViewModelApi(username, cheep.Text, cheep.TimeStamp));
+            }
+            
+            return Ok(formattedCheeps);
 
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            return BadRequest(e.Message);
+            return NotFound();
         }
     }
 
@@ -173,7 +194,7 @@ public class ApiController : ControllerBase
         // Checks authorization
         if (NotReqFromSimulator(Request))
         {
-            return BadRequest("You are not authorized to use this resource");
+            return StatusCode(403, "You are not authorized to use this resource");
         }
 
         
@@ -187,12 +208,12 @@ public class ApiController : ControllerBase
             var result = await _cheepRepository.AddCreateCheep(cheep);
             
             Update_Latest(latest);
-            return Ok(result);
+            return StatusCode(204,"");
             
         }
         catch (Exception ex)
         {
-            return BadRequest(ex.Message);
+            return NotFound();
         }
        
         
@@ -206,11 +227,11 @@ public class ApiController : ControllerBase
         // Checks authorization
         if (NotReqFromSimulator(Request))
         {
-            return BadRequest("You are not authorized to use this resource");
+            return StatusCode(403, "You are not authorized to use this resource");
         }
         
         Update_Latest(latest);
-        var output = new List<String>();
+        var output = new List<string>();
 
         try
         {
@@ -222,9 +243,9 @@ public class ApiController : ControllerBase
             }
 
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            return BadRequest(e.Message);
+            return NotFound();
         }
 
         return Ok(new { follows = output.Take(no) });
@@ -238,7 +259,7 @@ public class ApiController : ControllerBase
         // Checks authorization
         if (NotReqFromSimulator(Request))
         {
-            return BadRequest("You are not authorized to use this resource");
+            return StatusCode(403, "You are not authorized to use this resource");
         }
 
         
@@ -261,7 +282,7 @@ public class ApiController : ControllerBase
                 var followed = _authorRepository.GetAuthorByName(followData.follow);
                 var follower = _authorRepository.GetAuthorByName(username);
                 _authorRepository.AddFollow(follower.Id, followed.Id);
-                return Ok($"{follower.UserName} now follows {followed.UserName}");
+                return StatusCode(204, "");
             }
 
             if (!string.IsNullOrEmpty(followData.unfollow))
@@ -269,14 +290,14 @@ public class ApiController : ControllerBase
                 var followed = _authorRepository.GetAuthorByName(followData.unfollow);
                 var follower = _authorRepository.GetAuthorByName(username);
                 _authorRepository.RemoveFollow(follower.Id, followed.Id);
-                return Ok($"{follower.UserName} no longer follows {followed.UserName}");
+                return StatusCode(204, "");
             }
         }
         catch (Exception)
         {
-            return BadRequest("");
+            return NotFound();
         }
-        return BadRequest("");
+        return NotFound();
     }
 
 
@@ -329,12 +350,7 @@ public class ApiController : ControllerBase
     
     public bool NotReqFromSimulator(HttpRequest request)
     {
-        string fromSimulator = request.Headers["Authorization"];
-        if (fromSimulator != "Basic c2ltdWxhdG9yOnN1cGVyX3NhZmUh")
-        {
-            return true;
-        }
-        return false;
+        return request.Headers.Authorization != "Basic c2ltdWxhdG9yOnN1cGVyX3NhZmUh";
     }
     
     //Writes the id of the latest command to a text file
