@@ -8,14 +8,15 @@ using Minitwit.Core.Repository;
 using Minitwit.Infrastructure.Repository;
 using OpenTelemetry;
 using OpenTelemetry.Metrics;
+using Prometheus;
 
 /// <summary>
 /// This file is the entry point of the application. 
 /// It is responsible for setting up the application and starting it.
 /// </summary>
 
-using var meterProvider = Sdk.CreateMeterProviderBuilder().AddMeter("myMeter").AddPrometheusExporter().Build();
 
+// using var meterProvider = Sdk.CreateMeterProviderBuilder().AddMeter("myMeter").AddPrometheusExporter().Build();
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -46,8 +47,13 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 //Client that prometheus uses to report metric
 //Src: https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/src/OpenTelemetry.Exporter.Prometheus.AspNetCore/README.md
 builder.Services.AddOpenTelemetry()
-    .WithMetrics(builder => 
-        builder.AddPrometheusExporter());
+    .WithMetrics(providerBuilder =>
+    {
+        providerBuilder.AddPrometheusExporter();
+
+        providerBuilder.AddMeter("Dotnet.AspNetCore.Hosting", "Microsoft.AspNetCore.Server.Kestrel");
+    });
+        
 
 
 string database = Environment.GetEnvironmentVariable("MYSQL_DATABASE");
@@ -113,14 +119,21 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+/* ----------- Middleware ----------- */
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.MapControllers();
+
+app.UseMetricServer(); // Prometheus metrics endpoint
+
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
+
+app.MapControllers();
 app.MapRazorPages();
+
 app.UseOpenTelemetryPrometheusScrapingEndpoint();
 
 
