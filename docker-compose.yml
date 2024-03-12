@@ -1,15 +1,5 @@
 version: "3.8"
 services:
-  
-  minitwit_database:
-    container_name: database
-    image: mysql:latest
-    ports:
-      - "3306:3306"
-    env_file:
-      - .env
-    networks:
-      - minitwit-network
 
   minitwit:
     container_name: webserver
@@ -37,3 +27,4 @@ networks:
     minitwit-network:
         name: minitwit-network
         
+
