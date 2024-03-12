@@ -43,7 +43,7 @@ public class ReactionRepository(MinitwitDbContext dbContext) : BaseRepository(db
     
     public async Task<int> GetReactionCount(Guid cheepId, ReactionType reactionType)
     {
-           Cheep? cheep = await db.Cheeps.FindAsync(cheepId);
+           Twit? cheep = await db.Cheeps.FindAsync(cheepId);
            int count = 0; 
            if (cheep != null)
            { 

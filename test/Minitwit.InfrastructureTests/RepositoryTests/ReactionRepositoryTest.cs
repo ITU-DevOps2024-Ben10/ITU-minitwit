@@ -34,29 +34,29 @@ public class ReactionRepositoryTest
                 UserName = "TestAuthor2", 
                 Email = "mock2@email.com" 
             };
-        Cheep cheepDto = new Cheep
+        Twit twitDto = new Twit
         {
             CheepId = Guid.NewGuid(),
             AuthorId = authorDto1.Id, 
             Text = "TestCheep1", 
         };
         db.Users.Add(authorDto);
-        db.Cheeps.Add(cheepDto);
+        db.Cheeps.Add(twitDto);
         await db.SaveChangesAsync(); 
         
         //Act
         await _ReactionRepository.AddReaction(
             reactionType,
-            cheepDto.CheepId,
+            twitDto.CheepId,
             authorDto.Id
         );
 
         //Assert
-        Assert.Equal(1, db.Reactions.Count(reaction => reaction.CheepId == cheepDto.CheepId));
+        Assert.Equal(1, db.Reactions.Count(reaction => reaction.CheepId == twitDto.CheepId));
         //Assert.Equal(1, cheepDto.Reactions.Count);
-        Assert.Equal(cheepDto.CheepId, db.Reactions.First().CheepId);
-        Assert.Equal(authorDto.Id, db.Reactions.FirstOrDefault(reaction => reaction.CheepId == cheepDto.CheepId)!.AuthorId);
-        Assert.Equal(reactionType, db.Reactions.FirstOrDefault(reaction => reaction.CheepId == cheepDto.CheepId)!.ReactionType);
+        Assert.Equal(twitDto.CheepId, db.Reactions.First().CheepId);
+        Assert.Equal(authorDto.Id, db.Reactions.FirstOrDefault(reaction => reaction.CheepId == twitDto.CheepId)!.AuthorId);
+        Assert.Equal(reactionType, db.Reactions.FirstOrDefault(reaction => reaction.CheepId == twitDto.CheepId)!.ReactionType);
         //Assert.Equal(authorDto.Id, cheepDto.Reactions.First().AuthorId);
         //Assert.Equal(reactionType, cheepDto.Reactions.First().ReactionType);
     }
@@ -80,25 +80,25 @@ public class ReactionRepositoryTest
             UserName = "TestAuthor2", 
             Email = "mock2@email.com" 
         };
-        Cheep cheepDto = new Cheep
+        Twit twitDto = new Twit
         {
             CheepId = Guid.Parse("6e579f4c-c2da-420d-adad-40797a71d217"),
             AuthorId = authorDto1.Id, 
             Text = "TestCheep1"
         };
         db.Users.Add(authorDto);
-        db.Cheeps.Add(cheepDto);
+        db.Cheeps.Add(twitDto);
         await db.SaveChangesAsync(); 
         
         //Act
         await _ReactionRepository.RemoveReaction(
             reactionType,
-            cheepDto.CheepId,
+            twitDto.CheepId,
             authorDto.Id
         );
 
         //Assert
-        Assert.Equal(0, db.Reactions.Count(reaction => reaction.CheepId == cheepDto.CheepId));
+        Assert.Equal(0, db.Reactions.Count(reaction => reaction.CheepId == twitDto.CheepId));
         // Assert.Equal(0, cheepDto.Reactions.Count);
     }
     [Fact]
@@ -121,13 +121,13 @@ public class ReactionRepositoryTest
         }
        
         //Cheep to be reacted to
-        Cheep cheepDto = new Cheep
+        Twit twitDto = new Twit
         {
             CheepId = Guid.NewGuid(),
             AuthorId =authors.First().Id, 
             Text = "TestCheep1", 
         };
-        db.Cheeps.Add(cheepDto);
+        db.Cheeps.Add(twitDto);
         
         //Adding reactions to cheep, 1 likes, 2 dislike, 1 love 
         for (int i = 0; i < 4; i++)
@@ -147,7 +147,7 @@ public class ReactionRepositoryTest
             
             Reaction reaction = new Reaction
             {
-                CheepId = cheepDto.CheepId,
+                CheepId = twitDto.CheepId,
                 AuthorId = authors[i].Id,
                 ReactionType = reactionType
             };
@@ -156,9 +156,9 @@ public class ReactionRepositoryTest
         await db.SaveChangesAsync();
         
         //Act&Assert
-        Assert.Equal(1, await _ReactionRepository.GetReactionCount(cheepDto.CheepId, ReactionType.Like));
-        Assert.Equal(2, await _ReactionRepository.GetReactionCount(cheepDto.CheepId, ReactionType.Dislike));
-        Assert.Equal(1, await _ReactionRepository.GetReactionCount(cheepDto.CheepId, ReactionType.Love));
+        Assert.Equal(1, await _ReactionRepository.GetReactionCount(twitDto.CheepId, ReactionType.Like));
+        Assert.Equal(2, await _ReactionRepository.GetReactionCount(twitDto.CheepId, ReactionType.Dislike));
+        Assert.Equal(1, await _ReactionRepository.GetReactionCount(twitDto.CheepId, ReactionType.Love));
         
     }
     
@@ -180,7 +180,7 @@ public class ReactionRepositoryTest
             UserName = "TestAuthor2", 
             Email = "mock2@email.com" 
         };
-        Cheep cheepDto = new Cheep
+        Twit twitDto = new Twit
         {
             CheepId = Guid.Parse("6e579f4c-c2da-420d-adad-40797a71d217"),
             AuthorId = authorDto1.Id, 
@@ -188,13 +188,13 @@ public class ReactionRepositoryTest
         };
             
         db.Users.Add(authorDto);
-        db.Cheeps.Add(cheepDto);
-        await _ReactionRepository.AddReaction(ReactionType.Like, cheepDto.CheepId, authorDto.Id);
+        db.Cheeps.Add(twitDto);
+        await _ReactionRepository.AddReaction(ReactionType.Like, twitDto.CheepId, authorDto.Id);
         
         await db.SaveChangesAsync(); 
         
         //Act
-        bool hasReacted = await _ReactionRepository.HasUserReacted(cheepDto.CheepId, authorDto.Id);
+        bool hasReacted = await _ReactionRepository.HasUserReacted(twitDto.CheepId, authorDto.Id);
         
         //Assert
         Assert.True(hasReacted);
@@ -216,7 +216,7 @@ public class ReactionRepositoryTest
             UserName = "TestAuthor2", 
             Email = "mock2@email.com" 
         };
-        Cheep cheepDto = new Cheep
+        Twit twitDto = new Twit
         {
             CheepId = Guid.Parse("6e579f4c-c2da-420d-adad-40797a71d217"),
             AuthorId = authorDto1.Id, 
@@ -224,11 +224,11 @@ public class ReactionRepositoryTest
         };
             
         db.Users.Add(authorDto);
-        db.Cheeps.Add(cheepDto);
+        db.Cheeps.Add(twitDto);
         db.SaveChanges(); 
         
         //Act&Assert
-        Assert.False(await _ReactionRepository.HasUserReacted(cheepDto.CheepId, authorDto.Id));
+        Assert.False(await _ReactionRepository.HasUserReacted(twitDto.CheepId, authorDto.Id));
         
     }
 }

@@ -11,7 +11,7 @@ namespace Minitwit.Razor.Pages;
 
 public class UserTimelineModel : PageModel
 {
-    private readonly ICheepService _service;
+    private readonly ITwitService _service;
     private readonly UserManager<Author> _userManager;
     private readonly IAuthorRepository _authorRepository;
     private readonly SignInManager<Author> _signInManager;
@@ -25,7 +25,7 @@ public class UserTimelineModel : PageModel
 
 
 
-    public UserTimelineModel(ICheepService service, SignInManager<Author> signInManager, UserManager<Author> userManager, IAuthorRepository authorRepository)
+    public UserTimelineModel(ITwitService service, SignInManager<Author> signInManager, UserManager<Author> userManager, IAuthorRepository authorRepository)
     {
         _service = service;
         _userManager = userManager;

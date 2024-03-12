@@ -3,7 +3,7 @@ using Minitwit.Core.Entities;
 
 namespace Minitwit.Infrastructure.Repository;
 
-public class CheepCreateValidator : AbstractValidator<CreateCheep>
+public class CheepCreateValidator : AbstractValidator<CreateTwit>
 {
     public CheepCreateValidator()
     {

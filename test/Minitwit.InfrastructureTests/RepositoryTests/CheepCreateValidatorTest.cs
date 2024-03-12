@@ -23,9 +23,9 @@ public class CheepCreateValidatorTest
     public void CheepValidValidates()
     {
         string text = "This is a valid Cheep";
-        CreateCheep createCheep = new CreateCheep(TestAuthor.Id, text);
+        CreateTwit createTwit = new CreateTwit(TestAuthor.Id, text);
 
-        Assert.True(Validator.Validate(createCheep).IsValid);
+        Assert.True(Validator.Validate(createTwit).IsValid);
     }
 
     [Fact]
@@ -33,27 +33,27 @@ public class CheepCreateValidatorTest
     {
         //A valid cheep is 5 characters long. This one is 4.
         string text = "1234";
-        CreateCheep createCheep = new CreateCheep(TestAuthor.Id, text);
+        CreateTwit createTwit = new CreateTwit(TestAuthor.Id, text);
         
-        Assert.False(Validator.Validate(createCheep).IsValid);
+        Assert.False(Validator.Validate(createTwit).IsValid);
     }
 
     [Fact]
     public void CheepTooLongFailsValidation()
     {
         string text = new string('x', 200);
-        CreateCheep createCheep = new CreateCheep(TestAuthor.Id, text);
+        CreateTwit createTwit = new CreateTwit(TestAuthor.Id, text);
         
-        Assert.False(Validator.Validate(createCheep).IsValid);
+        Assert.False(Validator.Validate(createTwit).IsValid);
     }
 
     [Fact]
     public void EmptyCheepFailsValidation()
     {
         string text = "";
-        CreateCheep createCheep = new CreateCheep(TestAuthor.Id, text);
+        CreateTwit createTwit = new CreateTwit(TestAuthor.Id, text);
         
-        Assert.False(Validator.Validate(createCheep).IsValid);
+        Assert.False(Validator.Validate(createTwit).IsValid);
     }
 }
 

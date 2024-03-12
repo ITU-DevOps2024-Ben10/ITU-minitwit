@@ -58,9 +58,9 @@ builder.Services.AddDefaultIdentity<Author>()
     .AddEntityFrameworkStores<MinitwitDbContext>();
 
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
-builder.Services.AddScoped<IValidator<CreateCheep>, CheepCreateValidator>();
-builder.Services.AddScoped<ICheepRepository, CheepRepository>();
-builder.Services.AddScoped<ICheepService, MinitwitService>();
+builder.Services.AddScoped<IValidator<CreateTwit>, CheepCreateValidator>();
+builder.Services.AddScoped<ITwitRepository, TwitRepository>();
+builder.Services.AddScoped<ITwitService, MinitwitService>();
 builder.Services.AddScoped<IReactionRepository, ReactionRepository>();
 builder.Services.AddScoped<IFollowRepository, FollowRepository>();
 

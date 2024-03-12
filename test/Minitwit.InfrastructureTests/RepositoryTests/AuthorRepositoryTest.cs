@@ -15,9 +15,9 @@ public class AuthorRepositoryTest
     private Author _author1;
     private Author _author2;
     private Author _author3;
-    private Cheep _cheep1;
-    private Cheep _cheep2;
-    private Cheep _cheep3;
+    private Twit _cheep1;
+    private Twit _cheep2;
+    private Twit _cheep3;
 
     public AuthorRepositoryTest()
     {
@@ -41,21 +41,21 @@ public class AuthorRepositoryTest
             Email = "mock3@email.com"
         };
         
-        _cheep1 = new Cheep
+        _cheep1 = new Twit
         {
             CheepId = Guid.NewGuid(),
             AuthorId = _author1.Id,
             Text = "TestCheep by author 1",
         };
         
-        _cheep2 = new Cheep
+        _cheep2 = new Twit
         {
             CheepId = Guid.NewGuid(),
             AuthorId = _author2.Id,
             Text = "TestCheep by author 2",
         };
         
-        _cheep3 = new Cheep
+        _cheep3 = new Twit
         {
             CheepId = Guid.NewGuid(),
             AuthorId = _author3.Id,
@@ -150,10 +150,10 @@ public class AuthorRepositoryTest
     public void GetCheepsByAuthor_ShouldReturnCorrectCheeps()
     {
         //Act
-        ICollection<Cheep> expectedCheep = new List<Cheep>();
+        ICollection<Twit> expectedCheep = new List<Twit>();
         expectedCheep.Add(_cheep1);
 
-        ICollection<Cheep> returnedCheep = _authorRepository.GetCheepsByAuthor(_author1.Id, 0);
+        ICollection<Twit> returnedCheep = _authorRepository.GetCheepsByAuthor(_author1.Id, 0);
 
         //Assert
         Assert.Equal(expectedCheep, returnedCheep);
@@ -175,13 +175,13 @@ public class AuthorRepositoryTest
         //Arrange
         for (int i = 0; i < 33; i++)
         {
-            Cheep cheep = new Cheep
+            Twit twit = new Twit
             {
                 CheepId = Guid.NewGuid(),
                 AuthorId = _author1.Id,
                 Text = "TestCheep by author 1",
             };
-            context.Add(cheep);
+            context.Add(twit);
         }
         context.SaveChanges();
         

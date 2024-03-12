@@ -14,9 +14,9 @@ public class AboutMeModel : PageModel
 {
     private readonly UserManager<Author> _userManager;
     private readonly SignInManager<Author> _signInManager;
-    private readonly ICheepService _service;
+    private readonly ITwitService _service;
     private IAuthorRepository _authorRepository;
-    private ICheepRepository _cheepRepository;
+    private ITwitRepository _twitRepository;
     
     // 
     public UserModel? UserModel { get; set; }
@@ -28,12 +28,12 @@ public class AboutMeModel : PageModel
     public required int currentPage { get; set; }
     public required int totalPages { get; set; }
 
-    public AboutMeModel(UserManager<Author> userManager, SignInManager<Author> signInManager, ICheepService service, IAuthorRepository authorRepository, ICheepRepository cheepRepository)
+    public AboutMeModel(UserManager<Author> userManager, SignInManager<Author> signInManager, ITwitService service, IAuthorRepository authorRepository, ITwitRepository twitRepository)
     {
         _userManager = userManager;
         _service = service;
         _authorRepository = authorRepository;
-        _cheepRepository = cheepRepository;
+        _twitRepository = twitRepository;
         _signInManager = signInManager;
     }
 

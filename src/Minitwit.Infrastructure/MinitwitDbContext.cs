@@ -12,7 +12,7 @@ namespace Minitwit.Infrastructure;
 
 public sealed class MinitwitDbContext : IdentityDbContext<Author, IdentityRole<Guid>, Guid>
 {
-    public DbSet<Cheep> Cheeps {get; set;} = null!;
+    public DbSet<Twit> Cheeps {get; set;} = null!;
     
     public DbSet<Follow> Follows { get; set; } = null!;
 
@@ -45,7 +45,7 @@ public sealed class MinitwitDbContext : IdentityDbContext<Author, IdentityRole<G
         });
         
         // Cheep entity
-        modelBuilder.Entity<Cheep>(entity =>
+        modelBuilder.Entity<Twit>(entity =>
         {
             entity.HasKey(e => e.CheepId);
             entity.Property(e => e.AuthorId).IsRequired();

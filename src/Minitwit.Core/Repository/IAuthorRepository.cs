@@ -13,9 +13,9 @@ public interface IAuthorRepository
     public Author GetAuthorByName(string name);
     public Author GetAuthorByEmail(string email);
 
-    public ICollection<Cheep> GetCheepsByAuthor(Guid id);
-    public ICollection<Cheep> GetCheepsByAuthor(Guid authorId, int page);
-    public ICollection<Cheep> GetCheepsByAuthorAndFollowing(Guid authorId, int page);
+    public ICollection<Twit> GetCheepsByAuthor(Guid id);
+    public ICollection<Twit> GetCheepsByAuthor(Guid authorId, int page);
+    public ICollection<Twit> GetCheepsByAuthorAndFollowing(Guid authorId, int page);
     
     public int GetCheepCountByAuthor(Guid authorId);
     public int GetCheepCountByAuthorAndFollowing(Guid authorId);

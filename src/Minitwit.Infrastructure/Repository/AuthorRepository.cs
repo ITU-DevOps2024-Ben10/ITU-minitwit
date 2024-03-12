@@ -58,14 +58,14 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
     // ----- Get Cheeps By Author and Page Methods ----- //
 
 
-    public ICollection<Cheep> GetCheepsByAuthor(Guid id)
+    public ICollection<Twit> GetCheepsByAuthor(Guid id)
     {
         return db.Cheeps
             .Where(e => e.AuthorId == id)
             .ToList();
     }
     
-    public ICollection<Cheep> GetCheepsByAuthor(Guid id, int page)
+    public ICollection<Twit> GetCheepsByAuthor(Guid id, int page)
     {
         var cheeps = GetCheepsByAuthor(id);
         
@@ -88,9 +88,9 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
         return cheeps.OrderByDescending(c => c.TimeStamp).ToList();
     }
 
-    public ICollection<Cheep> GetCheepsByAuthorAndFollowing(Guid id)
+    public ICollection<Twit> GetCheepsByAuthorAndFollowing(Guid id)
     {
-        ICollection<Cheep> cheeps = new List<Cheep>();
+        ICollection<Twit> cheeps = new List<Twit>();
         cheeps = cheeps.Concat(GetCheepsByAuthor(id)).ToList();
         
         foreach (Author author in GetFollowingById(id))
@@ -101,12 +101,12 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
         return cheeps;
     }
     
-    public ICollection<Cheep> GetCheepsByAuthorAndFollowing(Guid id, int page)
+    public ICollection<Twit> GetCheepsByAuthorAndFollowing(Guid id, int page)
     {
         Author author = GetAuthorById(id);
         //Get cheeps from the author, and append cheeps from followers to that list
         ICollection<Author> following = GetFollowingById(id);
-        ICollection<Cheep> cheeps = new List<Cheep>();
+        ICollection<Twit> cheeps = new List<Twit>();
 
         // Add all the users cheeps to the list without pagination
         foreach (var cheepDto in GetCheepsByAuthor(id))
@@ -116,7 +116,7 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
 
         foreach (Author? follower in following)
         {
-            ICollection<Cheep> followingCheeps = GetCheepsByAuthor(follower.Id);
+            ICollection<Twit> followingCheeps = GetCheepsByAuthor(follower.Id);
             //If follower has no cheeps, skip them
             if (followingCheeps.Count == 0)
             {
@@ -136,8 +136,8 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
 
         int pageSizeIndex = (page - 1) * PageSize;
 
-        if (cheeps.Count < pageSizeIndex + PageSize) return cheeps.ToList<Cheep>().GetRange(pageSizeIndex, cheeps.Count - pageSizeIndex);
-        if (cheeps.Count > PageSize) return cheeps.ToList<Cheep>().GetRange(pageSizeIndex, PageSize);
+        if (cheeps.Count < pageSizeIndex + PageSize) return cheeps.ToList<Twit>().GetRange(pageSizeIndex, cheeps.Count - pageSizeIndex);
+        if (cheeps.Count > PageSize) return cheeps.ToList<Twit>().GetRange(pageSizeIndex, PageSize);
         return cheeps;
     }
 
@@ -145,7 +145,7 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
     // ----- Get Cheeps By Author Methods ----- //
     public int GetCheepCountByAuthor(Guid authorId)
     {
-        ICollection<Cheep> cheeps = GetCheepsByAuthor(authorId);
+        ICollection<Twit> cheeps = GetCheepsByAuthor(authorId);
         //Check that author has cheeps
         if (cheeps.Count == 0 || cheeps == null)
         {

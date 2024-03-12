@@ -6,17 +6,17 @@ using Minitwit.Infrastructure.Repository;
 using Test_Utilities;
 
 namespace Minitwit.InfrastructureTest.RepositoryTests;
-public class CheepRepositoryTest{
+public class TwitRepositoryTest{
 
-    private readonly CheepRepository CheepRepository;
+    private readonly TwitRepository _twitRepository;
     private readonly MinitwitDbContext db;
 
     private readonly Author _author;
 
-    public CheepRepositoryTest()
+    public TwitRepositoryTest()
     {
         db = SqliteInMemoryBuilder.GetContext();
-        CheepRepository = new CheepRepository(db);
+        _twitRepository = new TwitRepository(db);
 
         _author = new Author()
         {
@@ -33,7 +33,7 @@ public class CheepRepositoryTest{
                 Email = "mock" + i + "@email.com" 
             };
             
-            Cheep cheepDto = new Cheep
+            Twit twitDto = new Twit
             {
                 CheepId = Guid.NewGuid(),
                 AuthorId = authorDto.Id,
@@ -41,7 +41,7 @@ public class CheepRepositoryTest{
             };
             
             db.Users.Add(authorDto);
-            db.Cheeps.Add(cheepDto);
+            db.Cheeps.Add(twitDto);
         }
 
         db.SaveChanges();
@@ -51,7 +51,7 @@ public class CheepRepositoryTest{
     public void GetCheepsByPage_ShouldSkipFirst32Cheeps_ReturnXAmountOfCheeps()
     {
         //Act
-        ICollection<Cheep> cheeps = CheepRepository.GetCheepsByPage(2);
+        ICollection<Twit> cheeps = _twitRepository.GetCheepsByPage(2);
 
         //Assert
         Assert.Equal(2, cheeps.Count);
@@ -60,24 +60,24 @@ public class CheepRepositoryTest{
     [Fact]
     public void DeleteCheepById_ShouldOnlyDeleteSpecifiedCheep()
     {
-        ICollection<Cheep> initialCheeps = CheepRepository.GetCheepsByPage(1);
-        Cheep cheep = initialCheeps.First();
-        Guid cheepId = cheep.CheepId;
+        ICollection<Twit> initialCheeps = _twitRepository.GetCheepsByPage(1);
+        Twit twit = initialCheeps.First();
+        Guid cheepId = twit.CheepId;
         
-        CheepRepository.DeleteCheepById(cheepId);
+        _twitRepository.DeleteCheepById(cheepId);
 
-        ICollection<Cheep> updatedCheeps = CheepRepository.GetCheepsByPage(1);
+        ICollection<Twit> updatedCheeps = _twitRepository.GetCheepsByPage(1);
         
         //Assert
-        Assert.True(initialCheeps.Contains(cheep));
-        Assert.False(updatedCheeps.Contains(cheep));
+        Assert.True(initialCheeps.Contains(twit));
+        Assert.False(updatedCheeps.Contains(twit));
 
     }
 
     [Fact]
     public void addCheep_ShouldAddACheep()
     {
-        Cheep cheepDto = new Cheep
+        Twit twitDto = new Twit
         {
             CheepId = Guid.NewGuid(),
             AuthorId = _author.Id,
@@ -86,22 +86,22 @@ public class CheepRepositoryTest{
         };
 
         #pragma warning disable xUnit1031
-        CheepRepository.AddCheep(cheepDto).Wait();
+        _twitRepository.AddCheep(twitDto).Wait();
         #pragma warning restore xUnit1031
 
-        ICollection<Cheep> updatedCheeps = CheepRepository.GetCheepsByPage(0);
+        ICollection<Twit> updatedCheeps = _twitRepository.GetCheepsByPage(0);
         
         //Assert
-        Assert.True(updatedCheeps.Contains(cheepDto));
+        Assert.True(updatedCheeps.Contains(twitDto));
     }
     
     [Fact]
     public async void CreateCheepCreatesCheep()
     {
-        CreateCheep createCheep = new CreateCheep(_author.Id, "TestCheep");
+        CreateTwit createTwit = new CreateTwit(_author.Id, "TestCheep");
 
-        Cheep cheep = await CheepRepository.AddCreateCheep(createCheep);
+        Twit twit = await _twitRepository.AddCreateCheep(createTwit);
         
-        Assert.True(CheepRepository.GetCheepsByPage(0).Contains(cheep));
+        Assert.True(_twitRepository.GetCheepsByPage(0).Contains(twit));
     }
 }

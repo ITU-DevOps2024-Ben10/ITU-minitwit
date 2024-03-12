@@ -11,7 +11,7 @@ namespace Minitwit.Core.Entities;
 /// </summary>
 
 [Index(nameof(CheepId), IsUnique = true)]
-public class Cheep 
+public class Twit 
 {
     [Required]
     public Guid CheepId {get; set;}

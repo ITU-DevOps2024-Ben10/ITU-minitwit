@@ -5,15 +5,15 @@ using Minitwit.Core.Repository;
 
 namespace Minitwit.Infrastructure.Repository;
 
-public class CheepRepository : BaseRepository, ICheepRepository
+public class TwitRepository : BaseRepository, ITwitRepository
 { 
-    public CheepRepository(MinitwitDbContext DbContext) : base(DbContext)
+    public TwitRepository(MinitwitDbContext DbContext) : base(DbContext)
     {
     }
-    public ICollection<Cheep> GetCheepsByPage(int page)
+    public ICollection<Twit> GetCheepsByPage(int page)
     {
         //Use EF to get the specified page of cheeps from the database
-        ICollection<Cheep> cheeps = db.Cheeps
+        ICollection<Twit> cheeps = db.Cheeps
             .OrderByDescending(c => c.TimeStamp)
             .Skip(PageSize * (page - 1))
             .Take(PageSize)
@@ -22,10 +22,10 @@ public class CheepRepository : BaseRepository, ICheepRepository
         return cheeps;
     }
 
-    public ICollection<Cheep> GetCheepsByCount(int count)
+    public ICollection<Twit> GetCheepsByCount(int count)
     {
         //Use EF to get the specified count of cheeps from the database
-        ICollection<Cheep> cheeps = db.Cheeps
+        ICollection<Twit> cheeps = db.Cheeps
             .OrderByDescending(c => c.TimeStamp)
             .Take(count)
             .ToList();
@@ -33,10 +33,10 @@ public class CheepRepository : BaseRepository, ICheepRepository
         return cheeps;
     }
     
-    public ICollection<Cheep> GetCheepsFromAuthorByCount(Guid authorId, int count)
+    public ICollection<Twit> GetCheepsFromAuthorByCount(Guid authorId, int count)
     {
         //Use EF to get the specified count of cheeps from an author from the database
-        ICollection<Cheep> cheeps = db.Cheeps
+        ICollection<Twit> cheeps = db.Cheeps
             .Where(c => c.AuthorId == authorId)
             .OrderByDescending(c => c.TimeStamp)
             .Take(count)
@@ -59,7 +59,7 @@ public class CheepRepository : BaseRepository, ICheepRepository
     public void DeleteCheepById(Guid cheepId)
     {
         //Delete the specified cheep from the database
-        Cheep? cheep = db.Cheeps.Find(cheepId);
+        Twit? cheep = db.Cheeps.Find(cheepId);
         if (cheep != null)
         {
             db.Cheeps.Remove(cheep);
@@ -72,21 +72,21 @@ public class CheepRepository : BaseRepository, ICheepRepository
         db.SaveChanges();
     }
 
-    public async Task AddCheep(Cheep cheep)
+    public async Task AddCheep(Twit twit)
     {
-        db.Cheeps.Add(cheep);
+        db.Cheeps.Add(twit);
         await db.SaveChangesAsync();
         Console.WriteLine("Cheep added async");
     }
 
-    public async Task<Cheep> AddCreateCheep(CreateCheep cheep)
+    public async Task<Twit> AddCreateCheep(CreateTwit twit)
     {
-        Cheep entity = new Cheep()
+        Twit entity = new Twit()
         {
             CheepId = new Guid(),
-            Text = cheep.Text,
+            Text = twit.Text,
             TimeStamp = DateTime.Now,
-            AuthorId = cheep.AuthorId
+            AuthorId = twit.AuthorId
         };
         
         await AddCheep(entity);

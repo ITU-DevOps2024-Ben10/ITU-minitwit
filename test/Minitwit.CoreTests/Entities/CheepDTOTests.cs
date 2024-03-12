@@ -12,7 +12,7 @@ public class CheepDTOTests
         public void CheepDTO_CheepId_ShouldHaveRequiredAttribute()
         {
             // Arrange and Act
-            var propertyInfo = typeof(Cheep).GetProperty("CheepId");
+            var propertyInfo = typeof(Twit).GetProperty("CheepId");
             var requiredAttribute = propertyInfo.GetCustomAttributes(typeof(RequiredAttribute), true).FirstOrDefault() as RequiredAttribute;
 
             // Assert
@@ -23,7 +23,7 @@ public class CheepDTOTests
         public void CheepDTO_AuthorId_ShouldHaveRequiredAttribute()
         {
             // Arrange and Act
-            var propertyInfo = typeof(Cheep).GetProperty("AuthorId");
+            var propertyInfo = typeof(Twit).GetProperty("AuthorId");
             var requiredAttribute = propertyInfo.GetCustomAttributes(typeof(RequiredAttribute), true).FirstOrDefault() as RequiredAttribute;
             
             // Assert
@@ -34,7 +34,7 @@ public class CheepDTOTests
         public void CheepDTO_AuthorDto_ShouldHaveRequiredAttribute()
         {
             // Arrange and Act
-            var propertyInfo = typeof(Cheep).GetProperty("AuthorId");
+            var propertyInfo = typeof(Twit).GetProperty("AuthorId");
             var requiredAttribute = propertyInfo.GetCustomAttributes(typeof(RequiredAttribute), true).FirstOrDefault() as RequiredAttribute;
             
             // Assert
@@ -45,7 +45,7 @@ public class CheepDTOTests
         public void CheepDTO_Text_ShouldHaveStringLengthAttributeWithMinMax()
         {
             // Arrange and Act
-            var propertyInfo = typeof(Cheep).GetProperty("Text");
+            var propertyInfo = typeof(Twit).GetProperty("Text");
             var stringLengthAttribute = propertyInfo.GetCustomAttributes(typeof(StringLengthAttribute), true).FirstOrDefault() as StringLengthAttribute;
             
             // Assert
@@ -57,7 +57,7 @@ public class CheepDTOTests
         [Fact]
         public void CheepDTO_TimeStamp_ShouldHaveRequiredAttribute()
         {
-            var propertyInfo = typeof(Cheep).GetProperty("TimeStamp");
+            var propertyInfo = typeof(Twit).GetProperty("TimeStamp");
             var requiredAttribute = propertyInfo.GetCustomAttributes(typeof(RequiredAttribute), true).FirstOrDefault() as RequiredAttribute;
 
             Assert.NotNull(requiredAttribute);
@@ -66,7 +66,7 @@ public class CheepDTOTests
         [Fact]
         public void CheepDTO_IndexAttribute_ShouldBeUnique()
         {
-            var indexAttribute = typeof(Cheep).GetCustomAttributes(typeof(IndexAttribute), true).FirstOrDefault() as IndexAttribute;
+            var indexAttribute = typeof(Twit).GetCustomAttributes(typeof(IndexAttribute), true).FirstOrDefault() as IndexAttribute;
 
             Assert.NotNull(indexAttribute);
             Assert.True(indexAttribute.IsUnique);

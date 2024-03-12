@@ -12,23 +12,23 @@ using ValidationException = FluentValidation.ValidationException;
 
     public class PublicModel : PageModel
     {
-        private readonly ICheepService _service;
-        private readonly ICheepRepository _cheepRepository;
+        private readonly ITwitService _service;
+        private readonly ITwitRepository _twitRepository;
         private readonly IAuthorRepository _authorRepository;
         private readonly IFollowRepository _followRepository;
         private readonly IReactionRepository _reactionRepository;
-        private readonly IValidator<CreateCheep> _validator;
+        private readonly IValidator<CreateTwit> _validator;
         public required Author user { get; set; }
         private readonly UserManager<Author> _userManager;
         public required ICollection<CheepViewModel> Cheeps { get; set; }
         public required int totalPages { get; set; }
         public required int currentPage { get; set; }
         
-        public PublicModel(ICheepService service, ICheepRepository cheepRepository, IAuthorRepository authorRepository, IFollowRepository followRepository, IValidator<CreateCheep> validator , UserManager<Author> userManager, IReactionRepository reactionRepository)
+        public PublicModel(ITwitService service, ITwitRepository twitRepository, IAuthorRepository authorRepository, IFollowRepository followRepository, IValidator<CreateTwit> validator , UserManager<Author> userManager, IReactionRepository reactionRepository)
 
         {
             _service = service;
-            _cheepRepository = cheepRepository;
+            _twitRepository = twitRepository;
             _authorRepository = authorRepository;
             _followRepository = followRepository;
             _validator = validator;
@@ -54,7 +54,7 @@ using ValidationException = FluentValidation.ValidationException;
             }
            
             var author = await _userManager.GetUserAsync(User);
-            var cheep = new CreateCheep(author!.Id, NewCheep!.Text!);
+            var cheep = new CreateTwit(author!.Id, NewCheep!.Text!);
 
             await CreateCheep(cheep);
             
@@ -62,9 +62,9 @@ using ValidationException = FluentValidation.ValidationException;
             
         }
         
-        public async Task CreateCheep(CreateCheep newCheep)
+        public async Task CreateCheep(CreateTwit newTwit)
         {
-            var validationResult = await _validator.ValidateAsync(newCheep);
+            var validationResult = await _validator.ValidateAsync(newTwit);
              
             if (!validationResult.IsValid)
             {
@@ -73,7 +73,7 @@ using ValidationException = FluentValidation.ValidationException;
                 throw new ValidationException("The Cheep must be between 5 and 160 characters.(CreateCheep)");
             }
 
-            await _cheepRepository.AddCreateCheep(newCheep);
+            await _twitRepository.AddCreateCheep(newTwit);
         }
       
         public async Task<IActionResult> OnPostReaction(Guid cheepId, ReactionType reactionType, int currentPage)
@@ -144,7 +144,7 @@ using ValidationException = FluentValidation.ValidationException;
             Cheeps = _service.GetCheeps(page);
 
             user = _userManager.GetUserAsync(User).Result!;
-            totalPages = _cheepRepository.GetPageCount();
+            totalPages = _twitRepository.GetPageCount();
             currentPage = page;
         }
 

@@ -1,14 +1,7 @@
-using System.Text.Json;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic.CompilerServices;
 using Minitwit.Core.Entities;
 using Minitwit.Core.Repository;
-using Minitwit.Web;
-using Minitwit.Core.Repository;
-using Minitwit.Infrastructure.Repository;
-using Minitwit.Web.Areas.Identity.Pages.Account;
 using Minitwit.Web.Models;
 
 /*
@@ -25,24 +18,24 @@ namespace Minitwit.Web.ApiControllers;
 public class ApiController : ControllerBase
 
 {
-    private readonly ICheepService _cheepService;
+    private readonly ITwitService _twitService;
     private readonly IAuthorRepository _authorRepository;
-    private readonly ICheepRepository _cheepRepository;
+    private readonly ITwitRepository _twitRepository;
     private readonly UserManager<Author> _userManager;
     private readonly IUserStore<Author> _userStore;
     private readonly IUserEmailStore<Author> _emailStore;
 
 
     public ApiController(
-        ICheepService cheepService,
+        ITwitService twitService,
         IAuthorRepository authorRepository,
-        ICheepRepository cheepRepository,
+        ITwitRepository twitRepository,
         UserManager<Author> userManager,
         IUserStore<Author> userStore)
     {
-        _cheepService = cheepService;
+        _twitService = twitService;
         _authorRepository = authorRepository;
-        _cheepRepository = cheepRepository;
+        _twitRepository = twitRepository;
         _userManager = userManager;
         _userStore = userStore;
         _emailStore = GetEmailStore();
@@ -128,7 +121,7 @@ public class ApiController : ControllerBase
 
         try
         {
-            var cheeps = _cheepRepository.GetCheepsByCount(no).ToList();
+            var cheeps = _twitRepository.GetCheepsByCount(no).ToList();
             var users = _authorRepository.GetAllAuthors().Where(a => cheeps.Any(c => a.Id == c.AuthorId)).ToList();
 
             List<CheepViewModelApi> lst = new();
@@ -169,7 +162,7 @@ public class ApiController : ControllerBase
         try
         {
             Guid authorId = _authorRepository.GetAuthorByName(username).Id;
-            var cheeps = _cheepRepository.GetCheepsFromAuthorByCount(authorId, no);
+            var cheeps = _twitRepository.GetCheepsFromAuthorByCount(authorId, no);
 
             List<CheepViewModelApi> formattedCheeps = new();
 
@@ -203,9 +196,9 @@ public class ApiController : ControllerBase
             
             Author user =_authorRepository.GetAuthorByName(username);
             
-            CreateCheep cheep = new CreateCheep(user.Id, msgsdata.content);
+            CreateTwit twit = new CreateTwit(user.Id, msgsdata.content);
             
-            var result = await _cheepRepository.AddCreateCheep(cheep);
+            var result = await _twitRepository.AddCreateCheep(twit);
             
             Update_Latest(latest);
             return StatusCode(204,"");

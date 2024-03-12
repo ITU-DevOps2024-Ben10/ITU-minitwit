@@ -5,7 +5,7 @@ using Minitwit.Web.Models;
 
 namespace Minitwit.Web;
 
-public interface ICheepService
+public interface ITwitService
 {
     public ICollection<CheepViewModel> GetCheeps(int page);
     public ICollection<CheepViewModel> GetCheepsFromAuthor(string authorName, int page);
@@ -14,26 +14,26 @@ public interface ICheepService
 
 }
 
-public class MinitwitService : ICheepService
+public class MinitwitService : ITwitService
 {
     private readonly IAuthorRepository _authorRepository;
-    private readonly ICheepRepository _cheepRepository;
+    private readonly ITwitRepository _twitRepository;
     private readonly IReactionRepository _reactionRepository;
     
-    public MinitwitService(ICheepRepository cheepRepository, IAuthorRepository authorRepository, IReactionRepository reactionRepository)
+    public MinitwitService(ITwitRepository twitRepository, IAuthorRepository authorRepository, IReactionRepository reactionRepository)
     {
-        _cheepRepository = cheepRepository;
+        _twitRepository = twitRepository;
         _authorRepository = authorRepository;
         _reactionRepository = reactionRepository;
     }
     
     public ICollection<CheepViewModel> GetCheeps(int page)
     {
-        ICollection<Cheep> cheepDtos = _cheepRepository.GetCheepsByPage(page);
+        ICollection<Twit> cheepDtos = _twitRepository.GetCheepsByPage(page);
         List<CheepViewModel> cheeps = new List<CheepViewModel>();
         ICollection<Author> authors = _authorRepository.GetAllAuthors();
 
-        foreach (Cheep cheepDto in cheepDtos)
+        foreach (Twit cheepDto in cheepDtos)
         {
             List<ReactionModel> reactionTypeCounts = CheepReactions(cheepDto);
             Author? author = authors.FirstOrDefault(a => a.Id == cheepDto.AuthorId);
@@ -46,11 +46,11 @@ public class MinitwitService : ICheepService
     
     public ICollection<CheepViewModel> GetCheepsFromAuthor(Guid id, int page)
     {
-        ICollection<Cheep> cheepDtos = _authorRepository.GetCheepsByAuthor(id, page);
+        ICollection<Twit> cheepDtos = _authorRepository.GetCheepsByAuthor(id, page);
         ICollection<CheepViewModel> cheeps = new List<CheepViewModel>();
         Author author = _authorRepository.GetAuthorById(id);
         
-        foreach (Cheep cheepDto in cheepDtos)
+        foreach (Twit cheepDto in cheepDtos)
         {
             List<ReactionModel> reactionTypeCounts = CheepReactions(cheepDto);
 
@@ -62,12 +62,12 @@ public class MinitwitService : ICheepService
     
     public ICollection<CheepViewModel> GetCheepsFromAuthorAndFollowing(Guid authorId, int page)
     {
-        ICollection<Cheep> cheepDtos = _authorRepository.GetCheepsByAuthorAndFollowing(authorId, page);
+        ICollection<Twit> cheepDtos = _authorRepository.GetCheepsByAuthorAndFollowing(authorId, page);
         ICollection<Author> authors = _authorRepository.GetFollowingById(authorId);
                             authors.Add(_authorRepository.GetAuthorById(authorId));
         ICollection<CheepViewModel> cheeps = new List<CheepViewModel>();
 
-        foreach (Cheep cheepDto in cheepDtos)
+        foreach (Twit cheepDto in cheepDtos)
         {
             List<ReactionModel> reactionTypeCounts = CheepReactions(cheepDto);
             Author? author = authors.FirstOrDefault(a => a.Id == cheepDto.AuthorId);
@@ -78,14 +78,14 @@ public class MinitwitService : ICheepService
         return cheeps;
     }
 
-    protected List<ReactionModel> CheepReactions(Cheep cheepDto)
+    protected List<ReactionModel> CheepReactions(Twit twitDto)
     {
         // Initialize reactions with all reaction types set to count 0.
         var reactions = Enum.GetValues(typeof(ReactionType))
             .Cast<ReactionType>()
             .ToDictionary(rt => rt, rt => new ReactionModel(rt, 0));
 
-        ICollection<Reaction> reactionDTOs = _reactionRepository.GetReactionsFromCheepId(cheepDto.CheepId);
+        ICollection<Reaction> reactionDTOs = _reactionRepository.GetReactionsFromCheepId(twitDto.CheepId);
         // If cheepDto.Reactions is not null and has elements, process them.
         if (reactionDTOs.Any() == true)
         {

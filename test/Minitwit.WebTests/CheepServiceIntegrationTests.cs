@@ -14,23 +14,23 @@ public class CheepServiceIntegrationTests
 
     private readonly Author _author1;
     private readonly Author _author2;
-    private readonly Cheep _cheep1;
-    private readonly Cheep _cheep2;
-    private readonly Cheep _cheep3;
+    private readonly Twit _cheep1;
+    private readonly Twit _cheep2;
+    private readonly Twit _cheep3;
 
     public CheepServiceIntegrationTests()
     {
         MinitwitDbContext context = SqliteInMemoryBuilder.GetContext();
         IFollowRepository followRepository = new FollowRepository(context);
-        ICheepRepository cheepRepository = new CheepRepository(context);
+        ITwitRepository twitRepository = new TwitRepository(context);
         IAuthorRepository authorRepository = new AuthorRepository(context);
         IReactionRepository reactionRepository = new ReactionRepository(context);
-        _service = new MinitwitService(cheepRepository, authorRepository, reactionRepository);
+        _service = new MinitwitService(twitRepository, authorRepository, reactionRepository);
 
         _author1 = new Author { Id = Guid.NewGuid(), UserName = "Author1", Email = "email1" };
         _author2 = new Author { Id = Guid.NewGuid(), UserName = "Author2", Email = "email2" };
 
-        _cheep1 = new Cheep
+        _cheep1 = new Twit
         {
             CheepId = new Guid(),
             AuthorId = _author1.Id,
@@ -38,7 +38,7 @@ public class CheepServiceIntegrationTests
             TimeStamp = DateTime.Now,
         };
         
-        _cheep2 = new Cheep
+        _cheep2 = new Twit
         {
             CheepId = new Guid(),
             AuthorId = _author2.Id,
@@ -46,7 +46,7 @@ public class CheepServiceIntegrationTests
             TimeStamp = DateTime.Now,
         };
 
-        _cheep3 = new Cheep()
+        _cheep3 = new Twit()
         {
             CheepId = new Guid(),
             AuthorId = _author2.Id,
