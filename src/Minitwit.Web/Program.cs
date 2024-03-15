@@ -15,14 +15,10 @@ using Minitwit.Infrastructure.Repository;
 var builder = WebApplication.CreateBuilder(args);
 
 // Set the environment
-//builder.Environment.EnvironmentName = "Development";
-
-// Determine the enviroment
-var env = builder.Environment;
-bool isDevelopment = env.IsDevelopment();
+var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
 // Set up the database path
-if (isDevelopment)
+if (environmentName.Equals("Development"))
 {
     string currentDirectory = Directory.GetCurrentDirectory();
     string dbPath;

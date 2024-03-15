@@ -20,7 +20,7 @@ RUN dotnet publish "src/Minitwit.Web/Minitwit.Web.csproj" -c $BUILD_CONFIGURATIO
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-
+ENV ASPNETCORE_ENVIRONMENT=Development
 # Copy the SQLite database file to the publish directory
 COPY ["src/Minitwit.Infrastructure/data/MinitwitDBContext.db", "/app/data/MinitwitDBContext.db"]
 

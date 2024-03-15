@@ -22,6 +22,7 @@ RUN dotnet publish "src/Minitwit.Web/Minitwit.Web.csproj" -c $BUILD_CONFIGURATIO
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+ENV ASPNETCORE_ENVIRONMENT=Production
 
 # Use dockerize in the ENTRYPOINT to wait for the database service
 ENTRYPOINT ["dotnet", "Minitwit.Web.dll"]
