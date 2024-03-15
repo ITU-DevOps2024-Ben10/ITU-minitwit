@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Minitwit.Core.Entities;
 using Minitwit.Core.Repository;
 using Minitwit.Web.Models;
+using MySqlX.XDevAPI.Common;
+using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 /*
  * TODO REMOVE THIS COMMENT WHEN THE API IS DONE
@@ -43,6 +46,7 @@ public class ApiController : ControllerBase
 
 
     private const string LatestCommandIdFilePath = "./latest_processed_sim_action_id.txt";
+    private const string logFilePath = "./log.txt";
 
 
     //Returns the id of the latest command read from a text file and defaults to -1
@@ -95,8 +99,10 @@ public class ApiController : ControllerBase
         await _emailStore.SetEmailAsync(user, data.email, CancellationToken.None);
         var result = await _userManager.CreateAsync(user, data.pwd);
 
+        LogRequest(data, result);
+
         if (result.Succeeded) return StatusCode(204,"");
-        return BadRequest($"Registration failed. User {data.username} likely already exists");
+        return BadRequest($"{result.Errors.ToList()}");
     }
 
 
@@ -297,22 +303,38 @@ public class ApiController : ControllerBase
 
 
     // Data containers
-    public class MsgsData
+
+    private interface IData
+    {
+        public string GetData();
+    }
+
+    public class MsgsData : IData
     {
         public string content { get; set; }
+
+        public string GetData() { return ToString(); }
+        public override string ToString() { return $"{{content: {content}}}"; }
+
     }
-    public class FollowData
+    public class FollowData : IData
     {
         public string? follow { get; set; }
         public string? unfollow { get; set; }
 
+        public string GetData() { return ToString(); }
+        public override string ToString() { return $"{{follow: {follow}, unfollow: {unfollow}}}"; }
+
     }
 
-    public class RegisterUserData
+    public class RegisterUserData : IData
     {
         public string username { get; set; }
         public string email { get; set; }
         public string pwd { get; set; }
+
+        public string GetData() { return ToString(); }  
+        public override string ToString() { return $"{{Username: {username}, Email: {email}, Password: {pwd}}}"; }
     }
     
     // Helper methods
@@ -358,6 +380,35 @@ public class ApiController : ControllerBase
         {
             Console.WriteLine("Error occurred while updating latest id: " + ex.Message);
         }
+    }
+
+    private void LogRequest(IData data, IdentityResult result)
+    {
+        // Stringify header
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.Append("{");
+        foreach (var header in Request.Headers.ToList())
+        {
+            stringBuilder.Append($"{header.Key}: {header.Value}, ");
+        }
+        stringBuilder.Append("}");
+        string headers = stringBuilder.ToString();
+
+        // Stringify Errors
+        StringBuilder stringBuilderError = new StringBuilder();
+        stringBuilderError.Append("{");
+        foreach (var error in result.Errors.ToList())
+        {
+            stringBuilderError.Append($"\"{error.Description}\", ");
+        }
+        stringBuilderError.Append("}");
+        string errors = stringBuilderError.ToString();
+
+        // format everything
+        string logtext = $"{headers}\n{data.GetData()}\n{errors}\n\n";
+
+        using StreamWriter writer = new StreamWriter(logFilePath, true);
+        writer.Write(logtext);
     }
 
 }
