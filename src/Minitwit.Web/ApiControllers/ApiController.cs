@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Minitwit.Core.Entities;
 using Minitwit.Core.Repository;
 using Minitwit.Web.Models;
+using System.Text;
 
 /*
  * TODO REMOVE THIS COMMENT WHEN THE API IS DONE
@@ -43,6 +44,7 @@ public class ApiController : ControllerBase
 
 
     private const string LatestCommandIdFilePath = "./latest_processed_sim_action_id.txt";
+    private const string logFilePath = "./log.txt";
 
 
     //Returns the id of the latest command read from a text file and defaults to -1
@@ -95,8 +97,21 @@ public class ApiController : ControllerBase
         await _emailStore.SetEmailAsync(user, data.email, CancellationToken.None);
         var result = await _userManager.CreateAsync(user, data.pwd);
 
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.Append("{");
+        foreach (var header in Request.Headers.ToList())
+        {
+            stringBuilder.Append($"{header.Key}: {header.Value}, ");
+        }
+        stringBuilder.Append("}");
+
+        string headers = stringBuilder.ToString();
+
+        string logtext = $"{headers}\n{data}\n{result.Errors.ToList()}\n\n";
+        LogRequest(logtext);
+
         if (result.Succeeded) return StatusCode(204,"");
-        return BadRequest($"Registration failed. User {data.username} likely already exists");
+        return BadRequest($"{result.Errors.ToList()}");
     }
 
 
@@ -300,11 +315,16 @@ public class ApiController : ControllerBase
     public class MsgsData
     {
         public string content { get; set; }
+
+        public override string ToString() { return $"{{content: {content}}}"; }
+
     }
     public class FollowData
     {
         public string? follow { get; set; }
         public string? unfollow { get; set; }
+
+        public override string ToString() { return $"{{follow: {follow}, unfollow: {unfollow}}}"; }
 
     }
 
@@ -313,6 +333,8 @@ public class ApiController : ControllerBase
         public string username { get; set; }
         public string email { get; set; }
         public string pwd { get; set; }
+
+        public override string ToString() { return $"{{Username: {username}, Email: {email}, Password: {pwd}}}"; }
     }
     
     // Helper methods
@@ -358,6 +380,12 @@ public class ApiController : ControllerBase
         {
             Console.WriteLine("Error occurred while updating latest id: " + ex.Message);
         }
+    }
+
+    private void LogRequest(string text)
+    {
+        using StreamWriter writer = new StreamWriter(logFilePath, true);
+        writer.Write(text);
     }
 
 }
