@@ -14,16 +14,49 @@ using Minitwit.Infrastructure.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
-string currentDirectory = Directory.GetCurrentDirectory();
-string dbPath;
+// Set the environment
+builder.Environment.EnvironmentName = "Development";
 
-if (Directory.Exists(Path.Combine(currentDirectory, "..", "Minitwit.Infrastructure", "data")))
+// Determine the enviroment
+var env = builder.Environment;
+bool isDevelopment = env.IsDevelopment();
+
+// Set up the database path
+if (isDevelopment)
 {
-    dbPath = Path.Combine(currentDirectory, "..", "Minitwit.Infrastructure", "data", "MinitwitDBContext.db"); //Build directory
+    string currentDirectory = Directory.GetCurrentDirectory();
+    string dbPath;
+
+    if (Directory.Exists(Path.Combine(currentDirectory, "..", "Minitwit.Infrastructure", "data")))
+    {
+        dbPath = Path.Combine(currentDirectory, "..", "Minitwit.Infrastructure", "data", "MinitwitDBContext.db"); //Build directory
+    }
+    else 
+    {
+        dbPath = Path.Combine(currentDirectory, "data", "MinitwitDBContext.db"); //Publish directory
+    } 
+    builder.Services.AddDbContext<MinitwitDbContext>(options =>
+    {
+        options.UseSqlite($"Data Source={dbPath}");
+    });
 }
-else 
+else
 {
-    dbPath = Path.Combine(currentDirectory, "data", "MinitwitDBContext.db"); //Publish directory
+    string username = Environment.GetEnvironmentVariable("MYSQL_USERNAME");
+    string password = Environment.GetEnvironmentVariable("MYSQL_PASSWORD");
+    string host = Environment.GetEnvironmentVariable("MYSQL_HOST");
+    string port = Environment.GetEnvironmentVariable("MYSQL_PORT");
+    string database = Environment.GetEnvironmentVariable("MYSQL_DATABASE");
+    string sslmode = Environment.GetEnvironmentVariable("MYSQL_SSL_MODE");
+    
+    var connectionString = $"Server={host};Port={port};Database={database};User={username};Password={password};SslMode={sslmode}";
+    
+    builder.Services.AddDbContext<MinitwitDbContext>(options =>
+    {
+        options.UseMySQL(connectionString);
+    });
+
+    Console.Write($"Connection string: server={host}; port={port}; database={database}; user={username}; password={password}; sslmode={sslmode}");
 }
 
 // Add services to the container.
@@ -36,22 +69,6 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.PropertyNamingPolicy = null;
     options.JsonSerializerOptions.IgnoreNullValues = true;
 });
-
-string username = Environment.GetEnvironmentVariable("MYSQL_USERNAME");
-string password = Environment.GetEnvironmentVariable("MYSQL_PASSWORD");
-string host = Environment.GetEnvironmentVariable("MYSQL_HOST");
-string port = Environment.GetEnvironmentVariable("MYSQL_PORT");
-string database = Environment.GetEnvironmentVariable("MYSQL_DATABASE");
-string sslmode = Environment.GetEnvironmentVariable("MYSQL_SSL_MODE");
-
-builder.Services.AddDbContext<MinitwitDbContext>(options =>
-{
-    var connectionString = $"Server={host};Port={port};Database={database};User={username};Password={password};SslMode={sslmode}";
-    options.UseMySQL(connectionString);
-});
-
-Console.Write($"Connection string: server={host}; port={port}; database={database}; user={username}; password={password}; sslmode={sslmode}");
-
 
 builder.Services.AddDefaultIdentity<Author>()
     .AddRoles<IdentityRole<Guid>>()
@@ -87,6 +104,7 @@ using (var scope = app.Services.CreateScope())
     // Get an instance of the DbContext
     var context = services.GetRequiredService<MinitwitDbContext>();
     
+    // Apply any pending migrations
     try
     {
         context.Database.Migrate();
@@ -108,10 +126,10 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.MapControllers();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
+app.MapControllers();
 app.MapRazorPages();
 app.Run();
