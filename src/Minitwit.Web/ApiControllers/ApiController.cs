@@ -1,14 +1,7 @@
-using System.Text.Json;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic.CompilerServices;
 using Minitwit.Core.Entities;
 using Minitwit.Core.Repository;
-using Minitwit.Web;
-using Minitwit.Core.Repository;
-using Minitwit.Infrastructure.Repository;
-using Minitwit.Web.Areas.Identity.Pages.Account;
 using Minitwit.Web.Models;
 
 /*
