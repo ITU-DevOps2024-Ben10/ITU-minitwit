@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Minitwit.Core.Entities;
 using Minitwit.Core.Repository;
 using Minitwit.Web.Models;
+using MySqlX.XDevAPI.Common;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 /*
  * TODO REMOVE THIS COMMENT WHEN THE API IS DONE
@@ -97,18 +99,7 @@ public class ApiController : ControllerBase
         await _emailStore.SetEmailAsync(user, data.email, CancellationToken.None);
         var result = await _userManager.CreateAsync(user, data.pwd);
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.Append("{");
-        foreach (var header in Request.Headers.ToList())
-        {
-            stringBuilder.Append($"{header.Key}: {header.Value}, ");
-        }
-        stringBuilder.Append("}");
-
-        string headers = stringBuilder.ToString();
-
-        string logtext = $"{headers}\n{data}\n{result.Errors.ToList()}\n\n";
-        LogRequest(logtext);
+        LogRequest(data.ToString(), result);
 
         if (result.Succeeded) return StatusCode(204,"");
         return BadRequest($"{result.Errors.ToList()}");
@@ -382,10 +373,33 @@ public class ApiController : ControllerBase
         }
     }
 
-    private void LogRequest(string text)
+    private void LogRequest(string data, IdentityResult result)
     {
+        // Stringify header
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.Append("{");
+        foreach (var header in Request.Headers.ToList())
+        {
+            stringBuilder.Append($"{header.Key}: {header.Value}, ");
+        }
+        stringBuilder.Append("}");
+        string headers = stringBuilder.ToString();
+
+        // Stringify Errors
+        StringBuilder stringBuilderError = new StringBuilder();
+        stringBuilder.Append("{");
+        foreach (var error in result.Errors.ToList())
+        {
+            stringBuilderError.Append($"{error.Description}, ");
+        }
+        stringBuilder.Append("}");
+        string errors = stringBuilderError.ToString();
+
+        // format everything
+        string logtext = $"{headers}\n{data}\n{errors}\n\n";
+
         using StreamWriter writer = new StreamWriter(logFilePath, true);
-        writer.Write(text);
+        writer.Write(logtext);
     }
 
 }
