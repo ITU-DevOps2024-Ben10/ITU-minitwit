@@ -99,7 +99,7 @@ public class ApiController : ControllerBase
         await _emailStore.SetEmailAsync(user, data.email, CancellationToken.None);
         var result = await _userManager.CreateAsync(user, data.pwd);
 
-        LogRequest(data.ToString(), result);
+        LogRequest(data, result);
 
         if (result.Succeeded) return StatusCode(204,"");
         return BadRequest($"{result.Errors.ToList()}");
@@ -303,28 +303,37 @@ public class ApiController : ControllerBase
 
 
     // Data containers
-    public class MsgsData
+
+    private interface IData
+    {
+        public string GetData();
+    }
+
+    public class MsgsData : IData
     {
         public string content { get; set; }
 
+        public string GetData() { return ToString(); }
         public override string ToString() { return $"{{content: {content}}}"; }
 
     }
-    public class FollowData
+    public class FollowData : IData
     {
         public string? follow { get; set; }
         public string? unfollow { get; set; }
 
+        public string GetData() { return ToString(); }
         public override string ToString() { return $"{{follow: {follow}, unfollow: {unfollow}}}"; }
 
     }
 
-    public class RegisterUserData
+    public class RegisterUserData : IData
     {
         public string username { get; set; }
         public string email { get; set; }
         public string pwd { get; set; }
 
+        public string GetData() { return ToString(); }  
         public override string ToString() { return $"{{Username: {username}, Email: {email}, Password: {pwd}}}"; }
     }
     
@@ -373,7 +382,7 @@ public class ApiController : ControllerBase
         }
     }
 
-    private void LogRequest(string data, IdentityResult result)
+    private void LogRequest(IData data, IdentityResult result)
     {
         // Stringify header
         StringBuilder stringBuilder = new StringBuilder();
@@ -387,16 +396,16 @@ public class ApiController : ControllerBase
 
         // Stringify Errors
         StringBuilder stringBuilderError = new StringBuilder();
-        stringBuilder.Append("{");
+        stringBuilderError.Append("{");
         foreach (var error in result.Errors.ToList())
         {
-            stringBuilderError.Append($"{error.Description}, ");
+            stringBuilderError.Append($"\"{error.Description}\", ");
         }
-        stringBuilder.Append("}");
+        stringBuilderError.Append("}");
         string errors = stringBuilderError.ToString();
 
         // format everything
-        string logtext = $"{headers}\n{data}\n{errors}\n\n";
+        string logtext = $"{headers}\n{data.GetData()}\n{errors}\n\n";
 
         using StreamWriter writer = new StreamWriter(logFilePath, true);
         writer.Write(logtext);
