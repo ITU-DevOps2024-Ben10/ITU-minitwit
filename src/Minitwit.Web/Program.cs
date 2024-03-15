@@ -14,22 +14,50 @@ using Minitwit.Infrastructure.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
-string username = Environment.GetEnvironmentVariable("MYSQL_USERNAME");
-string password = Environment.GetEnvironmentVariable("MYSQL_PASSWORD");
-string host = Environment.GetEnvironmentVariable("MYSQL_HOST");
-string port = Environment.GetEnvironmentVariable("MYSQL_PORT");
-string database = Environment.GetEnvironmentVariable("MYSQL_DATABASE");
-string sslmode = Environment.GetEnvironmentVariable("MYSQL_SSL_MODE");
-    
-var connectionString = $"Server={host};Port={port};Database={database};User={username};Password={password};SslMode={sslmode}";
-    
-builder.Services.AddDbContext<MinitwitDbContext>(options =>
+// Set the environment
+//builder.Environment.EnvironmentName = "Development";
+
+// Determine the enviroment
+var env = builder.Environment;
+bool isDevelopment = env.IsDevelopment();
+
+// Set up the database path
+if (isDevelopment)
 {
-    options.UseMySQL(connectionString);
-});
+    string currentDirectory = Directory.GetCurrentDirectory();
+    string dbPath;
 
-Console.Write($"Connection string: server={host}; port={port}; database={database}; user={username}; password={password}; sslmode={sslmode}");
+    if (Directory.Exists(Path.Combine(currentDirectory, "..", "Minitwit.Infrastructure", "data")))
+    {
+        dbPath = Path.Combine(currentDirectory, "..", "Minitwit.Infrastructure", "data", "MinitwitDBContext.db"); //Build directory
+    }
+    else 
+    {
+        dbPath = Path.Combine(currentDirectory, "data", "MinitwitDBContext.db"); //Publish directory
+    } 
+    builder.Services.AddDbContext<MinitwitDbContext>(options =>
+    {
+        options.UseSqlite($"Data Source={dbPath}");
+    });
+}
+else
+{
+    string username = Environment.GetEnvironmentVariable("MYSQL_USERNAME");
+    string password = Environment.GetEnvironmentVariable("MYSQL_PASSWORD");
+    string host = Environment.GetEnvironmentVariable("MYSQL_HOST");
+    string port = Environment.GetEnvironmentVariable("MYSQL_PORT");
+    string database = Environment.GetEnvironmentVariable("MYSQL_DATABASE");
+    string sslmode = Environment.GetEnvironmentVariable("MYSQL_SSL_MODE");
+    
+    var connectionString = $"Server={host};Port={port};Database={database};User={username};Password={password};SslMode={sslmode}";
+    
+    builder.Services.AddDbContext<MinitwitDbContext>(options =>
+    {
+        options.UseMySQL(connectionString);
+    });
 
+    Console.Write($"Connection string: server={host}; port={port}; database={database}; user={username}; password={password}; sslmode={sslmode}");
+}
 
 // Add services to the container.
 builder.Services.AddRazorPages();
