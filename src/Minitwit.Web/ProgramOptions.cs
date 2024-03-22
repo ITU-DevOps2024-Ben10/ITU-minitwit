@@ -11,7 +11,9 @@ public class ProgramOptions
     /* ------------------------------------------------------------- */
     /* --------------- SET DEV TO TRUE TO USE SQLITE --------------- */
     /* ------------------------------------------------------------- */
-    private const bool Dev = true;
+    /* ------- REMEMBER TO SET TO FALSE BEFORE PUSHING TO MAIN ------*/
+    /* ------------------------------------------------------------- */
+    private const bool Dev = false;
 
     public static void AddProgramOptions(WebApplicationBuilder builder)
     {
