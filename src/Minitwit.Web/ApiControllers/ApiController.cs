@@ -414,8 +414,10 @@ public class ApiController : ControllerBase
         // format everything
         string logtext = $"{headers}\n{data}\n{errors}\n\n";
 
-        using StreamWriter writer = new StreamWriter(logFilePath, true);
-        writer.Write(logtext);
+        using (StreamWriter writer = new StreamWriter(logFilePath, true))
+        {
+            writer.Write(logtext);
+        }
     }
 
 

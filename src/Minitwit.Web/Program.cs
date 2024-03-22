@@ -2,7 +2,6 @@ using Minitwit.Core.Entities;
 using Minitwit.Infrastructure;
 using Minitwit.Web;
 using FluentValidation;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Minitwit.Core.Repository;
 using Minitwit.Infrastructure.Repository;
