@@ -12,51 +12,14 @@ using Minitwit.Infrastructure.Repository;
 /// It is responsible for setting up the application and starting it.
 /// </summary>
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Set the environment
-var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-
-// Set up the database path
-if (environmentName.Equals("Development"))
-{
-    string currentDirectory = Directory.GetCurrentDirectory();
-    string dbPath;
-
-    if (Directory.Exists(Path.Combine(currentDirectory, "..", "Minitwit.Infrastructure", "data")))
-    {
-        dbPath = Path.Combine(currentDirectory, "..", "Minitwit.Infrastructure", "data", "MinitwitDBContext.db"); //Build directory
-    }
-    else 
-    {
-        dbPath = Path.Combine(currentDirectory, "data", "MinitwitDBContext.db"); //Publish directory
-    } 
-    builder.Services.AddDbContext<MinitwitDbContext>(options =>
-    {
-        options.UseSqlite($"Data Source={dbPath}");
-    });
-}
-else
-{
-    string username = Environment.GetEnvironmentVariable("MYSQL_USERNAME");
-    string password = Environment.GetEnvironmentVariable("MYSQL_PASSWORD");
-    string host = Environment.GetEnvironmentVariable("MYSQL_HOST");
-    string port = Environment.GetEnvironmentVariable("MYSQL_PORT");
-    string database = Environment.GetEnvironmentVariable("MYSQL_DATABASE");
-    string sslmode = Environment.GetEnvironmentVariable("MYSQL_SSL_MODE");
-    
-    var connectionString = $"Server={host};Port={port};Database={database};User={username};Password={password};SslMode={sslmode}";
-    
-    builder.Services.AddDbContext<MinitwitDbContext>(options =>
-    {
-        options.UseMySQL(connectionString);
-    });
-
-    Console.Write($"Connection string: server={host}; port={port}; database={database}; user={username}; password={password}; sslmode={sslmode}");
-}
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+ProgramOptions.AddProgramOptions(builder);
+ProgramOptions.AddIdendity(builder);
+ProgramOptions.AddDatabase(builder);
 
 //API Controllers
 builder.Services.AddControllers().AddJsonOptions(options =>
@@ -65,22 +28,6 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.PropertyNamingPolicy = null;
     options.JsonSerializerOptions.IgnoreNullValues = true;
 });
-
-
-builder.Services.Configure<IdentityOptions>(options =>
-{
-    options.Password.RequireDigit = false;
-    options.Password.RequiredLength = 1;
-    options.Password.RequireLowercase = false;
-    options.Password.RequireUppercase = false;
-    options.Password.RequireNonAlphanumeric = false;
-    options.User.AllowedUserNameCharacters = "zxcvbnmasdfghjklæøqwertyuiopåZXCVBNMASDFGHJKLÆØQWERTYUIOPÅ1234567890 @";
-});
-
-
-builder.Services.AddDefaultIdentity<Author>()
-    .AddRoles<IdentityRole<Guid>>()
-    .AddEntityFrameworkStores<MinitwitDbContext>();
 
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<IValidator<CreateCheep>, CheepCreateValidator>();
@@ -98,21 +45,13 @@ builder.Services.AddSession(
         options.Cookie.IsEssential = true;
     });
 
-//Github OAuth:
-builder.Services.AddAuthentication()
-    .AddCookie();
+WebApplication app = builder.Build();
 
-var app = builder.Build();
-
-// Get a scope to manage the lifetime of the context
-using (var scope = app.Services.CreateScope())
+using (IServiceScope scope = app.Services.CreateScope())
 {
-    var services = scope.ServiceProvider;
-
-    // Get an instance of the DbContext
-    var context = services.GetRequiredService<MinitwitDbContext>();
+    IServiceProvider services = scope.ServiceProvider;
+    MinitwitDbContext context = services.GetRequiredService<MinitwitDbContext>();
     
-    // Apply any pending migrations
     try
     {
         context.Database.Migrate();
@@ -121,9 +60,6 @@ using (var scope = app.Services.CreateScope())
     {
         Console.WriteLine(e);
     }
-    
-    // Call the method to remove duplicate user Logins
-    //await context.RemoveDuplicateUserLogins();
 }
 
 if (!app.Environment.IsDevelopment())
