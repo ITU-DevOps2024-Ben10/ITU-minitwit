@@ -1,13 +1,11 @@
-using System.Diagnostics.Metrics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Minitwit.Core.Entities;
 using Minitwit.Core.Repository;
 using Minitwit.Web.Models;
-using MySqlX.XDevAPI.Common;
 using System.Text;
-using static Minitwit.Web.ApiControllers.ApiController;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using Minitwit.Infrastructure.Middleware;
+using Prometheus;
 
 /*
  * TODO REMOVE THIS COMMENT WHEN THE API IS DONE
@@ -28,13 +26,6 @@ public class ApiController : ControllerBase
     private readonly UserManager<Author> _userManager;
     private readonly IUserStore<Author> _userStore;
     private readonly IUserEmailStore<Author> _emailStore;
-    
-    private static readonly Meter MyMeter = new Meter("minitwit-api-requests-total");
-    private static readonly Counter<long> ApiRequestCounter = MyMeter.CreateCounter<long>(
-        "api_requests_total",
-        "Total number of API requests"
-    );
-
 
     public ApiController(
         ICheepService cheepService,
@@ -66,7 +57,7 @@ public class ApiController : ControllerBase
     [HttpGet("latest")]
     public IActionResult GetLatest()
     {
-        ApiRequestCounter.Add(1);
+        CustomMeters.IncrementApiRequestsCounter();
         
         // Checks authorization
         if (NotReqFromSimulator(Request))
@@ -99,7 +90,7 @@ public class ApiController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> RegisterUser([FromQuery] int latest, [FromBody] RegisterUserData data)
     {
-        ApiRequestCounter.Add(1);
+        CustomMeters.IncrementApiRequestsCounter();
         // Checks authorization
         if (NotReqFromSimulator(Request))
         {
@@ -127,7 +118,7 @@ public class ApiController : ControllerBase
     [HttpGet("msgs")]
     public IActionResult GetMessagesFromPublicTimeline([FromQuery] int latest, [FromQuery] int no = 100)
     {
-        ApiRequestCounter.Add(1);
+        CustomMeters.IncrementApiRequestsCounter();
         // Checks authorization
         if (NotReqFromSimulator(Request))
         {
@@ -170,7 +161,7 @@ public class ApiController : ControllerBase
     [HttpGet("msgs/{username}")]
     public IActionResult GetUserMessages([FromRoute] string username, [FromQuery] int latest, [FromQuery] int no = 100)
     {
-        ApiRequestCounter.Add(1);
+        CustomMeters.IncrementApiRequestsCounter();
         // Checks authorization
         if (NotReqFromSimulator(Request))
         {
@@ -209,7 +200,7 @@ public class ApiController : ControllerBase
     [HttpPost("msgs/{username}")]
     public async Task<IActionResult> PostMessage([FromRoute] string username, [FromQuery] int latest, [FromBody] MsgsData msgsdata)
     {
-        ApiRequestCounter.Add(1);
+        CustomMeters.IncrementApiRequestsCounter();
         // Checks authorization
         if (NotReqFromSimulator(Request))
         {
@@ -244,7 +235,7 @@ public class ApiController : ControllerBase
     [HttpGet("fllws/{username}")]
     public IActionResult GetUserFollowers([FromRoute] string username, [FromQuery] int latest, [FromQuery] int no = 100)
     {
-        ApiRequestCounter.Add(1);
+        CustomMeters.IncrementApiRequestsCounter();
         // Checks authorization
         if (NotReqFromSimulator(Request))
         {
@@ -277,7 +268,7 @@ public class ApiController : ControllerBase
     [HttpPost("fllws/{username}")]
     public IActionResult FollowUser([FromRoute] string username, [FromQuery] int latest, [FromBody] FollowData followData)
     {
-        ApiRequestCounter.Add(1);
+        CustomMeters.IncrementApiRequestsCounter();
         // Checks authorization
         if (NotReqFromSimulator(Request))
         {
