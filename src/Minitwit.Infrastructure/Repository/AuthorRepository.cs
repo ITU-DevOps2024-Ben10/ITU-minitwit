@@ -24,32 +24,32 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
 
     public ICollection<Author> GetAllAuthors()
     {
-        return db.Users.AsNoTracking().ToList();
+        return db.Users.ToList();
     }
     
     public Author GetAuthorById(Guid authorId)
     {
-        Author author = db.Users.AsNoTracking().FirstOrDefault(a => a.Id == authorId)!;
+        Author author = db.Users.FirstOrDefault(a => a.Id == authorId)!;
             
         return author;
     }
     
     public async Task<Author?> GetAuthorByIdAsync(Guid authorId)
     {
-        Author? author = await db.Users.AsNoTracking().FirstOrDefaultAsync(a => a.Id == authorId);
+        Author? author = await db.Users.FirstOrDefaultAsync(a => a.Id == authorId);
         return author!;
     }
     
     public Author GetAuthorByName(string name)
     {
-        Author author = db.Users.AsNoTracking().FirstOrDefault(a => a.UserName == name)!;
+        Author author = db.Users.FirstOrDefault(a => a.UserName == name)!;
             
         return author;
     }
     
     public Author GetAuthorByEmail(string email)
     {
-        Author author = db.Users.AsNoTracking().FirstOrDefault(a => a.Email == email)!;
+        Author author = db.Users.FirstOrDefault(a => a.Email == email)!;
             
         return author;
     }
@@ -61,7 +61,6 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
     public ICollection<Cheep> GetCheepsByAuthor(Guid id)
     {
         return db.Cheeps
-            .AsNoTracking()
             .Where(e => e.AuthorId == id)
             .ToList();
     }
