@@ -8,6 +8,11 @@ namespace Minitwit.Web;
 
 public class ProgramOptions
 {
+    /* ------------------------------------------------------------- */
+    /* --------------- SET DEV TO TRUE TO USE SQLITE --------------- */
+    /* ------------------------------------------------------------- */
+    private const bool Dev = true;
+
     public static void AddProgramOptions(WebApplicationBuilder builder)
     {
         builder.Services.AddHttpLogging(logging =>
@@ -45,7 +50,7 @@ public class ProgramOptions
         string environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
         // Set up the database path
-        if (environmentName.Equals("Development"))
+        if (Dev == true || environmentName == "Development")
         {
             string currentDirectory = Directory.GetCurrentDirectory();
             string dbPath;
