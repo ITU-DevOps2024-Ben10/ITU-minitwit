@@ -28,7 +28,7 @@ public class ReactionRepository(MinitwitDbContext dbContext) : BaseRepository(db
 
     public ICollection<Reaction> GetReactionsFromCheepId(Guid id)
     {
-        return db.Reactions.Where(r => r.CheepId == id).ToList();
+        return db.Reactions.AsNoTracking().Where(r => r.CheepId == id).ToList();
     }
     
     public async Task RemoveReaction(ReactionType reaction, Guid cheepId, Guid authorId)
@@ -47,7 +47,7 @@ public class ReactionRepository(MinitwitDbContext dbContext) : BaseRepository(db
            int count = 0; 
            if (cheep != null)
            { 
-               count = await db.Reactions.CountAsync(r => r.CheepId == cheepId && r.ReactionType == reactionType);
+               count = await db.Reactions.AsNoTracking().CountAsync(r => r.CheepId == cheepId && r.ReactionType == reactionType);
            }
            else
            {
@@ -58,7 +58,7 @@ public class ReactionRepository(MinitwitDbContext dbContext) : BaseRepository(db
     public async Task<bool> HasUserReacted(Guid cheepId, Guid authorId)
     {
         //check if the user has reacted to the cheep
-        return await db.Reactions.AnyAsync(r => r.CheepId == cheepId && r.AuthorId == authorId);
+        return await db.Reactions.AsNoTracking().AnyAsync(r => r.CheepId == cheepId && r.AuthorId == authorId);
         
     }
 }
