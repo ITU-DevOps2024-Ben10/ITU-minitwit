@@ -5,6 +5,7 @@ using Minitwit.Core.Repository;
 using Minitwit.Web.Models;
 using MySqlX.XDevAPI.Common;
 using System.Text;
+using static Minitwit.Web.ApiControllers.ApiController;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 /*
@@ -46,7 +47,13 @@ public class ApiController : ControllerBase
 
 
     private const string LatestCommandIdFilePath = "./latest_processed_sim_action_id.txt";
-    private const string logFilePath = "./log.txt";
+    private const string latestLogFilePath = "./LogLatestGet.txt";
+    private const string registerLogFilePath = "./LogRegisterPost.txt";
+    private const string msgsGetLogFilePath = "./LogMsgsGet.txt";
+    private const string msgsPrivateGetLogFilePath = "./LogMsgsPrivateGet.txt";
+    private const string msgsPostLogFilePath = "./LogMsgsPost.txt";
+    private const string fllwsGetLogFilePath = "./LogFllwsGet.txt";
+    private const string fllwsPostLogFilePath = "./LogFllwsPost.txt";
 
 
     //Returns the id of the latest command read from a text file and defaults to -1
@@ -73,6 +80,8 @@ public class ApiController : ControllerBase
         }
         catch (Exception ex)
         {
+            LogRequest("{}", $"{{{ex.Message}}}", latestLogFilePath);
+
             // Handle exception appropriately, e.g., log it
             Console.WriteLine("Error occurred while getting latest id: " + ex.Message);
             return StatusCode(500, "Internal server error");
@@ -99,9 +108,11 @@ public class ApiController : ControllerBase
         await _emailStore.SetEmailAsync(user, data.email, CancellationToken.None);
         var result = await _userManager.CreateAsync(user, data.pwd);
 
-        LogRequest(data, result);
 
         if (result.Succeeded) return StatusCode(204,"");
+
+        LogRequest(data.ToString(), StringifyIdentityResultErrors(result), registerLogFilePath);
+
         return BadRequest($"{result.Errors.ToList()}");
     }
 
@@ -140,8 +151,9 @@ public class ApiController : ControllerBase
             
             return Ok(lst);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            LogRequest($"{{Latest = {latest}, No = {no}}}", $"{{{ex.Message}}}", msgsGetLogFilePath);
             return NotFound();
         }
     }
@@ -180,8 +192,9 @@ public class ApiController : ControllerBase
             return Ok(formattedCheeps);
 
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            LogRequest($"{{User = {username}, Latest = {latest}, No = {no}}}", $"{{{ex.Message}}}", msgsPrivateGetLogFilePath);
             return NotFound();
         }
     }
@@ -212,6 +225,8 @@ public class ApiController : ControllerBase
         }
         catch (Exception ex)
         {
+            LogRequest(msgsdata.ToString(), $"{{{ex.Message}}}", msgsPostLogFilePath);
+
             return NotFound();
         }
        
@@ -242,8 +257,9 @@ public class ApiController : ControllerBase
             }
 
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            LogRequest($"{{User = {username}, Latest = {latest}, No = {no}}}", $"{{{ex.Message}}}", fllwsGetLogFilePath);
             return NotFound();
         }
 
@@ -292,8 +308,9 @@ public class ApiController : ControllerBase
                 return StatusCode(204, "");
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            LogRequest(followData.ToString(), $"{{{ex.Message}}}", fllwsPostLogFilePath);
             return NotFound();
         }
         return NotFound();
@@ -382,7 +399,7 @@ public class ApiController : ControllerBase
         }
     }
 
-    private void LogRequest(IData data, IdentityResult result)
+    private void LogRequest(string data, string errors, string logFilePath)
     {
         // Stringify header
         StringBuilder stringBuilder = new StringBuilder();
@@ -394,6 +411,16 @@ public class ApiController : ControllerBase
         stringBuilder.Append("}");
         string headers = stringBuilder.ToString();
 
+        // format everything
+        string logtext = $"{headers}\n{data}\n{errors}\n\n";
+
+        using StreamWriter writer = new StreamWriter(logFilePath, true);
+        writer.Write(logtext);
+    }
+
+
+    private string StringifyIdentityResultErrors(IdentityResult result)
+    {
         // Stringify Errors
         StringBuilder stringBuilderError = new StringBuilder();
         stringBuilderError.Append("{");
@@ -402,13 +429,7 @@ public class ApiController : ControllerBase
             stringBuilderError.Append($"\"{error.Description}\", ");
         }
         stringBuilderError.Append("}");
-        string errors = stringBuilderError.ToString();
-
-        // format everything
-        string logtext = $"{headers}\n{data.GetData()}\n{errors}\n\n";
-
-        using StreamWriter writer = new StreamWriter(logFilePath, true);
-        writer.Write(logtext);
+        return stringBuilderError.ToString();
     }
 
 }
