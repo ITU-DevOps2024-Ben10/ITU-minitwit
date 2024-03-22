@@ -23,7 +23,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Middleware\" />
+    <Folder Include="data\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 
