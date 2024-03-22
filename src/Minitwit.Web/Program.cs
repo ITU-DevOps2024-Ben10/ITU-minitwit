@@ -46,6 +46,7 @@ builder.Services.AddOpenTelemetry()
         providerBuilder.AddPrometheusExporter();
 
         providerBuilder.AddMeter("Dotnet.AspNetCore.Hosting", "Microsoft.AspNetCore.Server.Kestrel");
+        providerBuilder.AddMeter("minitwit-api-requests-total");
     });
         
     
