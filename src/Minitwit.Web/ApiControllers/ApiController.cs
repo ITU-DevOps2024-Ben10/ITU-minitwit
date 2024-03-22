@@ -311,9 +311,9 @@ public class ApiController : ControllerBase
         catch (Exception ex)
         {
             LogRequest($"User = {username}. Request body: {followData}", $"{{{ex.Message}}}", fllwsPostLogFilePath);
-            return StatusCode(500);
+            return NotFound();
         }
-        return StatusCode(500);
+        return NotFound();
     }
 
 
