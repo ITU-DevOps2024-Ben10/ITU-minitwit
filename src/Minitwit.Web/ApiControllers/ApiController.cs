@@ -310,7 +310,7 @@ public class ApiController : ControllerBase
         }
         catch (Exception ex)
         {
-            LogRequest(followData.ToString(), $"{{{ex.Message}}}", fllwsPostLogFilePath);
+            LogRequest($"User = {username}. Request body: {followData}", $"{{{ex.Message}}}", fllwsPostLogFilePath);
             return NotFound();
         }
         return NotFound();
