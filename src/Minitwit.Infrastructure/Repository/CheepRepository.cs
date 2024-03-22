@@ -14,7 +14,6 @@ public class CheepRepository : BaseRepository, ICheepRepository
     {
         //Use EF to get the specified page of cheeps from the database
         ICollection<Cheep> cheeps = db.Cheeps
-            .AsNoTracking()
             .OrderByDescending(c => c.TimeStamp)
             .Skip(PageSize * (page - 1))
             .Take(PageSize)
@@ -27,7 +26,6 @@ public class CheepRepository : BaseRepository, ICheepRepository
     {
         //Use EF to get the specified count of cheeps from the database
         ICollection<Cheep> cheeps = db.Cheeps
-            .AsNoTracking()
             .OrderByDescending(c => c.TimeStamp)
             .Take(count)
             .ToList();
@@ -39,7 +37,6 @@ public class CheepRepository : BaseRepository, ICheepRepository
     {
         //Use EF to get the specified count of cheeps from an author from the database
         ICollection<Cheep> cheeps = db.Cheeps
-            .AsNoTracking()
             .Where(c => c.AuthorId == authorId)
             .OrderByDescending(c => c.TimeStamp)
             .Take(count)
