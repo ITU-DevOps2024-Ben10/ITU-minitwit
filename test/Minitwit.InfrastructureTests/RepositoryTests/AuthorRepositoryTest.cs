@@ -23,7 +23,7 @@ public class AuthorRepositoryTest
     {
         context = SqliteInMemoryBuilder.GetContext();
 
-        _authorRepository = new AuthorRepository(context);
+        _authorRepository = new AuthorRepository(context, new FollowRepository(context));
         
         _author1 = new Author {
             Id = Guid.NewGuid(),

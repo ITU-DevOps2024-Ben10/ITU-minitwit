@@ -21,7 +21,7 @@ public class ChirpDbContextUnitTests
     public ChirpDbContextUnitTests()
     {
         Db = SqliteInMemoryBuilder.GetContext();
-        authorRepository = new AuthorRepository(Db);
+        authorRepository = new AuthorRepository(Db, new FollowRepository(Db));
         cheepRepository = new CheepRepository(Db);
 
         // Mock data
