@@ -23,7 +23,7 @@ public class CheepServiceIntegrationTests
         MinitwitDbContext context = SqliteInMemoryBuilder.GetContext();
         IFollowRepository followRepository = new FollowRepository(context);
         ICheepRepository cheepRepository = new CheepRepository(context);
-        IAuthorRepository authorRepository = new AuthorRepository(context);
+        IAuthorRepository authorRepository = new AuthorRepository(context, new FollowRepository(context));
         IReactionRepository reactionRepository = new ReactionRepository(context);
         _service = new MinitwitService(cheepRepository, authorRepository, reactionRepository);
 
