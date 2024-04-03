@@ -22,7 +22,6 @@ namespace Minitwit.Web.ApiControllers;
 public class ApiController : ControllerBase
 
 {
-    private readonly ICheepService _cheepService;
     private readonly IAuthorRepository _authorRepository;
     private readonly ICheepRepository _cheepRepository;
     private readonly UserManager<Author> _userManager;
@@ -31,13 +30,11 @@ public class ApiController : ControllerBase
 
 
     public ApiController(
-        ICheepService cheepService,
         IAuthorRepository authorRepository,
         ICheepRepository cheepRepository,
         UserManager<Author> userManager,
         IUserStore<Author> userStore)
     {
-        _cheepService = cheepService;
         _authorRepository = authorRepository;
         _cheepRepository = cheepRepository;
         _userManager = userManager;

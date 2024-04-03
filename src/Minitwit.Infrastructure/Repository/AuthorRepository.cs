@@ -7,9 +7,9 @@ namespace Minitwit.Infrastructure.Repository;
 public class AuthorRepository : BaseRepository, IAuthorRepository
 {
     private readonly IFollowRepository _followRepository;
-    public AuthorRepository(MinitwitDbContext minitwitDbContext) : base(minitwitDbContext)
+    public AuthorRepository(MinitwitDbContext minitwitDbContext, IFollowRepository followRepository) : base(minitwitDbContext)
     {
-        _followRepository = new FollowRepository(minitwitDbContext);
+        _followRepository = followRepository;
     }
 
     // ----- Add Author Methods ----- //
@@ -214,14 +214,13 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
     public async Task AddFollow(Guid followingAuthorId, Guid followedAuthorId)
     {
         await _followRepository.CreateFollow(followingAuthorId, followedAuthorId);
-        
     }
 
-    public Task RemoveFollow(Guid followingAuthorId, Guid followedAuthorId)
+    public async Task RemoveFollow(Guid followingAuthorId, Guid followedAuthorId)
     {
         Follow follow = db.Follows
             .FirstOrDefault(e => e.FollowedAuthorId == followedAuthorId && e.FollowingAuthorId == followingAuthorId)!;
-        return _followRepository.DeleteFollow(follow);
+        await _followRepository.DeleteFollow(follow);
     }
 
     public async Task RemoveFollow(Author? followingAuthor, Author? followedAuthor)
