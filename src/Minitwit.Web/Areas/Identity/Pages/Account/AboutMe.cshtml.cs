@@ -47,7 +47,7 @@ public class AboutMeModel : PageModel
         
         // Retrieve the followers and following of the user
 
-        Followers = _authorRepository.GetFollowersById(user!.Id);
+        Followers = await _authorRepository.GetFollowersByIdAsync(user!.Id);
         Following = _authorRepository.GetFollowingById(user!.Id);
         
         

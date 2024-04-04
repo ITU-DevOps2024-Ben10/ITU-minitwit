@@ -135,7 +135,7 @@
 
             try
             {
-                var cheeps = _cheepRepository.GetCheepsByCount(no).ToList();
+                var cheeps = await _cheepRepository.GetCheepsByCountAsync(no);
                 var users = _authorRepository.GetAllAuthorsAsync().Result.Where(a => cheeps.Any(c => a.Id == c.AuthorId)).ToList();
 
                 List<CheepViewModelApi> lst = new();
@@ -210,12 +210,11 @@
             
             try
             {   
-                
                 Author user = await _authorRepository.GetAuthorByNameAsync(username);
                 
                 CreateCheep cheep = new CreateCheep(user.Id, msgsdata.content);
                 
-                var result = await _cheepRepository.AddCreateCheep(cheep);
+                var result = await _cheepRepository.AddCreateCheepAsync(cheep);
                 
                 Update_Latest(latest);
                 return StatusCode(204,"");
@@ -248,7 +247,7 @@
             try
             {
                 Author author = await _authorRepository.GetAuthorByNameAsync(username);
-                var authorFollowers = _authorRepository.GetFollowersById(author.Id);
+                var authorFollowers = await _authorRepository.GetFollowersByIdAsync(author.Id);
                 for (int i = 0; i < authorFollowers.Count; i++)
                 {
                     if (i > no - 1) break;

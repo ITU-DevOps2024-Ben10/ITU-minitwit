@@ -18,7 +18,7 @@
                     <strong>
                         
                         <a href="/@cheep.User.Username">@cheep.User.Username</a>
-                        <p>Followers: @AuthorRepository.GetFollowersById(cheep.User.Id).Count()</p>
+                        <p>Followers: @AuthorRepository.GetFollowersByIdAsync(cheep.User.Id).Result.Count()</p>
                     </strong>
                     <p class="cheep-message">
                         @cheep.Message

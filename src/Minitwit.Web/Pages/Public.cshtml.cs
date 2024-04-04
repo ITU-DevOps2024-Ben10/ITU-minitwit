@@ -73,7 +73,7 @@ using ValidationException = FluentValidation.ValidationException;
                 throw new ValidationException("The Cheep must be between 5 and 160 characters.(CreateCheep)");
             }
 
-            await _cheepRepository.AddCreateCheep(newCheep);
+            await _cheepRepository.AddCreateCheepAsync(newCheep);
         }
       
         public async Task<IActionResult> OnPostReaction(Guid cheepId, ReactionType reactionType, int currentPage)

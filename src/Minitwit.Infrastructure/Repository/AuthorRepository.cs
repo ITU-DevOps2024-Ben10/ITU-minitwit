@@ -172,18 +172,18 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
         return GetCheepCountByAuthorAndFollowing(authorId) / PageSize + 1;
     }
     // ----- Get Followers and Following Methods ----- //
-    public ICollection<Author> GetFollowersById(Guid id)
+    public async Task<ICollection<Author>> GetFollowersByIdAsync(Guid id)
     {
         // Query to retrieve the IDs of authors followed by the specified author
-        var followedAuthorIds = db.Follows
+        List<Guid> followedAuthorIds = await db.Follows
             .Where(f => f.FollowedAuthorId == id)
             .Select(f => f.FollowingAuthorId)
-            .ToList();
+            .ToListAsync();
 
         // Query to retrieve the author entities based on the followed author IDs
-        ICollection<Author> followedAuthors = db.Users
+        ICollection<Author> followedAuthors = await db.Users
             .Where(a => followedAuthorIds.Contains(a.Id))
-            .ToList();
+            .ToListAsync();
 
         return followedAuthors;
     }

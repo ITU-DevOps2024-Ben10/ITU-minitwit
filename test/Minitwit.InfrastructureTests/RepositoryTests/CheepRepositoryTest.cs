@@ -100,7 +100,7 @@ public class CheepRepositoryTest{
     {
         CreateCheep createCheep = new CreateCheep(_author.Id, "TestCheep");
 
-        Cheep cheep = await CheepRepository.AddCreateCheep(createCheep);
+        Cheep cheep = await CheepRepository.AddCreateCheepAsync(createCheep);
         
         Assert.True(CheepRepository.GetCheepsByPage(0).Contains(cheep));
     }

@@ -22,13 +22,13 @@ public class CheepRepository : BaseRepository, ICheepRepository
         return cheeps;
     }
 
-    public ICollection<Cheep> GetCheepsByCount(int count)
+    public async Task<ICollection<Cheep>> GetCheepsByCountAsync(int count)
     {
         //Use EF to get the specified count of cheeps from the database
-        ICollection<Cheep> cheeps = db.Cheeps
+        ICollection<Cheep> cheeps = await db.Cheeps
             .OrderByDescending(c => c.TimeStamp)
             .Take(count)
-            .ToList();
+            .ToListAsync();
 
         return cheeps;
     }
@@ -74,12 +74,12 @@ public class CheepRepository : BaseRepository, ICheepRepository
 
     public async Task AddCheep(Cheep cheep)
     {
-        db.Cheeps.Add(cheep);
+        await db.Cheeps.AddAsync(cheep);
         await db.SaveChangesAsync();
         Console.WriteLine("Cheep added async");
     }
 
-    public async Task<Cheep> AddCreateCheep(CreateCheep cheep)
+    public async Task<Cheep> AddCreateCheepAsync(CreateCheep cheep)
     {
         Cheep entity = new Cheep()
         {
