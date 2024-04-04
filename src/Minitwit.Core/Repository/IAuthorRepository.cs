@@ -12,18 +12,18 @@ public interface IAuthorRepository
     public Author GetAuthorById(Guid authorId);
     public Task<Author?> GetAuthorByIdAsync(Guid authorId);
     public Task<Author> GetAuthorByNameAsync(string name);
-    public Author GetAuthorByEmail(string email);
+    public Task<Author> GetAuthorByEmail(string email);
 
-    public ICollection<Cheep> GetCheepsByAuthor(Guid id);
-    public ICollection<Cheep> GetCheepsByAuthor(Guid authorId, int page);
-    public ICollection<Cheep> GetCheepsByAuthorAndFollowing(Guid authorId, int page);
+    public Task<ICollection<Cheep>> GetCheepsByAuthorAsync(Guid id);
+    public Task<ICollection<Cheep>> GetCheepsByAuthor(Guid authorId, int page);
+    public Task<ICollection<Cheep>> GetCheepsByAuthorAndFollowing(Guid authorId, int page);
     
-    public int GetCheepCountByAuthor(Guid authorId);
-    public int GetCheepCountByAuthorAndFollowing(Guid authorId);
+    public Task<int> GetCheepCountByAuthorAsync(Guid authorId);
+    public Task<int> GetCheepCountByAuthorAndFollowing(Guid authorId);
     
     
-    public int GetPageCountByAuthor(Guid authorId);
-    public int GetPageCountByAuthorAndFollowing(Guid authorId);
+    public Task<int> GetPageCountByAuthor(Guid authorId);
+    public Task<int> GetPageCountByAuthorAndFollowing(Guid authorId);
 
 
     public Task<ICollection<Author>> GetFollowersByIdAsync(Guid authorId);
@@ -36,12 +36,12 @@ public interface IAuthorRepository
     
     
     
-    public Task DeleteCheepsByAuthorId(Guid authorId);
+    public Task DeleteCheepsByAuthorIdAsync(Guid authorId);
     
-    public Task RemoveAllFollowersByAuthorId(Guid id);
+    public Task RemoveAllFollowersByAuthorIdAsync(Guid id);
         
-    public Task RemoveUserById(Guid id);
+    public Task RemoveUserByIdAsync(Guid id);
 
-    public Task RemoveReactionsByAuthorId(Guid id);
+    public Task RemoveReactionsByAuthorIdAsync(Guid id);
     public Task SaveContextAsync();
 }

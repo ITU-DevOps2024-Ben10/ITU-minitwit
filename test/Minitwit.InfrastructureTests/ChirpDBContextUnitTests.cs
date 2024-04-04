@@ -74,17 +74,19 @@ public class ChirpDbContextUnitTests
 
 
     [Fact]
-    public void QueryByAuthorIdReturnsAuthor()
+    public async void QueryByAuthorIdReturnsAuthor()
     {
-        cheepRepository.AddCreateCheepAsync(Cheep1);
-        cheepRepository.AddCreateCheepAsync(Cheep2);
+        await cheepRepository.AddCreateCheepAsync(Cheep1);
+        await cheepRepository.AddCreateCheepAsync(Cheep2);
         
         Db.Cheeps.Include(e => e.AuthorId);
         
         Author? returnedAuthor = Db.Users.Find(Author1.Id);
+
+        ICollection<Cheep> cheepsFromAuthor = await authorRepository.GetCheepsByAuthorAsync(returnedAuthor.Id);
         
         Assert.NotNull(returnedAuthor);
         Assert.Equal(returnedAuthor.Id, Author1.Id);
-        Assert.True(authorRepository.GetCheepsByAuthor(returnedAuthor.Id).Any());
+        Assert.True(cheepsFromAuthor.Any());
     }
 }

@@ -95,8 +95,7 @@
             {
                 return StatusCode(403, "You are not authorized to use this resource");
             }
-
-
+            
             Update_Latest(latest);
 
             var user = CreateUser();
@@ -178,7 +177,7 @@
             {
                 Author author = await _authorRepository.GetAuthorByNameAsync(username);
                 Guid authorId = author.Id;
-                var cheeps = _cheepRepository.GetCheepsFromAuthorByCount(authorId, no);
+                ICollection<Cheep> cheeps = await _cheepRepository.GetCheepsFromAuthorByCountAsync(authorId, no);
 
                 List<CheepViewModelApi> formattedCheeps = new();
 
@@ -384,24 +383,28 @@
         }
         
         //Writes the id of the latest command to a text file
-        private void Update_Latest(int latestId = -1)
+        private async Task Update_Latest(int latestId = -1)
         {
             try
             {
-                using StreamWriter writer = new StreamWriter(LatestCommandIdFilePath, false);
-                writer.Write(latestId.ToString());
+                await using (StreamWriter writer = new StreamWriter(LatestCommandIdFilePath, false))
+                {
+                    await writer.WriteAsync(latestId.ToString());
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while updating latest id: " + ex.Message);
+                Console.WriteLine($"Error occurred while updating latest id: {ex.Message}");
             }
         }
 
-        private void LogRequest(string data, string errors, string logFilePath)
+
+        private async Task LogRequest(string data, string errors, string logFilePath)
         {
             // Stringify header
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("{");
+            
             foreach (var header in Request.Headers.ToList())
             {
                 stringBuilder.Append($"{header.Key}: {header.Value}, ");
@@ -412,12 +415,11 @@
             // format everything
             string logtext = $"{headers}\n{data}\n{errors}\n\n";
 
-            using (StreamWriter writer = new StreamWriter(logFilePath, true))
+            await using  (StreamWriter writer = new StreamWriter(logFilePath, true))
             {
-                writer.Write(logtext);
+                await writer.WriteAsync(logtext);
             }
         }
-
 
         private string StringifyIdentityResultErrors(IdentityResult result)
         {

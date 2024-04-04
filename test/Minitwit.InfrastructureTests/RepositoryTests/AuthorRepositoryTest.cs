@@ -134,11 +134,11 @@ public class AuthorRepositoryTest
     }
     
     [Fact]
-    public void GetAuthorByEmail_ShouldReturnCorrectAuthor()
+    public async void GetAuthorByEmail_ShouldReturnCorrectAuthor()
     {
         //Act
         Author expectedAuthor = _author2;
-        Author returnedAuthor = _authorRepository.GetAuthorByEmail(_author2.Email);
+        Author returnedAuthor = await _authorRepository.GetAuthorByEmail(_author2.Email);
 
         //Assert
         Assert.Equal(expectedAuthor, returnedAuthor);
@@ -147,13 +147,13 @@ public class AuthorRepositoryTest
     
     // ----- Get Cheeps By Author and Page Methods ----- //
     [Fact]
-    public void GetCheepsByAuthor_ShouldReturnCorrectCheeps()
+    public async void GetCheepsByAuthor_ShouldReturnCorrectCheeps()
     {
         //Act
         ICollection<Cheep> expectedCheep = new List<Cheep>();
         expectedCheep.Add(_cheep1);
 
-        ICollection<Cheep> returnedCheep = _authorRepository.GetCheepsByAuthor(_author1.Id, 0);
+        ICollection<Cheep> returnedCheep = await _authorRepository.GetCheepsByAuthor(_author1.Id, 0);
 
         //Assert
         Assert.Equal(expectedCheep, returnedCheep);
@@ -161,16 +161,16 @@ public class AuthorRepositoryTest
     
     // ----- Get Page and Cheep Count Methods ----- //
     [Fact]
-    public void GetPageCountByAuthor_ShouldReturn1PageCountWhenCheepCountUnder32()
+    public async void GetPageCountByAuthor_ShouldReturn1PageCountWhenCheepCountUnder32()
     {
         
         //Assert
-        Assert.Equal(1, _authorRepository.GetPageCountByAuthor(_author1.Id));
+        Assert.Equal(1, await _authorRepository.GetPageCountByAuthor(_author1.Id));
         
     }
 
     [Fact]
-    public void GetPageCountByAuthor_ShouldReturn2PageCountWhenCheepCountOver32()
+    public async void GetPageCountByAuthor_ShouldReturn2PageCountWhenCheepCountOver32()
     {
         //Arrange
         for (int i = 0; i < 33; i++)
@@ -186,7 +186,7 @@ public class AuthorRepositoryTest
         context.SaveChanges();
         
         //Assert
-        Assert.Equal(2, _authorRepository.GetPageCountByAuthor(_author1.Id));
+        Assert.Equal(2, await _authorRepository.GetPageCountByAuthor(_author1.Id));
         
     }
     // ----- Get Followers and Following Methods ----- //
@@ -254,15 +254,15 @@ public class AuthorRepositoryTest
     public async void DeleteCheepsByAuthorId_ShouldRemoveAllCheepsByAuthor()
     {
         Assert.Equal(3, context.Cheeps.Count());
-        Assert.Single( _authorRepository.GetCheepsByAuthor(_author1.Id));
+        Assert.Single(await _authorRepository.GetCheepsByAuthorAsync(_author1.Id));
 
         // Act
-        await _authorRepository.DeleteCheepsByAuthorId(_author1.Id);
+        await _authorRepository.DeleteCheepsByAuthorIdAsync(_author1.Id);
 
         await context.SaveChangesAsync();
         
         // Assert
-        Assert.Empty(_authorRepository.GetCheepsByAuthor(_author1.Id));
+        Assert.Empty(await _authorRepository.GetCheepsByAuthorAsync(_author1.Id));
         Assert.Equal(2, context.Cheeps.Count());
     }
     
@@ -277,7 +277,7 @@ public class AuthorRepositoryTest
         Assert.Single(await _authorRepository.GetFollowersByIdAsync(_author3.Id));
 
         // Act
-        await _authorRepository.RemoveAllFollowersByAuthorId(_author1.Id);
+        await _authorRepository.RemoveAllFollowersByAuthorIdAsync(_author1.Id);
 
         await context.SaveChangesAsync();
         
@@ -291,7 +291,7 @@ public class AuthorRepositoryTest
     public async void RemoveUserById_ShouldRemoveUserById()
     {
         // Act
-        await _authorRepository.RemoveUserById(_author1.Id);
+        await _authorRepository.RemoveUserByIdAsync(_author1.Id);
 
         await context.SaveChangesAsync();
         
@@ -313,7 +313,7 @@ public class AuthorRepositoryTest
         context.Add(reaction1);
         await context.SaveChangesAsync();
         // Act
-        await _authorRepository.RemoveReactionsByAuthorId(_author2.Id);
+        await _authorRepository.RemoveReactionsByAuthorIdAsync(_author2.Id);
         await context.SaveChangesAsync();
         // Assert
         Assert.Equal(0, context.Reactions.Count());

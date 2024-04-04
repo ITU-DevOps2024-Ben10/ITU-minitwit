@@ -66,7 +66,7 @@ public class AboutMeModel : PageModel
             Cheeps = new List<CheepViewModel>();
         }
         
-        totalPages = _authorRepository.GetPageCountByAuthor(UserModel.Id);
+        totalPages = await _authorRepository.GetPageCountByAuthor(UserModel.Id);
 
         return Page();
     }
@@ -104,10 +104,10 @@ public class AboutMeModel : PageModel
         
         if (_authorRepository != null)
         {
-            await _authorRepository.DeleteCheepsByAuthorId(user.Id);
-            await _authorRepository.RemoveAllFollowersByAuthorId(user.Id);
-            await _authorRepository.RemoveReactionsByAuthorId(user.Id);
-            await _authorRepository.RemoveUserById(user.Id);
+            await _authorRepository.DeleteCheepsByAuthorIdAsync(user.Id);
+            await _authorRepository.RemoveAllFollowersByAuthorIdAsync(user.Id);
+            await _authorRepository.RemoveReactionsByAuthorIdAsync(user.Id);
+            await _authorRepository.RemoveUserByIdAsync(user.Id);
             await _authorRepository.SaveContextAsync();
         }
         else

@@ -66,13 +66,13 @@ public class UserTimelineModel : PageModel
             if (_signInManager.IsSignedIn(User) && signedInAuthor.UserName == timelineAuthor.UserName)
             {
                 Cheeps = await _service.GetCheepsFromAuthorAndFollowingAsync(signedInAuthor.Id, page);
-                totalPages = _authorRepository.GetPageCountByAuthorAndFollowing(signedInAuthor.Id);
+                totalPages = await _authorRepository.GetPageCountByAuthorAndFollowing(signedInAuthor.Id);
 
             }
             else
             {
                 Cheeps = await _service.GetCheepsFromAuthorAsync(timelineAuthor.Id, page);
-                totalPages = _authorRepository.GetPageCountByAuthor(timelineAuthor.Id);
+                totalPages = await _authorRepository.GetPageCountByAuthor(timelineAuthor.Id);
             }
         }
         catch (Exception)

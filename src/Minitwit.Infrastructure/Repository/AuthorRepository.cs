@@ -56,27 +56,25 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
         return author!;
     }
     
-    public Author GetAuthorByEmail(string email)
+    public async Task<Author> GetAuthorByEmail(string email)
     {
-        Author author = db.Users.FirstOrDefault(a => a.Email == email)!;
+        Author? author = await db.Users.FirstOrDefaultAsync(a => a.Email == email)!;
             
-        return author;
+        return author!;
     }
 
 
     // ----- Get Cheeps By Author and Page Methods ----- //
-
-
-    public ICollection<Cheep> GetCheepsByAuthor(Guid id)
+    public async Task<ICollection<Cheep>> GetCheepsByAuthorAsync(Guid id)
     {
-        return db.Cheeps
+        return await db.Cheeps
             .Where(e => e.AuthorId == id)
-            .ToList();
+            .ToListAsync();
     }
     
-    public ICollection<Cheep> GetCheepsByAuthor(Guid id, int page)
+    public async Task<ICollection<Cheep>> GetCheepsByAuthor(Guid id, int page)
     {
-        var cheeps = GetCheepsByAuthor(id);
+        var cheeps = await GetCheepsByAuthorAsync(id);
         
         //Check that author has cheeps
         if (cheeps == null || cheeps.Count == 0)
@@ -97,20 +95,19 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
         return cheeps.OrderByDescending(c => c.TimeStamp).ToList();
     }
 
-    public ICollection<Cheep> GetCheepsByAuthorAndFollowing(Guid id)
+    public async Task<ICollection<Cheep>> GetCheepsByAuthorAndFollowingAsync(Guid id)
     {
-        ICollection<Cheep> cheeps = new List<Cheep>();
-        cheeps = cheeps.Concat(GetCheepsByAuthor(id)).ToList();
+        ICollection<Cheep> cheeps = new List<Cheep>(await GetCheepsByAuthorAsync(id));
         
         foreach (Author author in GetFollowingById(id))
         {
-            cheeps = cheeps.Concat(GetCheepsByAuthor(author.Id)).ToList();
+            cheeps = cheeps.Concat(await GetCheepsByAuthorAsync(author.Id)).ToList();
         }
 
         return cheeps;
     }
     
-    public ICollection<Cheep> GetCheepsByAuthorAndFollowing(Guid id, int page)
+    public async Task<ICollection<Cheep>> GetCheepsByAuthorAndFollowing(Guid id, int page)
     {
         Author author = GetAuthorById(id);
         //Get cheeps from the author, and append cheeps from followers to that list
@@ -118,14 +115,14 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
         ICollection<Cheep> cheeps = new List<Cheep>();
 
         // Add all the users cheeps to the list without pagination
-        foreach (var cheepDto in GetCheepsByAuthor(id))
+        foreach (var cheepDto in await GetCheepsByAuthorAsync(id))
         {
             cheeps.Add(cheepDto);
         }
 
         foreach (Author? follower in following)
         {
-            ICollection<Cheep> followingCheeps = GetCheepsByAuthor(follower.Id);
+            ICollection<Cheep> followingCheeps = await GetCheepsByAuthorAsync(follower.Id);
             //If follower has no cheeps, skip them
             if (followingCheeps.Count == 0)
             {
@@ -152,9 +149,9 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
 
     
     // ----- Get Cheeps By Author Methods ----- //
-    public int GetCheepCountByAuthor(Guid authorId)
+    public async Task<int> GetCheepCountByAuthorAsync(Guid authorId)
     {
-        ICollection<Cheep> cheeps = GetCheepsByAuthor(authorId);
+        ICollection<Cheep> cheeps = await GetCheepsByAuthorAsync(authorId);
         //Check that author has cheeps
         if (cheeps.Count == 0 || cheeps == null)
         {
@@ -164,21 +161,22 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
         return cheeps.Count;
     }
     
-    public int GetCheepCountByAuthorAndFollowing(Guid authorId)
+    public async Task<int> GetCheepCountByAuthorAndFollowing(Guid authorId)
     {
-        return GetCheepsByAuthorAndFollowing(authorId).Count;
+        ICollection<Cheep> cheeps = await GetCheepsByAuthorAndFollowingAsync(authorId);
+        return cheeps.Count;
     }
 
 
     // ----- Get Page Count Methods ----- //
-    public int GetPageCountByAuthor(Guid authorId)
+    public async Task<int> GetPageCountByAuthor(Guid authorId)
     {
-        return GetCheepCountByAuthor(authorId) / PageSize + 1;
+        return await GetCheepCountByAuthorAsync(authorId) / PageSize + 1;
     }
     
-    public int GetPageCountByAuthorAndFollowing(Guid authorId)
+    public async Task<int> GetPageCountByAuthorAndFollowing(Guid authorId)
     {
-        return GetCheepCountByAuthorAndFollowing(authorId) / PageSize + 1;
+        return await GetCheepCountByAuthorAndFollowing(authorId) / PageSize + 1;
     }
     // ----- Get Followers and Following Methods ----- //
     public async Task<ICollection<Author>> GetFollowersByIdAsync(Guid id)
@@ -196,6 +194,7 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
 
         return followedAuthors;
     }
+    
     public ICollection<Author> GetFollowingById(Guid id)
     {
         // Query to retrieve the IDs of authors followed by the specified author
@@ -212,9 +211,9 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
         return followingAuthors;
     }
 
-    public bool AuthorExists(Guid id)
+    public async Task<bool> AuthorExists(Guid id)
     {
-        Author author = GetAuthorById(id);
+        Author author = await GetAuthorByIdAsync(id);
         return author.Id != Guid.Empty;
     }
 
@@ -227,30 +226,30 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
 
     public async Task RemoveFollowAsync(Guid followingAuthorId, Guid followedAuthorId)
     {
-        Follow follow = db.Follows
-            .FirstOrDefault(e => e.FollowedAuthorId == followedAuthorId && e.FollowingAuthorId == followingAuthorId)!;
+        Follow follow = await db.Follows
+            .FirstOrDefaultAsync(e => e.FollowedAuthorId == followedAuthorId && e.FollowingAuthorId == followingAuthorId)!;
         await _followRepository.DeleteFollowAsync(follow);
     }
 
     public async Task RemoveFollow(Author? followingAuthor, Author? followedAuthor)
     {
-        Follow follow = db.Follows
-            .FirstOrDefault(e => e.FollowedAuthorId == followedAuthor!.Id && e.FollowingAuthorId == followingAuthor!.Id)!;
+        Follow follow = await db.Follows
+            .FirstOrDefaultAsync(e => e.FollowedAuthorId == followedAuthor!.Id && e.FollowingAuthorId == followingAuthor!.Id)!;
         await _followRepository.DeleteFollowAsync(follow);
     }
     
 
     // ----- Delete Author Data Methods ----- //
-    public async Task DeleteCheepsByAuthorId(Guid id)
+    public async Task DeleteCheepsByAuthorIdAsync(Guid id)
     {
-        var cheeps = GetCheepsByAuthor(id);
+        var cheeps = await GetCheepsByAuthorAsync(id);
 
         foreach (var cheep in cheeps)
         {
             // Find reactions associated with the current cheep and delete them
-            var reactions = db.Reactions
+            List<Reaction> reactions = await db.Reactions
                 .Where(r => r.CheepId == cheep.CheepId)
-                .ToList();
+                .ToListAsync();
 
             db.Reactions.RemoveRange(reactions);
 
@@ -261,7 +260,7 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
         await db.SaveChangesAsync();
     }
 
-    public async Task RemoveAllFollowersByAuthorId(Guid id)
+    public async Task RemoveAllFollowersByAuthorIdAsync(Guid id)
     {
         Author? user = await GetAuthorByIdAsync(id);
         if (user == null)
@@ -273,7 +272,7 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
         db.Follows.RemoveRange(follows);
     }
     
-    public async Task RemoveUserById(Guid id)
+    public async Task RemoveUserByIdAsync(Guid id)
     {
         Author? user = await GetAuthorByIdAsync(id);
         if (user == null)
@@ -285,7 +284,7 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
         await db.SaveChangesAsync();
     }
 
-    public async Task RemoveReactionsByAuthorId(Guid id)
+    public async Task RemoveReactionsByAuthorIdAsync(Guid id)
     {
         Author? user = await GetAuthorByIdAsync(id);
         if (user == null)

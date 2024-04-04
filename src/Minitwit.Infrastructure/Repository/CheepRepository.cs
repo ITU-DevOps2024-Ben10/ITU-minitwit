@@ -33,27 +33,27 @@ public class CheepRepository : BaseRepository, ICheepRepository
         return cheeps;
     }
     
-    public ICollection<Cheep> GetCheepsFromAuthorByCount(Guid authorId, int count)
+    public async Task<ICollection<Cheep>> GetCheepsFromAuthorByCountAsync(Guid authorId, int count)
     {
         //Use EF to get the specified count of cheeps from an author from the database
-        ICollection<Cheep> cheeps = db.Cheeps
+        ICollection<Cheep> cheeps = await db.Cheeps
             .Where(c => c.AuthorId == authorId)
             .OrderByDescending(c => c.TimeStamp)
             .Take(count)
-            .ToList();
+            .ToListAsync();
 
         return cheeps;
     }
 
-    public int GetCheepCount()
+    public async Task<int> GetCheepCountAsync()
     {
         //Use EF to get the total number of cheeps from the database
-        return db.Cheeps.Count();
+        return await db.Cheeps.CountAsync();
     }
 
-    public int GetPageCount()
+    public async Task<int> GetPageCount()
     {
-        return GetCheepCount()/PageSize+1;
+        return await GetCheepCountAsync()/PageSize+1;
     }
 
     public void DeleteCheepById(Guid cheepId)

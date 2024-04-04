@@ -38,7 +38,6 @@ using ValidationException = FluentValidation.ValidationException;
 
         public async Task<ActionResult> OnGet()
         {
-
             await InitializeVariables();
             return Page();
         }
@@ -144,7 +143,7 @@ using ValidationException = FluentValidation.ValidationException;
             Cheeps = await _service.GetCheepsAsync(page);
 
             user = _userManager.GetUserAsync(User).Result!;
-            totalPages = _cheepRepository.GetPageCount();
+            totalPages = await _cheepRepository.GetPageCount();
             currentPage = page;
         }
     }
