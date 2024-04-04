@@ -36,10 +36,10 @@ using ValidationException = FluentValidation.ValidationException;
             _reactionRepository = reactionRepository;
         }
 
-        public ActionResult OnGet()
+        public async Task<ActionResult> OnGet()
         {
 
-            InitializeVariables();
+            await InitializeVariables();
             return Page();
         }
         
@@ -82,7 +82,7 @@ using ValidationException = FluentValidation.ValidationException;
             Author? author = await _userManager.GetUserAsync(User);
             if (await _reactionRepository.HasUserReacted(cheepId, author!.Id)) return Page();
             await _reactionRepository.AddReaction(reactionType, cheepId, author!.Id);
-            InitializeVariables(currentPage);
+            await InitializeVariables(currentPage);
             return Page();
         }
         public async Task<IActionResult> OnPostRemoveReaction(Guid cheepId, ReactionType reactionType, int currentPage)
@@ -90,7 +90,7 @@ using ValidationException = FluentValidation.ValidationException;
             Author? author = await _userManager.GetUserAsync(User);
             if (!await _reactionRepository.HasUserReacted(cheepId, author!.Id)) return Page();
             await _reactionRepository.RemoveReaction(reactionType, cheepId, author!.Id);
-            InitializeVariables(currentPage);
+            await InitializeVariables(currentPage);
             return Page();
         }
         
@@ -100,7 +100,7 @@ using ValidationException = FluentValidation.ValidationException;
             
             Author? author = await _authorRepository.GetAuthorByIdAsync(_userManager.GetUserAsync(User).Result!.Id);
             Author? authorToFollow = await _authorRepository.GetAuthorByIdAsync(Author2Follow);
-            InitializeVariables(currentPage);
+            await InitializeVariables(currentPage);
 
 
 
@@ -116,7 +116,7 @@ using ValidationException = FluentValidation.ValidationException;
             Author? author = await _authorRepository.GetAuthorByIdAsync(_userManager.GetUserAsync(User).Result!.Id);
             Author? authorToUnfollow = await _authorRepository.GetAuthorByIdAsync(Author2Unfollow);
             
-            InitializeVariables(currentPage);
+            await InitializeVariables(currentPage);
 
 
             if (authorToUnfollow == null || author == null) return Page();
@@ -125,7 +125,7 @@ using ValidationException = FluentValidation.ValidationException;
             return Page();
         }
 
-        public void InitializeVariables()
+        public async Task InitializeVariables()
         {
             int page;
             if (Request.Query.ContainsKey("page"))
@@ -136,10 +136,10 @@ using ValidationException = FluentValidation.ValidationException;
             {
                 page = 1;
             }
-            InitializeVariables(page);
+            await InitializeVariables(page);
         }
 
-        public async void InitializeVariables(int page)
+        public async Task InitializeVariables(int page)
         {
             Cheeps = await _service.GetCheepsAsync(page);
 
@@ -147,8 +147,6 @@ using ValidationException = FluentValidation.ValidationException;
             totalPages = _cheepRepository.GetPageCount();
             currentPage = page;
         }
-
-
     }
 
 
@@ -157,5 +155,4 @@ using ValidationException = FluentValidation.ValidationException;
         [Required]
         [StringLength(160, MinimumLength = 5, ErrorMessage = "The Cheep must be between 5 and 160 characters(NewCheep).")]
         public string? Text { get; set; }
-
     }
