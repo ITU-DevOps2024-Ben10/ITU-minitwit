@@ -33,17 +33,17 @@ public class UserTimelineModel : PageModel
         _signInManager = signInManager;
     }
 
-    public ActionResult OnGet(string author)
+    public async Task<ActionResult> OnGet(string author)
     {
         user = _userManager.GetUserAsync(User).Result;
 
-        InitializeVariables(user!, author);
+        await InitializeVariables(user!, author);
 
         return Page();
     }
 
 
-    public async void InitializeVariables(Author user, string author)
+    public async Task InitializeVariables(Author user, string author)
     {
         if (Request.Query.ContainsKey("page"))
         {
