@@ -13,18 +13,18 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
     }
 
     // ----- Add Author Methods ----- //
-    public void AddAuthor(Author author)
+    public async void AddAuthorAsync(Author author)
     {
-        db.Users.Add(author);
-        db.SaveChanges();
+        await db.Users.AddAsync(author);
+        await db.SaveChangesAsync();
     }
 
 
     // ----- Get Author Methods ----- //
 
-    public ICollection<Author> GetAllAuthors()
+    public async Task<ICollection<Author>> GetAllAuthorsAsync()
     {
-        return db.Users.ToList();
+        return await db.Users.ToListAsync();
     }
     
     public Author GetAuthorById(Guid authorId)
@@ -40,11 +40,11 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
         return author!;
     }
     
-    public Author GetAuthorByName(string name)
+    public async Task<Author> GetAuthorByNameAsync(string name)
     {
-        Author author = db.Users.FirstOrDefault(a => a.UserName == name)!;
+        Author? author = await db.Users.FirstOrDefaultAsync(a => a.UserName == name)!;
             
-        return author;
+        return author!;
     }
     
     public Author GetAuthorByEmail(string email)
@@ -211,23 +211,23 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
 
 
     // ----- Add/Remove Follow Methods ----- //
-    public async Task AddFollow(Guid followingAuthorId, Guid followedAuthorId)
+    public async Task AddFollowAsync(Guid followingAuthorId, Guid followedAuthorId)
     {
-        await _followRepository.CreateFollow(followingAuthorId, followedAuthorId);
+        await _followRepository.CreateFollowAsync(followingAuthorId, followedAuthorId);
     }
 
-    public async Task RemoveFollow(Guid followingAuthorId, Guid followedAuthorId)
+    public async Task RemoveFollowAsync(Guid followingAuthorId, Guid followedAuthorId)
     {
         Follow follow = db.Follows
             .FirstOrDefault(e => e.FollowedAuthorId == followedAuthorId && e.FollowingAuthorId == followingAuthorId)!;
-        await _followRepository.DeleteFollow(follow);
+        await _followRepository.DeleteFollowAsync(follow);
     }
 
     public async Task RemoveFollow(Author? followingAuthor, Author? followedAuthor)
     {
         Follow follow = db.Follows
             .FirstOrDefault(e => e.FollowedAuthorId == followedAuthor!.Id && e.FollowingAuthorId == followingAuthor!.Id)!;
-        await _followRepository.DeleteFollow(follow);
+        await _followRepository.DeleteFollowAsync(follow);
     }
     
 

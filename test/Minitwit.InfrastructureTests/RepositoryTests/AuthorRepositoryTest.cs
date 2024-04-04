@@ -87,7 +87,7 @@ public class AuthorRepositoryTest
             Email = "mock4@email.com"
         };
         
-        _authorRepository.AddAuthor(author4);
+        _authorRepository.AddAuthorAsync(author4);
 
         int updatedAuthorCount = context.Users.Count();
 
@@ -120,13 +120,13 @@ public class AuthorRepositoryTest
     }
     
     [Fact]
-    public void GetAuthorByName_ShouldReturnCorrectAuthorDTO()
+    public async void GetAuthorByName_ShouldReturnCorrectAuthorDTO()
     {
         //Arange
         Author expectedAuthor = _author2;
         
         //Act
-        Author returnedAuthor = _authorRepository.GetAuthorByName(_author2.UserName);
+        Author returnedAuthor = await _authorRepository.GetAuthorByNameAsync(_author2.UserName);
 
         //Assert
         Assert.Equal(expectedAuthor, returnedAuthor);
@@ -193,8 +193,8 @@ public class AuthorRepositoryTest
     [Fact]
     public async void GetFollowersByAuthorId_ShouldReturnCorrectFollowers()
     {
-        await _authorRepository.AddFollow(_author2.Id, _author1.Id);
-        await _authorRepository.AddFollow(_author3.Id, _author1.Id);
+        await _authorRepository.AddFollowAsync(_author2.Id, _author1.Id);
+        await _authorRepository.AddFollowAsync(_author3.Id, _author1.Id);
 
         ICollection<Author?> returnedFollowers = _authorRepository.GetFollowersById(_author1.Id);
 
@@ -206,8 +206,8 @@ public class AuthorRepositoryTest
     [Fact]
     public async void GetFollowingByAuthorId_ShouldReturnCorrectFollowing()
     {
-        await _authorRepository.AddFollow(_author1.Id, _author2.Id);
-        await _authorRepository.AddFollow(_author1.Id, _author3.Id);
+        await _authorRepository.AddFollowAsync(_author1.Id, _author2.Id);
+        await _authorRepository.AddFollowAsync(_author1.Id, _author3.Id);
 
         ICollection<Author> returnedFollowing = _authorRepository.GetFollowingById(_author1.Id);
 
@@ -269,8 +269,8 @@ public class AuthorRepositoryTest
     [Fact]
     public async void RemoveAllFollowersByAuthorId_ShouldRemoveAllFollowersByAuthor()
     {
-        await _authorRepository.AddFollow(_author1.Id, _author2.Id);
-        await _authorRepository.AddFollow(_author1.Id, _author3.Id);
+        await _authorRepository.AddFollowAsync(_author1.Id, _author2.Id);
+        await _authorRepository.AddFollowAsync(_author1.Id, _author3.Id);
         
         Assert.Equal(2, _authorRepository.GetFollowingById(_author1.Id).Count);
         Assert.Single(_authorRepository.GetFollowersById(_author2.Id));

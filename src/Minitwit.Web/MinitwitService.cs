@@ -7,8 +7,8 @@ namespace Minitwit.Web;
 
 public interface ICheepService
 {
-    public ICollection<CheepViewModel> GetCheeps(int page);
-    public ICollection<CheepViewModel> GetCheepsFromAuthor(string authorName, int page);
+    public Task<ICollection<CheepViewModel>> GetCheepsAsync(int page);
+    public Task<ICollection<CheepViewModel>> GetCheepsFromAuthor(string authorName, int page);
     public ICollection<CheepViewModel> GetCheepsFromAuthor(Guid authorId, int page);
     public ICollection<CheepViewModel> GetCheepsFromAuthorAndFollowing(Guid authorId, int page);
 
@@ -27,11 +27,11 @@ public class MinitwitService : ICheepService
         _reactionRepository = reactionRepository;
     }
     
-    public ICollection<CheepViewModel> GetCheeps(int page)
+    public async Task<ICollection<CheepViewModel>> GetCheepsAsync(int page)
     {
         ICollection<Cheep> cheepDtos = _cheepRepository.GetCheepsByPage(page);
         List<CheepViewModel> cheeps = new List<CheepViewModel>();
-        ICollection<Author> authors = _authorRepository.GetAllAuthors();
+        ICollection<Author> authors = await _authorRepository.GetAllAuthorsAsync();
 
         foreach (Cheep cheepDto in cheepDtos)
         {
@@ -98,9 +98,9 @@ public class MinitwitService : ICheepService
         return reactions.Values.ToList();
     }
 
-    public ICollection<CheepViewModel> GetCheepsFromAuthor(string authorName, int page)
-    {
-        var author = _authorRepository.GetAuthorByName(authorName);
+    public async Task<ICollection<CheepViewModel>> GetCheepsFromAuthor(string authorName, int page)
+    { 
+        Author author = await _authorRepository.GetAuthorByNameAsync(authorName);
         var cheeps = GetCheepsFromAuthor(author.Id, page);
         return cheeps;
     }

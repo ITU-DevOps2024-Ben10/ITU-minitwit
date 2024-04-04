@@ -31,8 +31,8 @@ public class ChirpDbContextUnitTests
         Cheep1 = new CreateCheep(Author1.Id, "Cheep 1");
         Cheep2 = new CreateCheep(Author2.Id, "Cheep 2");
         
-        authorRepository.AddAuthor(Author1);
-        authorRepository.AddAuthor(Author2);
+        authorRepository.AddAuthorAsync(Author1);
+        authorRepository.AddAuthorAsync(Author2);
         
     }
     

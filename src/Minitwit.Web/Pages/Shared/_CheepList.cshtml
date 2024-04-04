@@ -51,7 +51,7 @@
 
                 @if (SigninManager.IsSignedIn(User) && cheep.User.Username != User.Identity?.Name)
                 {
-                    if (!FollowRepository.IsFollowing(Model.user.Id, cheep.User.Id))
+                    if (!FollowRepository.IsFollowingAsync(Model.user.Id, cheep.User.Id))
                     {
                         <form asp-page="public" asp-page-handler="Follow" method="post" asp-route-CurrentPage="@Model.currentPage" asp-route-Author2Follow="@cheep.User.Id">
                             <input type="submit" value="Follow"/>

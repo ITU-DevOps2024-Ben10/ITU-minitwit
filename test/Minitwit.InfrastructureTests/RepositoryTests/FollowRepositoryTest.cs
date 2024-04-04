@@ -40,7 +40,7 @@ public class FollowRepositoryTest
         };
         
         // Act
-        Follow generatedFollow = await followRepository.CreateFollow(authorThatFollows.Id, authorBeingFollowed.Id);
+        Follow generatedFollow = await followRepository.CreateFollowAsync(authorThatFollows.Id, authorBeingFollowed.Id);
         
         // Assert
         Assert.Equal(generatedFollow.FollowingAuthorId, manuelFollow.FollowingAuthorId);
@@ -50,7 +50,7 @@ public class FollowRepositoryTest
     }
 
     [Fact]
-    public void IsFollowing_ReturnsTrue_WhenUserIsFollowingAnotherUser()
+    public async void IsFollowing_ReturnsTrue_WhenUserIsFollowingAnotherUser()
     {
         // Arrange
         FollowRepository followRepository = new(context);
@@ -83,7 +83,7 @@ public class FollowRepositoryTest
         
 
         // Assert
-        Assert.True(followRepository.IsFollowing(authorThatFollows.Id, authorBeingFollowed.Id));
+        Assert.True(await followRepository.IsFollowingAsync(authorThatFollows.Id, authorBeingFollowed.Id));
 
     }
 }

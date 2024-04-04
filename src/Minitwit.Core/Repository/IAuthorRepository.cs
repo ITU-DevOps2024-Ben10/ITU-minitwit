@@ -4,13 +4,13 @@ namespace Minitwit.Core.Repository;
 
 public interface IAuthorRepository
 {
-    public void AddAuthor(Author authorDto);
+    public void AddAuthorAsync(Author authorDto);
 
 
-    public ICollection<Author> GetAllAuthors();
+    public Task<ICollection<Author>> GetAllAuthorsAsync();
     public Author GetAuthorById(Guid authorId);
     public Task<Author?> GetAuthorByIdAsync(Guid authorId);
-    public Author GetAuthorByName(string name);
+    public Task<Author> GetAuthorByNameAsync(string name);
     public Author GetAuthorByEmail(string email);
 
     public ICollection<Cheep> GetCheepsByAuthor(Guid id);
@@ -30,8 +30,8 @@ public interface IAuthorRepository
     
 
     
-    public Task AddFollow(Guid followingAuthorId, Guid followedAuthorId);
-    public Task RemoveFollow(Guid followingAuthorId, Guid followedAuthorId);
+    public Task AddFollowAsync(Guid followingAuthorId, Guid followedAuthorId);
+    public Task RemoveFollowAsync(Guid followingAuthorId, Guid followedAuthorId);
     
     
     

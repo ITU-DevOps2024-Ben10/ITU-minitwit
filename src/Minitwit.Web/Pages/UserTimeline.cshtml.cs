@@ -43,7 +43,7 @@ public class UserTimelineModel : PageModel
     }
 
 
-    public void InitializeVariables(Author user, string author)
+    public async void InitializeVariables(Author user, string author)
     {
         if (Request.Query.ContainsKey("page"))
         {
@@ -54,7 +54,7 @@ public class UserTimelineModel : PageModel
             currentPage = 1;
         }
 
-        Author timelineAuthor = _authorRepository.GetAuthorByName(author);
+        Author timelineAuthor = await _authorRepository.GetAuthorByNameAsync(author);
 
         LoadCheeps(user, timelineAuthor, currentPage);
     }

@@ -106,7 +106,7 @@ using ValidationException = FluentValidation.ValidationException;
 
             if (author == null) return Page();
 
-            if (authorToFollow != null) await _authorRepository.AddFollow(author.Id, authorToFollow.Id);
+            if (authorToFollow != null) await _authorRepository.AddFollowAsync(author.Id, authorToFollow.Id);
             return Page();
         }
         
@@ -121,7 +121,7 @@ using ValidationException = FluentValidation.ValidationException;
 
             if (authorToUnfollow == null || author == null) return Page();
 
-            await _authorRepository.RemoveFollow(author.Id, authorToUnfollow.Id);
+            await _authorRepository.RemoveFollowAsync(author.Id, authorToUnfollow.Id);
             return Page();
         }
 
@@ -139,9 +139,9 @@ using ValidationException = FluentValidation.ValidationException;
             InitializeVariables(page);
         }
 
-        public void InitializeVariables(int page)
+        public async void InitializeVariables(int page)
         {
-            Cheeps = _service.GetCheeps(page);
+            Cheeps = await _service.GetCheepsAsync(page);
 
             user = _userManager.GetUserAsync(User).Result!;
             totalPages = _cheepRepository.GetPageCount();
