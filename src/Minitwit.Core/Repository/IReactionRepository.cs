@@ -9,5 +9,5 @@ public interface IReactionRepository
 
     public Task<ICollection<Reaction>> GetReactionsFromCheepIdAsync(Guid id);
     public Task<int> GetReactionCount(Guid cheepId, ReactionType reactionType);
-    public Task<bool> HasUserReacted(Guid cheepId, Guid authorId);
+    public Task<bool> HasUserReactedAsync(Guid cheepId, Guid authorId);
 }

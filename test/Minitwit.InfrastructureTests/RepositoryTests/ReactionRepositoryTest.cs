@@ -194,7 +194,7 @@ public class ReactionRepositoryTest
         await db.SaveChangesAsync(); 
         
         //Act
-        bool hasReacted = await _ReactionRepository.HasUserReacted(cheepDto.CheepId, authorDto.Id);
+        bool hasReacted = await _ReactionRepository.HasUserReactedAsync(cheepDto.CheepId, authorDto.Id);
         
         //Assert
         Assert.True(hasReacted);
@@ -228,7 +228,7 @@ public class ReactionRepositoryTest
         db.SaveChanges(); 
         
         //Act&Assert
-        Assert.False(await _ReactionRepository.HasUserReacted(cheepDto.CheepId, authorDto.Id));
+        Assert.False(await _ReactionRepository.HasUserReactedAsync(cheepDto.CheepId, authorDto.Id));
         
     }
 }

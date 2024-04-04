@@ -80,7 +80,7 @@ using ValidationException = FluentValidation.ValidationException;
         {
            
             Author? author = await _userManager.GetUserAsync(User);
-            if (await _reactionRepository.HasUserReacted(cheepId, author!.Id)) return Page();
+            if (await _reactionRepository.HasUserReactedAsync(cheepId, author!.Id)) return Page();
             await _reactionRepository.AddReaction(reactionType, cheepId, author!.Id);
             await InitializeVariables(currentPage);
             return Page();
@@ -88,7 +88,7 @@ using ValidationException = FluentValidation.ValidationException;
         public async Task<IActionResult> OnPostRemoveReaction(Guid cheepId, ReactionType reactionType, int currentPage)
         {
             Author? author = await _userManager.GetUserAsync(User);
-            if (!await _reactionRepository.HasUserReacted(cheepId, author!.Id)) return Page();
+            if (!await _reactionRepository.HasUserReactedAsync(cheepId, author!.Id)) return Page();
             await _reactionRepository.RemoveReaction(reactionType, cheepId, author!.Id);
             await InitializeVariables(currentPage);
             return Page();

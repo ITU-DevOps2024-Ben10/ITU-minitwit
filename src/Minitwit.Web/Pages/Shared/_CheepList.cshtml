@@ -29,7 +29,7 @@
                 <div class="reaction-box">
                     @if (SigninManager.IsSignedIn(User) && cheep.User.Username != User.Identity?.Name)
                     {
-                        @if (ReactionRepository.HasUserReacted(@cheep.CheepId, UserManager.GetUserAsync(User).Result!.Id).Result)
+                        @if (ReactionRepository.HasUserReactedAsync(@cheep.CheepId, UserManager.GetUserAsync(User).Result!.Id).Result)
                         {
                             <form asp-page="public" asp-page-handler="RemoveReaction" method="post" asp-route-cheepId="@cheep.CheepId" asp-route-reaction="@cheep.Reactions.First().ReactionType" asp-route-currentPage="@Model.currentPage">
                                 <input class="reacted" type="submit" id="reactionId" name="ReactionIdInput" value="Like: @cheep.Reactions.First().ReactionCount"/>
@@ -51,7 +51,7 @@
 
                 @if (SigninManager.IsSignedIn(User) && cheep.User.Username != User.Identity?.Name)
                 {
-                    if (!FollowRepository.IsFollowingAsync(Model.user.Id, cheep.User.Id))
+                    if (!await FollowRepository.IsFollowingAsync(Model.user.Id, cheep.User.Id))
                     {
                         <form asp-page="public" asp-page-handler="Follow" method="post" asp-route-CurrentPage="@Model.currentPage" asp-route-Author2Follow="@cheep.User.Id">
                             <input type="submit" value="Follow"/>

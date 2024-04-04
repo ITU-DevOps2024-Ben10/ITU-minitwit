@@ -35,7 +35,7 @@ public class UserTimelineModel : PageModel
 
     public async Task<ActionResult> OnGet(string author)
     {
-        user = _userManager.GetUserAsync(User).Result;
+        user = await _userManager.GetUserAsync(User);
 
         await InitializeVariables(user!, author);
 
