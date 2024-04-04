@@ -38,37 +38,38 @@ public class MinitwitService : ICheepService
         // Fetch only the authors who authored the fetched cheeps.
         ICollection<Author> authors = await _authorRepository.GetAuthorsByIdAsync(authorIds);
 
-        // Initialize a list to hold the tasks for creating CheepViewModels.
-        var cheepViewModelTasks = cheepDtos.Select(async cheepDto => 
+        // Initialize a list to hold the CheepViewModels.
+        List<CheepViewModel> cheeps = new List<CheepViewModel>();
+
+        // Process each cheepDto sequentially.
+        foreach (var cheepDto in cheepDtos)
         {
             // Assuming CheepReactions is updated to be asynchronous
             List<ReactionModel> reactionTypeCounts = await CheepReactionsAsync(cheepDto);
-        
+
             // Find the author for the current cheep.
             Author? author = authors.FirstOrDefault(a => a.Id == cheepDto.AuthorId);
-        
-            // Return a new CheepViewModel.
-            return new CheepViewModel(
-                cheepDto.CheepId, 
-                new UserModel(author), 
-                cheepDto.Text, 
+
+            // Create and add the CheepViewModel to the list.
+            cheeps.Add(new CheepViewModel(
+                cheepDto.CheepId,
+                new UserModel(author),
+                cheepDto.Text,
                 cheepDto.TimeStamp.ToString("o"), // Using a round-trip date/time pattern
                 reactionTypeCounts
-            );
-        });
-
-        // Wait for all the CheepViewModel tasks to complete and return the results.
-        List<CheepViewModel> cheeps = new List<CheepViewModel>(await Task.WhenAll(cheepViewModelTasks));
+            ));
+        }
 
         return cheeps;
     }
+
 
     
     public async Task<ICollection<CheepViewModel>> GetCheepsFromAuthorAsync(Guid id, int page)
     {
         ICollection<Cheep> cheepDtos = _authorRepository.GetCheepsByAuthor(id, page);
         ICollection<CheepViewModel> cheeps = new List<CheepViewModel>();
-        Author author = _authorRepository.GetAuthorById(id);
+        Author author = await _authorRepository.GetAuthorByIdAsync(id);
         
         foreach (Cheep cheepDto in cheepDtos)
         {
