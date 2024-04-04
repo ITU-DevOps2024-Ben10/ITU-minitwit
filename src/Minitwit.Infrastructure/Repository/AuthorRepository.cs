@@ -26,7 +26,16 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
     {
         return await db.Users.ToListAsync();
     }
-    
+
+    public async Task<ICollection<Author>> GetAuthorsByIdAsync(IEnumerable<Guid> authorIds)
+    {
+        // Assuming 'db' is your DbContext instance.
+        return await db.Users
+            .Where(a => authorIds.Contains(a.Id))
+            .ToListAsync();
+    }
+
+
     public Author GetAuthorById(Guid authorId)
     {
         Author author = db.Users.FirstOrDefault(a => a.Id == authorId)!;

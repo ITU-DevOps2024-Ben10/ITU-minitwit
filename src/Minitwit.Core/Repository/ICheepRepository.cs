@@ -4,7 +4,7 @@ namespace Minitwit.Core.Repository;
 
 public interface ICheepRepository
 {
-    public ICollection<Cheep> GetCheepsByPage(int page);
+    public Task<ICollection<Cheep>> GetCheepsByPageAsync(int page);
     
     public Task<ICollection<Cheep>> GetCheepsByCountAsync(int count);
 

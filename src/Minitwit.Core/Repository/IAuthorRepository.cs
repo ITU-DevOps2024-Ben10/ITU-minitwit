@@ -8,6 +8,7 @@ public interface IAuthorRepository
 
 
     public Task<ICollection<Author>> GetAllAuthorsAsync();
+    public Task<ICollection<Author>> GetAuthorsByIdAsync(IEnumerable<Guid> authors);
     public Author GetAuthorById(Guid authorId);
     public Task<Author?> GetAuthorByIdAsync(Guid authorId);
     public Task<Author> GetAuthorByNameAsync(string name);

@@ -48,25 +48,25 @@ public class CheepRepositoryTest{
     }
 
     [Fact]
-    public void GetCheepsByPage_ShouldSkipFirst32Cheeps_ReturnXAmountOfCheeps()
+    public async void GetCheepsByPage_ShouldSkipFirst32Cheeps_ReturnXAmountOfCheeps()
     {
         //Act
-        ICollection<Cheep> cheeps = CheepRepository.GetCheepsByPage(2);
+        ICollection<Cheep> cheeps = await CheepRepository.GetCheepsByPageAsync(2);
 
         //Assert
         Assert.Equal(2, cheeps.Count);
     }
 
     [Fact]
-    public void DeleteCheepById_ShouldOnlyDeleteSpecifiedCheep()
+    public async void DeleteCheepById_ShouldOnlyDeleteSpecifiedCheep()
     {
-        ICollection<Cheep> initialCheeps = CheepRepository.GetCheepsByPage(1);
+        ICollection<Cheep> initialCheeps = await CheepRepository.GetCheepsByPageAsync(1);
         Cheep cheep = initialCheeps.First();
         Guid cheepId = cheep.CheepId;
         
         CheepRepository.DeleteCheepById(cheepId);
 
-        ICollection<Cheep> updatedCheeps = CheepRepository.GetCheepsByPage(1);
+        ICollection<Cheep> updatedCheeps = await CheepRepository.GetCheepsByPageAsync(1);
         
         //Assert
         Assert.True(initialCheeps.Contains(cheep));
@@ -75,7 +75,7 @@ public class CheepRepositoryTest{
     }
 
     [Fact]
-    public void addCheep_ShouldAddACheep()
+    public async void addCheep_ShouldAddACheep()
     {
         Cheep cheepDto = new Cheep
         {
@@ -89,7 +89,7 @@ public class CheepRepositoryTest{
         CheepRepository.AddCheep(cheepDto).Wait();
         #pragma warning restore xUnit1031
 
-        ICollection<Cheep> updatedCheeps = CheepRepository.GetCheepsByPage(0);
+        ICollection<Cheep> updatedCheeps = await CheepRepository.GetCheepsByPageAsync(0);
         
         //Assert
         Assert.True(updatedCheeps.Contains(cheepDto));
@@ -101,7 +101,9 @@ public class CheepRepositoryTest{
         CreateCheep createCheep = new CreateCheep(_author.Id, "TestCheep");
 
         Cheep cheep = await CheepRepository.AddCreateCheepAsync(createCheep);
+
+        ICollection<Cheep> cheeps = await CheepRepository.GetCheepsByPageAsync(0);
         
-        Assert.True(CheepRepository.GetCheepsByPage(0).Contains(cheep));
+        Assert.True(cheeps.Contains(cheep));
     }
 }

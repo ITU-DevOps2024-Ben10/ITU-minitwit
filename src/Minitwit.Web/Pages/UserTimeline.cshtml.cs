@@ -56,22 +56,22 @@ public class UserTimelineModel : PageModel
 
         Author timelineAuthor = await _authorRepository.GetAuthorByNameAsync(author);
 
-        LoadCheeps(user, timelineAuthor, currentPage);
+        await LoadCheeps(user, timelineAuthor, currentPage);
     }
 
-    private void LoadCheeps(Author signedInAuthor, Author timelineAuthor, int page)
+    private async Task LoadCheeps(Author signedInAuthor, Author timelineAuthor, int page)
     {
         try
         {
             if (_signInManager.IsSignedIn(User) && signedInAuthor.UserName == timelineAuthor.UserName)
             {
-                Cheeps = _service.GetCheepsFromAuthorAndFollowing(signedInAuthor.Id, page);
+                Cheeps = await _service.GetCheepsFromAuthorAndFollowingAsync(signedInAuthor.Id, page);
                 totalPages = _authorRepository.GetPageCountByAuthorAndFollowing(signedInAuthor.Id);
 
             }
             else
             {
-                Cheeps = _service.GetCheepsFromAuthor(timelineAuthor.Id, page);
+                Cheeps = await _service.GetCheepsFromAuthorAsync(timelineAuthor.Id, page);
                 totalPages = _authorRepository.GetPageCountByAuthor(timelineAuthor.Id);
             }
         }

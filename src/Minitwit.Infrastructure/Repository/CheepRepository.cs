@@ -10,14 +10,14 @@ public class CheepRepository : BaseRepository, ICheepRepository
     public CheepRepository(MinitwitDbContext DbContext) : base(DbContext)
     {
     }
-    public ICollection<Cheep> GetCheepsByPage(int page)
+    public async Task<ICollection<Cheep>> GetCheepsByPageAsync(int page)
     {
         //Use EF to get the specified page of cheeps from the database
-        ICollection<Cheep> cheeps = db.Cheeps
+        ICollection<Cheep> cheeps = await db.Cheeps
             .OrderByDescending(c => c.TimeStamp)
             .Skip(PageSize * (page - 1))
             .Take(PageSize)
-            .ToList();
+            .ToListAsync();
 
         return cheeps;
     }

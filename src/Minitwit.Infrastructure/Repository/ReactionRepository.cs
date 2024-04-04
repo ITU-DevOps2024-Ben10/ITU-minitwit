@@ -26,9 +26,9 @@ public class ReactionRepository(MinitwitDbContext dbContext) : BaseRepository(db
         }
     }
 
-    public ICollection<Reaction> GetReactionsFromCheepId(Guid id)
+    public async Task<ICollection<Reaction>> GetReactionsFromCheepIdAsync(Guid id)
     {
-        return db.Reactions.Where(r => r.CheepId == id).ToList();
+        return await db.Reactions.Where(r => r.CheepId == id).ToListAsync();
     }
     
     public async Task RemoveReaction(ReactionType reaction, Guid cheepId, Guid authorId)

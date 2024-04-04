@@ -9,8 +9,8 @@ public interface ICheepService
 {
     public Task<ICollection<CheepViewModel>> GetCheepsAsync(int page);
     public Task<ICollection<CheepViewModel>> GetCheepsFromAuthor(string authorName, int page);
-    public ICollection<CheepViewModel> GetCheepsFromAuthor(Guid authorId, int page);
-    public ICollection<CheepViewModel> GetCheepsFromAuthorAndFollowing(Guid authorId, int page);
+    public Task<ICollection<CheepViewModel>> GetCheepsFromAuthorAsync(Guid authorId, int page);
+    public Task<ICollection<CheepViewModel>> GetCheepsFromAuthorAndFollowingAsync(Guid authorId, int page);
 
 }
 
@@ -29,22 +29,42 @@ public class MinitwitService : ICheepService
     
     public async Task<ICollection<CheepViewModel>> GetCheepsAsync(int page)
     {
-        ICollection<Cheep> cheepDtos = _cheepRepository.GetCheepsByPage(page);
-        List<CheepViewModel> cheeps = new List<CheepViewModel>();
-        ICollection<Author> authors = await _authorRepository.GetAllAuthorsAsync();
+        // Fetch cheeps for the given page.
+        ICollection<Cheep> cheepDtos = await _cheepRepository.GetCheepsByPageAsync(page);
 
-        foreach (Cheep cheepDto in cheepDtos)
+        // Extract unique author IDs from the cheeps.
+        var authorIds = cheepDtos.Select(c => c.AuthorId).Distinct();
+
+        // Fetch only the authors who authored the fetched cheeps.
+        ICollection<Author> authors = await _authorRepository.GetAuthorsByIdAsync(authorIds);
+
+        // Initialize a list to hold the tasks for creating CheepViewModels.
+        var cheepViewModelTasks = cheepDtos.Select(async cheepDto => 
         {
-            List<ReactionModel> reactionTypeCounts = CheepReactions(cheepDto);
+            // Assuming CheepReactions is updated to be asynchronous
+            List<ReactionModel> reactionTypeCounts = await CheepReactionsAsync(cheepDto);
+        
+            // Find the author for the current cheep.
             Author? author = authors.FirstOrDefault(a => a.Id == cheepDto.AuthorId);
-            
-            cheeps.Add(new CheepViewModel(cheepDto.CheepId, new UserModel(author), cheepDto.Text, cheepDto.TimeStamp.ToString(CultureInfo.InvariantCulture), reactionTypeCounts));
-        }
+        
+            // Return a new CheepViewModel.
+            return new CheepViewModel(
+                cheepDto.CheepId, 
+                new UserModel(author), 
+                cheepDto.Text, 
+                cheepDto.TimeStamp.ToString("o"), // Using a round-trip date/time pattern
+                reactionTypeCounts
+            );
+        });
+
+        // Wait for all the CheepViewModel tasks to complete and return the results.
+        List<CheepViewModel> cheeps = new List<CheepViewModel>(await Task.WhenAll(cheepViewModelTasks));
 
         return cheeps;
     }
+
     
-    public ICollection<CheepViewModel> GetCheepsFromAuthor(Guid id, int page)
+    public async Task<ICollection<CheepViewModel>> GetCheepsFromAuthorAsync(Guid id, int page)
     {
         ICollection<Cheep> cheepDtos = _authorRepository.GetCheepsByAuthor(id, page);
         ICollection<CheepViewModel> cheeps = new List<CheepViewModel>();
@@ -52,7 +72,7 @@ public class MinitwitService : ICheepService
         
         foreach (Cheep cheepDto in cheepDtos)
         {
-            List<ReactionModel> reactionTypeCounts = CheepReactions(cheepDto);
+            List<ReactionModel> reactionTypeCounts = await CheepReactionsAsync(cheepDto);
 
             cheeps.Add(new CheepViewModel(cheepDto.CheepId, new UserModel(author), cheepDto.Text, cheepDto.TimeStamp.ToString(CultureInfo.InvariantCulture), reactionTypeCounts));
         }
@@ -60,7 +80,7 @@ public class MinitwitService : ICheepService
         return cheeps;
     }
     
-    public ICollection<CheepViewModel> GetCheepsFromAuthorAndFollowing(Guid authorId, int page)
+    public async Task<ICollection<CheepViewModel>> GetCheepsFromAuthorAndFollowingAsync(Guid authorId, int page)
     {
         ICollection<Cheep> cheepDtos = _authorRepository.GetCheepsByAuthorAndFollowing(authorId, page);
         ICollection<Author> authors = _authorRepository.GetFollowingById(authorId);
@@ -69,7 +89,7 @@ public class MinitwitService : ICheepService
 
         foreach (Cheep cheepDto in cheepDtos)
         {
-            List<ReactionModel> reactionTypeCounts = CheepReactions(cheepDto);
+            List<ReactionModel> reactionTypeCounts = await CheepReactionsAsync(cheepDto);
             Author? author = authors.FirstOrDefault(a => a.Id == cheepDto.AuthorId);
 
             cheeps.Add(new CheepViewModel(cheepDto.CheepId, new UserModel(author!), cheepDto.Text, cheepDto.TimeStamp.ToString(CultureInfo.InvariantCulture), reactionTypeCounts));
@@ -78,16 +98,18 @@ public class MinitwitService : ICheepService
         return cheeps;
     }
 
-    protected List<ReactionModel> CheepReactions(Cheep cheepDto)
+    protected async Task<List<ReactionModel>> CheepReactionsAsync(Cheep cheepDto)
     {
         // Initialize reactions with all reaction types set to count 0.
         var reactions = Enum.GetValues(typeof(ReactionType))
             .Cast<ReactionType>()
             .ToDictionary(rt => rt, rt => new ReactionModel(rt, 0));
 
-        ICollection<Reaction> reactionDTOs = _reactionRepository.GetReactionsFromCheepId(cheepDto.CheepId);
-        // If cheepDto.Reactions is not null and has elements, process them.
-        if (reactionDTOs.Any() == true)
+        // Assume GetReactionsFromCheepIdAsync is an async method.
+        ICollection<Reaction> reactionDTOs = await _reactionRepository.GetReactionsFromCheepIdAsync(cheepDto.CheepId);
+
+        // Process the reactions, if any.
+        if (reactionDTOs.Any())
         {
             foreach (Reaction reaction in reactionDTOs)
             {
@@ -98,10 +120,11 @@ public class MinitwitService : ICheepService
         return reactions.Values.ToList();
     }
 
+
     public async Task<ICollection<CheepViewModel>> GetCheepsFromAuthor(string authorName, int page)
     { 
         Author author = await _authorRepository.GetAuthorByNameAsync(authorName);
-        var cheeps = GetCheepsFromAuthor(author.Id, page);
+        var cheeps = await GetCheepsFromAuthorAsync(author.Id, page);
         return cheeps;
     }
 }

@@ -63,15 +63,15 @@ public class CheepServiceIntegrationTests
         context.Add(_cheep3);
         context.Add(f);
 
-        context.SaveChangesAsync();
+        context.SaveChanges();
     }
     
     /*
     [Fact]
-    public void GetCheeps_ReturnsCheepViewModels()
+    public async void GetCheeps_ReturnsCheepViewModels()
     {
         // Act
-        List<CheepViewModel> result = _service.GetCheeps(0).ToList();
+        List<CheepViewModel> result = _service.GetCheepsAsync(0).Result.ToList();
 
         result.Sort((a, b) => String.Compare(a.User.Username, b.User.Username, StringComparison.Ordinal));
         
@@ -80,8 +80,8 @@ public class CheepServiceIntegrationTests
         Assert.Equal("Author1", result[0].User.Username);
         Assert.Equal("Cheep 1", result[0].Message);
         Assert.NotNull(result[0].Timestamp);
-    }
-    */
+    }*/
+    
     
     /*
     [Fact]

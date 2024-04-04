@@ -59,7 +59,7 @@ public class AboutMeModel : PageModel
         
         try
         {
-            Cheeps = _service.GetCheepsFromAuthor(UserModel.Id, currentPage);
+            Cheeps = await _service.GetCheepsFromAuthorAsync(UserModel.Id, currentPage);
         }
         catch (Exception)
         {
