@@ -5,8 +5,6 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Minitwit.Core.Repository;
 using Minitwit.Infrastructure.Repository;
-using OpenTelemetry;
-using OpenTelemetry.Metrics;
 using Prometheus;
 
 /// <summary>
@@ -39,16 +37,8 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 // TODO put do this in ProgramOptions
 //Client that prometheus uses to report metric
 //Src: https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/src/OpenTelemetry.Exporter.Prometheus.AspNetCore/README.md
-builder.Services.AddOpenTelemetry()
-    .WithMetrics(providerBuilder =>
-    {
-        providerBuilder.AddPrometheusExporter();
 
-        providerBuilder.AddMeter("Dotnet.AspNetCore.Hosting", "Microsoft.AspNetCore.Server.Kestrel");
-    });
-        
-    
-
+// Dependency Injection
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<IValidator<CreateCheep>, CheepCreateValidator>();
 builder.Services.AddScoped<ICheepRepository, CheepRepository>();
@@ -99,8 +89,6 @@ app.UseAuthorization();
 app.UseSession();
 app.MapControllers();
 app.MapRazorPages();
-
-app.UseOpenTelemetryPrometheusScrapingEndpoint();
 
 
 app.Run();
