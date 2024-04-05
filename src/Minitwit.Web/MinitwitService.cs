@@ -84,8 +84,8 @@ public class MinitwitService : ICheepService
     public async Task<ICollection<CheepViewModel>> GetCheepsFromAuthorAndFollowingAsync(Guid authorId, int page)
     {
         ICollection<Cheep> cheepDtos = await _authorRepository.GetCheepsByAuthorAndFollowing(authorId, page);
-        ICollection<Author> authors = _authorRepository.GetFollowingById(authorId);
-                            authors.Add(_authorRepository.GetAuthorById(authorId));
+        ICollection<Author> authors = await _authorRepository.GetFollowingByIdAsync(authorId);
+                            authors.Add(await _authorRepository.GetAuthorByIdAsync(authorId));
         ICollection<CheepViewModel> cheeps = new List<CheepViewModel>();
 
         foreach (Cheep cheepDto in cheepDtos)
