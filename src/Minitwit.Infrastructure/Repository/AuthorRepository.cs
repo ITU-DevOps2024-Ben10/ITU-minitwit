@@ -34,14 +34,6 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
             .Where(a => authorIds.Contains(a.Id))
             .ToListAsync();
     }
-
-
-    public Author GetAuthorById(Guid authorId)
-    {
-        Author author = db.Users.FirstOrDefault(a => a.Id == authorId)!;
-            
-        return author;
-    }
     
     public async Task<Author?> GetAuthorByIdAsync(Guid authorId)
     {
@@ -99,7 +91,7 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
     {
         ICollection<Cheep> cheeps = new List<Cheep>(await GetCheepsByAuthorAsync(id));
         
-        foreach (Author author in GetFollowingById(id))
+        foreach (Author author in await GetFollowingByIdAsync(id))
         {
             cheeps = cheeps.Concat(await GetCheepsByAuthorAsync(author.Id)).ToList();
         }
@@ -109,9 +101,9 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
     
     public async Task<ICollection<Cheep>> GetCheepsByAuthorAndFollowing(Guid id, int page)
     {
-        Author author = GetAuthorById(id);
+        Author? author = await GetAuthorByIdAsync(id);
         //Get cheeps from the author, and append cheeps from followers to that list
-        ICollection<Author> following = GetFollowingById(id);
+        ICollection<Author> following = await GetFollowingByIdAsync(id);
         ICollection<Cheep> cheeps = new List<Cheep>();
 
         // Add all the users cheeps to the list without pagination
@@ -195,18 +187,18 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
         return followedAuthors;
     }
     
-    public ICollection<Author> GetFollowingById(Guid id)
+    public async Task<ICollection<Author>> GetFollowingByIdAsync(Guid id)
     {
         // Query to retrieve the IDs of authors followed by the specified author
-        var followingAuthorIds = db.Follows
+        var followingAuthorIds = await db.Follows
             .Where(f => f.FollowingAuthorId == id)
             .Select(f => f.FollowedAuthorId)
-            .ToList();
+            .ToListAsync();
 
         // Query to retrieve the author entities based on the followed author IDs
-        ICollection<Author> followingAuthors = db.Users
+        ICollection<Author> followingAuthors = await db.Users
             .Where(a => followingAuthorIds.Contains(a.Id))
-            .ToList();
+            .ToListAsync();
 
         return followingAuthors;
     }

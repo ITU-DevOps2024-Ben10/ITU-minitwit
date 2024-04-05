@@ -51,15 +51,15 @@ public class CheepRepository : BaseRepository, ICheepRepository
         return await db.Cheeps.CountAsync();
     }
 
-    public async Task<int> GetPageCount()
+    public async Task<int> GetPageCountAsync()
     {
         return await GetCheepCountAsync()/PageSize+1;
     }
 
-    public void DeleteCheepById(Guid cheepId)
+    public async Task DeleteCheepByIdAsync(Guid cheepId)
     {
         //Delete the specified cheep from the database
-        Cheep? cheep = db.Cheeps.Find(cheepId);
+        Cheep? cheep = await db.Cheeps.FindAsync(cheepId);
         if (cheep != null)
         {
             db.Cheeps.Remove(cheep);
@@ -69,10 +69,10 @@ public class CheepRepository : BaseRepository, ICheepRepository
             throw new Exception("Cheep with id " + cheepId + " not found");
         }
 
-        db.SaveChanges();
+        await db.SaveChangesAsync();
     }
 
-    public async Task AddCheep(Cheep cheep)
+    public async Task AddCheepAsync(Cheep cheep)
     {
         await db.Cheeps.AddAsync(cheep);
         await db.SaveChangesAsync();
@@ -89,7 +89,7 @@ public class CheepRepository : BaseRepository, ICheepRepository
             AuthorId = cheep.AuthorId
         };
         
-        await AddCheep(entity);
+        await AddCheepAsync(entity);
 
         return entity;
     }

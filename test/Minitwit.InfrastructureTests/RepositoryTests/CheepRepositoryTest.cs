@@ -64,7 +64,7 @@ public class CheepRepositoryTest{
         Cheep cheep = initialCheeps.First();
         Guid cheepId = cheep.CheepId;
         
-        CheepRepository.DeleteCheepById(cheepId);
+        CheepRepository.DeleteCheepByIdAsync(cheepId);
 
         ICollection<Cheep> updatedCheeps = await CheepRepository.GetCheepsByPageAsync(1);
         
@@ -86,7 +86,7 @@ public class CheepRepositoryTest{
         };
 
         #pragma warning disable xUnit1031
-        CheepRepository.AddCheep(cheepDto).Wait();
+        CheepRepository.AddCheepAsync(cheepDto).Wait();
         #pragma warning restore xUnit1031
 
         ICollection<Cheep> updatedCheeps = await CheepRepository.GetCheepsByPageAsync(0);
