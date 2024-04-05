@@ -4,14 +4,14 @@ namespace Minitwit.Infrastructure.Middleware;
 
 public class CustomMeters
 {
-    private static readonly Counter TotalApiRequestsCounter = Metrics.CreateCounter(
+    private static readonly Counter ApiRequestsCounter = Metrics.CreateCounter(
         "minitwit_api_requests_total",
         "Number of API requests"
     );
 
     public static void IncrementApiRequestsCounter()
     {
-        TotalApiRequestsCounter.Inc();
+        ApiRequestsCounter.Inc();
     }
     
     private static readonly Counter ApiRequestsErrorCounter = Metrics.CreateCounter(
@@ -74,14 +74,14 @@ public class CustomMeters
         UnfollowApiRequestCounter.Inc();
     }
     
-    private static readonly Counter PostMsgsApiRequestCounter = Metrics.CreateCounter(
+    private static readonly Counter PostApiRequestCounter = Metrics.CreateCounter(
         "minitwit_post_message_total",
         "Number of posted messages"
     );
     
     public static void IncrementPostMessageCounter()
     {
-        PostMsgsApiRequestCounter.Inc();
+        PostApiRequestCounter.Inc();
     }
     
     private static readonly Counter PostMsgApiRequestCounter = Metrics.CreateCounter(

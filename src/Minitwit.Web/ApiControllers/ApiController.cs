@@ -72,12 +72,7 @@ public class ApiController : ControllerBase
             string fileContent = await System.IO.File.ReadAllTextAsync(LatestCommandIdFilePath);
             if (!int.TryParse(fileContent, out var latestProcessedCommandId))
             {
-<<<<<<< HEAD
                 latestProcessedCommandId = -1;
-=======
-                CustomMeters.IncrementApiRequestsErrorCounter();
-                return StatusCode(403, "You are not authorized to use this resource!");
->>>>>>> CreateDashboard
             }
             return Ok(new { latest = latestProcessedCommandId });
         }
@@ -85,7 +80,6 @@ public class ApiController : ControllerBase
         {
             await LogRequest("{}", $"{{{ex.StackTrace}}}", latestLogFilePath);
 
-<<<<<<< HEAD
             // Handle exception appropriately, e.g., log it
             Console.WriteLine("Error occurred while getting latest id: " + ex.Message);
             return StatusCode(500, "Internal server error");
@@ -128,29 +122,6 @@ public class ApiController : ControllerBase
         if (NotReqFromSimulator(Request))
         {
             return StatusCode(403, "You are not authorized to use this resource");
-=======
-            
-            try
-            {
-                if (!System.IO.File.Exists(LatestCommandIdFilePath)) return Ok(new { latest = -1 });
-                string fileContent = await System.IO.File.ReadAllTextAsync(LatestCommandIdFilePath);
-                if (!int.TryParse(fileContent, out var latestProcessedCommandId))
-                {
-                    latestProcessedCommandId = -1;
-                }
-                CustomMeters.IncrementApiRequestsSuccessCounter();
-                return Ok(new { latest = latestProcessedCommandId });
-            }
-            catch (Exception ex)
-            {
-                await LogRequest("{}", $"{{{ex.Message}}}", latestLogFilePath);
-
-                // Handle exception appropriately, e.g., log it
-                Console.WriteLine("Error occurred while getting latest id: " + ex.Message);
-                CustomMeters.IncrementApiRequestsErrorCounter();
-                return StatusCode(500, "Internal server error");
-            }
->>>>>>> CreateDashboard
         }
 
 
@@ -171,13 +142,8 @@ public class ApiController : ControllerBase
 
             foreach (var cheep in cheeps)
             {
-<<<<<<< HEAD
                 lst.Add(new CheepViewModelApi(users.FirstOrDefault(a => a.Id == cheep.AuthorId)!.UserName,
                     cheep.Text, cheep.TimeStamp));
-=======
-                CustomMeters.IncrementApiRequestsErrorCounter();
-                return StatusCode(403, "You are not authorized to use this resource");
->>>>>>> CreateDashboard
             }
 
             return Ok(lst);
@@ -269,276 +235,11 @@ public class ApiController : ControllerBase
             await Update_Latest(latest);
             return StatusCode(204, "");
 
-<<<<<<< HEAD
-=======
-            var user = CreateUser();
-
-            await _userStore.SetUserNameAsync(user, data.username, CancellationToken.None);
-            await _emailStore.SetEmailAsync(user, data.email, CancellationToken.None);
-            var result = await _userManager.CreateAsync(user, data.pwd);
-
-
-            if (result.Succeeded)
-            {
-                CustomMeters.IncrementApiRequestsSuccessCounter();
-                return StatusCode(204,"");
-            }
-
-            await LogRequest(data.ToString(), StringifyIdentityResultErrors(result), registerLogFilePath);
-            
-            CustomMeters.IncrementApiRequestsErrorCounter();
-            
-            return BadRequest($"{result.Errors.ToList()}");
->>>>>>> CreateDashboard
         }
         catch (Exception ex)
         {
-<<<<<<< HEAD
             await LogRequest(msgsdata.ToString(), $"{{{ex.StackTrace}}}", msgsPostLogFilePath);
 
-=======
-            CustomMeters.IncrementApiRequestsCounter();
-            
-            // Checks authorization
-            if (NotReqFromSimulator(Request))
-            {
-                CustomMeters.IncrementApiRequestsErrorCounter();
-                return StatusCode(403, "You are not authorized to use this resource");
-            }
-            
-            
-            await Update_Latest(latest);
-
-            if (no < 0)
-            {
-                no = 100;
-            }
-
-
-            try
-            {
-                var cheeps = await _cheepRepository.GetCheepsByCountAsync(no);
-                var users = _authorRepository.GetAllAuthorsAsync().Result.Where(a => cheeps.Any(c => a.Id == c.AuthorId)).ToList();
-
-                List<CheepViewModelApi> lst = new();
-
-                foreach (var cheep in cheeps)
-                {
-                    lst.Add(new CheepViewModelApi(users.FirstOrDefault(a => a.Id == cheep.AuthorId)!.UserName,
-                        cheep.Text, cheep.TimeStamp));
-                }
-                
-                CustomMeters.IncrementApiRequestsSuccessCounter();
-                
-                return Ok(lst);
-            }
-            catch (Exception ex)
-            {
-                await LogRequest($"{{Latest = {latest}, No = {no}}}", $"{{{ex.Message}}}", msgsGetLogFilePath);
-                
-                CustomMeters.IncrementApiRequestsErrorCounter();
-                
-                return NotFound();
-            }
-        }
-
-
-
-        [HttpGet("msgs/{username}")]
-        public async Task<IActionResult> GetUserMessages([FromRoute] string username, [FromQuery] int latest, [FromQuery] int no = 100)
-        {
-            CustomMeters.IncrementApiRequestsCounter();
-            
-            // Checks authorization
-            if (NotReqFromSimulator(Request))
-            {
-                CustomMeters.IncrementApiRequestsErrorCounter();
-                return StatusCode(403, "You are not authorized to use this resource");
-            }
-            
-            await Update_Latest(latest);
-            
-            if (no < 0)
-            {
-                no = 100;
-            }
-            
-            try
-            {
-                Author author = await _authorRepository.GetAuthorByNameAsync(username);
-                Guid authorId = author.Id;
-                ICollection<Cheep> cheeps = await _cheepRepository.GetCheepsFromAuthorByCountAsync(authorId, no); 
-                List<CheepViewModelApi> formattedCheeps = new();
-                
-                foreach (var cheep in cheeps)
-                {
-                    formattedCheeps.Add(new CheepViewModelApi(username, cheep.Text, cheep.TimeStamp));
-                }
-                
-                CustomMeters.IncrementApiRequestsSuccessCounter();
-                return Ok(formattedCheeps);
-
-            }
-            catch (Exception ex)
-            {
-                await LogRequest($"{{User = {username}, Latest = {latest}, No = {no}}}", $"{{{ex.Message}}}", msgsPrivateGetLogFilePath);
-                
-                CustomMeters.IncrementApiRequestsErrorCounter();
-                return NotFound();
-            }
-        }
-
-        [HttpPost("msgs/{username}")]
-        public async Task<IActionResult> PostMessage([FromRoute] string username, [FromQuery] int latest, [FromBody] MsgsData msgsdata)
-        {
-            CustomMeters.IncrementApiRequestsCounter();
-            CustomMeters.IncrementPostMessageCounter();
-            
-            // Checks authorization
-            if (NotReqFromSimulator(Request))
-            {
-                CustomMeters.IncrementApiRequestsErrorCounter();
-                return StatusCode(403, "You are not authorized to use this resource");
-            }
-
-            
-            try
-            {   
-                Author user = await _authorRepository.GetAuthorByNameAsync(username);
-                
-                CreateCheep cheep = new CreateCheep(user.Id, msgsdata.content);
-                
-                var result = await _cheepRepository.AddCreateCheepAsync(cheep);
-                
-                await Update_Latest(latest);
-                
-                CustomMeters.IncrementApiRequestsSuccessCounter();
-                return StatusCode(204,"");
-                
-            }
-            catch (Exception ex)
-            {
-                await LogRequest(msgsdata.ToString(), $"{{{ex.Message}}}", msgsPostLogFilePath);
-                
-                CustomMeters.IncrementApiRequestsErrorCounter();
-                return NotFound();
-            }
-           
-            
-        }
-
-        
-        [HttpGet("fllws/{username}")]
-        public async Task<IActionResult> GetUserFollowers([FromRoute] string username, [FromQuery] int latest, [FromQuery] int no = 100)
-        {
-            CustomMeters.IncrementApiRequestsCounter();
-            
-            // Checks authorization
-            if (NotReqFromSimulator(Request))
-            {
-                CustomMeters.IncrementApiRequestsErrorCounter();
-                return StatusCode(403, "You are not authorized to use this resource");
-            }
-            
-            await Update_Latest(latest);
-            var output = new List<string>();
-
-            try
-            {
-                Author author = await _authorRepository.GetAuthorByNameAsync(username);
-                var authorFollowers = await _authorRepository.GetFollowersByIdAsync(author.Id);
-                for (int i = 0; i < authorFollowers.Count; i++)
-                {
-                    if (i > no - 1) break;
-                    output.Add(authorFollowers.ElementAt(i).UserName);
-                }
-
-            }
-            catch (NullReferenceException ex)
-            {
-                await SimpleLogRequest($"{{User = {username}, Latest = {latest}, No = {no}}}", $"{{{ex.Message}}}", fllwsGetLogFilePath);
-                CustomMeters.IncrementApiRequestsErrorCounter();
-                return NotFound();
-            }
-            catch (Exception ex)
-            {
-                await LogRequest($"{{User = {username}, Latest = {latest}, No = {no}}}", $"{{{ex.StackTrace}}}", fllwsGetLogFilePath);
-                CustomMeters.IncrementApiRequestsErrorCounter();
-                return NotFound();
-            }
-            
-            CustomMeters.IncrementApiRequestsSuccessCounter();
-            return Ok(new { follows = output.Take(no) });
-            
-        }
-
-        [HttpPost("fllws/{username}")]
-        public async Task<IActionResult> FollowUser([FromRoute] string username, [FromQuery] int latest, [FromBody] FollowData followData)
-        {
-            CustomMeters.IncrementApiRequestsCounter();
-            
-            // Checks authorization
-            if (NotReqFromSimulator(Request))
-            {
-                CustomMeters.IncrementApiRequestsErrorCounter();
-                return StatusCode(403, "You are not authorized to use this resource");
-            }
-
-            
-            await Update_Latest(latest);
-
-            // Check if exactly one action is specified
-            if (string.IsNullOrEmpty(followData.follow) && string.IsNullOrEmpty(followData.unfollow))
-            {
-                CustomMeters.IncrementApiRequestsErrorCounter();
-                return BadRequest("Only one of 'follow' xor 'unfollow' should be provided.");
-            }
-            if (!string.IsNullOrEmpty(followData.follow) && !string.IsNullOrEmpty(followData.unfollow))
-            {
-                CustomMeters.IncrementApiRequestsErrorCounter();
-                return BadRequest("Either 'follow' xor 'unfollow' should be provided.");
-            }
-
-            try
-            {
-                if (!string.IsNullOrEmpty(followData.follow))
-                {
-                    CustomMeters.IncrementFollowUserCounter();
-                    
-                    var followed = await _authorRepository.GetAuthorByNameAsync(followData.follow);
-                    var follower = await _authorRepository.GetAuthorByNameAsync(username);
-                    await _authorRepository.AddFollowAsync(follower.Id, followed.Id);
-                    
-                    CustomMeters.IncrementApiRequestsSuccessCounter();
-                    return StatusCode(204, "");
-                }
-
-                if (!string.IsNullOrEmpty(followData.unfollow))
-                {
-                    CustomMeters.IncrementUnfollowUserCounter();
-                    
-                    var followed = await _authorRepository.GetAuthorByNameAsync(followData.unfollow);
-                    var follower = await _authorRepository.GetAuthorByNameAsync(username);
-                    await _authorRepository.RemoveFollowAsync(follower.Id, followed.Id);
-                    
-                    CustomMeters.IncrementApiRequestsSuccessCounter();
-                    return StatusCode(204, "");
-                }
-            }
-            catch (NullReferenceException ex)
-            {
-                await SimpleLogRequest($"User = {username}. Request body: {followData}", $"{{{ex.Message}}}", fllwsPostLogFilePath);
-                CustomMeters.IncrementApiRequestsErrorCounter();
-                return NotFound();
-            }
-            catch (Exception e)
-            {
-                await LogRequest($"User = {username}. Request body: {followData}", $"{{{e.StackTrace}}}", fllwsPostLogFilePath);
-                CustomMeters.IncrementApiRequestsErrorCounter();
-                return NotFound();
-            }
-            CustomMeters.IncrementApiRequestsErrorCounter();
->>>>>>> CreateDashboard
             return NotFound();
         }
 
