@@ -78,7 +78,7 @@ public class ApiController : ControllerBase
         }
         catch (Exception ex)
         {
-            await LogRequest("{}", $"{{{ex.Message}}}", latestLogFilePath);
+            await LogRequest("{}", $"{{{ex.StackTrace}}}", latestLogFilePath);
 
             // Handle exception appropriately, e.g., log it
             Console.WriteLine("Error occurred while getting latest id: " + ex.Message);
@@ -150,7 +150,7 @@ public class ApiController : ControllerBase
         }
         catch (Exception ex)
         {
-            await LogRequest($"{{Latest = {latest}, No = {no}}}", $"{{{ex.Message}}}", msgsGetLogFilePath);
+            await LogRequest($"{{Latest = {latest}, No = {no}}}", $"{{{ex.StackTrace}}}", msgsGetLogFilePath);
             return NotFound();
         }
     }
@@ -199,7 +199,7 @@ public class ApiController : ControllerBase
         }
         catch (Exception ex)
         {
-            await LogRequest($"{{User = {username}, Latest = {latest}, No = {no}}}", $"{{{ex.Message}}}", msgsPrivateGetLogFilePath);
+            await LogRequest($"{{User = {username}, Latest = {latest}, No = {no}}}", $"{{{ex.StackTrace}}}", msgsPrivateGetLogFilePath);
             return NotFound();
         }
     }
@@ -238,7 +238,7 @@ public class ApiController : ControllerBase
         }
         catch (Exception ex)
         {
-            await LogRequest(msgsdata.ToString(), $"{{{ex.Message}}}", msgsPostLogFilePath);
+            await LogRequest(msgsdata.ToString(), $"{{{ex.StackTrace}}}", msgsPostLogFilePath);
 
             return NotFound();
         }
@@ -281,7 +281,7 @@ public class ApiController : ControllerBase
         }
         catch (NullReferenceException ex)
         {
-            await SimpleLogRequest($"{{User = {username}, Latest = {latest}, No = {no}}}", $"{{{ex.Message}}}", fllwsGetLogFilePath);
+            await SimpleLogRequest($"{{User = {username}, Latest = {latest}, No = {no}}}", $"{{{ex.StackTrace}}}", fllwsGetLogFilePath);
             return NotFound();
         }
         catch (Exception ex)
@@ -359,7 +359,7 @@ public class ApiController : ControllerBase
         }
         catch (NullReferenceException ex)
         {
-            await SimpleLogRequest($"User = {username}. Request body: {followData}", $"{{{ex.Message}}}", fllwsPostLogFilePath);
+            await SimpleLogRequest($"User = {username}. Request body: {followData}", $"{{{ex.StackTrace}}}", fllwsPostLogFilePath);
             return NotFound();
         }
         catch (Exception e)
