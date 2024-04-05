@@ -65,6 +65,7 @@
             // Checks authorization
             if (NotReqFromSimulator(Request))
             {
+                CustomMeters.IncrementApiRequestsErrorCounter();
                 return StatusCode(403, "You are not authorized to use this resource!");
             }
 
@@ -77,6 +78,7 @@
                 {
                     latestProcessedCommandId = -1;
                 }
+                CustomMeters.IncrementApiRequestsSuccessCounter();
                 return Ok(new { latest = latestProcessedCommandId });
             }
             catch (Exception ex)
@@ -85,6 +87,7 @@
 
                 // Handle exception appropriately, e.g., log it
                 Console.WriteLine("Error occurred while getting latest id: " + ex.Message);
+                CustomMeters.IncrementApiRequestsErrorCounter();
                 return StatusCode(500, "Internal server error");
             }
         }
@@ -99,6 +102,7 @@
             // Checks authorization
             if (NotReqFromSimulator(Request))
             {
+                CustomMeters.IncrementApiRequestsErrorCounter();
                 return StatusCode(403, "You are not authorized to use this resource");
             }
             
@@ -111,10 +115,16 @@
             var result = await _userManager.CreateAsync(user, data.pwd);
 
 
-            if (result.Succeeded) return StatusCode(204,"");
+            if (result.Succeeded)
+            {
+                CustomMeters.IncrementApiRequestsSuccessCounter();
+                return StatusCode(204,"");
+            }
 
             await LogRequest(data.ToString(), StringifyIdentityResultErrors(result), registerLogFilePath);
-
+            
+            CustomMeters.IncrementApiRequestsErrorCounter();
+            
             return BadRequest($"{result.Errors.ToList()}");
         }
 
@@ -127,6 +137,7 @@
             // Checks authorization
             if (NotReqFromSimulator(Request))
             {
+                CustomMeters.IncrementApiRequestsErrorCounter();
                 return StatusCode(403, "You are not authorized to use this resource");
             }
             
@@ -152,11 +163,16 @@
                         cheep.Text, cheep.TimeStamp));
                 }
                 
+                CustomMeters.IncrementApiRequestsSuccessCounter();
+                
                 return Ok(lst);
             }
             catch (Exception ex)
             {
                 await LogRequest($"{{Latest = {latest}, No = {no}}}", $"{{{ex.Message}}}", msgsGetLogFilePath);
+                
+                CustomMeters.IncrementApiRequestsErrorCounter();
+                
                 return NotFound();
             }
         }
@@ -171,6 +187,7 @@
             // Checks authorization
             if (NotReqFromSimulator(Request))
             {
+                CustomMeters.IncrementApiRequestsErrorCounter();
                 return StatusCode(403, "You are not authorized to use this resource");
             }
             
@@ -193,12 +210,15 @@
                     formattedCheeps.Add(new CheepViewModelApi(username, cheep.Text, cheep.TimeStamp));
                 }
                 
+                CustomMeters.IncrementApiRequestsSuccessCounter();
                 return Ok(formattedCheeps);
 
             }
             catch (Exception ex)
             {
                 await LogRequest($"{{User = {username}, Latest = {latest}, No = {no}}}", $"{{{ex.Message}}}", msgsPrivateGetLogFilePath);
+                
+                CustomMeters.IncrementApiRequestsErrorCounter();
                 return NotFound();
             }
         }
@@ -212,6 +232,7 @@
             // Checks authorization
             if (NotReqFromSimulator(Request))
             {
+                CustomMeters.IncrementApiRequestsErrorCounter();
                 return StatusCode(403, "You are not authorized to use this resource");
             }
 
@@ -225,13 +246,16 @@
                 var result = await _cheepRepository.AddCreateCheepAsync(cheep);
                 
                 await Update_Latest(latest);
+                
+                CustomMeters.IncrementApiRequestsSuccessCounter();
                 return StatusCode(204,"");
                 
             }
             catch (Exception ex)
             {
                 await LogRequest(msgsdata.ToString(), $"{{{ex.Message}}}", msgsPostLogFilePath);
-
+                
+                CustomMeters.IncrementApiRequestsErrorCounter();
                 return NotFound();
             }
            
@@ -247,6 +271,7 @@
             // Checks authorization
             if (NotReqFromSimulator(Request))
             {
+                CustomMeters.IncrementApiRequestsErrorCounter();
                 return StatusCode(403, "You are not authorized to use this resource");
             }
             
@@ -267,14 +292,17 @@
             catch (NullReferenceException ex)
             {
                 await SimpleLogRequest($"{{User = {username}, Latest = {latest}, No = {no}}}", $"{{{ex.Message}}}", fllwsGetLogFilePath);
+                CustomMeters.IncrementApiRequestsErrorCounter();
                 return NotFound();
             }
             catch (Exception ex)
             {
                 await LogRequest($"{{User = {username}, Latest = {latest}, No = {no}}}", $"{{{ex.StackTrace}}}", fllwsGetLogFilePath);
+                CustomMeters.IncrementApiRequestsErrorCounter();
                 return NotFound();
             }
-
+            
+            CustomMeters.IncrementApiRequestsSuccessCounter();
             return Ok(new { follows = output.Take(no) });
             
         }
@@ -287,6 +315,7 @@
             // Checks authorization
             if (NotReqFromSimulator(Request))
             {
+                CustomMeters.IncrementApiRequestsErrorCounter();
                 return StatusCode(403, "You are not authorized to use this resource");
             }
 
@@ -296,10 +325,12 @@
             // Check if exactly one action is specified
             if (string.IsNullOrEmpty(followData.follow) && string.IsNullOrEmpty(followData.unfollow))
             {
+                CustomMeters.IncrementApiRequestsErrorCounter();
                 return BadRequest("Only one of 'follow' xor 'unfollow' should be provided.");
             }
             if (!string.IsNullOrEmpty(followData.follow) && !string.IsNullOrEmpty(followData.unfollow))
             {
+                CustomMeters.IncrementApiRequestsErrorCounter();
                 return BadRequest("Either 'follow' xor 'unfollow' should be provided.");
             }
 
@@ -312,6 +343,8 @@
                     var followed = await _authorRepository.GetAuthorByNameAsync(followData.follow);
                     var follower = await _authorRepository.GetAuthorByNameAsync(username);
                     await _authorRepository.AddFollowAsync(follower.Id, followed.Id);
+                    
+                    CustomMeters.IncrementApiRequestsSuccessCounter();
                     return StatusCode(204, "");
                 }
 
@@ -322,20 +355,24 @@
                     var followed = await _authorRepository.GetAuthorByNameAsync(followData.unfollow);
                     var follower = await _authorRepository.GetAuthorByNameAsync(username);
                     await _authorRepository.RemoveFollowAsync(follower.Id, followed.Id);
+                    
+                    CustomMeters.IncrementApiRequestsSuccessCounter();
                     return StatusCode(204, "");
                 }
             }
             catch (NullReferenceException ex)
             {
                 await SimpleLogRequest($"User = {username}. Request body: {followData}", $"{{{ex.Message}}}", fllwsPostLogFilePath);
+                CustomMeters.IncrementApiRequestsErrorCounter();
                 return NotFound();
             }
             catch (Exception e)
             {
                 await LogRequest($"User = {username}. Request body: {followData}", $"{{{e.StackTrace}}}", fllwsPostLogFilePath);
+                CustomMeters.IncrementApiRequestsErrorCounter();
                 return NotFound();
             }
-            
+            CustomMeters.IncrementApiRequestsErrorCounter();
             return NotFound();
         }
 
