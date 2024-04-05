@@ -55,7 +55,7 @@
 
         //Returns the id of the latest command read from a text file and defaults to -1
         [HttpGet("latest")]
-        public IActionResult GetLatest()
+        public async Task<IActionResult> GetLatest()
         {
             
             // Checks authorization
@@ -68,7 +68,7 @@
             try
             {
                 if (!System.IO.File.Exists(LatestCommandIdFilePath)) return Ok(new { latest = -1 });
-                string fileContent = System.IO.File.ReadAllText(LatestCommandIdFilePath);
+                string fileContent = await System.IO.File.ReadAllTextAsync(LatestCommandIdFilePath);
                 if (!int.TryParse(fileContent, out var latestProcessedCommandId))
                 {
                     latestProcessedCommandId = -1;
@@ -77,7 +77,7 @@
             }
             catch (Exception ex)
             {
-                LogRequest("{}", $"{{{ex.Message}}}", latestLogFilePath);
+                await LogRequest("{}", $"{{{ex.Message}}}", latestLogFilePath);
 
                 // Handle exception appropriately, e.g., log it
                 Console.WriteLine("Error occurred while getting latest id: " + ex.Message);
@@ -96,7 +96,7 @@
                 return StatusCode(403, "You are not authorized to use this resource");
             }
             
-            Update_Latest(latest);
+            await Update_Latest(latest);
 
             var user = CreateUser();
 
@@ -107,7 +107,7 @@
 
             if (result.Succeeded) return StatusCode(204,"");
 
-            LogRequest(data.ToString(), StringifyIdentityResultErrors(result), registerLogFilePath);
+            await LogRequest(data.ToString(), StringifyIdentityResultErrors(result), registerLogFilePath);
 
             return BadRequest($"{result.Errors.ToList()}");
         }
@@ -124,7 +124,7 @@
             }
             
             
-            Update_Latest(latest);
+            await Update_Latest(latest);
 
             if (no < 0)
             {
@@ -149,7 +149,7 @@
             }
             catch (Exception ex)
             {
-                LogRequest($"{{Latest = {latest}, No = {no}}}", $"{{{ex.Message}}}", msgsGetLogFilePath);
+                await LogRequest($"{{Latest = {latest}, No = {no}}}", $"{{{ex.Message}}}", msgsGetLogFilePath);
                 return NotFound();
             }
         }
@@ -166,7 +166,7 @@
                 return StatusCode(403, "You are not authorized to use this resource");
             }
             
-            Update_Latest(latest);
+            await Update_Latest(latest);
             
             if (no < 0)
             {
@@ -177,10 +177,9 @@
             {
                 Author author = await _authorRepository.GetAuthorByNameAsync(username);
                 Guid authorId = author.Id;
-                ICollection<Cheep> cheeps = await _cheepRepository.GetCheepsFromAuthorByCountAsync(authorId, no);
-
+                ICollection<Cheep> cheeps = await _cheepRepository.GetCheepsFromAuthorByCountAsync(authorId, no); 
                 List<CheepViewModelApi> formattedCheeps = new();
-
+                
                 foreach (var cheep in cheeps)
                 {
                     formattedCheeps.Add(new CheepViewModelApi(username, cheep.Text, cheep.TimeStamp));
@@ -191,7 +190,7 @@
             }
             catch (Exception ex)
             {
-                LogRequest($"{{User = {username}, Latest = {latest}, No = {no}}}", $"{{{ex.Message}}}", msgsPrivateGetLogFilePath);
+                await LogRequest($"{{User = {username}, Latest = {latest}, No = {no}}}", $"{{{ex.Message}}}", msgsPrivateGetLogFilePath);
                 return NotFound();
             }
         }
@@ -215,13 +214,13 @@
                 
                 var result = await _cheepRepository.AddCreateCheepAsync(cheep);
                 
-                Update_Latest(latest);
+                await Update_Latest(latest);
                 return StatusCode(204,"");
                 
             }
             catch (Exception ex)
             {
-                LogRequest(msgsdata.ToString(), $"{{{ex.Message}}}", msgsPostLogFilePath);
+                await LogRequest(msgsdata.ToString(), $"{{{ex.Message}}}", msgsPostLogFilePath);
 
                 return NotFound();
             }
@@ -240,7 +239,7 @@
                 return StatusCode(403, "You are not authorized to use this resource");
             }
             
-            Update_Latest(latest);
+            await Update_Latest(latest);
             var output = new List<string>();
 
             try
@@ -254,9 +253,14 @@
                 }
 
             }
+            catch (NullReferenceException ex)
+            {
+                await SimpleLogRequest($"{{User = {username}, Latest = {latest}, No = {no}}}", $"{{{ex.Message}}}", fllwsGetLogFilePath);
+                return NotFound();
+            }
             catch (Exception ex)
             {
-                LogRequest($"{{User = {username}, Latest = {latest}, No = {no}}}", $"{{{ex.Message}}}", fllwsGetLogFilePath);
+                await LogRequest($"{{User = {username}, Latest = {latest}, No = {no}}}", $"{{{ex.StackTrace}}}", fllwsGetLogFilePath);
                 return NotFound();
             }
 
@@ -275,7 +279,7 @@
             }
 
             
-            Update_Latest(latest);
+            await Update_Latest(latest);
 
             // Check if exactly one action is specified
             if (string.IsNullOrEmpty(followData.follow) && string.IsNullOrEmpty(followData.unfollow))
@@ -305,11 +309,17 @@
                     return StatusCode(204, "");
                 }
             }
-            catch (Exception ex)
+            catch (NullReferenceException ex)
             {
-                LogRequest($"User = {username}. Request body: {followData}", $"{{{ex.Message}}}", fllwsPostLogFilePath);
+                await SimpleLogRequest($"User = {username}. Request body: {followData}", $"{{{ex.Message}}}", fllwsPostLogFilePath);
                 return NotFound();
             }
+            catch (Exception e)
+            {
+                await LogRequest($"User = {username}. Request body: {followData}", $"{{{e.StackTrace}}}", fllwsPostLogFilePath);
+                return NotFound();
+            }
+            
             return NotFound();
         }
 
@@ -398,6 +408,16 @@
             }
         }
 
+        private async Task SimpleLogRequest(string data, string errors, string logFilePath)
+        {
+            // format everything
+            string logtext = $"{data}\n{errors}\n\n";
+
+            await using  (StreamWriter writer = new StreamWriter(logFilePath, true))
+            {
+                await writer.WriteAsync(logtext);
+            }
+        }
 
         private async Task LogRequest(string data, string errors, string logFilePath)
         {
