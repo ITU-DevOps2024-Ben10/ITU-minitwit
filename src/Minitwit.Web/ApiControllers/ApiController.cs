@@ -5,6 +5,7 @@
     using Minitwit.Web.Models;
     using MySqlX.XDevAPI.Common;
     using System.Text;
+    using Minitwit.Infrastructure.Middleware;
     using static Minitwit.Web.ApiControllers.ApiController;
     using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -57,6 +58,9 @@
         [HttpGet("latest")]
         public async Task<IActionResult> GetLatest()
         {
+            // incrementing meters
+            CustomMeters.IncrementApiRequestsCounter();
+            
             
             // Checks authorization
             if (NotReqFromSimulator(Request))
@@ -89,6 +93,8 @@
         [HttpPost("register")]
         public async Task<IActionResult> RegisterUser([FromQuery] int latest, [FromBody] RegisterUserData data)
         {
+            CustomMeters.IncrementApiRequestsCounter();
+            CustomMeters.IncrementRegisterUserCounter();
             
             // Checks authorization
             if (NotReqFromSimulator(Request))
@@ -116,6 +122,7 @@
         [HttpGet("msgs")]
         public async Task<IActionResult> GetMessagesFromPublicTimeline([FromQuery] int latest, [FromQuery] int no = 100)
         {
+            CustomMeters.IncrementApiRequestsCounter();
             
             // Checks authorization
             if (NotReqFromSimulator(Request))
@@ -159,6 +166,7 @@
         [HttpGet("msgs/{username}")]
         public async Task<IActionResult> GetUserMessages([FromRoute] string username, [FromQuery] int latest, [FromQuery] int no = 100)
         {
+            CustomMeters.IncrementApiRequestsCounter();
             
             // Checks authorization
             if (NotReqFromSimulator(Request))
@@ -198,6 +206,8 @@
         [HttpPost("msgs/{username}")]
         public async Task<IActionResult> PostMessage([FromRoute] string username, [FromQuery] int latest, [FromBody] MsgsData msgsdata)
         {
+            CustomMeters.IncrementApiRequestsCounter();
+            CustomMeters.IncrementPostMessageCounter();
             
             // Checks authorization
             if (NotReqFromSimulator(Request))
@@ -232,6 +242,7 @@
         [HttpGet("fllws/{username}")]
         public async Task<IActionResult> GetUserFollowers([FromRoute] string username, [FromQuery] int latest, [FromQuery] int no = 100)
         {
+            CustomMeters.IncrementApiRequestsCounter();
             
             // Checks authorization
             if (NotReqFromSimulator(Request))
@@ -271,6 +282,7 @@
         [HttpPost("fllws/{username}")]
         public async Task<IActionResult> FollowUser([FromRoute] string username, [FromQuery] int latest, [FromBody] FollowData followData)
         {
+            CustomMeters.IncrementApiRequestsCounter();
             
             // Checks authorization
             if (NotReqFromSimulator(Request))
@@ -295,6 +307,8 @@
             {
                 if (!string.IsNullOrEmpty(followData.follow))
                 {
+                    CustomMeters.IncrementFollowUserCounter();
+                    
                     var followed = await _authorRepository.GetAuthorByNameAsync(followData.follow);
                     var follower = await _authorRepository.GetAuthorByNameAsync(username);
                     await _authorRepository.AddFollowAsync(follower.Id, followed.Id);
@@ -303,6 +317,8 @@
 
                 if (!string.IsNullOrEmpty(followData.unfollow))
                 {
+                    CustomMeters.IncrementUnfollowUserCounter();
+                    
                     var followed = await _authorRepository.GetAuthorByNameAsync(followData.unfollow);
                     var follower = await _authorRepository.GetAuthorByNameAsync(username);
                     await _authorRepository.RemoveFollowAsync(follower.Id, followed.Id);
