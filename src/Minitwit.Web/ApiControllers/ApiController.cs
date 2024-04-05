@@ -90,7 +90,10 @@ public class ApiController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> RegisterUser([FromQuery] int latest, [FromBody] RegisterUserData data)
     {
+        // Custom meter incrementing
         CustomMeters.IncrementApiRequestsCounter();
+        CustomMeters.IncrementRegisterUserCounter();
+        
         // Checks authorization
         if (NotReqFromSimulator(Request))
         {
@@ -110,7 +113,7 @@ public class ApiController : ControllerBase
         if (result.Succeeded) return StatusCode(204,"");
 
         LogRequest(data.ToString(), StringifyIdentityResultErrors(result), registerLogFilePath);
-
+        
         return BadRequest($"{result.Errors.ToList()}");
     }
 
@@ -118,7 +121,9 @@ public class ApiController : ControllerBase
     [HttpGet("msgs")]
     public IActionResult GetMessagesFromPublicTimeline([FromQuery] int latest, [FromQuery] int no = 100)
     {
+        // Custom meter incrementing
         CustomMeters.IncrementApiRequestsCounter();
+        
         // Checks authorization
         if (NotReqFromSimulator(Request))
         {
@@ -200,7 +205,10 @@ public class ApiController : ControllerBase
     [HttpPost("msgs/{username}")]
     public async Task<IActionResult> PostMessage([FromRoute] string username, [FromQuery] int latest, [FromBody] MsgsData msgsdata)
     {
+        // Custom meter incrementing
         CustomMeters.IncrementApiRequestsCounter();
+        CustomMeters.IncrementPostMessageCounter();
+        
         // Checks authorization
         if (NotReqFromSimulator(Request))
         {
