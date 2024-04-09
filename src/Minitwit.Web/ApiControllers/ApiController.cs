@@ -189,13 +189,6 @@ public class ApiController : ControllerBase
 
         try
         {
-
-            // Create user if it doesn't exist
-            if (await _authorRepository.GetAuthorByNameAsync(username) == null)
-            {
-                await CreateUser(username, $"{username}@user.com", "password");
-            }
-
             Author author = await _authorRepository.GetAuthorByNameAsync(username);
             Guid authorId = author.Id;
             ICollection<Cheep> cheeps = await _cheepRepository.GetCheepsFromAuthorByCountAsync(authorId, no);
@@ -234,13 +227,6 @@ public class ApiController : ControllerBase
 
         try
         {
-
-            // Create user if it doesn't exist
-            if (await _authorRepository.GetAuthorByNameAsync(username) == null)
-            {
-                await CreateUser(username, $"{username}@user.com", "password");
-            }
-
             Author user = await _authorRepository.GetAuthorByNameAsync(username);
 
             CreateCheep cheep = new CreateCheep(user.Id, msgsdata.content);
@@ -282,13 +268,6 @@ public class ApiController : ControllerBase
 
         try
         {
-
-            // Create user if it doesn't exist
-            if (await _authorRepository.GetAuthorByNameAsync(username) == null)
-            {
-                await CreateUser(username, $"{username}@user.com", "password");
-            }
-
             Author author = await _authorRepository.GetAuthorByNameAsync(username);
             var authorFollowers = await _authorRepository.GetFollowersByIdAsync(author.Id);
             for (int i = 0; i < authorFollowers.Count; i++)
@@ -345,22 +324,10 @@ public class ApiController : ControllerBase
 
         try
         {
-
-            // Create user if it doesn't exist
-            if (await _authorRepository.GetAuthorByNameAsync(username) == null)
-            {
-                await CreateUser(username, $"{username}@user.com", "password");
-            }
-
             if (!string.IsNullOrEmpty(followData.follow))
             {
                 CustomMeters.IncrementFollowUserCounter();
-
-                // Create user if it doesn't exist
-                if (await _authorRepository.GetAuthorByNameAsync(followData.follow) == null)
-                {
-                    await CreateUser(followData.follow, $"{followData.follow}@user.com", "password");
-                }
+                
                 var followed = await _authorRepository.GetAuthorByNameAsync(followData.follow);
                 var follower = await _authorRepository.GetAuthorByNameAsync(username);
                 await _authorRepository.AddFollowAsync(follower.Id, followed.Id);
@@ -372,12 +339,7 @@ public class ApiController : ControllerBase
             if (!string.IsNullOrEmpty(followData.unfollow))
             {
                 CustomMeters.IncrementUnfollowUserCounter();
-
-                // Create user if it doesn't exist
-                if (await _authorRepository.GetAuthorByNameAsync(followData.unfollow) == null)
-                {
-                    await CreateUser(followData.unfollow, $"{followData.unfollow}@user.com", "password");
-                }
+                
                 var followed = await _authorRepository.GetAuthorByNameAsync(followData.unfollow);
                 var follower = await _authorRepository.GetAuthorByNameAsync(username);
                 await _authorRepository.RemoveFollowAsync(follower.Id, followed.Id);
