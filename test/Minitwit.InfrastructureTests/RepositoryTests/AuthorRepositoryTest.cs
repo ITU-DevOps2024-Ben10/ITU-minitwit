@@ -98,11 +98,11 @@ public class AuthorRepositoryTest
     
     // ----- Get Author Methods ----- //
     [Fact]
-    public void GetAuthorById_ShouldReturnCorrectAuthor()
+    public async void GetAuthorById_ShouldReturnCorrectAuthor()
     {
         //Act
         Author expectedAuthor = _author2;
-        Author returnedAuthor = _authorRepository.GetAuthorById(_author2.Id);
+        Author returnedAuthor = await _authorRepository.GetAuthorByIdAsync(_author2.Id);
 
         //Assert
         Assert.Equal(expectedAuthor, returnedAuthor);
@@ -209,7 +209,7 @@ public class AuthorRepositoryTest
         await _authorRepository.AddFollowAsync(_author1.Id, _author2.Id);
         await _authorRepository.AddFollowAsync(_author1.Id, _author3.Id);
 
-        ICollection<Author> returnedFollowing = _authorRepository.GetFollowingById(_author1.Id);
+        ICollection<Author> returnedFollowing = await _authorRepository.GetFollowingByIdAsync(_author1.Id);
 
         //Assert
         Assert.Contains(_author2, returnedFollowing);
@@ -272,7 +272,7 @@ public class AuthorRepositoryTest
         await _authorRepository.AddFollowAsync(_author1.Id, _author2.Id);
         await _authorRepository.AddFollowAsync(_author1.Id, _author3.Id);
         
-        Assert.Equal(2, _authorRepository.GetFollowingById(_author1.Id).Count);
+        Assert.Equal(2, _authorRepository.GetFollowingByIdAsync(_author1.Id).Result.Count);
         Assert.Single(await _authorRepository.GetFollowersByIdAsync(_author2.Id));
         Assert.Single(await _authorRepository.GetFollowersByIdAsync(_author3.Id));
 
@@ -282,7 +282,7 @@ public class AuthorRepositoryTest
         await context.SaveChangesAsync();
         
         // Assert
-        Assert.Empty(_authorRepository.GetFollowingById(_author1.Id));
+        Assert.Empty(await _authorRepository.GetFollowingByIdAsync(_author1.Id));
         Assert.Empty(await _authorRepository.GetFollowersByIdAsync(_author2.Id));
         Assert.Empty(await _authorRepository.GetFollowersByIdAsync(_author3.Id));
     }
