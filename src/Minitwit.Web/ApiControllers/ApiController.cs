@@ -268,11 +268,8 @@ public class ApiController : ControllerBase
 
         try
         {
-            ICollection<Cheep> cheeps = await _cheepRepository.GetCheepsByCountAsync(no);
-            // Assuming cheeps is not null and has items.
-            IEnumerable<Guid> authorIds = cheeps.Select(c => c.AuthorId).Distinct();
-            ICollection<Author> authorFollowers = await _authorRepository.GetAuthorsByIdAsync(authorIds);
-            
+            Author author = await _authorRepository.GetAuthorByNameAsync(username);
+            var authorFollowers = await _authorRepository.GetFollowersByIdAsync(author.Id);
             for (int i = 0; i < authorFollowers.Count; i++)
             {
                 if (i > no - 1) break;
