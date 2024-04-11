@@ -29,7 +29,6 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
 
     public async Task<ICollection<Author>> GetAuthorsByIdAsync(IEnumerable<Guid> authorIds)
     {
-        // Assuming 'db' is your DbContext instance.
         return await db.Users
             .Where(a => authorIds.Contains(a.Id))
             .ToListAsync();
@@ -44,14 +43,12 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
     public async Task<Author> GetAuthorByNameAsync(string name)
     {
         Author? author = await db.Users.FirstOrDefaultAsync(a => a.UserName == name)!;
-            
         return author!;
     }
     
     public async Task<Author> GetAuthorByEmail(string email)
     {
         Author? author = await db.Users.FirstOrDefaultAsync(a => a.Email == email)!;
-            
         return author!;
     }
 
@@ -69,20 +66,18 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
         var cheeps = await GetCheepsByAuthorAsync(id);
         
         //Check that author has cheeps
-        if (cheeps == null || cheeps.Count == 0)
-        {
-            throw new Exception("This author has no cheeps");
-        }
+        if (cheeps == null || cheeps.Count == 0) throw new Exception("This author has no cheeps");
+        
 
-        if(page < 1){
-            page = 1;
-        }
+        if(page < 1) page = 1;
+        
 
         int pageSizeIndex = (page - 1) * PageSize;
 
         if (cheeps.Count < pageSizeIndex + PageSize)
             return cheeps.ToList().GetRange(pageSizeIndex, cheeps.Count - pageSizeIndex)
                 .OrderByDescending(c => c.TimeStamp).ToList();
+        
         if(cheeps.Count > PageSize) return cheeps.ToList().GetRange(pageSizeIndex,PageSize).OrderByDescending(c => c.TimeStamp).ToList();
         return cheeps.OrderByDescending(c => c.TimeStamp).ToList();
     }
@@ -91,10 +86,7 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
     {
         ICollection<Cheep> cheeps = new List<Cheep>(await GetCheepsByAuthorAsync(id));
         
-        foreach (Author author in await GetFollowingByIdAsync(id))
-        {
-            cheeps = cheeps.Concat(await GetCheepsByAuthorAsync(author.Id)).ToList();
-        }
+        foreach (Author author in await GetFollowingByIdAsync(id)) cheeps = cheeps.Concat(await GetCheepsByAuthorAsync(author.Id)).ToList();
 
         return cheeps;
     }
@@ -107,10 +99,8 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
         ICollection<Cheep> cheeps = new List<Cheep>();
 
         // Add all the users cheeps to the list without pagination
-        foreach (var cheepDto in await GetCheepsByAuthorAsync(id))
-        {
-            cheeps.Add(cheepDto);
-        }
+        foreach (var cheepDto in await GetCheepsByAuthorAsync(id)) cheeps.Add(cheepDto);
+        
 
         foreach (Author? follower in following)
         {
@@ -122,18 +112,13 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
             }
 
             //Add each cheep from the follower to the list
-            //TODO Try to find alternative to foreach
-            foreach (var cheepDto in followingCheeps)
-            {
-                cheeps.Add(cheepDto);
-            }
-
+            foreach (var cheepDto in followingCheeps) cheeps.Add(cheepDto);
+            
         }
         //Sort the cheeps according to timestamp, latest first
         cheeps = cheeps.OrderByDescending(c => c.TimeStamp).ToList();
 
         int pageSizeIndex = (page - 1) * PageSize;
-
         if (cheeps.Count < pageSizeIndex + PageSize) return cheeps.ToList<Cheep>().GetRange(pageSizeIndex, cheeps.Count - pageSizeIndex);
         if (cheeps.Count > PageSize) return cheeps.ToList<Cheep>().GetRange(pageSizeIndex, PageSize);
         return cheeps;
@@ -145,11 +130,8 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
     {
         ICollection<Cheep> cheeps = await GetCheepsByAuthorAsync(authorId);
         //Check that author has cheeps
-        if (cheeps.Count == 0 || cheeps == null)
-        {
-            return 0;
-        }
-
+        if (cheeps.Count == 0 || cheeps == null) return 0;
+        
         return cheeps.Count;
     }
     
@@ -267,10 +249,7 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
     public async Task RemoveUserByIdAsync(Guid id)
     {
         Author? user = await GetAuthorByIdAsync(id);
-        if (user == null)
-        {
-            throw new Exception("User not found");
-        }
+        if (user == null) throw new Exception("User not found");
         
         db.Users.Remove(user);
         await db.SaveChangesAsync();
@@ -279,16 +258,11 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
     public async Task RemoveReactionsByAuthorIdAsync(Guid id)
     {
         Author? user = await GetAuthorByIdAsync(id);
-        if (user == null)
-        {
-            throw new Exception("User not found");
-        }
+        if (user == null) throw new Exception("User not found");
         
         var reactions = await db.Reactions.Where(r => r.AuthorId == id).ToListAsync();
-        if (reactions != null)
-        {
-            db.Reactions.RemoveRange(reactions);
-        }
+        if (reactions != null) db.Reactions.RemoveRange(reactions);
+        
     }
     
     
