@@ -1,14 +1,14 @@
-using Minitwit.Core.Entities;
-using Minitwit.Infrastructure;
-using Minitwit.Web;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using Minitwit.Core.Entities;
 using Minitwit.Core.Repository;
+using Minitwit.Infrastructure;
 using Minitwit.Infrastructure.Repository;
+using Minitwit.Web;
 using Prometheus;
 
 /// <summary>
-/// This file is the entry point of the application. 
+/// This file is the entry point of the application.
 /// It is responsible for setting up the application and starting it.
 /// </summary>
 
@@ -26,13 +26,14 @@ ProgramOptions.AddIdendity(builder);
 ProgramOptions.AddDatabase(builder);
 
 //API Controllers
-builder.Services.AddControllers().AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
-    options.JsonSerializerOptions.PropertyNamingPolicy = null;
-    options.JsonSerializerOptions.IgnoreNullValues = true;
-});
-
+builder
+    .Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+        options.JsonSerializerOptions.PropertyNamingPolicy = null;
+        options.JsonSerializerOptions.IgnoreNullValues = true;
+    });
 
 // TODO put do this in ProgramOptions
 //Client that prometheus uses to report metric
@@ -46,14 +47,13 @@ builder.Services.AddScoped<ICheepService, MinitwitService>();
 builder.Services.AddScoped<IReactionRepository, ReactionRepository>();
 builder.Services.AddScoped<IFollowRepository, FollowRepository>();
 
-builder.Services.AddSession(
-    options =>
-    {
-        options.Cookie.Name = ".Minitwit.Web.Session";
-        options.IdleTimeout = TimeSpan.FromMinutes(10);
-        options.Cookie.HttpOnly = false;
-        options.Cookie.IsEssential = true;
-    });
+builder.Services.AddSession(options =>
+{
+    options.Cookie.Name = ".Minitwit.Web.Session";
+    options.IdleTimeout = TimeSpan.FromMinutes(10);
+    options.Cookie.HttpOnly = false;
+    options.Cookie.IsEssential = true;
+});
 
 WebApplication app = builder.Build();
 
@@ -61,11 +61,11 @@ using (IServiceScope scope = app.Services.CreateScope())
 {
     IServiceProvider services = scope.ServiceProvider;
     MinitwitDbContext context = services.GetRequiredService<MinitwitDbContext>();
-    
+
     try
     {
         context.Database.Migrate();
-    } 
+    }
     catch (Exception e)
     {
         Console.WriteLine(e);
@@ -89,6 +89,5 @@ app.UseAuthorization();
 app.UseSession();
 app.MapControllers();
 app.MapRazorPages();
-
 
 app.Run();

@@ -12,11 +12,7 @@ public class CheepCreateValidatorTest
     {
         Validator = new CheepCreateValidator();
 
-        TestAuthor = new Author
-        {
-            UserName = "TestUserName",
-            Email = "TestEmail",
-        };
+        TestAuthor = new Author { UserName = "TestUserName", Email = "TestEmail", };
     }
 
     [Fact]
@@ -34,7 +30,7 @@ public class CheepCreateValidatorTest
         //A valid cheep is 5 characters long. This one is 4.
         string text = "1234";
         CreateCheep createCheep = new CreateCheep(TestAuthor.Id, text);
-        
+
         Assert.False(Validator.Validate(createCheep).IsValid);
     }
 
@@ -43,7 +39,7 @@ public class CheepCreateValidatorTest
     {
         string text = new string('x', 200);
         CreateCheep createCheep = new CreateCheep(TestAuthor.Id, text);
-        
+
         Assert.False(Validator.Validate(createCheep).IsValid);
     }
 
@@ -52,8 +48,7 @@ public class CheepCreateValidatorTest
     {
         string text = "";
         CreateCheep createCheep = new CreateCheep(TestAuthor.Id, text);
-        
+
         Assert.False(Validator.Validate(createCheep).IsValid);
     }
 }
-

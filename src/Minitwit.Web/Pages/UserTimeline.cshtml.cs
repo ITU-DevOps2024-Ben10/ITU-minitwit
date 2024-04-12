@@ -1,9 +1,9 @@
-using Minitwit.Core.Entities;
-using Minitwit.Core.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Minitwit.Core.Entities;
+using Minitwit.Core.Repository;
 using Minitwit.Web;
 using Minitwit.Web.Models;
 
@@ -16,16 +16,18 @@ public class UserTimelineModel : PageModel
     private readonly IAuthorRepository _authorRepository;
     private readonly SignInManager<Author> _signInManager;
 
-
     public ICollection<CheepViewModel>? Cheeps { get; set; }
 
     public required Author? user { get; set; }
     public required int currentPage { get; set; }
     public required int totalPages { get; set; }
 
-
-
-    public UserTimelineModel(ICheepService service, SignInManager<Author> signInManager, UserManager<Author> userManager, IAuthorRepository authorRepository)
+    public UserTimelineModel(
+        ICheepService service,
+        SignInManager<Author> signInManager,
+        UserManager<Author> userManager,
+        IAuthorRepository authorRepository
+    )
     {
         _service = service;
         _userManager = userManager;
@@ -41,7 +43,6 @@ public class UserTimelineModel : PageModel
 
         return Page();
     }
-
 
     public async Task InitializeVariables(Author user, string author)
     {
@@ -63,11 +64,18 @@ public class UserTimelineModel : PageModel
     {
         try
         {
-            if (_signInManager.IsSignedIn(User) && signedInAuthor.UserName == timelineAuthor.UserName)
+            if (
+                _signInManager.IsSignedIn(User)
+                && signedInAuthor.UserName == timelineAuthor.UserName
+            )
             {
-                Cheeps = await _service.GetCheepsFromAuthorAndFollowingAsync(signedInAuthor.Id, page);
-                totalPages = await _authorRepository.GetPageCountByAuthorAndFollowing(signedInAuthor.Id);
-
+                Cheeps = await _service.GetCheepsFromAuthorAndFollowingAsync(
+                    signedInAuthor.Id,
+                    page
+                );
+                totalPages = await _authorRepository.GetPageCountByAuthorAndFollowing(
+                    signedInAuthor.Id
+                );
             }
             else
             {

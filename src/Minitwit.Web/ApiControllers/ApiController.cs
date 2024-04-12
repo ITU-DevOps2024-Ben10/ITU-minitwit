@@ -1,10 +1,10 @@
+using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Minitwit.Core.Entities;
 using Minitwit.Core.Repository;
 using Minitwit.Infrastructure.Middleware;
 using Minitwit.Web.Models;
-using System.Text;
 
 /*
  * TODO REMOVE THIS COMMENT WHEN THE API IS DONE
@@ -18,7 +18,6 @@ namespace Minitwit.Web.ApiControllers;
 [Route("api")]
 [ApiController]
 public class ApiController : ControllerBase
-
 {
     private readonly IAuthorRepository _authorRepository;
     private readonly ICheepRepository _cheepRepository;
@@ -26,12 +25,12 @@ public class ApiController : ControllerBase
     private readonly IUserStore<Author> _userStore;
     private readonly IUserEmailStore<Author> _emailStore;
 
-
     public ApiController(
         IAuthorRepository authorRepository,
         ICheepRepository cheepRepository,
         UserManager<Author> userManager,
-        IUserStore<Author> userStore)
+        IUserStore<Author> userStore
+    )
     {
         _authorRepository = authorRepository;
         _cheepRepository = cheepRepository;
@@ -39,7 +38,6 @@ public class ApiController : ControllerBase
         _userStore = userStore;
         _emailStore = GetEmailStore();
     }
-
 
     private const string LatestCommandIdFilePath = "./latest_processed_sim_action_id.txt";
     private const string latestLogFilePath = "./LogLatestGet.txt";
@@ -50,14 +48,12 @@ public class ApiController : ControllerBase
     private const string fllwsGetLogFilePath = "./LogFllwsGet.txt";
     private const string fllwsPostLogFilePath = "./LogFllwsPost.txt";
 
-
     //Returns the id of the latest command read from a text file and defaults to -1
     [HttpGet("latest")]
     public async Task<IActionResult> GetLatest()
     {
         // incrementing meters
         CustomMeters.IncrementApiRequestsCounter();
-
 
         // Checks authorization
         if (NotReqFromSimulator(Request))
@@ -66,10 +62,10 @@ public class ApiController : ControllerBase
             return StatusCode(403, "You are not authorized to use this resource!");
         }
 
-
         try
         {
-            if (!System.IO.File.Exists(LatestCommandIdFilePath)) return Ok(new { latest = -1 });
+            if (!System.IO.File.Exists(LatestCommandIdFilePath))
+                return Ok(new { latest = -1 });
             string fileContent = await System.IO.File.ReadAllTextAsync(LatestCommandIdFilePath);
             if (!int.TryParse(fileContent, out var latestProcessedCommandId))
             {
@@ -89,9 +85,11 @@ public class ApiController : ControllerBase
         }
     }
 
-
     [HttpPost("register")]
-    public async Task<IActionResult> RegisterUser([FromQuery] int latest, [FromBody] RegisterUserData data)
+    public async Task<IActionResult> RegisterUser(
+        [FromQuery] int latest,
+        [FromBody] RegisterUserData data
+    )
     {
         CustomMeters.IncrementApiRequestsCounter();
         CustomMeters.IncrementRegisterUserCounter();
@@ -107,23 +105,27 @@ public class ApiController : ControllerBase
 
         var result = await CreateUser(data.username, data.email, data.pwd);
 
-
-
         if (result.Succeeded)
         {
             CustomMeters.IncrementApiRequestsSuccessCounter();
             return StatusCode(204, "");
         }
 
-        await LogRequest(data.ToString(), StringifyIdentityResultErrors(result), registerLogFilePath);
-        
+        await LogRequest(
+            data.ToString(),
+            StringifyIdentityResultErrors(result),
+            registerLogFilePath
+        );
+
         CustomMeters.IncrementApiRequestsErrorCounter();
         return BadRequest($"{result.Errors.ToList()}");
     }
 
-
     [HttpGet("msgs")]
-    public async Task<IActionResult> GetMessagesFromPublicTimeline([FromQuery] int latest, [FromQuery] int no = 100)
+    public async Task<IActionResult> GetMessagesFromPublicTimeline(
+        [FromQuery] int latest,
+        [FromQuery] int no = 100
+    )
     {
         CustomMeters.IncrementApiRequestsCounter();
 
@@ -134,7 +136,6 @@ public class ApiController : ControllerBase
             return StatusCode(403, "You are not authorized to use this resource");
         }
 
-
         await Update_Latest(latest);
 
         if (no < 0)
@@ -142,34 +143,47 @@ public class ApiController : ControllerBase
             no = 100;
         }
 
-
         try
         {
             var cheeps = await _cheepRepository.GetCheepsByCountAsync(no);
-            var users = _authorRepository.GetAllAuthorsAsync().Result.Where(a => cheeps.Any(c => a.Id == c.AuthorId)).ToList();
+            var users = _authorRepository
+                .GetAllAuthorsAsync()
+                .Result.Where(a => cheeps.Any(c => a.Id == c.AuthorId))
+                .ToList();
 
             List<CheepViewModelApi> lst = new();
 
             foreach (var cheep in cheeps)
             {
-                lst.Add(new CheepViewModelApi(users.FirstOrDefault(a => a.Id == cheep.AuthorId)!.UserName,
-                    cheep.Text, cheep.TimeStamp));
+                lst.Add(
+                    new CheepViewModelApi(
+                        users.FirstOrDefault(a => a.Id == cheep.AuthorId)!.UserName,
+                        cheep.Text,
+                        cheep.TimeStamp
+                    )
+                );
             }
             CustomMeters.IncrementApiRequestsSuccessCounter();
             return Ok(lst);
         }
         catch (Exception ex)
         {
-            await LogRequest($"{{Latest = {latest}, No = {no}}}", $"{{{ex.StackTrace}}}", msgsGetLogFilePath);
+            await LogRequest(
+                $"{{Latest = {latest}, No = {no}}}",
+                $"{{{ex.StackTrace}}}",
+                msgsGetLogFilePath
+            );
             CustomMeters.IncrementApiRequestsErrorCounter();
             return NotFound();
         }
     }
 
-
-
     [HttpGet("msgs/{username}")]
-    public async Task<IActionResult> GetUserMessages([FromRoute] string username, [FromQuery] int latest, [FromQuery] int no = 100)
+    public async Task<IActionResult> GetUserMessages(
+        [FromRoute] string username,
+        [FromQuery] int latest,
+        [FromQuery] int no = 100
+    )
     {
         CustomMeters.IncrementApiRequestsCounter();
 
@@ -191,7 +205,10 @@ public class ApiController : ControllerBase
         {
             Author author = await _authorRepository.GetAuthorByNameAsync(username);
             Guid authorId = author.Id;
-            ICollection<Cheep> cheeps = await _cheepRepository.GetCheepsFromAuthorByCountAsync(authorId, no);
+            ICollection<Cheep> cheeps = await _cheepRepository.GetCheepsFromAuthorByCountAsync(
+                authorId,
+                no
+            );
             List<CheepViewModelApi> formattedCheeps = new();
 
             foreach (var cheep in cheeps)
@@ -200,19 +217,26 @@ public class ApiController : ControllerBase
             }
             CustomMeters.IncrementApiRequestsSuccessCounter();
             return Ok(formattedCheeps);
-
         }
         catch (Exception ex)
         {
-            await LogRequest($"{{User = {username}, Latest = {latest}, No = {no}}}", $"{{{ex.StackTrace}}}", msgsPrivateGetLogFilePath);
-            
+            await LogRequest(
+                $"{{User = {username}, Latest = {latest}, No = {no}}}",
+                $"{{{ex.StackTrace}}}",
+                msgsPrivateGetLogFilePath
+            );
+
             CustomMeters.IncrementApiRequestsErrorCounter();
             return NotFound();
         }
     }
 
     [HttpPost("msgs/{username}")]
-    public async Task<IActionResult> PostMessage([FromRoute] string username, [FromQuery] int latest, [FromBody] MsgsData msgsdata)
+    public async Task<IActionResult> PostMessage(
+        [FromRoute] string username,
+        [FromQuery] int latest,
+        [FromBody] MsgsData msgsdata
+    )
     {
         CustomMeters.IncrementApiRequestsCounter();
         CustomMeters.IncrementPostMessageCounter();
@@ -224,7 +248,6 @@ public class ApiController : ControllerBase
             return StatusCode(403, "You are not authorized to use this resource");
         }
 
-
         try
         {
             Author user = await _authorRepository.GetAuthorByNameAsync(username);
@@ -234,25 +257,25 @@ public class ApiController : ControllerBase
             var result = await _cheepRepository.AddCreateCheepAsync(cheep);
 
             await Update_Latest(latest);
-            
+
             CustomMeters.IncrementApiRequestsSuccessCounter();
             return StatusCode(204, "");
-
         }
         catch (Exception ex)
         {
             await LogRequest(msgsdata.ToString(), $"{{{ex.StackTrace}}}", msgsPostLogFilePath);
-            
+
             CustomMeters.IncrementApiRequestsErrorCounter();
             return NotFound();
         }
-
-
     }
 
-
     [HttpGet("fllws/{username}")]
-    public async Task<IActionResult> GetUserFollowers([FromRoute] string username, [FromQuery] int latest, [FromQuery] int no = 100)
+    public async Task<IActionResult> GetUserFollowers(
+        [FromRoute] string username,
+        [FromQuery] int latest,
+        [FromQuery] int no = 100
+    )
     {
         CustomMeters.IncrementApiRequestsCounter();
 
@@ -272,31 +295,42 @@ public class ApiController : ControllerBase
             var authorFollowers = await _authorRepository.GetFollowersByIdAsync(author.Id);
             for (int i = 0; i < authorFollowers.Count; i++)
             {
-                if (i > no - 1) break;
+                if (i > no - 1)
+                    break;
                 output.Add(authorFollowers.ElementAt(i).UserName);
             }
-
         }
         catch (NullReferenceException ex)
         {
-            await SimpleLogRequest($"{{User = {username}, Latest = {latest}, No = {no}}}", $"{{{ex.StackTrace}}}", fllwsGetLogFilePath);
+            await SimpleLogRequest(
+                $"{{User = {username}, Latest = {latest}, No = {no}}}",
+                $"{{{ex.StackTrace}}}",
+                fllwsGetLogFilePath
+            );
             CustomMeters.IncrementApiRequestsErrorCounter();
             return NotFound();
         }
         catch (Exception ex)
         {
-            await LogRequest($"{{User = {username}, Latest = {latest}, No = {no}}}", $"{{{ex.StackTrace}}}", fllwsGetLogFilePath);
+            await LogRequest(
+                $"{{User = {username}, Latest = {latest}, No = {no}}}",
+                $"{{{ex.StackTrace}}}",
+                fllwsGetLogFilePath
+            );
             CustomMeters.IncrementApiRequestsErrorCounter();
             return NotFound();
         }
-        
+
         CustomMeters.IncrementApiRequestsSuccessCounter();
         return Ok(new { follows = output.Take(no) });
-
     }
 
     [HttpPost("fllws/{username}")]
-    public async Task<IActionResult> FollowUser([FromRoute] string username, [FromQuery] int latest, [FromBody] FollowData followData)
+    public async Task<IActionResult> FollowUser(
+        [FromRoute] string username,
+        [FromQuery] int latest,
+        [FromBody] FollowData followData
+    )
     {
         CustomMeters.IncrementApiRequestsCounter();
 
@@ -306,7 +340,6 @@ public class ApiController : ControllerBase
             CustomMeters.IncrementApiRequestsErrorCounter();
             return StatusCode(403, "You are not authorized to use this resource");
         }
-
 
         await Update_Latest(latest);
 
@@ -327,11 +360,11 @@ public class ApiController : ControllerBase
             if (!string.IsNullOrEmpty(followData.follow))
             {
                 CustomMeters.IncrementFollowUserCounter();
-                
+
                 var followed = await _authorRepository.GetAuthorByNameAsync(followData.follow);
                 var follower = await _authorRepository.GetAuthorByNameAsync(username);
                 await _authorRepository.AddFollowAsync(follower.Id, followed.Id);
-                
+
                 CustomMeters.IncrementApiRequestsSuccessCounter();
                 return StatusCode(204, "");
             }
@@ -339,34 +372,39 @@ public class ApiController : ControllerBase
             if (!string.IsNullOrEmpty(followData.unfollow))
             {
                 CustomMeters.IncrementUnfollowUserCounter();
-                
+
                 var followed = await _authorRepository.GetAuthorByNameAsync(followData.unfollow);
                 var follower = await _authorRepository.GetAuthorByNameAsync(username);
                 await _authorRepository.RemoveFollowAsync(follower.Id, followed.Id);
-                
+
                 CustomMeters.IncrementApiRequestsSuccessCounter();
                 return StatusCode(204, "");
             }
         }
         catch (NullReferenceException ex)
         {
-            await SimpleLogRequest($"User = {username}. Request body: {followData}", $"{{{ex.StackTrace}}}", fllwsPostLogFilePath);
+            await SimpleLogRequest(
+                $"User = {username}. Request body: {followData}",
+                $"{{{ex.StackTrace}}}",
+                fllwsPostLogFilePath
+            );
             CustomMeters.IncrementApiRequestsErrorCounter();
             return NotFound();
         }
         catch (Exception e)
         {
-            await LogRequest($"User = {username}. Request body: {followData}", $"{{{e.StackTrace}}}", fllwsPostLogFilePath);
+            await LogRequest(
+                $"User = {username}. Request body: {followData}",
+                $"{{{e.StackTrace}}}",
+                fllwsPostLogFilePath
+            );
             CustomMeters.IncrementApiRequestsErrorCounter();
             return NotFound();
         }
-        
+
         CustomMeters.IncrementApiRequestsErrorCounter();
         return NotFound();
     }
-
-
-
 
     // Data containers
 
@@ -379,18 +417,31 @@ public class ApiController : ControllerBase
     {
         public string content { get; set; }
 
-        public string GetData() { return ToString(); }
-        public override string ToString() { return $"{{content: {content}}}"; }
+        public string GetData()
+        {
+            return ToString();
+        }
 
+        public override string ToString()
+        {
+            return $"{{content: {content}}}";
+        }
     }
+
     public class FollowData : IData
     {
         public string? follow { get; set; }
         public string? unfollow { get; set; }
 
-        public string GetData() { return ToString(); }
-        public override string ToString() { return $"{{follow: {follow}, unfollow: {unfollow}}}"; }
+        public string GetData()
+        {
+            return ToString();
+        }
 
+        public override string ToString()
+        {
+            return $"{{follow: {follow}, unfollow: {unfollow}}}";
+        }
     }
 
     public class RegisterUserData : IData
@@ -399,8 +450,15 @@ public class ApiController : ControllerBase
         public string email { get; set; }
         public string pwd { get; set; }
 
-        public string GetData() { return ToString(); }
-        public override string ToString() { return $"{{Username: {username}, Email: {email}, Password: {pwd}}}"; }
+        public string GetData()
+        {
+            return ToString();
+        }
+
+        public override string ToString()
+        {
+            return $"{{Username: {username}, Email: {email}, Password: {pwd}}}";
+        }
     }
 
     // Helper methods
@@ -409,7 +467,9 @@ public class ApiController : ControllerBase
     {
         if (!_userManager.SupportsUserEmail)
         {
-            throw new NotSupportedException("The default UI requires a user store with email support.");
+            throw new NotSupportedException(
+                "The default UI requires a user store with email support."
+            );
         }
         return (IUserEmailStore<Author>)_userStore;
     }
@@ -422,9 +482,11 @@ public class ApiController : ControllerBase
         }
         catch
         {
-            throw new InvalidOperationException($"Can't create an instance of 'Author'. " +
-                                                $"Ensure that 'Author' is not an abstract class and has a parameterless constructor, or alternatively " +
-                                                $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
+            throw new InvalidOperationException(
+                $"Can't create an instance of 'Author'. "
+                    + $"Ensure that 'Author' is not an abstract class and has a parameterless constructor, or alternatively "
+                    + $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml"
+            );
         }
     }
 
@@ -504,5 +566,4 @@ public class ApiController : ControllerBase
         stringBuilderError.Append("}");
         return stringBuilderError.ToString();
     }
-
 }
