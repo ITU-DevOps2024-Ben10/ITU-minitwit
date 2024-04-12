@@ -53,13 +53,6 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
         return author!;
     }
 
-    public async Task<Author> GetAuthorByEmail(string email)
-    {
-        Author? author = await db.Users.FirstOrDefaultAsync(a => a.Email == email)!;
-
-        return author!;
-    }
-
     // ----- Get Cheeps By Author and Page Methods ----- //
     public async Task<ICollection<Cheep>> GetCheepsByAuthorAsync(Guid id)
     {
