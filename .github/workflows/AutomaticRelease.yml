@@ -28,6 +28,12 @@
         - name: Determine Tag
           id: get_tag
           run: echo ::set-output name=TAG::$(git describe --tags --abbrev=0)
+
+        - name: Format and lint code
+          run: |
+            dotnet csharpier .
+            dotnet format -v detailed .
+
           
         - name: Build
           run: |
