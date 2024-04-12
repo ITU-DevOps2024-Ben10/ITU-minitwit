@@ -5,16 +5,11 @@ using Minitwit.Core.Repository;
 using Minitwit.Infrastructure.Middleware;
 using Minitwit.Web.Models;
 using System.Text;
+using Minitwit.Web.Models.Models.Api;
 
-/*
- * TODO REMOVE THIS COMMENT WHEN THE API IS DONE
- *
- * This is a rough draft of our API, logic its not perfect and it is not complete.
- * For now we're just experimenting with the API and how it should be structured.
- */
 namespace Minitwit.Web.ApiControllers;
 
-//Isn't needed as the endpoints we need to expose doesn't clash with any endpoints we already use
+
 [Route("api")]
 [ApiController]
 public class ApiController : ControllerBase
@@ -137,11 +132,7 @@ public class ApiController : ControllerBase
 
         await Update_Latest(latest);
 
-        if (no < 0)
-        {
-            no = 100;
-        }
-
+        if (no < 0) no = 100;
 
         try
         {
@@ -182,11 +173,8 @@ public class ApiController : ControllerBase
 
         await Update_Latest(latest);
 
-        if (no < 0)
-        {
-            no = 100;
-        }
-
+        if (no < 0) no = 100;
+        
         try
         {
             Author author = await _authorRepository.GetAuthorByNameAsync(username);
@@ -363,44 +351,6 @@ public class ApiController : ControllerBase
         
         CustomMeters.IncrementApiRequestsErrorCounter();
         return NotFound();
-    }
-
-
-
-
-    // Data containers
-
-    private interface IData
-    {
-        public string GetData();
-    }
-
-    public class MsgsData : IData
-    {
-        public string content { get; set; }
-
-        public string GetData() { return ToString(); }
-        public override string ToString() { return $"{{content: {content}}}"; }
-
-    }
-    public class FollowData : IData
-    {
-        public string? follow { get; set; }
-        public string? unfollow { get; set; }
-
-        public string GetData() { return ToString(); }
-        public override string ToString() { return $"{{follow: {follow}, unfollow: {unfollow}}}"; }
-
-    }
-
-    public class RegisterUserData : IData
-    {
-        public string username { get; set; }
-        public string email { get; set; }
-        public string pwd { get; set; }
-
-        public string GetData() { return ToString(); }
-        public override string ToString() { return $"{{Username: {username}, Email: {email}, Password: {pwd}}}"; }
     }
 
     // Helper methods
