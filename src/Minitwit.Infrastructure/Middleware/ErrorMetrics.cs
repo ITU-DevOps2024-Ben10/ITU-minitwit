@@ -55,13 +55,23 @@ public class ErrorMetrics
         PostMsgsForUserError.Inc();
     }
     
-    private static readonly Counter PostMsgError = Metrics.CreateCounter(
-        "minitwit_post_msg_error_total",
-        "Number of errors in posting a message"
+    private static readonly Counter GetFollowsForUserError = Metrics.CreateCounter(
+        "minitwit_get_followers_for_user_error_total",
+        "Number of errors in getting followers for a user"
     );
     
-    public static void IncrementPostMsgError()
+    public static void IncrementGetFollowersForUserError()
     {
-        PostMsgError.Inc();
+        GetFollowsForUserError.Inc();
+    }
+    
+    private static readonly Counter PostFollowsForUserError = Metrics.CreateCounter(
+        "minitwit_post_followers_for_user_error_total",
+        "Number of errors in posting followers for a user"
+    );
+    
+    public static void IncrementPostFollowsForUserError()
+    {
+        PostFollowsForUserError.Inc();
     }
 }
