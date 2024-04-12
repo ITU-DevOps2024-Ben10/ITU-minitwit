@@ -58,11 +58,11 @@ public class ApiController : ControllerBase
         // incrementing meters
         CustomMeters.IncrementApiRequestsCounter();
 
-
         // Checks authorization
         if (NotReqFromSimulator(Request))
         {
             CustomMeters.IncrementApiRequestsErrorCounter();
+            ErrorMetrics.IncrementGetLatestError();
             return StatusCode(403, "You are not authorized to use this resource!");
         }
 
@@ -85,6 +85,7 @@ public class ApiController : ControllerBase
             // Handle exception appropriately, e.g., log it
             Console.WriteLine("Error occurred while getting latest id: " + ex.Message);
             CustomMeters.IncrementApiRequestsErrorCounter();
+            ErrorMetrics.IncrementGetLatestError();
             return StatusCode(500, "Internal server error");
         }
     }
@@ -100,6 +101,7 @@ public class ApiController : ControllerBase
         if (NotReqFromSimulator(Request))
         {
             CustomMeters.IncrementApiRequestsErrorCounter();
+            ErrorMetrics.IncrementPostRegisterUserError();
             return StatusCode(403, "You are not authorized to use this resource");
         }
 
@@ -118,6 +120,7 @@ public class ApiController : ControllerBase
         await LogRequest(data.ToString(), StringifyIdentityResultErrors(result), registerLogFilePath);
         
         CustomMeters.IncrementApiRequestsErrorCounter();
+        ErrorMetrics.IncrementPostRegisterUserError();
         return BadRequest($"{result.Errors.ToList()}");
     }
 
@@ -131,6 +134,7 @@ public class ApiController : ControllerBase
         if (NotReqFromSimulator(Request))
         {
             CustomMeters.IncrementApiRequestsErrorCounter();
+            ErrorMetrics.IncrementGetMsgsError();
             return StatusCode(403, "You are not authorized to use this resource");
         }
 
@@ -162,6 +166,7 @@ public class ApiController : ControllerBase
         {
             await LogRequest($"{{Latest = {latest}, No = {no}}}", $"{{{ex.StackTrace}}}", msgsGetLogFilePath);
             CustomMeters.IncrementApiRequestsErrorCounter();
+            ErrorMetrics.IncrementGetMsgsError();
             return NotFound();
         }
     }
@@ -177,6 +182,7 @@ public class ApiController : ControllerBase
         if (NotReqFromSimulator(Request))
         {
             CustomMeters.IncrementApiRequestsErrorCounter();
+            ErrorMetrics.IncrementGetMsgsForUserError();
             return StatusCode(403, "You are not authorized to use this resource");
         }
 
@@ -207,6 +213,7 @@ public class ApiController : ControllerBase
             await LogRequest($"{{User = {username}, Latest = {latest}, No = {no}}}", $"{{{ex.StackTrace}}}", msgsPrivateGetLogFilePath);
             
             CustomMeters.IncrementApiRequestsErrorCounter();
+            ErrorMetrics.IncrementGetMsgsForUserError();
             return NotFound();
         }
     }
@@ -221,9 +228,9 @@ public class ApiController : ControllerBase
         if (NotReqFromSimulator(Request))
         {
             CustomMeters.IncrementApiRequestsErrorCounter();
+            ErrorMetrics.IncrementPostMsgError();
             return StatusCode(403, "You are not authorized to use this resource");
         }
-
 
         try
         {
@@ -237,17 +244,15 @@ public class ApiController : ControllerBase
             
             CustomMeters.IncrementApiRequestsSuccessCounter();
             return StatusCode(204, "");
-
         }
         catch (Exception ex)
         {
             await LogRequest(msgsdata.ToString(), $"{{{ex.StackTrace}}}", msgsPostLogFilePath);
             
             CustomMeters.IncrementApiRequestsErrorCounter();
+            ErrorMetrics.IncrementPostMsgError();
             return NotFound();
         }
-
-
     }
 
 
