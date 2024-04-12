@@ -228,7 +228,7 @@ public class ApiController : ControllerBase
         if (NotReqFromSimulator(Request))
         {
             CustomMeters.IncrementApiRequestsErrorCounter();
-            ErrorMetrics.IncrementPostMsgError();
+            ErrorMetrics.IncrementPostMsgsForUserError();
             return StatusCode(403, "You are not authorized to use this resource");
         }
 
@@ -250,7 +250,7 @@ public class ApiController : ControllerBase
             await LogRequest(msgsdata.ToString(), $"{{{ex.StackTrace}}}", msgsPostLogFilePath);
             
             CustomMeters.IncrementApiRequestsErrorCounter();
-            ErrorMetrics.IncrementPostMsgError();
+            ErrorMetrics.IncrementPostMsgsForUserError();
             return NotFound();
         }
     }
