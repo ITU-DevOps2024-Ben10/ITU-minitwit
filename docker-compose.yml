@@ -2,6 +2,7 @@ version: "3.8"
 volumes:
   prometheus-data: {}
   grafana-data: {}
+  elk_elasticsearch_data: {}
 
 services:
   
@@ -39,10 +40,38 @@ services:
       - ./dashboards:/etc/grafana/provisioning/dashboards
     networks:
       - minitwit-network
+
+  elasticsearch:
+    image: "elastic/elasticsearch:latest"
+    environment:
+        - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+        - "discovery.type=single-node"
+    volumes:
+        - elk_elasticsearch_data:/usr/share/elasticsearch/data
+    networks:
+        - elk
+
+  kibana:
+    image: "elastic/kibana:latest"
+    environment:
+        elasticsearch.hosts: '["http://elasticsearch:9200"]'
+    networks:
+        - elk
+
+  filebeat:
+    image: "elastic/filebeat:latest"
+    user: root
+    volumes:
+        - ${ELK_DIR}/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+        - /var/lib/docker:/var/lib/docker:ro
+        - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+        - elk
     
   
 networks:
     minitwit-network:
         name: minitwit-network
+    elk:
         
 
