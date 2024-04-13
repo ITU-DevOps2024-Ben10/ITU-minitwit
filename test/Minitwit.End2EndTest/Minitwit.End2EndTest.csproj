@@ -23,4 +23,9 @@
     <Using Include="NUnit.Framework" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Minitwit.Infrastructure\Minitwit.Infrastructure.csproj" />
+    <ProjectReference Include="..\Test_Utilities\Test_Utilities.csproj" />
+  </ItemGroup>
+
 </Project>

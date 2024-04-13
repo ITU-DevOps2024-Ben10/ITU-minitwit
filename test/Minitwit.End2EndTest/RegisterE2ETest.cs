@@ -11,6 +11,7 @@ public class RegisterE2ETest : PageTest
     private IBrowser _browser;
     private IPage _page;
     
+    
     [SetUp]
     public async Task SetUpAsync()
     {
@@ -33,9 +34,15 @@ public class RegisterE2ETest : PageTest
         
          await _page.GetByPlaceholder("name@example.com").FillAsync("TestEmail@test.test");
          
-         await _page.TypeAsync("input[id='Input_Password']", "TestPassword");
-         await _page.TypeAsync("input[id=Input_ConfirmPassword]", "TestPassword");
+         await _page.FillAsync("input[id='Input_Password']", "TestPassword");
+         await _page.FillAsync("input[id=Input_ConfirmPassword]", "TestPassword");
          
+         await _page.ClickAsync("button[type=submit]");
+         
+         
+         await _page .WaitForNavigationAsync();
+         await Expect(_page).ToHaveURLAsync("http://localhost:8080/");
+
     }
 
     [TearDown]
