@@ -21,3 +21,19 @@ jobs:
         dotnet test test/Minitwit.CoreTests
         dotnet test test/Minitwit.InfrastructureTests
         dotnet test test/Minitwit.WebTests
+
+    - name: Format and lint code
+      run: |
+        dotnet new tool-manifest
+        dotnet tool install csharpier
+        dotnet csharpier .
+        dotnet format -v detailed .
+        echo "Code formatting and linting complete."
+
+    - name: Commit and push if needed
+      run: |
+        git config --global user.email "action@github.com"
+        git config --global user.name "GitHub Action"
+        git add -A
+        git diff --staged --quiet || git commit -m 'Automated code format and linting'
+        git push

@@ -31,6 +31,8 @@
 
         - name: Format and lint code
           run: |
+            dotnet new tool-manifest
+            dotnet tool install csharpier
             dotnet csharpier .
             dotnet format -v detailed .
 
