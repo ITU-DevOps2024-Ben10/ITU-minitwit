@@ -199,6 +199,12 @@ public class ApiController : ControllerBase
         
         try
         {
+            
+            if (await _authorRepository.GetAuthorByNameAsync(username) == null)
+            {
+                await CreateUser(username, $"{username}@user.com", "password");
+            }
+            
             Author author = await _authorRepository.GetAuthorByNameAsync(username);
             Guid authorId = author.Id;
             ICollection<Cheep> cheeps = await _cheepRepository.GetCheepsFromAuthorByCountAsync(
@@ -248,6 +254,12 @@ public class ApiController : ControllerBase
 
         try
         {
+            
+            if (await _authorRepository.GetAuthorByNameAsync(username) == null)
+            {
+                await CreateUser(username, $"{username}@user.com", "password");
+            }
+            
             Author user = await _authorRepository.GetAuthorByNameAsync(username);
 
             CreateCheep cheep = new CreateCheep(user.Id, msgsdata.content);
@@ -291,6 +303,12 @@ public class ApiController : ControllerBase
 
         try
         {
+            
+            if (await _authorRepository.GetAuthorByNameAsync(username) == null)
+            {
+                await CreateUser(username, $"{username}@user.com", "password");
+            }
+            
             Author author = await _authorRepository.GetAuthorByNameAsync(username);
             var authorFollowers = await _authorRepository.GetFollowersByIdAsync(author.Id);
             for (int i = 0; i < authorFollowers.Count; i++)
@@ -365,6 +383,11 @@ public class ApiController : ControllerBase
             if (!string.IsNullOrEmpty(followData.follow))
             {
                 CustomMeters.IncrementFollowUserCounter();
+                
+                if (await _authorRepository.GetAuthorByNameAsync(username) == null)
+                {
+                    await CreateUser(username, $"{username}@user.com", "password");
+                }
 
                 var followed = await _authorRepository.GetAuthorByNameAsync(followData.follow);
                 var follower = await _authorRepository.GetAuthorByNameAsync(username);
@@ -377,6 +400,11 @@ public class ApiController : ControllerBase
             if (!string.IsNullOrEmpty(followData.unfollow))
             {
                 CustomMeters.IncrementUnfollowUserCounter();
+                
+                if (await _authorRepository.GetAuthorByNameAsync(followData.unfollow) == null)
+                {
+                    await CreateUser(followData.unfollow, $"{followData.unfollow}@user.com", "password");
+                }
 
                 var followed = await _authorRepository.GetAuthorByNameAsync(followData.unfollow);
                 var follower = await _authorRepository.GetAuthorByNameAsync(username);
