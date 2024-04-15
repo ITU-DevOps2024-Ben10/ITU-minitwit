@@ -9,7 +9,6 @@ using Minitwit.Web.Models.Models.Api;
 
 namespace Minitwit.Web.ApiControllers;
 
-
 [Route("api")]
 [ApiController]
 public class ApiController : ControllerBase
@@ -138,7 +137,8 @@ public class ApiController : ControllerBase
 
         await Update_Latest(latest);
 
-        if (no < 0) no = 100;
+        if (no < 0)
+            no = 100;
 
         try
         {
@@ -195,16 +195,16 @@ public class ApiController : ControllerBase
 
         await Update_Latest(latest);
 
-        if (no < 0) no = 100;
-        
+        if (no < 0)
+            no = 100;
+
         try
         {
-            
             if (await _authorRepository.GetAuthorByNameAsync(username) == null)
             {
                 await CreateUser(username, $"{username}@user.com", "password");
             }
-            
+
             Author author = await _authorRepository.GetAuthorByNameAsync(username);
             Guid authorId = author.Id;
             ICollection<Cheep> cheeps = await _cheepRepository.GetCheepsFromAuthorByCountAsync(
@@ -254,12 +254,11 @@ public class ApiController : ControllerBase
 
         try
         {
-            
             if (await _authorRepository.GetAuthorByNameAsync(username) == null)
             {
                 await CreateUser(username, $"{username}@user.com", "password");
             }
-            
+
             Author user = await _authorRepository.GetAuthorByNameAsync(username);
 
             CreateCheep cheep = new CreateCheep(user.Id, msgsdata.content);
@@ -303,12 +302,11 @@ public class ApiController : ControllerBase
 
         try
         {
-            
             if (await _authorRepository.GetAuthorByNameAsync(username) == null)
             {
                 await CreateUser(username, $"{username}@user.com", "password");
             }
-            
+
             Author author = await _authorRepository.GetAuthorByNameAsync(username);
             var authorFollowers = await _authorRepository.GetFollowersByIdAsync(author.Id);
             for (int i = 0; i < authorFollowers.Count; i++)
@@ -383,7 +381,7 @@ public class ApiController : ControllerBase
             if (!string.IsNullOrEmpty(followData.follow))
             {
                 CustomMeters.IncrementFollowUserCounter();
-                
+
                 if (await _authorRepository.GetAuthorByNameAsync(username) == null)
                 {
                     await CreateUser(username, $"{username}@user.com", "password");
@@ -400,10 +398,14 @@ public class ApiController : ControllerBase
             if (!string.IsNullOrEmpty(followData.unfollow))
             {
                 CustomMeters.IncrementUnfollowUserCounter();
-                
+
                 if (await _authorRepository.GetAuthorByNameAsync(followData.unfollow) == null)
                 {
-                    await CreateUser(followData.unfollow, $"{followData.unfollow}@user.com", "password");
+                    await CreateUser(
+                        followData.unfollow,
+                        $"{followData.unfollow}@user.com",
+                        "password"
+                    );
                 }
 
                 var followed = await _authorRepository.GetAuthorByNameAsync(followData.unfollow);

@@ -275,7 +275,9 @@ public class AuthorRepositoryTest
         await _authorRepository.AddFollowAsync(_author1.Id, _author2.Id);
         await _authorRepository.AddFollowAsync(_author1.Id, _author3.Id);
 
-        ICollection<Author> author1Followers = await _authorRepository.GetFollowingByIdAsync(_author1.Id);
+        ICollection<Author> author1Followers = await _authorRepository.GetFollowingByIdAsync(
+            _author1.Id
+        );
 
         Assert.Equal(2, author1Followers.Count);
         Assert.Single(await _authorRepository.GetFollowersByIdAsync(_author2.Id));

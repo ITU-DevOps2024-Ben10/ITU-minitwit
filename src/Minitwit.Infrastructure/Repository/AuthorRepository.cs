@@ -30,9 +30,7 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
 
     public async Task<ICollection<Author>> GetAuthorsByIdAsync(IEnumerable<Guid> authorIds)
     {
-        return await db.Users
-            .Where(a => authorIds.Contains(a.Id))
-            .ToListAsync();
+        return await db.Users.Where(a => authorIds.Contains(a.Id)).ToListAsync();
     }
 
     public async Task<Author?> GetAuthorByIdAsync(Guid authorId)
@@ -46,7 +44,7 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
         Author? author = await db.Users.FirstOrDefaultAsync(a => a.UserName == name)!;
         return author!;
     }
-    
+
     public async Task<Author> GetAuthorByEmail(string email)
     {
         Author? author = await db.Users.FirstOrDefaultAsync(a => a.Email == email)!;
@@ -64,11 +62,11 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
         var cheeps = await GetCheepsByAuthorAsync(id);
 
         //Check that author has cheeps
-        if (cheeps == null || cheeps.Count == 0) throw new Exception("This author has no cheeps");
-        
+        if (cheeps == null || cheeps.Count == 0)
+            throw new Exception("This author has no cheeps");
 
-        if(page < 1) page = 1;
-        
+        if (page < 1)
+            page = 1;
 
         int pageSizeIndex = (page - 1) * PageSize;
 
@@ -107,8 +105,8 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
         ICollection<Cheep> cheeps = new List<Cheep>();
 
         // Add all the users cheeps to the list without pagination
-        foreach (var cheepDto in await GetCheepsByAuthorAsync(id)) cheeps.Add(cheepDto);
-        
+        foreach (var cheepDto in await GetCheepsByAuthorAsync(id))
+            cheeps.Add(cheepDto);
 
         foreach (Author? follower in following)
         {
@@ -143,8 +141,9 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
     {
         ICollection<Cheep> cheeps = await GetCheepsByAuthorAsync(authorId);
         //Check that author has cheeps
-        if (cheeps.Count == 0 || cheeps == null) return 0;
-        
+        if (cheeps.Count == 0 || cheeps == null)
+            return 0;
+
         return cheeps.Count;
     }
 
@@ -264,8 +263,9 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
     public async Task RemoveUserByIdAsync(Guid id)
     {
         Author? user = await GetAuthorByIdAsync(id);
-        if (user == null) throw new Exception("User not found");
-        
+        if (user == null)
+            throw new Exception("User not found");
+
         db.Users.Remove(user);
         await db.SaveChangesAsync();
     }
@@ -273,11 +273,12 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
     public async Task RemoveReactionsByAuthorIdAsync(Guid id)
     {
         Author? user = await GetAuthorByIdAsync(id);
-        if (user == null) throw new Exception("User not found");
-        
+        if (user == null)
+            throw new Exception("User not found");
+
         var reactions = await db.Reactions.Where(r => r.AuthorId == id).ToListAsync();
-        if (reactions != null) db.Reactions.RemoveRange(reactions);
-        
+        if (reactions != null)
+            db.Reactions.RemoveRange(reactions);
     }
 
     // ----- Save Context Method ----- //
