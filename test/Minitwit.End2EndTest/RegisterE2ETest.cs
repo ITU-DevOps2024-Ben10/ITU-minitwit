@@ -24,8 +24,8 @@ public class RegisterE2ETest : PageTest
         _playwright = await Microsoft.Playwright.Playwright.CreateAsync();
         _browser = await _playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
         {
-            Headless = false,
-            SlowMo = 2000
+            //Headless = false,
+            //SlowMo = 1000
         });
         _page = await _browser.NewPageAsync();
         
@@ -49,19 +49,19 @@ public class RegisterE2ETest : PageTest
          
          await _page .WaitForURLAsync(_publicUrl);
          await Expect(_page).ToHaveURLAsync(_publicUrl);
-    }
-    [Test]
-    public async Task MakeCheepUsingRegisteredUser()
-    {
+    //}
+    //[Test]
+    //public async Task MakeCheepUsingRegisteredUser()
+    //{
         await _page.GotoAsync(_publicUrl);
         
         await Expect(_page.GetByRole(AriaRole.Heading, new () 
             {Name = "What's on your mind " + _user["username"] + "?"})).ToBeVisibleAsync();
         
-        await Expect(Page.GetByText("Write your text here")).ToBeVisibleAsync();
+        await Expect(_page.GetByRole(AriaRole.Textbox, new () {Name = ""})).ToBeVisibleAsync();
         
-        await Page.GetByLabel("Write your text here").FillAsync(_user["CheepText"]);
-        await Page.GetByRole(AriaRole.Button, new() { Name = "Cheep" }).ClickAsync();
+        await _page.GetByLabel("Text").FillAsync(_user["CheepText"]);
+        await _page.GetByRole(AriaRole.Button, new() { Name = "Cheep" }).ClickAsync();
         
         await Expect(_page).ToHaveURLAsync(_publicUrl + _user["username"]);
         
@@ -69,45 +69,39 @@ public class RegisterE2ETest : PageTest
             .ToBeVisibleAsync();
         await Expect(_page.GetByText(_user["CheepText"])).ToBeVisibleAsync();
 
-    }
+    //}
 
-    [Test]
-    public async Task CheepShouldBeVisibleInPublic()
-    {
+    //[Test]
+    //public async Task CheepShouldBeVisibleInPublic()
+    //{
         await _page.GotoAsync(_publicUrl);
-        
         await Expect(_page.GetByText(_user["CheepText"])).ToBeVisibleAsync();
-    }
+    //}
 
-    [Test]
-    public async Task AboutMePageShouldBeAccessible()
-    {
+    //[Test]
+    //public async Task AboutMePageShouldBeAccessible()
+    //{
         await _page.GotoAsync(_aboutmeURL);
         await Expect(_page.GetByRole(AriaRole.Button, new() { Name = "Forget Me" })).ToBeVisibleAsync();
+        
+        _page.Dialog += async (_, dialog) =>
+        {
+            Assert.AreEqual("confirm", dialog.Type);
+            await dialog.AcceptAsync();
+        };
+        await _page.GotoAsync(_aboutmeURL);
+        await _page.GetByRole(AriaRole.Button, new() { Name = "Forget Me" }).ClickAsync();
+       
+        await Expect(_page).ToHaveURLAsync(_publicUrl);
 
     }
 
-    [TearDown]
+    [OneTimeTearDown]
     public async Task TearDownAsync()
     {
-        DeleteTestuser();
-        await _browser.CloseAsync();
-        _playwright.Dispose();
-    }
-    
-    //Helper methods
-
-    public async void DeleteTestuser()
-    {
-        await _page.GotoAsync(_aboutmeURL);
-        void Page_Dialog_EventHandler(object sender, IDialog dialog)
-         {
-            Console.WriteLine($"Dialog message: {dialog.Message}");
-            dialog.DismissAsync();
-            _page.Dialog -= Page_Dialog_EventHandler;
-         }
-        _page.Dialog += Page_Dialog_EventHandler;
-        await _page.GetByRole(AriaRole.Button, new() { Name = "Forget Me" }).ClickAsync();
+       
+       await _browser.CloseAsync();
+       _playwright.Dispose();
     }
 }
 //pwsh bin/Debug/net8.0/playwright.ps1 codegen {URL TO TEST ON}

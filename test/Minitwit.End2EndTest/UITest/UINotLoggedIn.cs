@@ -20,8 +20,8 @@ public class UiNotLoggedIn : PageTest
         _playwright = await Microsoft.Playwright.Playwright.CreateAsync();
         _browser = await _playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
         {
-            Headless = false,
-            SlowMo = 2000
+            //Headless = false,
+            //SlowMo = 2000
         });
         _page = await _browser.NewPageAsync();
         
@@ -89,7 +89,7 @@ public class UiNotLoggedIn : PageTest
     }
     
 
-    [TearDown]
+    [OneTimeTearDown]
     public async Task TearDownAsync()
     {
         await _browser.CloseAsync();
