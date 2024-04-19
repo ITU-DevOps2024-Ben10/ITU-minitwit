@@ -7,9 +7,9 @@ namespace Minitwit.End2EndTest.UITest;
 [TestFixture]
 public class UiNotLoggedIn : PageTest
 {
-    private IPlaywright _playwright;
-    private IBrowser _browser;
-    private IPage _page;
+    private IPlaywright? _playwright;
+    private IBrowser? _browser;
+    private IPage? _page;
     private readonly string _publicUrl = "http://localhost:8080/";
     private readonly string _registerUrl = "http://localhost:8080/Identity/Account/Register";
     private readonly string _loginUrl = "http://localhost:8080/Identity/Account/Login";
@@ -30,7 +30,7 @@ public class UiNotLoggedIn : PageTest
     [Test]
     public async Task CheckPublicTimeline()
     {
-            await _page.GotoAsync(_publicUrl);
+            await _page!.GotoAsync(_publicUrl);
             
             //Check Navbar
             await Expect(_page.GetByRole(AriaRole.Link, new() { Name = "Public Timeline" })).ToBeVisibleAsync();
@@ -48,7 +48,7 @@ public class UiNotLoggedIn : PageTest
     [Test]
     public async Task CheckNavBarReRouting()
     {
-        await _page.GotoAsync(_publicUrl);
+        await _page!.GotoAsync(_publicUrl);
 
         await _page.GetByRole(AriaRole.Link, new() { Name = "Login" }).ClickAsync();
         await Expect(_page).ToHaveURLAsync(_loginUrl);
@@ -63,7 +63,7 @@ public class UiNotLoggedIn : PageTest
     [Test]
     public async Task CheckRegister()
     {
-        await _page.GotoAsync(_registerUrl);
+        await _page!.GotoAsync(_registerUrl);
         
         await Expect( _page.GetByRole(AriaRole.Link, new() { Name = "Register" })).ToBeVisibleAsync();
         
@@ -79,7 +79,7 @@ public class UiNotLoggedIn : PageTest
     [Test]
     public async Task CheckLogin()
     {
-        await _page.GotoAsync(_loginUrl);
+        await _page!.GotoAsync(_loginUrl);
         
         await Expect (_page.GetByRole(AriaRole.Link, new() { Name = "Login" })).ToBeVisibleAsync();
         await Expect (_page.GetByRole(AriaRole.Heading, new() { Name = "Log in", Exact = true })).ToBeVisibleAsync();
@@ -92,7 +92,7 @@ public class UiNotLoggedIn : PageTest
     [OneTimeTearDown]
     public async Task TearDownAsync()
     {
-        await _browser.CloseAsync();
-        _playwright.Dispose();
+        await _browser!.CloseAsync();
+        _playwright!.Dispose();
     }
 }
