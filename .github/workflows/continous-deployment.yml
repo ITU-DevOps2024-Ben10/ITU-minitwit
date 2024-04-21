@@ -32,7 +32,7 @@ jobs:
       - name: Test minitwit
         run: |
           docker run -d --rm ${{ secrets.DOCKER_USERNAME }}/minitwitimage:latest
-
+      
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh/
