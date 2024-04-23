@@ -46,14 +46,10 @@ public class ApiController : ControllerBase
     [HttpGet("latest")]
     public async Task<IActionResult> GetLatest()
     {
-        // incrementing meters
-        CustomMeters.IncrementApiRequestsCounter();
 
         // Checks authorization
         if (NotReqFromSimulator(Request))
         {
-            CustomMeters.IncrementApiRequestsErrorCounter();
-            ErrorMetrics.IncrementGetLatestError();
             return StatusCode(403, "You are not authorized to use this resource!");
         }
 
@@ -66,17 +62,12 @@ public class ApiController : ControllerBase
             {
                 latestProcessedCommandId = -1;
             }
-            CustomMeters.IncrementApiRequestsSuccessCounter();
             return Ok(new { latest = latestProcessedCommandId });
         }
         catch (Exception ex)
         {
             await LogRequest("{}", $"{{{ex.StackTrace}}}", latestLogFilePath);
-
-            // Handle exception appropriately, e.g., log it
-            Console.WriteLine("Error occurred while getting latest id: " + ex.Message);
-            CustomMeters.IncrementApiRequestsErrorCounter();
-            ErrorMetrics.IncrementGetLatestError();
+            
             return StatusCode(500, "Internal server error");
         }
     }
@@ -87,14 +78,10 @@ public class ApiController : ControllerBase
         [FromBody] RegisterUserData data
     )
     {
-        CustomMeters.IncrementApiRequestsCounter();
-        CustomMeters.IncrementRegisterUserCounter();
 
         // Checks authorization
         if (NotReqFromSimulator(Request))
         {
-            CustomMeters.IncrementApiRequestsErrorCounter();
-            ErrorMetrics.IncrementPostRegisterUserError();
             return StatusCode(403, "You are not authorized to use this resource");
         }
 
@@ -104,7 +91,6 @@ public class ApiController : ControllerBase
 
         if (result.Succeeded)
         {
-            CustomMeters.IncrementApiRequestsSuccessCounter();
             return StatusCode(204, "");
         }
 
@@ -113,9 +99,7 @@ public class ApiController : ControllerBase
             StringifyIdentityResultErrors(result),
             registerLogFilePath
         );
-
-        CustomMeters.IncrementApiRequestsErrorCounter();
-        ErrorMetrics.IncrementPostRegisterUserError();
+        
         return BadRequest($"{result.Errors.ToList()}");
     }
 
@@ -125,13 +109,9 @@ public class ApiController : ControllerBase
         [FromQuery] int no = 100
     )
     {
-        CustomMeters.IncrementApiRequestsCounter();
-
         // Checks authorization
         if (NotReqFromSimulator(Request))
         {
-            CustomMeters.IncrementApiRequestsErrorCounter();
-            ErrorMetrics.IncrementGetMsgsError();
             return StatusCode(403, "You are not authorized to use this resource");
         }
 
@@ -160,7 +140,6 @@ public class ApiController : ControllerBase
                     )
                 );
             }
-            CustomMeters.IncrementApiRequestsSuccessCounter();
             return Ok(lst);
         }
         catch (Exception ex)
@@ -170,8 +149,6 @@ public class ApiController : ControllerBase
                 $"{{{ex.StackTrace}}}",
                 msgsGetLogFilePath
             );
-            CustomMeters.IncrementApiRequestsErrorCounter();
-            ErrorMetrics.IncrementGetMsgsError();
             return NotFound();
         }
     }
@@ -183,13 +160,9 @@ public class ApiController : ControllerBase
         [FromQuery] int no = 100
     )
     {
-        CustomMeters.IncrementApiRequestsCounter();
-
         // Checks authorization
         if (NotReqFromSimulator(Request))
         {
-            CustomMeters.IncrementApiRequestsErrorCounter();
-            ErrorMetrics.IncrementGetMsgsForUserError();
             return StatusCode(403, "You are not authorized to use this resource");
         }
 
@@ -217,7 +190,6 @@ public class ApiController : ControllerBase
             {
                 formattedCheeps.Add(new CheepViewModelApi(username, cheep.Text, cheep.TimeStamp));
             }
-            CustomMeters.IncrementApiRequestsSuccessCounter();
             return Ok(formattedCheeps);
         }
         catch (Exception ex)
@@ -228,8 +200,6 @@ public class ApiController : ControllerBase
                 msgsPrivateGetLogFilePath
             );
 
-            CustomMeters.IncrementApiRequestsErrorCounter();
-            ErrorMetrics.IncrementGetMsgsForUserError();
             return NotFound();
         }
     }
@@ -241,14 +211,10 @@ public class ApiController : ControllerBase
         [FromBody] MsgsData msgsdata
     )
     {
-        CustomMeters.IncrementApiRequestsCounter();
-        CustomMeters.IncrementPostMessageCounter();
 
         // Checks authorization
         if (NotReqFromSimulator(Request))
         {
-            CustomMeters.IncrementApiRequestsErrorCounter();
-            ErrorMetrics.IncrementPostMsgsForUserError();
             return StatusCode(403, "You are not authorized to use this resource");
         }
 
@@ -266,16 +232,13 @@ public class ApiController : ControllerBase
             var result = await _cheepRepository.AddCreateCheepAsync(cheep);
 
             await Update_Latest(latest);
-
-            CustomMeters.IncrementApiRequestsSuccessCounter();
+            
             return StatusCode(204, "");
         }
         catch (Exception ex)
         {
             await LogRequest(msgsdata.ToString(), $"{{{ex.StackTrace}}}", msgsPostLogFilePath);
-
-            CustomMeters.IncrementApiRequestsErrorCounter();
-            ErrorMetrics.IncrementPostMsgsForUserError();
+            
             return NotFound();
         }
     }
@@ -287,13 +250,9 @@ public class ApiController : ControllerBase
         [FromQuery] int no = 100
     )
     {
-        CustomMeters.IncrementApiRequestsCounter();
-
         // Checks authorization
         if (NotReqFromSimulator(Request))
         {
-            CustomMeters.IncrementApiRequestsErrorCounter();
-            ErrorMetrics.IncrementGetFollowersForUserError();
             return StatusCode(403, "You are not authorized to use this resource");
         }
 
@@ -323,8 +282,6 @@ public class ApiController : ControllerBase
                 $"{{{ex.StackTrace}}}",
                 fllwsGetLogFilePath
             );
-            CustomMeters.IncrementApiRequestsErrorCounter();
-            ErrorMetrics.IncrementGetFollowersForUserError();
             return NotFound();
         }
         catch (Exception ex)
@@ -334,12 +291,9 @@ public class ApiController : ControllerBase
                 $"{{{ex.StackTrace}}}",
                 fllwsGetLogFilePath
             );
-            CustomMeters.IncrementApiRequestsErrorCounter();
-            ErrorMetrics.IncrementGetFollowersForUserError();
             return NotFound();
         }
 
-        CustomMeters.IncrementApiRequestsSuccessCounter();
         return Ok(new { follows = output.Take(no) });
     }
 
@@ -350,13 +304,10 @@ public class ApiController : ControllerBase
         [FromBody] FollowData followData
     )
     {
-        CustomMeters.IncrementApiRequestsCounter();
 
         // Checks authorization
         if (NotReqFromSimulator(Request))
         {
-            CustomMeters.IncrementApiRequestsErrorCounter();
-            ErrorMetrics.IncrementPostFollowsForUserError();
             return StatusCode(403, "You are not authorized to use this resource");
         }
 
@@ -365,14 +316,10 @@ public class ApiController : ControllerBase
         // Check if exactly one action is specified
         if (string.IsNullOrEmpty(followData.follow) && string.IsNullOrEmpty(followData.unfollow))
         {
-            CustomMeters.IncrementApiRequestsErrorCounter();
-            ErrorMetrics.IncrementPostFollowsForUserError();
             return BadRequest("Only one of 'follow' xor 'unfollow' should be provided.");
         }
         if (!string.IsNullOrEmpty(followData.follow) && !string.IsNullOrEmpty(followData.unfollow))
         {
-            CustomMeters.IncrementApiRequestsErrorCounter();
-            ErrorMetrics.IncrementPostFollowsForUserError();
             return BadRequest("Either 'follow' xor 'unfollow' should be provided.");
         }
 
@@ -380,8 +327,6 @@ public class ApiController : ControllerBase
         {
             if (!string.IsNullOrEmpty(followData.follow))
             {
-                CustomMeters.IncrementFollowUserCounter();
-
                 if (await _authorRepository.GetAuthorByNameAsync(username) == null)
                 {
                     await CreateUser(username, $"{username}@user.com", "password");
@@ -391,14 +336,11 @@ public class ApiController : ControllerBase
                 var follower = await _authorRepository.GetAuthorByNameAsync(username);
                 await _authorRepository.AddFollowAsync(follower.Id, followed.Id);
 
-                CustomMeters.IncrementApiRequestsSuccessCounter();
                 return StatusCode(204, "");
             }
 
             if (!string.IsNullOrEmpty(followData.unfollow))
             {
-                CustomMeters.IncrementUnfollowUserCounter();
-
                 if (await _authorRepository.GetAuthorByNameAsync(followData.unfollow) == null)
                 {
                     await CreateUser(
@@ -412,7 +354,6 @@ public class ApiController : ControllerBase
                 var follower = await _authorRepository.GetAuthorByNameAsync(username);
                 await _authorRepository.RemoveFollowAsync(follower.Id, followed.Id);
 
-                CustomMeters.IncrementApiRequestsSuccessCounter();
                 return StatusCode(204, "");
             }
         }
@@ -423,8 +364,6 @@ public class ApiController : ControllerBase
                 $"{{{ex.StackTrace}}}",
                 fllwsPostLogFilePath
             );
-            CustomMeters.IncrementApiRequestsErrorCounter();
-            ErrorMetrics.IncrementPostFollowsForUserError();
             return NotFound();
         }
         catch (Exception e)
@@ -434,13 +373,9 @@ public class ApiController : ControllerBase
                 $"{{{e.StackTrace}}}",
                 fllwsPostLogFilePath
             );
-            CustomMeters.IncrementApiRequestsErrorCounter();
-            ErrorMetrics.IncrementPostFollowsForUserError();
             return NotFound();
         }
-
-        CustomMeters.IncrementApiRequestsErrorCounter();
-        ErrorMetrics.IncrementPostFollowsForUserError();
+        
         return NotFound();
     }
 
