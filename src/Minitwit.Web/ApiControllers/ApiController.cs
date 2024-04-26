@@ -205,12 +205,9 @@ public class ApiController : ControllerBase
                 authorId,
                 no
             );
-            List<CheepViewModelApi> formattedCheeps = new();
+            
+            var formattedCheeps = cheeps.Select(c => new CheepViewModelApi(username, c.Text, c.TimeStamp)).ToList();
 
-            foreach (var cheep in cheeps)
-            {
-                formattedCheeps.Add(new CheepViewModelApi(username, cheep.Text, cheep.TimeStamp));
-            }
             CustomMeters.IncrementApiRequestsSuccessCounter();
             return Ok(formattedCheeps);
         }
