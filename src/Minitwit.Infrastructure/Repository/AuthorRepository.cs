@@ -30,10 +30,7 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
 
     public async Task<ICollection<Author>> GetAuthorsByIdAsync(IEnumerable<Guid> authorIds)
     {
-        return await db.Users
-            .Where(a => authorIds.Contains(a.Id))
-            .AsNoTracking()
-            .ToListAsync();
+        return await db.Users.Where(a => authorIds.Contains(a.Id)).AsNoTracking().ToListAsync();
     }
 
     public async Task<Author?> GetAuthorByIdAsync(Guid authorId)
