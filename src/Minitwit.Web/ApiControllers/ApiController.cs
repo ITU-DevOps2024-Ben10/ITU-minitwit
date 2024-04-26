@@ -380,8 +380,13 @@ public class ApiController : ControllerBase
                     await CreateUser(username, $"{username}@user.com", "password");
                 }
 
-                var followed = await _authorRepository.GetAuthorByNameAsync(followData.follow);
-                var follower = await _authorRepository.GetAuthorByNameAsync(username);
+                var followedTask = _authorRepository.GetAuthorByNameAsync(followData.follow);
+                var followerTask = _authorRepository.GetAuthorByNameAsync(username);
+                await Task.WhenAll(followedTask, followerTask);
+
+                var followed = followedTask.Result;
+                var follower = followerTask.Result;
+                
                 await _authorRepository.AddFollowAsync(follower.Id, followed.Id);
 
                 CustomMeters.IncrementApiRequestsSuccessCounter();
@@ -401,8 +406,13 @@ public class ApiController : ControllerBase
                     );
                 }
 
-                var followed = await _authorRepository.GetAuthorByNameAsync(followData.unfollow);
-                var follower = await _authorRepository.GetAuthorByNameAsync(username);
+                var followedTask = _authorRepository.GetAuthorByNameAsync(followData.follow);
+                var followerTask = _authorRepository.GetAuthorByNameAsync(username);
+                await Task.WhenAll(followedTask, followerTask);
+
+                var followed = followedTask.Result;
+                var follower = followerTask.Result;
+                
                 await _authorRepository.RemoveFollowAsync(follower.Id, followed.Id);
 
                 CustomMeters.IncrementApiRequestsSuccessCounter();
