@@ -145,15 +145,15 @@ public class ApiController : ControllerBase
             var cheeps = await _cheepRepository.GetCheepsByCountAsync(no);
             var authorIds = cheeps.Select(c => c.AuthorId).Distinct();
             var users = await _authorRepository.GetAuthorsByIdAsync(authorIds);
-
-            var lst = cheeps
-                .Select(cheep => new CheepViewModelApi(
+    
+            var lst = cheeps.Select(
+                cheep => new CheepViewModelApi(
                     users.FirstOrDefault(a => a.Id == cheep.AuthorId)?.UserName ?? "Unknown",
                     cheep.Text,
                     cheep.TimeStamp
-                ))
-                .ToList();
-
+                )
+            ).ToList();
+            
             CustomMeters.IncrementApiRequestsSuccessCounter();
             return Ok(lst);
         }
@@ -205,10 +205,8 @@ public class ApiController : ControllerBase
                 authorId,
                 no
             );
-
-            var formattedCheeps = cheeps
-                .Select(c => new CheepViewModelApi(username, c.Text, c.TimeStamp))
-                .ToList();
+            
+            var formattedCheeps = cheeps.Select(c => new CheepViewModelApi(username, c.Text, c.TimeStamp)).ToList();
 
             CustomMeters.IncrementApiRequestsSuccessCounter();
             return Ok(formattedCheeps);
@@ -515,8 +513,8 @@ public class ApiController : ControllerBase
         {
             throw new InvalidOperationException(
                 $"Can't create an instance of 'Author'. "
-                    + $"Ensure that 'Author' is not an abstract class and has a parameterless constructor, or alternatively "
-                    + $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml"
+                + $"Ensure that 'Author' is not an abstract class and has a parameterless constructor, or alternatively "
+                + $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml"
             );
         }
     }
@@ -525,13 +523,9 @@ public class ApiController : ControllerBase
     {
         var user = CreateUser();
 
-        var setUserName = _userStore.SetUserNameAsync(user, username, CancellationToken.None);
-        var setEmail = _emailStore.SetEmailAsync(user, email, CancellationToken.None);
-
-        await Task.WhenAll(setUserName, setEmail);
-
+        await _userStore.SetUserNameAsync(user, username, CancellationToken.None);
+        await _emailStore.SetEmailAsync(user, email, CancellationToken.None);
         CustomMeters.IncrementRegisterUserCounter();
-
         return await _userManager.CreateAsync(user, password);
     }
 
