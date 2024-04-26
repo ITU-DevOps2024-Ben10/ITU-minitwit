@@ -143,23 +143,17 @@ public class ApiController : ControllerBase
         try
         {
             var cheeps = await _cheepRepository.GetCheepsByCountAsync(no);
-            var users = _authorRepository
-                .GetAllAuthorsAsync()
-                .Result.Where(a => cheeps.Any(c => a.Id == c.AuthorId))
-                .ToList();
-
-            List<CheepViewModelApi> lst = new();
-
-            foreach (var cheep in cheeps)
-            {
-                lst.Add(
-                    new CheepViewModelApi(
-                        users.FirstOrDefault(a => a.Id == cheep.AuthorId)!.UserName,
-                        cheep.Text,
-                        cheep.TimeStamp
-                    )
-                );
-            }
+            var authorIds = cheeps.Select(c => c.AuthorId).Distinct();
+            var users = await _authorRepository.GetAuthorsByIdAsync(authorIds);
+    
+            var lst = cheeps.Select(
+                cheep => new CheepViewModelApi(
+                    users.FirstOrDefault(a => a.Id == cheep.AuthorId)?.UserName ?? "Unknown",
+                    cheep.Text,
+                    cheep.TimeStamp
+                )
+            ).ToList();
+            
             CustomMeters.IncrementApiRequestsSuccessCounter();
             return Ok(lst);
         }
@@ -522,8 +516,8 @@ public class ApiController : ControllerBase
         {
             throw new InvalidOperationException(
                 $"Can't create an instance of 'Author'. "
-                    + $"Ensure that 'Author' is not an abstract class and has a parameterless constructor, or alternatively "
-                    + $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml"
+                + $"Ensure that 'Author' is not an abstract class and has a parameterless constructor, or alternatively "
+                + $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml"
             );
         }
     }

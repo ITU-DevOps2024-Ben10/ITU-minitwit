@@ -46,7 +46,7 @@ public class ProgramOptions
         string environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
         // Set up the database path
-        if (environmentName.Equals("Development"))
+        if (environmentName != null && environmentName.Equals("Development"))
         {
             string currentDirectory = Directory.GetCurrentDirectory();
             string dbPath;

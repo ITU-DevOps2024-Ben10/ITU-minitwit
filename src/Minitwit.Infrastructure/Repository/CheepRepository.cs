@@ -23,10 +23,10 @@ public class CheepRepository : BaseRepository, ICheepRepository
 
     public async Task<ICollection<Cheep>> GetCheepsByCountAsync(int count)
     {
-        //Use EF to get the specified count of cheeps from the database
         ICollection<Cheep> cheeps = await db
             .Cheeps.OrderByDescending(c => c.TimeStamp)
             .Take(count)
+            .AsNoTracking()
             .ToListAsync();
 
         return cheeps;
