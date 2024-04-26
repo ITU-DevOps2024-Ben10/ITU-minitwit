@@ -145,15 +145,15 @@ public class ApiController : ControllerBase
             var cheeps = await _cheepRepository.GetCheepsByCountAsync(no);
             var authorIds = cheeps.Select(c => c.AuthorId).Distinct();
             var users = await _authorRepository.GetAuthorsByIdAsync(authorIds);
-    
-            var lst = cheeps.Select(
-                cheep => new CheepViewModelApi(
+
+            var lst = cheeps
+                .Select(cheep => new CheepViewModelApi(
                     users.FirstOrDefault(a => a.Id == cheep.AuthorId)?.UserName ?? "Unknown",
                     cheep.Text,
                     cheep.TimeStamp
-                )
-            ).ToList();
-            
+                ))
+                .ToList();
+
             CustomMeters.IncrementApiRequestsSuccessCounter();
             return Ok(lst);
         }
@@ -382,7 +382,7 @@ public class ApiController : ControllerBase
 
                 var followed = await _authorRepository.GetAuthorByNameAsync(followData.follow);
                 var follower = await _authorRepository.GetAuthorByNameAsync(username);
-                
+
                 await _authorRepository.AddFollowAsync(follower.Id, followed.Id);
 
                 CustomMeters.IncrementApiRequestsSuccessCounter();
@@ -401,10 +401,10 @@ public class ApiController : ControllerBase
                         "password"
                     );
                 }
-                
+
                 var followed = await _authorRepository.GetAuthorByNameAsync(followData.unfollow);
                 var follower = await _authorRepository.GetAuthorByNameAsync(username);
-                    
+
                 await _authorRepository.RemoveFollowAsync(follower.Id, followed.Id);
 
                 CustomMeters.IncrementApiRequestsSuccessCounter();
@@ -517,8 +517,8 @@ public class ApiController : ControllerBase
         {
             throw new InvalidOperationException(
                 $"Can't create an instance of 'Author'. "
-                + $"Ensure that 'Author' is not an abstract class and has a parameterless constructor, or alternatively "
-                + $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml"
+                    + $"Ensure that 'Author' is not an abstract class and has a parameterless constructor, or alternatively "
+                    + $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml"
             );
         }
     }
@@ -526,14 +526,14 @@ public class ApiController : ControllerBase
     private async Task<IdentityResult> CreateUser(string username, string email, string password)
     {
         var user = CreateUser();
-        
+
         var setUserName = _userStore.SetUserNameAsync(user, username, CancellationToken.None);
         var setEmail = _emailStore.SetEmailAsync(user, email, CancellationToken.None);
 
         await Task.WhenAll(setUserName, setEmail);
-        
+
         CustomMeters.IncrementRegisterUserCounter();
-        
+
         return await _userManager.CreateAsync(user, password);
     }
 
