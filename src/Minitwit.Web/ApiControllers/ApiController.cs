@@ -205,8 +205,10 @@ public class ApiController : ControllerBase
                 authorId,
                 no
             );
-            
-            var formattedCheeps = cheeps.Select(c => new CheepViewModelApi(username, c.Text, c.TimeStamp)).ToList();
+
+            var formattedCheeps = cheeps
+                .Select(c => new CheepViewModelApi(username, c.Text, c.TimeStamp))
+                .ToList();
 
             CustomMeters.IncrementApiRequestsSuccessCounter();
             return Ok(formattedCheeps);
@@ -378,8 +380,13 @@ public class ApiController : ControllerBase
                     await CreateUser(username, $"{username}@user.com", "password");
                 }
 
-                var followed = await _authorRepository.GetAuthorByNameAsync(followData.follow);
-                var follower = await _authorRepository.GetAuthorByNameAsync(username);
+                var followedTask = _authorRepository.GetAuthorByNameAsync(followData.follow);
+                var followerTask = _authorRepository.GetAuthorByNameAsync(username);
+                await Task.WhenAll(followedTask, followerTask);
+
+                var followed = followedTask.Result;
+                var follower = followerTask.Result;
+                
                 await _authorRepository.AddFollowAsync(follower.Id, followed.Id);
 
                 CustomMeters.IncrementApiRequestsSuccessCounter();
@@ -398,9 +405,14 @@ public class ApiController : ControllerBase
                         "password"
                     );
                 }
+                
+                var followedTask = _authorRepository.GetAuthorByNameAsync(followData.unfollow);
+                var followerTask = _authorRepository.GetAuthorByNameAsync(username);
+                await Task.WhenAll(followedTask, followerTask);
 
-                var followed = await _authorRepository.GetAuthorByNameAsync(followData.unfollow);
-                var follower = await _authorRepository.GetAuthorByNameAsync(username);
+                var followed = followedTask.Result;
+                var follower = followerTask.Result;
+                    
                 await _authorRepository.RemoveFollowAsync(follower.Id, followed.Id);
 
                 CustomMeters.IncrementApiRequestsSuccessCounter();
@@ -522,10 +534,14 @@ public class ApiController : ControllerBase
     private async Task<IdentityResult> CreateUser(string username, string email, string password)
     {
         var user = CreateUser();
+        
+        var setUserName = _userStore.SetUserNameAsync(user, username, CancellationToken.None);
+        var setEmail = _emailStore.SetEmailAsync(user, email, CancellationToken.None);
 
-        await _userStore.SetUserNameAsync(user, username, CancellationToken.None);
-        await _emailStore.SetEmailAsync(user, email, CancellationToken.None);
+        await Task.WhenAll(setUserName, setEmail);
+        
         CustomMeters.IncrementRegisterUserCounter();
+        
         return await _userManager.CreateAsync(user, password);
     }
 
