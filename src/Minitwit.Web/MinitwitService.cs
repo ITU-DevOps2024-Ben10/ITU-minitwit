@@ -10,8 +10,10 @@ public interface ICheepService
     public Task<ICollection<CheepViewModel>> GetCheepsAsync(int page);
     public Task<ICollection<CheepViewModel>> GetCheepsFromAuthor(string authorName, int page);
     public Task<ICollection<CheepViewModel>> GetCheepsFromAuthorAsync(Guid authorId, int page);
-    public Task<ICollection<CheepViewModel>> GetCheepsFromAuthorAndFollowingAsync(Guid authorId, int page);
-
+    public Task<ICollection<CheepViewModel>> GetCheepsFromAuthorAndFollowingAsync(
+        Guid authorId,
+        int page
+    );
 }
 
 public class MinitwitService : ICheepService
@@ -19,14 +21,18 @@ public class MinitwitService : ICheepService
     private readonly IAuthorRepository _authorRepository;
     private readonly ICheepRepository _cheepRepository;
     private readonly IReactionRepository _reactionRepository;
-    
-    public MinitwitService(ICheepRepository cheepRepository, IAuthorRepository authorRepository, IReactionRepository reactionRepository)
+
+    public MinitwitService(
+        ICheepRepository cheepRepository,
+        IAuthorRepository authorRepository,
+        IReactionRepository reactionRepository
+    )
     {
         _cheepRepository = cheepRepository;
         _authorRepository = authorRepository;
         _reactionRepository = reactionRepository;
     }
-    
+
     public async Task<ICollection<CheepViewModel>> GetCheepsAsync(int page)
     {
         // Fetch cheeps for the given page.
@@ -51,41 +57,55 @@ public class MinitwitService : ICheepService
             Author? author = authors.FirstOrDefault(a => a.Id == cheepDto.AuthorId);
 
             // Create and add the CheepViewModel to the list.
-            cheeps.Add(new CheepViewModel(
-                cheepDto.CheepId,
-                new UserModel(author),
-                cheepDto.Text,
-                cheepDto.TimeStamp.ToString("o"), // Using a round-trip date/time pattern
-                reactionTypeCounts
-            ));
+            cheeps.Add(
+                new CheepViewModel(
+                    cheepDto.CheepId,
+                    new UserModel(author),
+                    cheepDto.Text,
+                    cheepDto.TimeStamp.ToString("o"), // Using a round-trip date/time pattern
+                    reactionTypeCounts
+                )
+            );
         }
 
         return cheeps;
     }
 
-
-    
     public async Task<ICollection<CheepViewModel>> GetCheepsFromAuthorAsync(Guid id, int page)
     {
         ICollection<Cheep> cheepDtos = await _authorRepository.GetCheepsByAuthor(id, page);
         ICollection<CheepViewModel> cheeps = new List<CheepViewModel>();
         Author author = await _authorRepository.GetAuthorByIdAsync(id);
-        
+
         foreach (Cheep cheepDto in cheepDtos)
         {
             List<ReactionModel> reactionTypeCounts = await CheepReactionsAsync(cheepDto);
 
-            cheeps.Add(new CheepViewModel(cheepDto.CheepId, new UserModel(author), cheepDto.Text, cheepDto.TimeStamp.ToString(CultureInfo.InvariantCulture), reactionTypeCounts));
+            cheeps.Add(
+                new CheepViewModel(
+                    cheepDto.CheepId,
+                    new UserModel(author),
+                    cheepDto.Text,
+                    cheepDto.TimeStamp.ToString(CultureInfo.InvariantCulture),
+                    reactionTypeCounts
+                )
+            );
         }
-        
+
         return cheeps;
     }
-    
-    public async Task<ICollection<CheepViewModel>> GetCheepsFromAuthorAndFollowingAsync(Guid authorId, int page)
+
+    public async Task<ICollection<CheepViewModel>> GetCheepsFromAuthorAndFollowingAsync(
+        Guid authorId,
+        int page
+    )
     {
-        ICollection<Cheep> cheepDtos = await _authorRepository.GetCheepsByAuthorAndFollowing(authorId, page);
+        ICollection<Cheep> cheepDtos = await _authorRepository.GetCheepsByAuthorAndFollowing(
+            authorId,
+            page
+        );
         ICollection<Author> authors = await _authorRepository.GetFollowingByIdAsync(authorId);
-                            authors.Add(await _authorRepository.GetAuthorByIdAsync(authorId));
+        authors.Add(await _authorRepository.GetAuthorByIdAsync(authorId));
         ICollection<CheepViewModel> cheeps = new List<CheepViewModel>();
 
         foreach (Cheep cheepDto in cheepDtos)
@@ -93,9 +113,17 @@ public class MinitwitService : ICheepService
             List<ReactionModel> reactionTypeCounts = await CheepReactionsAsync(cheepDto);
             Author? author = authors.FirstOrDefault(a => a.Id == cheepDto.AuthorId);
 
-            cheeps.Add(new CheepViewModel(cheepDto.CheepId, new UserModel(author!), cheepDto.Text, cheepDto.TimeStamp.ToString(CultureInfo.InvariantCulture), reactionTypeCounts));
+            cheeps.Add(
+                new CheepViewModel(
+                    cheepDto.CheepId,
+                    new UserModel(author!),
+                    cheepDto.Text,
+                    cheepDto.TimeStamp.ToString(CultureInfo.InvariantCulture),
+                    reactionTypeCounts
+                )
+            );
         }
-        
+
         return cheeps;
     }
 
@@ -107,7 +135,9 @@ public class MinitwitService : ICheepService
             .ToDictionary(rt => rt, rt => new ReactionModel(rt, 0));
 
         // Assume GetReactionsFromCheepIdAsync is an async method.
-        ICollection<Reaction> reactionDTOs = await _reactionRepository.GetReactionsFromCheepIdAsync(cheepDto.CheepId);
+        ICollection<Reaction> reactionDTOs = await _reactionRepository.GetReactionsFromCheepIdAsync(
+            cheepDto.CheepId
+        );
 
         // Process the reactions, if any.
         if (reactionDTOs.Any())
@@ -121,9 +151,8 @@ public class MinitwitService : ICheepService
         return reactions.Values.ToList();
     }
 
-
     public async Task<ICollection<CheepViewModel>> GetCheepsFromAuthor(string authorName, int page)
-    { 
+    {
         Author author = await _authorRepository.GetAuthorByNameAsync(authorName);
         var cheeps = await GetCheepsFromAuthorAsync(author.Id, page);
         return cheeps;

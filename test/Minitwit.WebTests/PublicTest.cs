@@ -10,14 +10,14 @@
 //
 // public class PublicTest
 // {
-//     
+//
 //     private readonly ChirpDbContext context;
 //
 //     public PublicTest()
 //     {
 //         context = SqliteInMemoryBuilder.GetContext();
 //     }
-//     
+//
 //     [Fact]
 //     public async void Test1()
 //     {
@@ -32,16 +32,16 @@
 //         {
 //             AuthorId = Guid.NewGuid(), Name = "OliBolli",
 //             Email = "Olibol@gmail.com", Cheeps = new List<CheepDTO>()
-//         }); 
-//         
-//         
-//         
+//         });
+//
+//
+//
 //         // Act
 //         CreateCheepDTO cheepDto = new CreateCheepDTO("OliBolli", "Test text");
 //         await publicModel.CreateCheep(cheepDto);
 //
 //         CheepDTO returned = cheepRepository.GetCheepsByPage(1).FirstOrDefault();
-//         
+//
 //         // Assert
 //         Assert.Equal(cheepDto.Text, returned.Text);
 //     }

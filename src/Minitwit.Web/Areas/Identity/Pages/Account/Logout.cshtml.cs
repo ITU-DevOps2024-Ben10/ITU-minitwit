@@ -4,12 +4,12 @@
 
 using System;
 using System.Threading.Tasks;
-using Minitwit.Core.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Minitwit.Core.Entities;
 
 namespace Minitwit.Web.Areas.Identity.Pages.Account
 {

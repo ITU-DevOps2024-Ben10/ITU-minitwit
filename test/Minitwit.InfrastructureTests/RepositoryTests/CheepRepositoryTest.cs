@@ -6,8 +6,9 @@ using Minitwit.Infrastructure.Repository;
 using Test_Utilities;
 
 namespace Minitwit.InfrastructureTest.RepositoryTests;
-public class CheepRepositoryTest{
 
+public class CheepRepositoryTest
+{
     private readonly CheepRepository CheepRepository;
     private readonly MinitwitDbContext db;
 
@@ -18,28 +19,23 @@ public class CheepRepositoryTest{
         db = SqliteInMemoryBuilder.GetContext();
         CheepRepository = new CheepRepository(db);
 
-        _author = new Author()
-        {
-            UserName = "TestAuthor", 
-            Email = "mock@email.com" 
-        };
-        
-        for(int i = 0; i < 34; i++)
-        {
+        _author = new Author() { UserName = "TestAuthor", Email = "mock@email.com" };
 
+        for (int i = 0; i < 34; i++)
+        {
             Author authorDto = new Author
-            { 
-                UserName = "TestAuthor" + i, 
-                Email = "mock" + i + "@email.com" 
+            {
+                UserName = "TestAuthor" + i,
+                Email = "mock" + i + "@email.com"
             };
-            
+
             Cheep cheepDto = new Cheep
             {
                 CheepId = Guid.NewGuid(),
                 AuthorId = authorDto.Id,
                 Text = "TestCheep" + i
             };
-            
+
             db.Users.Add(authorDto);
             db.Cheeps.Add(cheepDto);
         }
@@ -63,15 +59,14 @@ public class CheepRepositoryTest{
         ICollection<Cheep> initialCheeps = await CheepRepository.GetCheepsByPageAsync(1);
         Cheep cheep = initialCheeps.First();
         Guid cheepId = cheep.CheepId;
-        
+
         CheepRepository.DeleteCheepByIdAsync(cheepId);
 
         ICollection<Cheep> updatedCheeps = await CheepRepository.GetCheepsByPageAsync(1);
-        
+
         //Assert
         Assert.True(initialCheeps.Contains(cheep));
         Assert.False(updatedCheeps.Contains(cheep));
-
     }
 
     [Fact]
@@ -85,16 +80,16 @@ public class CheepRepositoryTest{
             TimeStamp = DateTime.Now,
         };
 
-        #pragma warning disable xUnit1031
+#pragma warning disable xUnit1031
         CheepRepository.AddCheepAsync(cheepDto).Wait();
-        #pragma warning restore xUnit1031
+#pragma warning restore xUnit1031
 
         ICollection<Cheep> updatedCheeps = await CheepRepository.GetCheepsByPageAsync(0);
-        
+
         //Assert
         Assert.True(updatedCheeps.Contains(cheepDto));
     }
-    
+
     [Fact]
     public async void CreateCheepCreatesCheep()
     {
@@ -103,7 +98,7 @@ public class CheepRepositoryTest{
         Cheep cheep = await CheepRepository.AddCreateCheepAsync(createCheep);
 
         ICollection<Cheep> cheeps = await CheepRepository.GetCheepsByPageAsync(0);
-        
+
         Assert.True(cheeps.Contains(cheep));
     }
 }

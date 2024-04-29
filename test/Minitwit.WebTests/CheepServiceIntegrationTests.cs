@@ -23,12 +23,25 @@ public class CheepServiceIntegrationTests
         MinitwitDbContext context = SqliteInMemoryBuilder.GetContext();
         IFollowRepository followRepository = new FollowRepository(context);
         ICheepRepository cheepRepository = new CheepRepository(context);
-        IAuthorRepository authorRepository = new AuthorRepository(context, new FollowRepository(context));
+        IAuthorRepository authorRepository = new AuthorRepository(
+            context,
+            new FollowRepository(context)
+        );
         IReactionRepository reactionRepository = new ReactionRepository(context);
         _service = new MinitwitService(cheepRepository, authorRepository, reactionRepository);
 
-        _author1 = new Author { Id = Guid.NewGuid(), UserName = "Author1", Email = "email1" };
-        _author2 = new Author { Id = Guid.NewGuid(), UserName = "Author2", Email = "email2" };
+        _author1 = new Author
+        {
+            Id = Guid.NewGuid(),
+            UserName = "Author1",
+            Email = "email1"
+        };
+        _author2 = new Author
+        {
+            Id = Guid.NewGuid(),
+            UserName = "Author2",
+            Email = "email2"
+        };
 
         _cheep1 = new Cheep
         {
@@ -37,7 +50,7 @@ public class CheepServiceIntegrationTests
             Text = "Cheep 1",
             TimeStamp = DateTime.Now,
         };
-        
+
         _cheep2 = new Cheep
         {
             CheepId = new Guid(),
@@ -65,7 +78,7 @@ public class CheepServiceIntegrationTests
 
         context.SaveChanges();
     }
-    
+
     /*
     [Fact]
     public async void GetCheeps_ReturnsCheepViewModels()
@@ -81,8 +94,8 @@ public class CheepServiceIntegrationTests
         Assert.Equal("Cheep 1", result[0].Message);
         Assert.NotNull(result[0].Timestamp);
     }*/
-    
-    
+
+
     /*
     [Fact]
     public void GetCheepsFromAuthor_ReturnsCheepViewModels()
@@ -99,7 +112,7 @@ public class CheepServiceIntegrationTests
         Assert.NotNull(returnedCheep.Timestamp);
     }
     */
-    
+
     /*
     [Fact]
     public void GetCheepsFromAuthorAndFollowing_returnsCheepsFromAuthorAndFollowingAuthor()

@@ -1,0 +1,46 @@
+version: "3.8"
+volumes:
+  prometheus-data: {}
+  grafana-data: {}
+
+services:
+  minitwit:
+    image: casperh123/minitwitimage:latest
+    deploy:
+      replicas: 9
+    ports:
+      - published: 8080
+        target: 8080
+    env_file:
+      - .env
+    networks:
+      - minitwit-network
+    command: [ "dockerize", "-wait", "tcp://database:3306", "-timeout", "30s", "./start-webserver.sh" ]
+
+  prometheus_server:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    restart: unless-stopped
+    networks:
+      - minitwit-network
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - minitwit
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - '3000:3000'
+    restart: unless-stopped
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./dashboards:/etc/grafana/provisioning/dashboards
+    networks:
+      - minitwit-network
+
+networks:
+  minitwit-network:
+    name: minitwit-network
+        

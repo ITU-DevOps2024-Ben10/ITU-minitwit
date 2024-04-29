@@ -1,0 +1,120 @@
+{Accept: */*, Connection: keep-alive, Host: 0.0.0.0:5000, User-Agent: PostmanRuntime/7.37.3, Accept-Encoding: gzip, deflate, br, Authorization: Basic c2ltdWxhdG9yOnN1cGVyX3NhZmUh, Postman-Token: 7c123130-c6e5-4016-ba9e-03af49aaf66b, }
+{User = a, Latest = 9, No = 10}
+{   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindTracked(Object[] keyValues)
+   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindAsync(Object[] keyValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.FindAsync(Object[] keyValues)
+   at Minitwit.Infrastructure.Repository.AuthorRepository.GetAuthorByNameAsync(String name) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/Repository/AuthorRepository.cs:line 47
+   at Minitwit.Web.ApiControllers.ApiController.GetUserMessages(String username, Int32 latest, Int32 no) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Web/ApiControllers/ApiController.cs:line 197}
+
+{Accept: */*, Connection: keep-alive, Host: 0.0.0.0:5000, User-Agent: PostmanRuntime/7.37.3, Accept-Encoding: gzip, deflate, br, Authorization: Basic c2ltdWxhdG9yOnN1cGVyX3NhZmUh, Postman-Token: ec8cd7af-b48e-44e4-9539-509e8b3b8081, }
+{User = a, Latest = 9, No = 10}
+{   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindTracked(Object[] keyValues)
+   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindAsync(Object[] keyValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.FindAsync(Object[] keyValues)
+   at Minitwit.Infrastructure.Repository.AuthorRepository.GetAuthorByNameAsync(String name) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/Repository/AuthorRepository.cs:line 47
+   at Minitwit.Web.ApiControllers.ApiController.GetUserMessages(String username, Int32 latest, Int32 no) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Web/ApiControllers/ApiController.cs:line 197}
+
+{Accept: */*, Connection: keep-alive, Host: 0.0.0.0:5000, User-Agent: PostmanRuntime/7.37.3, Accept-Encoding: gzip, deflate, br, Authorization: Basic c2ltdWxhdG9yOnN1cGVyX3NhZmUh, Postman-Token: 3b85e0d0-66c3-4dac-bca8-b0fea028a27a, }
+{User = a, Latest = 9, No = 10}
+{   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindTracked(Object[] keyValues)
+   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindAsync(Object[] keyValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.FindAsync(Object[] keyValues)
+   at Minitwit.Infrastructure.Repository.AuthorRepository.GetAuthorByNameAsync(String name) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/Repository/AuthorRepository.cs:line 47
+   at Minitwit.Web.ApiControllers.ApiController.GetUserMessages(String username, Int32 latest, Int32 no) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Web/ApiControllers/ApiController.cs:line 197}
+
+{Accept: */*, Connection: keep-alive, Host: 0.0.0.0:5000, User-Agent: PostmanRuntime/7.37.3, Accept-Encoding: gzip, deflate, br, Authorization: Basic c2ltdWxhdG9yOnN1cGVyX3NhZmUh, Postman-Token: 2d95caf9-7e25-4f97-8ff0-c8ef477e0f98, }
+{User = a, Latest = 9, No = 10}
+{   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindTracked(Object[] keyValues)
+   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindAsync(Object[] keyValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.FindAsync(Object[] keyValues)
+   at Minitwit.Infrastructure.Repository.AuthorRepository.GetAuthorByNameAsync(String name) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/Repository/AuthorRepository.cs:line 47
+   at Minitwit.Web.ApiControllers.ApiController.GetUserMessages(String username, Int32 latest, Int32 no) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Web/ApiControllers/ApiController.cs:line 197}
+
+{Accept: */*, Connection: keep-alive, Host: 0.0.0.0:5000, User-Agent: PostmanRuntime/7.37.3, Accept-Encoding: gzip, deflate, br, Authorization: Basic c2ltdWxhdG9yOnN1cGVyX3NhZmUh, Postman-Token: 6fbeafdc-0068-4769-be51-46222e9aa31b, }
+{User = a, Latest = 9, No = 10}
+{   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindTracked(Object[] keyValues)
+   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindAsync(Object[] keyValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.FindAsync(Object[] keyValues)
+   at Minitwit.Infrastructure.Repository.AuthorRepository.GetAuthorByNameAsync(String name) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/Repository/AuthorRepository.cs:line 47
+   at Minitwit.Web.ApiControllers.ApiController.GetUserMessages(String username, Int32 latest, Int32 no) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Web/ApiControllers/ApiController.cs:line 197}
+
+{Accept: */*, Connection: keep-alive, Host: 0.0.0.0:5000, User-Agent: PostmanRuntime/7.37.3, Accept-Encoding: gzip, deflate, br, Authorization: Basic c2ltdWxhdG9yOnN1cGVyX3NhZmUh, Postman-Token: 0eaacf8b-5f5a-4f66-b651-b9763f82217c, }
+{User = a, Latest = 9, No = 10}
+{   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindTracked(Object[] keyValues)
+   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindAsync(Object[] keyValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.FindAsync(Object[] keyValues)
+   at Minitwit.Infrastructure.Repository.AuthorRepository.GetAuthorByNameAsync(String name) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/Repository/AuthorRepository.cs:line 47
+   at Minitwit.Web.ApiControllers.ApiController.GetUserMessages(String username, Int32 latest, Int32 no) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Web/ApiControllers/ApiController.cs:line 197}
+
+{Accept: */*, Connection: keep-alive, Host: 0.0.0.0:5000, User-Agent: PostmanRuntime/7.37.3, Accept-Encoding: gzip, deflate, br, Authorization: Basic c2ltdWxhdG9yOnN1cGVyX3NhZmUh, Postman-Token: eec6444c-0314-4cb1-a39a-c68b8c17cbc6, }
+{User = a, Latest = 9, No = 10}
+{   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindTracked(Object[] keyValues)
+   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindAsync(Object[] keyValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.FindAsync(Object[] keyValues)
+   at Minitwit.Infrastructure.Repository.AuthorRepository.GetAuthorByNameAsync(String name) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/Repository/AuthorRepository.cs:line 47
+   at Minitwit.Web.ApiControllers.ApiController.GetUserMessages(String username, Int32 latest, Int32 no) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Web/ApiControllers/ApiController.cs:line 197}
+
+{Accept: */*, Connection: keep-alive, Host: 0.0.0.0:5000, User-Agent: PostmanRuntime/7.37.3, Accept-Encoding: gzip, deflate, br, Authorization: Basic c2ltdWxhdG9yOnN1cGVyX3NhZmUh, Postman-Token: cd625332-92fc-4ba7-9991-f075260dc06a, }
+{User = a, Latest = 9, No = 10}
+{   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindTracked(Object[] keyValues)
+   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindAsync(Object[] keyValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.FindAsync(Object[] keyValues)
+   at Minitwit.Infrastructure.Repository.AuthorRepository.GetAuthorByNameAsync(String name) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/Repository/AuthorRepository.cs:line 47
+   at Minitwit.Web.ApiControllers.ApiController.GetUserMessages(String username, Int32 latest, Int32 no) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Web/ApiControllers/ApiController.cs:line 197}
+
+{Accept: */*, Connection: keep-alive, Host: 0.0.0.0:5000, User-Agent: PostmanRuntime/7.37.3, Accept-Encoding: gzip, deflate, br, Authorization: Basic c2ltdWxhdG9yOnN1cGVyX3NhZmUh, Postman-Token: 8ab9205c-ff16-4095-b4b4-593698d61d0f, }
+{User = a, Latest = 9, No = 10}
+{   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindTracked(Object[] keyValues)
+   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindAsync(Object[] keyValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.FindAsync(Object[] keyValues)
+   at Minitwit.Infrastructure.Repository.AuthorRepository.GetAuthorByNameAsync(String name) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/Repository/AuthorRepository.cs:line 47
+   at Minitwit.Web.ApiControllers.ApiController.GetUserMessages(String username, Int32 latest, Int32 no) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Web/ApiControllers/ApiController.cs:line 197}
+
+{Accept: */*, Connection: keep-alive, Host: 0.0.0.0:5000, User-Agent: PostmanRuntime/7.37.3, Accept-Encoding: gzip, deflate, br, Authorization: Basic c2ltdWxhdG9yOnN1cGVyX3NhZmUh, Postman-Token: e98b6030-832d-4848-9be5-5e08c3fc2ea0, }
+{User = a, Latest = 9, No = 10}
+{   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindTracked(Object[] keyValues)
+   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindAsync(Object[] keyValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.FindAsync(Object[] keyValues)
+   at Minitwit.Infrastructure.Repository.AuthorRepository.GetAuthorByNameAsync(String name) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/Repository/AuthorRepository.cs:line 47
+   at Minitwit.Web.ApiControllers.ApiController.GetUserMessages(String username, Int32 latest, Int32 no) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Web/ApiControllers/ApiController.cs:line 197}
+
+{Accept: */*, Connection: keep-alive, Host: 0.0.0.0:5000, User-Agent: PostmanRuntime/7.37.3, Accept-Encoding: gzip, deflate, br, Authorization: Basic c2ltdWxhdG9yOnN1cGVyX3NhZmUh, Postman-Token: fb488011-ac4e-4428-b2fa-4b39b2662778, }
+{User = a, Latest = 9, No = 10}
+{   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindTracked(Object[] keyValues)
+   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindAsync(Object[] keyValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.FindAsync(Object[] keyValues)
+   at Minitwit.Infrastructure.Repository.AuthorRepository.GetAuthorByNameAsync(String name) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/Repository/AuthorRepository.cs:line 47
+   at Minitwit.Web.ApiControllers.ApiController.GetUserMessages(String username, Int32 latest, Int32 no) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Web/ApiControllers/ApiController.cs:line 197}
+
+{Accept: */*, Connection: keep-alive, Host: 0.0.0.0:5000, User-Agent: PostmanRuntime/7.37.3, Accept-Encoding: gzip, deflate, br, Authorization: Basic c2ltdWxhdG9yOnN1cGVyX3NhZmUh, Postman-Token: 15051f3b-3887-4742-b706-d95ca1e69ceb, }
+{User = a, Latest = 9, No = 10}
+{   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindTracked(Object[] keyValues)
+   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindAsync(Object[] keyValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.FindAsync(Object[] keyValues)
+   at Minitwit.Infrastructure.Repository.AuthorRepository.GetAuthorByNameAsync(String name) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/Repository/AuthorRepository.cs:line 47
+   at Minitwit.Web.ApiControllers.ApiController.GetUserMessages(String username, Int32 latest, Int32 no) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Web/ApiControllers/ApiController.cs:line 197}
+
+{Accept: */*, Connection: keep-alive, Host: 0.0.0.0:5000, User-Agent: PostmanRuntime/7.37.3, Accept-Encoding: gzip, deflate, br, Authorization: Basic c2ltdWxhdG9yOnN1cGVyX3NhZmUh, Postman-Token: 53e76036-b1e5-4882-ab51-7c025142e183, }
+{User = a, Latest = 9, No = 10}
+{   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindTracked(Object[] keyValues)
+   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindAsync(Object[] keyValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.FindAsync(Object[] keyValues)
+   at Minitwit.Infrastructure.Repository.AuthorRepository.GetAuthorByNameAsync(String name) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/Repository/AuthorRepository.cs:line 47
+   at Minitwit.Web.ApiControllers.ApiController.GetUserMessages(String username, Int32 latest, Int32 no) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Web/ApiControllers/ApiController.cs:line 197}
+
+{Accept: */*, Connection: keep-alive, Host: 0.0.0.0:5000, User-Agent: PostmanRuntime/7.37.3, Accept-Encoding: gzip, deflate, br, Authorization: Basic c2ltdWxhdG9yOnN1cGVyX3NhZmUh, Postman-Token: 610243be-3577-4c93-973a-a0e348f3b641, }
+{User = a, Latest = 9, No = 10}
+{   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindTracked(Object[] keyValues)
+   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindAsync(Object[] keyValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.FindAsync(Object[] keyValues)
+   at Minitwit.Infrastructure.Repository.AuthorRepository.GetAuthorByNameAsync(String name) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/Repository/AuthorRepository.cs:line 47
+   at Minitwit.Web.ApiControllers.ApiController.GetUserMessages(String username, Int32 latest, Int32 no) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Web/ApiControllers/ApiController.cs:line 197}
+
+{Accept: */*, Connection: keep-alive, Host: 0.0.0.0:5000, User-Agent: PostmanRuntime/7.37.3, Accept-Encoding: gzip, deflate, br, Authorization: Basic c2ltdWxhdG9yOnN1cGVyX3NhZmUh, Postman-Token: 940b8f87-da8a-45d6-9185-6adb076f0294, }
+{User = a, Latest = 9, No = 10}
+{   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindTracked(Object[] keyValues)
+   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindAsync(Object[] keyValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.FindAsync(Object[] keyValues)
+   at Minitwit.Infrastructure.Repository.AuthorRepository.GetAuthorByNameAsync(String name) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Infrastructure/Repository/AuthorRepository.cs:line 47
+   at Minitwit.Web.ApiControllers.ApiController.GetUserMessages(String username, Int32 latest, Int32 no) in /home/casper/GitHub/ITU-minitwit/src/Minitwit.Web/ApiControllers/ApiController.cs:line 197}
+

@@ -1,6 +1,7 @@
 ﻿namespace Minitwit.Core.Entities;
 
-public enum ReactionType {
+public enum ReactionType
+{
     Like,
     Dislike,
     Love

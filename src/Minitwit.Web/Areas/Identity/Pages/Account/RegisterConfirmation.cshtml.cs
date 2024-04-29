@@ -5,13 +5,13 @@
 using System;
 using System.Text;
 using System.Threading.Tasks;
-using Minitwit.Core.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Minitwit.Core.Entities;
 
 namespace Minitwit.Web.Areas.Identity.Pages.Account
 {
@@ -70,8 +70,15 @@ namespace Minitwit.Web.Areas.Identity.Pages.Account
                 EmailConfirmationUrl = Url.Page(
                     "/Account/ConfirmEmail",
                     pageHandler: null,
-                    values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
-                    protocol: Request.Scheme);
+                    values: new
+                    {
+                        area = "Identity",
+                        userId = userId,
+                        code = code,
+                        returnUrl = returnUrl
+                    },
+                    protocol: Request.Scheme
+                );
             }
 
             return Page();

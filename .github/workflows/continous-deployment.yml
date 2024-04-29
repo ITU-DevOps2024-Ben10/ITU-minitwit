@@ -12,6 +12,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0.x
+      - name: Restore dependencies
+        run: dotnet restore src/Minitwit.Web
+      - name: Build
+        run: dotnet build src/Minitwit.Web --no-restore
+      - name: Test
+        run: |
+          dotnet test test/Minitwit.CoreTests
+          dotnet test test/Minitwit.InfrastructureTests
+          dotnet test test/Minitwit.WebTests
+
       - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
@@ -29,7 +43,7 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/minitwitimage:latest
 
-      - name: Test minitwit
+      - name: Test minitwit docker image
         run: |
           docker run -d --rm ${{ secrets.DOCKER_USERNAME }}/minitwitimage:latest
       
@@ -43,12 +57,10 @@ jobs:
         env:
           SSH_KEY: ${{ secrets.SSH_KEY }}
     
-      - name: Deploy to server
+      - name: Deploy image to server, and propogate changes to Docker Swarm
         run: |
           ssh -i ~/.ssh/minitwit ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << EOF
           docker pull ${{ secrets.DOCKER_USERNAME }}/minitwitimage:latest
-          docker stop webserver || true
-          docker rm webserver || true
-          docker-compose up -d
+          docker stack deploy -c docker-compose.yml Minitwit
           docker image prune -a --force
           EOF

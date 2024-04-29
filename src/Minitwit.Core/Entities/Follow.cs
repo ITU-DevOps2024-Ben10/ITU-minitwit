@@ -15,8 +15,7 @@ public class Follow
 {
     [Required]
     public Guid FollowingAuthorId { get; set; }
-   
+
     [Required]
     public Guid FollowedAuthorId { get; set; }
-
 }

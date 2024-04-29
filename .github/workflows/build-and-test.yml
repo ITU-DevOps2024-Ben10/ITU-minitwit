@@ -1,23 +1,59 @@
+#The "Commit changes" step was written using the help of OpenAI's ChatGPT 4.0.
+
 name: .NET Build and Test
 
 on: [push, pull_request]
+
+permissions:
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+
+    - name: Checkout the repo
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ github.head_ref }}
+
+    - name: Set up Git config
+      run: |
+        git config --global user.name 'GitHub Action'
+        git config --global user.email 'action@github.com'
     - uses: actions/checkout@v3
+    
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 8.0.x
+        
     - name: Restore dependencies
       run: dotnet restore src/Minitwit.Web
+      
     - name: Build
       run: dotnet build src/Minitwit.Web --no-restore
+      
     - name: Test
       run: |
         dotnet test test/Minitwit.CoreTests
         dotnet test test/Minitwit.InfrastructureTests
         dotnet test test/Minitwit.WebTests
+
+    - name: Format and lint code
+      run: |
+        dotnet new tool-manifest
+        dotnet tool install csharpier
+        dotnet csharpier .
+        dotnet format -v detailed .
+        echo "Code formatting and linting complete."
+
+    - name: Commit changes
+      run: |
+        git add .
+        git diff --staged --exit-code || git commit -m "Automated code format and linting"
+        BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+        git push origin HEAD:$BRANCH_NAME
+      env:
+        GITHUB_REF: ${{ github.ref }}

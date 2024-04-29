@@ -1,7 +1,7 @@
-﻿using Minitwit.Infrastructure;
-using Minitwit.Infrastructure.Repository;
-using Minitwit.Core.Entities;
+﻿using Minitwit.Core.Entities;
 using Minitwit.Core.Repository;
+using Minitwit.Infrastructure;
+using Minitwit.Infrastructure.Repository;
 
 namespace Minitwit.Web.Models;
 
@@ -16,15 +16,11 @@ public class UserModel
     public string Username { get; set; }
     public string Email { get; set; }
 
-    
     // Constructor to initialize properties based on an Author entity
     public UserModel(Author author)
     {
         Id = author.Id;
         Username = author.UserName;
         Email = author.Email;
-
     }
-
-    
 }

@@ -19,7 +19,7 @@ public class FollowRepositoryTest
     {
         // Arrange
         FollowRepository followRepository = new(context);
-        
+
         Author? authorThatFollows = new Author()
         {
             Id = Guid.NewGuid(),
@@ -32,16 +32,20 @@ public class FollowRepositoryTest
             UserName = "authorBeingFollowed",
             Email = "Following@mail.com"
         };
-        
-        Follow manuelFollow = new()
-        {
-            FollowingAuthorId = authorThatFollows.Id,
-            FollowedAuthorId = authorBeingFollowed.Id
-        };
-        
+
+        Follow manuelFollow =
+            new()
+            {
+                FollowingAuthorId = authorThatFollows.Id,
+                FollowedAuthorId = authorBeingFollowed.Id
+            };
+
         // Act
-        Follow generatedFollow = await followRepository.CreateFollowAsync(authorThatFollows.Id, authorBeingFollowed.Id);
-        
+        Follow generatedFollow = await followRepository.CreateFollowAsync(
+            authorThatFollows.Id,
+            authorBeingFollowed.Id
+        );
+
         // Assert
         Assert.Equal(generatedFollow.FollowingAuthorId, manuelFollow.FollowingAuthorId);
         Assert.Equal(generatedFollow.FollowingAuthorId, manuelFollow.FollowingAuthorId);
@@ -67,23 +71,25 @@ public class FollowRepositoryTest
             UserName = "authorBeingFollowed",
             Email = "Following@mail.com"
         };
-        
-        Follow follow = new()
-        {
-            FollowingAuthorId = authorThatFollows.Id,
-            FollowedAuthorId = authorBeingFollowed.Id
-        };
-        
+
+        Follow follow =
+            new()
+            {
+                FollowingAuthorId = authorThatFollows.Id,
+                FollowedAuthorId = authorBeingFollowed.Id
+            };
+
         context.Follows.Add(follow);
         context.Users.Add(authorThatFollows);
         context.Users.Add(authorBeingFollowed);
         context.SaveChanges();
-        
+
         // Act
-        
+
 
         // Assert
-        Assert.True(await followRepository.IsFollowingAsync(authorThatFollows.Id, authorBeingFollowed.Id));
-
+        Assert.True(
+            await followRepository.IsFollowingAsync(authorThatFollows.Id, authorBeingFollowed.Id)
+        );
     }
 }

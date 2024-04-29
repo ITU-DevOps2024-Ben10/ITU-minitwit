@@ -2,19 +2,18 @@ using Microsoft.EntityFrameworkCore;
 using Minitwit.Core.Entities;
 using Minitwit.Core.Repository;
 
-
 namespace Minitwit.Infrastructure.Repository;
 
 public class CheepRepository : BaseRepository, ICheepRepository
-{ 
-    public CheepRepository(MinitwitDbContext DbContext) : base(DbContext)
-    {
-    }
+{
+    public CheepRepository(MinitwitDbContext DbContext)
+        : base(DbContext) { }
+
     public async Task<ICollection<Cheep>> GetCheepsByPageAsync(int page)
     {
         //Use EF to get the specified page of cheeps from the database
-        ICollection<Cheep> cheeps = await db.Cheeps
-            .OrderByDescending(c => c.TimeStamp)
+        ICollection<Cheep> cheeps = await db
+            .Cheeps.OrderByDescending(c => c.TimeStamp)
             .Skip(PageSize * (page - 1))
             .Take(PageSize)
             .ToListAsync();
@@ -24,20 +23,20 @@ public class CheepRepository : BaseRepository, ICheepRepository
 
     public async Task<ICollection<Cheep>> GetCheepsByCountAsync(int count)
     {
-        //Use EF to get the specified count of cheeps from the database
-        ICollection<Cheep> cheeps = await db.Cheeps
-            .OrderByDescending(c => c.TimeStamp)
+        ICollection<Cheep> cheeps = await db
+            .Cheeps.OrderByDescending(c => c.TimeStamp)
             .Take(count)
+            .AsNoTracking()
             .ToListAsync();
 
         return cheeps;
     }
-    
+
     public async Task<ICollection<Cheep>> GetCheepsFromAuthorByCountAsync(Guid authorId, int count)
     {
         //Use EF to get the specified count of cheeps from an author from the database
-        ICollection<Cheep> cheeps = await db.Cheeps
-            .Where(c => c.AuthorId == authorId)
+        ICollection<Cheep> cheeps = await db
+            .Cheeps.Where(c => c.AuthorId == authorId)
             .OrderByDescending(c => c.TimeStamp)
             .Take(count)
             .ToListAsync();
@@ -53,7 +52,7 @@ public class CheepRepository : BaseRepository, ICheepRepository
 
     public async Task<int> GetPageCountAsync()
     {
-        return await GetCheepCountAsync()/PageSize+1;
+        return await GetCheepCountAsync() / PageSize + 1;
     }
 
     public async Task DeleteCheepByIdAsync(Guid cheepId)
@@ -88,10 +87,9 @@ public class CheepRepository : BaseRepository, ICheepRepository
             TimeStamp = DateTime.Now,
             AuthorId = cheep.AuthorId
         };
-        
+
         await AddCheepAsync(entity);
 
         return entity;
     }
-
 }

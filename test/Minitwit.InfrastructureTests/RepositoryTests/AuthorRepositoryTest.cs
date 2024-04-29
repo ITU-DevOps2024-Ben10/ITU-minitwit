@@ -8,7 +8,6 @@ namespace Minitwit.InfrastructureTest.RepositoryTests;
 
 public class AuthorRepositoryTest
 {
-
     private readonly MinitwitDbContext context;
     private readonly IAuthorRepository _authorRepository;
 
@@ -24,37 +23,40 @@ public class AuthorRepositoryTest
         context = SqliteInMemoryBuilder.GetContext();
 
         _authorRepository = new AuthorRepository(context, new FollowRepository(context));
-        
-        _author1 = new Author {
+
+        _author1 = new Author
+        {
             Id = Guid.NewGuid(),
             UserName = "TestAuthor1",
             Email = "mock1@email.com"
         };
-        _author2 = new Author {
+        _author2 = new Author
+        {
             Id = Guid.NewGuid(),
             UserName = "TestAuthor2",
             Email = "mock2@email.com"
         };
-        _author3 = new Author {
+        _author3 = new Author
+        {
             Id = Guid.NewGuid(),
             UserName = "TestAuthor3",
             Email = "mock3@email.com"
         };
-        
+
         _cheep1 = new Cheep
         {
             CheepId = Guid.NewGuid(),
             AuthorId = _author1.Id,
             Text = "TestCheep by author 1",
         };
-        
+
         _cheep2 = new Cheep
         {
             CheepId = Guid.NewGuid(),
             AuthorId = _author2.Id,
             Text = "TestCheep by author 2",
         };
-        
+
         _cheep3 = new Cheep
         {
             CheepId = Guid.NewGuid(),
@@ -72,21 +74,21 @@ public class AuthorRepositoryTest
 
         context.SaveChanges();
     }
-    
-    
+
     // ----- Add Author Methods ----- //
     [Fact]
     public void addAuthor_ShouldAddAuthorToDatabase()
     {
         // Act
         int initialAuthorCount = context.Users.Count();
-        
-        Author author4 = new Author {
+
+        Author author4 = new Author
+        {
             Id = Guid.NewGuid(),
             UserName = "TestAuthor4",
             Email = "mock4@email.com"
         };
-        
+
         _authorRepository.AddAuthorAsync(author4);
 
         int updatedAuthorCount = context.Users.Count();
@@ -94,8 +96,7 @@ public class AuthorRepositoryTest
         // Assert
         Assert.Equal(initialAuthorCount + 1, updatedAuthorCount);
     }
-    
-    
+
     // ----- Get Author Methods ----- //
     [Fact]
     public async void GetAuthorById_ShouldReturnCorrectAuthor()
@@ -107,7 +108,7 @@ public class AuthorRepositoryTest
         //Assert
         Assert.Equal(expectedAuthor, returnedAuthor);
     }
-    
+
     [Fact]
     public async void GetAuthorByIdAsync_ShouldReturnCorrectAuthor()
     {
@@ -118,21 +119,20 @@ public class AuthorRepositoryTest
         //Assert
         Assert.Equal(expectedAuthor, returnedAuthor);
     }
-    
+
     [Fact]
     public async void GetAuthorByName_ShouldReturnCorrectAuthorDTO()
     {
         //Arange
         Author expectedAuthor = _author2;
-        
+
         //Act
         Author returnedAuthor = await _authorRepository.GetAuthorByNameAsync(_author2.UserName);
 
         //Assert
         Assert.Equal(expectedAuthor, returnedAuthor);
-
     }
-    
+
     [Fact]
     public async void GetAuthorByEmail_ShouldReturnCorrectAuthor()
     {
@@ -144,7 +144,6 @@ public class AuthorRepositoryTest
         Assert.Equal(expectedAuthor, returnedAuthor);
     }
 
-    
     // ----- Get Cheeps By Author and Page Methods ----- //
     [Fact]
     public async void GetCheepsByAuthor_ShouldReturnCorrectCheeps()
@@ -153,20 +152,21 @@ public class AuthorRepositoryTest
         ICollection<Cheep> expectedCheep = new List<Cheep>();
         expectedCheep.Add(_cheep1);
 
-        ICollection<Cheep> returnedCheep = await _authorRepository.GetCheepsByAuthor(_author1.Id, 0);
+        ICollection<Cheep> returnedCheep = await _authorRepository.GetCheepsByAuthor(
+            _author1.Id,
+            0
+        );
 
         //Assert
         Assert.Equal(expectedCheep, returnedCheep);
     }
-    
+
     // ----- Get Page and Cheep Count Methods ----- //
     [Fact]
     public async void GetPageCountByAuthor_ShouldReturn1PageCountWhenCheepCountUnder32()
     {
-        
         //Assert
         Assert.Equal(1, await _authorRepository.GetPageCountByAuthor(_author1.Id));
-        
     }
 
     [Fact]
@@ -184,11 +184,11 @@ public class AuthorRepositoryTest
             context.Add(cheep);
         }
         context.SaveChanges();
-        
+
         //Assert
         Assert.Equal(2, await _authorRepository.GetPageCountByAuthor(_author1.Id));
-        
     }
+
     // ----- Get Followers and Following Methods ----- //
     [Fact]
     public async void GetFollowersByAuthorId_ShouldReturnCorrectFollowers()
@@ -196,32 +196,35 @@ public class AuthorRepositoryTest
         await _authorRepository.AddFollowAsync(_author2.Id, _author1.Id);
         await _authorRepository.AddFollowAsync(_author3.Id, _author1.Id);
 
-        ICollection<Author?> returnedFollowers = await _authorRepository.GetFollowersByIdAsync(_author1.Id);
+        ICollection<Author?> returnedFollowers = await _authorRepository.GetFollowersByIdAsync(
+            _author1.Id
+        );
 
         //Assert
         Assert.Contains(_author2, returnedFollowers);
         Assert.Contains(_author3, returnedFollowers);
     }
-    
+
     [Fact]
     public async void GetFollowingByAuthorId_ShouldReturnCorrectFollowing()
     {
         await _authorRepository.AddFollowAsync(_author1.Id, _author2.Id);
         await _authorRepository.AddFollowAsync(_author1.Id, _author3.Id);
 
-        ICollection<Author> returnedFollowing = await _authorRepository.GetFollowingByIdAsync(_author1.Id);
+        ICollection<Author> returnedFollowing = await _authorRepository.GetFollowingByIdAsync(
+            _author1.Id
+        );
 
         //Assert
         Assert.Contains(_author2, returnedFollowing);
         Assert.Contains(_author3, returnedFollowing);
     }
-    
-    
+
     // ----- Add/Remove Follow Methods ----- //
     //TODO move addFollow functionality and tests to FollowRepository and FollowRepository Tests
-    
+
     // These tests are unnecessary since follow collections have been removed from authors
-    
+
     /*[Fact]
     public async void AddFollow_ShouldAddFollowingToAuthor()
     {
@@ -248,9 +251,9 @@ public class AuthorRepositoryTest
         Assert.True(!_author2.Followers.Any());
     }*/
 
-    
+
     // ----- Delete (All) Author Data Methods ----- //
-   [Fact]
+    [Fact]
     public async void DeleteCheepsByAuthorId_ShouldRemoveAllCheepsByAuthor()
     {
         Assert.Equal(3, context.Cheeps.Count());
@@ -260,19 +263,23 @@ public class AuthorRepositoryTest
         await _authorRepository.DeleteCheepsByAuthorIdAsync(_author1.Id);
 
         await context.SaveChangesAsync();
-        
+
         // Assert
         Assert.Empty(await _authorRepository.GetCheepsByAuthorAsync(_author1.Id));
         Assert.Equal(2, context.Cheeps.Count());
     }
-    
+
     [Fact]
     public async void RemoveAllFollowersByAuthorId_ShouldRemoveAllFollowersByAuthor()
     {
         await _authorRepository.AddFollowAsync(_author1.Id, _author2.Id);
         await _authorRepository.AddFollowAsync(_author1.Id, _author3.Id);
-        
-        Assert.Equal(2, _authorRepository.GetFollowingByIdAsync(_author1.Id).Result.Count);
+
+        ICollection<Author> author1Followers = await _authorRepository.GetFollowingByIdAsync(
+            _author1.Id
+        );
+
+        Assert.Equal(2, author1Followers.Count);
         Assert.Single(await _authorRepository.GetFollowersByIdAsync(_author2.Id));
         Assert.Single(await _authorRepository.GetFollowersByIdAsync(_author3.Id));
 
@@ -280,13 +287,13 @@ public class AuthorRepositoryTest
         await _authorRepository.RemoveAllFollowersByAuthorIdAsync(_author1.Id);
 
         await context.SaveChangesAsync();
-        
+
         // Assert
         Assert.Empty(await _authorRepository.GetFollowingByIdAsync(_author1.Id));
         Assert.Empty(await _authorRepository.GetFollowersByIdAsync(_author2.Id));
         Assert.Empty(await _authorRepository.GetFollowersByIdAsync(_author3.Id));
     }
-    
+
     [Fact]
     public async void RemoveUserById_ShouldRemoveUserById()
     {
@@ -294,11 +301,11 @@ public class AuthorRepositoryTest
         await _authorRepository.RemoveUserByIdAsync(_author1.Id);
 
         await context.SaveChangesAsync();
-        
+
         // Assert
         Assert.Equal(2, context.Users.Count());
     }
-    
+
     [Fact]
     public async void RemoveReactionsByAuthorId_ShouldRemoveReactionsByAuthor()
     {
@@ -309,7 +316,7 @@ public class AuthorRepositoryTest
             AuthorId = _author2.Id,
             ReactionType = ReactionType.Like
         };
-        
+
         context.Add(reaction1);
         await context.SaveChangesAsync();
         // Act
@@ -319,22 +326,21 @@ public class AuthorRepositoryTest
         Assert.Equal(0, context.Reactions.Count());
         Assert.Null(context.Reactions.FirstOrDefault(reaction => reaction.AuthorId == _author1.Id));
         Assert.Empty(context.Reactions.Where(reaction => reaction.CheepId == _cheep1.CheepId));
-        
     }
-    
-    
+
     // ----- Save Context Method ----- //
     [Fact]
     public async void SaveContextAsync_ShouldSaveChanges()
     {
         //Act
-        Author _author4 = new Author {
+        Author _author4 = new Author
+        {
             Id = Guid.NewGuid(),
             UserName = "TestAuthor4",
             Email = "mock1@email.com"
         };
         context.Add(_author4);
-        
+
         //Arrange
         await _authorRepository.SaveContextAsync();
         //Assert
