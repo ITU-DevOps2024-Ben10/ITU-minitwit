@@ -68,8 +68,6 @@ jobs:
         run: |
           ssh -i ~/.ssh/minitwit ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << EOF
           docker pull ${{ secrets.DOCKER_USERNAME }}/minitwitimage:latest
-          docker stop webserver || true
-          docker rm webserver || true
-          docker-compose up -d
+          docker stack deploy -c docker-compose.yml Minitwit
           docker image prune -a --force
           EOF
