@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test_Utilities", "test\Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Minitwit.InfrastructureTests", "test\Minitwit.InfrastructureTests\Minitwit.InfrastructureTests.csproj", "{3D256A42-0644-4FD5-8375-453E6455FD19}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minitwit.End2EndTest", "test\Minitwit.End2EndTest\Minitwit.End2EndTest.csproj", "{F3802C11-01A1-4D75-B8CB-56965E3901BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{3D256A42-0644-4FD5-8375-453E6455FD19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D256A42-0644-4FD5-8375-453E6455FD19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D256A42-0644-4FD5-8375-453E6455FD19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3802C11-01A1-4D75-B8CB-56965E3901BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3802C11-01A1-4D75-B8CB-56965E3901BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3802C11-01A1-4D75-B8CB-56965E3901BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3802C11-01A1-4D75-B8CB-56965E3901BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
