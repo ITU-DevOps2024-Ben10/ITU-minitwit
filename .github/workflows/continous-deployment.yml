@@ -12,13 +12,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Format and lint code
-        run: |
-          dotnet new tool-manifest
-          dotnet tool install csharpier
-          dotnet csharpier .
-          dotnet format -v detailed .
-
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
@@ -50,7 +43,7 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/minitwitimage:latest
 
-      - name: Test minitwit
+      - name: Test minitwit docker image
         run: |
           docker run -d --rm ${{ secrets.DOCKER_USERNAME }}/minitwitimage:latest
 
@@ -64,7 +57,7 @@ jobs:
         env:
           SSH_KEY: ${{ secrets.SSH_KEY }}
     
-      - name: Deploy to server
+      - name: Deploy image to server, and propogate changes to Docker Swarm
         run: |
           ssh -i ~/.ssh/minitwit ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << EOF
           docker pull ${{ secrets.DOCKER_USERNAME }}/minitwitimage:latest
