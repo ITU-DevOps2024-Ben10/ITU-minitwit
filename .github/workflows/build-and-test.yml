@@ -1,3 +1,5 @@
+#The "Commit changes" step was written using the help of OpenAI's ChatGPT 4.0.
+
 name: .NET Build and Test
 
 on: [push, pull_request]
@@ -47,8 +49,11 @@ jobs:
         dotnet format -v detailed .
         echo "Code formatting and linting complete."
 
-    - name: Commit and push if needed
+    - name: Commit changes
       run: |
         git add .
-        git commit -m "Automated code format and linting" || echo "No changes to commit"
-        git push origin HEAD:${{ github.head_ref }}
+        git diff --staged --exit-code || git commit -m "Automated code format and linting"
+        BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+        git push origin HEAD:$BRANCH_NAME
+      env:
+        GITHUB_REF: ${{ github.ref }}
