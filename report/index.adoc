@@ -1,1 +1,75 @@
+= The Report
 
+== Introduction
+
+// Brief introduction about the project and the report.
+
+== System's Perspective
+
+=== Design and Architecture of ITU-MiniTwit Systems
+
+// Description and illustration of the design and architecture.
+
+=== Dependencies of ITU-MiniTwit Systems
+
+// List and brief description of all technologies and tools applied and depended on.
+
+=== Important Interactions of Subsystems
+
+// Description of important interactions of subsystems.
+
+=== Current State of Systems
+
+// Description of the current state of systems.
+
+== Process' Perspective
+
+=== CI/CD Chains
+
+// Description of stages and tools included in the CI/CD chains.
+
+=== System Monitoring
+
+// Description of how the systems are monitored and what is monitored.
+
+=== System Logging
+
+// Description of what is logged in the systems and how logs are aggregated.
+
+=== Security Assessment
+
+// Brief results of the security assessment and description of how the system security was hardened.
+
+=== Scaling and Upgrades Strategy
+
+// Description of the applied strategy for scaling and upgrades.
+
+=== Use of AI-Assistants
+
+// Description of the use of AI-assistants during the project.
+
+== Lessons Learned Perspective
+
+=== Evolution and Refactoring
+
+// Description of the biggest issues, how they were solved, and lessons learned.
+
+=== Operation
+
+// Description of the biggest issues, how they were solved, and lessons learned.
+
+=== Maintenance
+
+// Description of the biggest issues, how they were solved, and lessons learned.
+
+== DevOps Style of Work
+
+// Reflection and description of the "DevOps" style of work.
+
+== Conclusion
+
+// Brief conclusion of the report.
+
+== References
+
+// List of references.
