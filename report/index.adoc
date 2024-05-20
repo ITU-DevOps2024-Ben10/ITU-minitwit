@@ -16,14 +16,13 @@ robust CI/CD workflows, and to use metrics, monitoring and logging to monitor, a
 === Dependencies of ITU-MiniTwit Systems
 
 // List and brief description of all technologies and tools applied and depended on.
-* ASP.NET Core - The foundation of our application. Used to implement the webserver, user authorization and identification 
-as well as to implement our minimal web API.
-* Entity Framework - Used to implement our database abstraction layer, and to implement all logic pertaining to CRUD operations.
-* Playwright - Testing library that enables E2E tests.
-* Prometheus - 
-* Xunit - Testing library which we use for integration and unit testing.
-* Coverlet - Tool used to determine code coverage in tests. 
-* Moq - Test library used to generate mock objects for unit testing.
+* ASP.NET Core: The foundation of our application, used for implementing the web server, user authorization and identification, and our minimal web API.
+* Entity Framework: Used for the database abstraction layer and all CRUD operation logic.
+* Playwright: A testing library enabling end-to-end (E2E) tests.
+* Prometheus: Monitoring system and time-series database for collecting and querying metrics.
+* Xunit: A testing library for integration and unit testing.
+* Coverlet: A tool for determining code coverage in tests.
+* Moq: A test library for generating mock objects for unit testing.
 
 === Important Interactions of Subsystems
 
