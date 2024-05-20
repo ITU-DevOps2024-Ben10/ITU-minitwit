@@ -2,7 +2,10 @@
 
 == Introduction
 
-// Brief introduction about the project and the report.
+During the course DevOps, Software Evolution and Software Maintenance an application stemming from an earlier course
+has been subjected to a simulation simulating real world usage by users. This has forced us to make the application more
+durable, more performant, and more maintainable. This has taught us to develop more performant applications, implement 
+robust CI/CD workflows, and to use metrics, monitoring and logging to monitor, and keep our application healthy.
 
 == System's Perspective
 
