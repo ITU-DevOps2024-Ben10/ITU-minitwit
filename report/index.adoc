@@ -100,7 +100,7 @@ that LLM's have a difficult time understanding the context in which the requeste
 == DevOps Style of Work
 Agile principles \\
 Psychological safety \\
-Pair programming/mob programming \\
+Pair/Mob programming \\
 Kanbanboard/Github project board\\
 // Reflection and description of the "DevOps" style of work.
 
