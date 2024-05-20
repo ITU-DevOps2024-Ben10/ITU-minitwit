@@ -37,19 +37,14 @@ robust CI/CD workflows, and to use metrics, monitoring and logging to monitor, a
 
 === System Logging
 
-We did not have success with using the ELK stack.
-For that reason, we chose to use a proprietary logging and application Performance Monitoring system called New Relic.
-New Relic logs everything written to the nodes console, and this allowed us to have the same level of logging, as if we were debugging on our local machine.
-When the application failed to process a request, the stacktrace and message from encountered exceptions, as well as the events leading
-up to them, would be logged.
+We initially tried deploying the ELK stack for logging and monitoring but faced difficulties. 
+We then chose New Relic, which logs everything written to a the node's console, similar to local debugging. 
+It logs stack traces, exception messages, and preceding events when requests fail, allowing us to monitor API access, 
+track server actions, and identify errors.
 
-This provided us with the ability to see the frequency at which different API endpoints where accessed, the actions taken
-by the server to process the request, as well as errors when requesting a resource from our application.
+The aggregated logs where sent to New Relic and were accessible through their propriotary dashboard.
 
-Downloading and launching of the New Relic Agent was included in our dockerfile, and thus logging was done on all the nodes
-in our application cluster.
-
-// Description of what is logged in the systems and how logs are aggregated.
+We configured the New Relic agent in our Dockerfile, ensuring consistent logging across all application nodes.
 
 === Security Assessment
 
