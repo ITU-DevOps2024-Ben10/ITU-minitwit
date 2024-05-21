@@ -57,9 +57,3 @@ jobs:
         git push origin HEAD:$BRANCH_NAME
       env:
         GITHUB_REF: ${{ github.ref }}
-
-    - name: Install AsciiDoctor
-      run: gem install asciidoctor-pdf
-
-    - name: Convert AsciiDoc to PDF
-      run: asciidoctor-pdf -o report/build/report.pdf report/index.adoc
