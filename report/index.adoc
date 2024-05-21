@@ -69,7 +69,7 @@ In this project these AI-assistants were used:
 
 The AI-assistants were mainly used for:
 
-* Breaking down code logic. I.g. In order to recreate the Python API controller provided by the course, the code needed to be translated into C#. ChatGPT was a fitting tool for this task, as it could quickly provide translations. 
+* Breaking down code logic. I.g. In order to recreate the Python API controller provided by the course, the code needed to be translated into C# and modified to fit our application. ChatGPT was a great tool for understanding each endpoint and what data would be included in a call and a response.
 * Code completions. GitHub Copilot acted as an extension of IntelliSense, in the sense that it could auto-complete simple pieces of code, such as loops, if-statements, and method signatures.
 * Research. ChatGPT was also used to provide a secondary explanation when researching new technologies, in situations were the documentation either was difficult to understand, or if subsidiary information was needed. 
 * Stacktrace breakdowns. ChatGPT was used to breakdown stracktraces, summarizing the information as well as providing a more user-friendly format to read. 
