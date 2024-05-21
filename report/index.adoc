@@ -25,9 +25,12 @@ robust CI/CD workflows, and to use metrics, monitoring and logging to monitor, a
 * Entity Framework: Used for the database abstraction layer and all CRUD operation logic.
 * Playwright: A testing library enabling end-to-end (E2E) tests.
 * Prometheus: Monitoring system and time-series database for collecting and querying metrics.
+* Grafana: A visualization tool for Prometheus metrics.f
 * Xunit: A testing library for integration and unit testing.
 * Coverlet: A tool for determining code coverage in tests.
 * Moq: A test library for generating mock objects for unit testing.
+* Docker: Used for containerization of the application.
+* New Relic: A tool used for collecting, storing, and visualizing logs.
 
 //Figures:
 // ONION STRUCTURE THAT MAPS DEPENDENCIES MAYBE GITTRUCK??
