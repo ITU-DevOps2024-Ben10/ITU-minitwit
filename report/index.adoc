@@ -17,6 +17,7 @@ robust CI/CD workflows, and to use metrics, monitoring and logging to monitor, a
 // SHOW THE ENTIRETY OF THE ARCHITECTURE(ZOOMED COMPLETELY OUT)
 //SHOULD ACT AS THE BASIS FOR THE FIGURES BELOW (ZOOMED IN)
 
+.Architecture Overview
 image::Images/Architecture.png["System Architecture", align="center", width="70%]
 
 === Dependencies of ITU-MiniTwit Systems
