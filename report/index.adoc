@@ -61,7 +61,7 @@ We then chose New Relic, which logs everything written to a the node's console, 
 It logs stack traces, exception messages, and preceding events when requests fail, allowing us to monitor API access, 
 track server actions, and identify errors.
 
-The aggregated logs where sent to New Relic and were accessible through their propriotary dashboard.
+The aggregated logs were sent to New Relic and were accessible through their proprietary dashboard.
 
 We configured the New Relic agent in our Dockerfile, ensuring consistent logging across all application nodes.
 
