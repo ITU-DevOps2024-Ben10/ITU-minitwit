@@ -4,11 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - '*.adoc' 
-      - '**/*.png' 
-      - '**/*.jpg' 
-      - '**/*.gif'
 
 jobs:
   convert-to-pdf:
