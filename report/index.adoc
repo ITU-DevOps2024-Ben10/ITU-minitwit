@@ -59,6 +59,7 @@ We configured the New Relic agent in our Dockerfile, ensuring consistent logging
 === Security Assessment
 
 // Brief results of the security assessment and description of how the system security was hardened.
+*OLIVER*
 
 === Scaling and Upgrade Strategy
 
@@ -130,3 +131,8 @@ Kanbanboard/Github project board\\
 
 [ref_szulik]
 Szulik, Maciej. "Colorful deployments: An introduction to blue-green, canary, and rolling deployments." _Opensource.com_, 2 May 2017. https://opensource.com/article/17/5/colorful-deployments
+
+[ref_Scrum_guide]
+Scrum guide https://scrumguides.org/scrum-guide.html
+
+
