@@ -45,7 +45,7 @@ jobs:
 
     - name: Commit changes
       run: |
-        git add report/build/report.pdf
+        git add -f report/build/report.pdf
         git diff --staged --exit-code || git commit -m "Automated commit: Update PDF"
         BRANCH_NAME="${GITHUB_REF#refs/heads/}"
         git push origin HEAD:$BRANCH_NAME
