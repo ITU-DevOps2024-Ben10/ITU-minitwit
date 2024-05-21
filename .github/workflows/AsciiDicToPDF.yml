@@ -2,8 +2,13 @@ name: AsciiDoc to PDF
 
 on:
   push:
+    branches:
+      - main
     paths:
-      - '*.adoc' # Trigger the workflow when AsciiDoc files are pushed
+      - '*.adoc' 
+      - '**/*.png' 
+      - '**/*.jpg' 
+      - '**/*.gif'
 
 jobs:
   convert-to-pdf:
