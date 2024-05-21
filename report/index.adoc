@@ -19,6 +19,10 @@ robust CI/CD workflows, and to use metrics, monitoring and logging to monitor, a
 
 .Architecture Overview
 image::Images/Architecture.png["System Architecture", align="center", width="70%]
+//Short description of high abstraction level architecture
+//Add more figures for more detailed views of the most important architecture
+//Add short descriptions of the figures
+//Add subsections for relevant views
 
 === Dependencies of ITU-MiniTwit Systems
 
@@ -27,7 +31,7 @@ image::Images/Architecture.png["System Architecture", align="center", width="70%
 * Entity Framework: Used for the database abstraction layer and all CRUD operation logic.
 * Playwright: A testing library enabling end-to-end (E2E) tests.
 * Prometheus: Monitoring system and time-series database for collecting and querying metrics.
-* Grafana: A visualization tool for Prometheus metrics.f
+* Grafana: A visualization tool for Prometheus metrics.
 * New Relic: A tool used for collecting, storing, and visualizing logs.
 * Xunit: A testing library for integration and unit testing.
 * Coverlet: A tool for determining code coverage in tests.
@@ -35,6 +39,7 @@ image::Images/Architecture.png["System Architecture", align="center", width="70%
 * Docker: Used for containerization of the application.
 * Digital Ocean: A cloud provider for hosting the application.
 * Vagrant: A tool for provisioning and managing virtual machines.
+//Expand to all levels of abstraction and development stages.
 
 //Figures:
 // ONION STRUCTURE THAT MAPS DEPENDENCIES MAYBE GITTRUCK??
@@ -46,10 +51,13 @@ image::Images/Architecture.png["System Architecture", align="center", width="70%
 - For example, via an illustrative UML Sequence diagram that shows the flow of information through your system from user request in the browser, over all subsystems, hitting the database, and a response that is returned to the user.
 - Similarly, another illustrative sequence diagram that shows how requests from the simulator traverse your system.
 
+//Sequence Diagram / Flow Diagram from one subsystem to another
+//Contain 2 start nodes, one for the user request and one for the simulator request
 === Current State of Systems
 
 //Describe the current state of your systems, for example using results of static analysis and quality assessments.
 
+//Run static analysis tools and describe the results
 
 == Process' Perspective [OLIVER, MIKKEL]
 
