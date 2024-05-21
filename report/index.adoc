@@ -7,11 +7,16 @@ has been subjected to a simulation simulating real world usage by users. This ha
 durable, more performant, and more maintainable. This has taught us to develop more performant applications, implement 
 robust CI/CD workflows, and to use metrics, monitoring and logging to monitor, and keep our application healthy.
 
-== System's Perspective
+== System's Perspective[MADS, MAGNUS]
 
 === Design and Architecture of ITU-MiniTwit Systems
 
 // Description and illustration of the design and architecture.
+
+// Figures:
+// SHOW THE ENTIRETY OF THE ARCHITECTURE(ZOOMED COMPLETELY OUT)
+//SHOULD ACT AS THE BASIS FOR THE FIGURES BELOW (ZOOMED IN)
+
 
 === Dependencies of ITU-MiniTwit Systems
 
@@ -24,6 +29,9 @@ robust CI/CD workflows, and to use metrics, monitoring and logging to monitor, a
 * Coverlet: A tool for determining code coverage in tests.
 * Moq: A test library for generating mock objects for unit testing.
 
+//Figures:
+// ONION STRUCTURE THAT MAPS DEPENDENCIES MAYBE GITTRUCK??
+
 === Important Interactions of Subsystems
 
 
@@ -33,12 +41,13 @@ robust CI/CD workflows, and to use metrics, monitoring and logging to monitor, a
 
 === Current State of Systems
 
-// Description of the current state of systems.
+//Describe the current state of your systems, for example using results of static analysis and quality assessments.
 
-== Process' Perspective
+
+== Process' Perspective [OLIVER, MIKKEL]
 
 === CI/CD Chains
-
+//UML Deployment Diagrams
 // Description of stages and tools included in the CI/CD chains.
 
 === System Monitoring
@@ -66,7 +75,7 @@ We configured the New Relic agent in our Dockerfile, ensuring consistent logging
 // Description of the applied strategy for scaling and upgrades.
 For scaling the application, Horizontal scaling with Docker Swarm was applied, as it offers numerous benefits, including improved application availability, load balancing, and fault tolerance. By distributing containers across multiple nodes, Docker Swarm ensures that the application can handle increased traffic and continue operating even if some nodes fail. This scalability allows for seamless expansion of resources in response to the growing demands during the course. Given the existing use of Docker in the application, adopting Docker Swarm was a logical choice, leveraging the teams familiarity with Docker's ecosystem while enhancing their ability to manage and scale containerized applications efficiently.
 
-We chose rolling updates for our deployment strategy as it is the default method in Docker Swarm and aligns well with our existing infrastructure. This approach provides continuous availability by updating services incrementally, minimizing downtime without requiring additional resources. The alternative for this strategy is the Blue-Green upgrade strategy, but the additional ressources and implementation time was what additionally made the team favour Rolling Updates. <<ref_szulik>>
+We chose rolling updates for our deployment strategy as it is the default method in Docker Swarm and aligns well with our existing infrastructure. This approach provides continuous availability by updating services incrementally, minimizing downtime without requiring additional resources. The alternative for this strategy is the Blue-Green upgrade strategy, but the additional ressources and implementation time was what additionally made the team favour Rolling Updates. [ref_szulik]
 
 === Use of AI-Assistants
 In this project these AI-assistants were used:
@@ -90,12 +99,12 @@ that LLM's have a difficult time understanding the context in which the requeste
 
 // Description of the use of AI-assistants during the project.
 
-== Lessons Learned Perspective
+== Lessons Learned Perspective [EVERYONE]
 
 === Evolution and Refactoring
 
 // Description of the biggest issues, how they were solved, and lessons learned.
-
+//Figures - maybe depict the change in structure
 === Operation
 
 // Description of the biggest issues, how they were solved, and lessons learned.
@@ -129,11 +138,12 @@ Szulik, Maciej. "Colorful deployments: An introduction to blue-green, canary, an
 [ref_scrum_guide]
 Scrum guide https://scrumguides.org/scrum-guide.html
 
+
 [ref_agile_principles]
 The Agile Manifesto, 12 principles https://agilemanifesto.org/principles.html
+
 
 [ref_jabbari]
 Jabbari, Ramtin. "What is DevOps? A Systematic Mapping Study on Definitions and Practices"
 https://www.researchgate.net/publication/308857081_What_is_DevOps_A_Systematic_Mapping_Study_on_Definitions_and_Practices
 
-[ref_]

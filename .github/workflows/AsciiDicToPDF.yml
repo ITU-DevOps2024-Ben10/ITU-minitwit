@@ -1,0 +1,62 @@
+name: AsciiDoc to PDF
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  convert-to-pdf:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the repo
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ github.head_ref }}
+
+    - name: Set up Git config
+      run: |
+        git config --global user.name 'GitHub Action'
+        git config --global user.email 'action@github.com'
+    - uses: actions/checkout@v4
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.0'
+
+    - name: Install AsciiDoctor and dependencies
+      run: |
+        gem install asciidoctor-pdf
+        gem install rouge
+        gem install matrix
+
+    - name: Convert AsciiDoc to PDF
+      run: asciidoctor-pdf -o report/build/report.pdf report/index.adoc
+
+    - name: Set up Git config
+      run: |
+        git config --global user.name 'GitHub Action'
+        git config --global user.email 'action@github.com'
+
+    - name: Commit changes
+      run: |
+        git add -f report/build/report.pdf
+        git diff --staged --exit-code || git commit -m "Automated commit: Update PDF"
+        BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+        git push origin HEAD:$BRANCH_NAME
+      env:
+        GITHUB_REF: ${{ github.ref }}
+
+    - name: List report directory contents
+      run: ls -R report
+
+    - name: Upload PDF artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: generated-pdf
+        path: report/build/report.pdf
