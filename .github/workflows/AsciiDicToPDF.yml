@@ -28,4 +28,4 @@ jobs:
         gem install matrix
 
     - name: Convert AsciiDoc to PDF
-      run: asciidoctor-pdf -o report/build/report.pdf report/index.adoc
+      run: asciidoctor-pdf report/index.adoc
