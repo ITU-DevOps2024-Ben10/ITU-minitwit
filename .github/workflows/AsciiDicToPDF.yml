@@ -30,6 +30,16 @@ jobs:
     - name: Convert AsciiDoc to PDF
       run: asciidoctor-pdf -o report/build/report.pdf report/index.adoc
 
+
+    - name: Commit changes
+      run: |
+        git add .
+        git diff --staged --exit-code || git commit -m "Automated commit: Update PDF"
+        BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+        git push origin HEAD:$BRANCH_NAME
+      env:
+        GITHUB_REF: ${{ github.ref }}
+
     - name: List report directory contents
       run: ls -R report
 
