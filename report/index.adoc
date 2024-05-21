@@ -75,7 +75,7 @@ In this project these AI-assistants were used:
 
 The AI-assistants were mainly used for:
 
-* Breaking down code logic. I.g. In order to recreate the Python API controller provided by the course, the code needed to be translated into C#. ChatGPT was a fitting tool for this task, as it could quickly provide translations. 
+* Breaking down code logic. I.g. In order to recreate the Python API controller provided by the course, the code needed to be translated into C# and modified to fit our application. ChatGPT was a great tool for understanding each endpoint and what data would be included in a call and a response.
 * Code completions. GitHub Copilot acted as an extension of IntelliSense, in the sense that it could auto-complete simple pieces of code, such as loops, if-statements, and method signatures.
 * Research. ChatGPT was also used to provide a secondary explanation when researching new technologies, in situations were the documentation either was difficult to understand, or if subsidary information was needed. 
 * Stacktrace breakdowns. ChatGPT was used to breakdown stracktraces, summarizing the information as well as providing a more user-friendly format to read. 
@@ -104,7 +104,17 @@ that LLM's have a difficult time understanding the context in which the requeste
 // Description of the biggest issues, how they were solved, and lessons learned.
 
 == DevOps Style of Work
-Agile principles \\
+//Also reflect and describe what was the "DevOps" style of your work. For example, what did you do differently to previous development projects and how did it work?
+As the entire team has been taking the course "Second Year Project: Software Development in Large Teams" which introduces working by the Agile principles and with Scrum as a framework, it's only natural that some elements has been taken into the project. Especially since these frameworks align well with the DevOps style of work. 
+
+The effects from learning Scrum seeped into the working style of the team, not by introducing scrum events and the like, but using the 3 pillars of Scrum; Adaptation, Transparency, and Inspection *INCLUDE REFERENCE TO SCRUM GUIDE*. Each friday the team held physical meetings, where the state of the project was discussed, keeping each member up to date while answering questions any member might have. Breaking down the work each week, increased understanding of the project, transparency, and ensured openness amongst the team. Github allowed for fine-grained inspection of source code, through peer-reviewed code inspections in the form of "Pullrequest". 
+
+
+Agile principles
+
+Scrum framework
+
+
 Psychological safety \\
 Pair/Mob programming \\
 Kanbanboard/Github project board\\
