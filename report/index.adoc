@@ -108,12 +108,10 @@ that LLM's have a difficult time understanding the context in which the requeste
 //Also reflect and describe what was the "DevOps" style of your work. For example, what did you do differently to previous development projects and how did it work?
 As the entire team has been taking the course "Second Year Project: Software Development in Large Teams" which introduces working by the Agile principles and with Scrum as a framework, it's only natural that some elements has been taken into the project. Especially since these frameworks align well with the DevOps style of work. 
 
-The effects from learning Scrum seeped into the working style of the team, not by introducing scrum events and the like, but using the 3 pillars of Scrum; Adaptation, Transparency, and Inspection *INCLUDE REFERENCE TO SCRUM GUIDE*. Each friday the team held physical meetings, where the state of the project was discussed, keeping each member up to date while answering questions any member might have. Breaking down the work each week, increased understanding of the project, transparency, and ensured openness amongst the team. Github allowed for fine-grained inspection of source code, through peer-reviewed code inspections in the form of "Pullrequest". 
-
+The effects from learning Scrum seeped into the working style of the team, not by introducing scrum events and the like, but using the 3 pillars of Scrum; Adaptation, Transparency, and Inspection <<ref_scrum_guide>>. Each friday the team held physical meetings, where the state of the project was discussed, keeping each member up to date while answering questions any member might have. Breaking down the work each week, increased understanding of the project, transparency, and ensured openness amongst the team. Github allowed for fine-grained inspection of source code, through peer-reviewed code inspections in the form of "Pullrequest". 
 
 Agile principles
 
-Scrum framework
 
 
 Psychological safety \\
@@ -132,7 +130,7 @@ Kanbanboard/Github project board\\
 [ref_szulik]
 Szulik, Maciej. "Colorful deployments: An introduction to blue-green, canary, and rolling deployments." _Opensource.com_, 2 May 2017. https://opensource.com/article/17/5/colorful-deployments
 
-[ref_Scrum_guide]
+[ref_scrum_guide]
 Scrum guide https://scrumguides.org/scrum-guide.html
 
 
