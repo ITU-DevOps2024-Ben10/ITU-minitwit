@@ -106,18 +106,14 @@ that LLM's have a difficult time understanding the context in which the requeste
 
 == DevOps Style of Work
 //Also reflect and describe what was the "DevOps" style of your work. For example, what did you do differently to previous development projects and how did it work?
-As the entire team has been taking the course "Second Year Project: Software Development in Large Teams" which introduces working by the Agile principles and with Scrum as a framework, it's only natural that some elements has been taken into the project. Especially since these frameworks align well with the DevOps style of work. 
+As the entire team has been taking the course "Second Year Project: Software Development in Large Teams" which introduces working by the Agile principles and with Scrum as a framework, it's only natural that some elements have been taken into the project especially since these frameworks align well with the DevOps style of work as shown in table 7 of <<ref_jabbari>>. 
 
-The effects from learning Scrum seeped into the working style of the team, not by introducing scrum events and the like, but using the 3 pillars of Scrum; Adaptation, Transparency, and Inspection <<ref_scrum_guide>> as guideline. Each friday the team held physical meetings, where the state of the project was discussed, keeping each member up to date while answering questions any member might have. Breaking down the work each week, increased understanding of the project, transparency, and ensured openness amongst the team. Github allowed for fine-grained inspection of source code, through peer-reviewed code inspections in the form of "Pullrequest". 
+The effects of learning Scrum seeped into the working style of the team, not by introducing scrum events and the like, but by using the 3 pillars of Scrum; Adaptation, Transparency, and Inspection <<ref_scrum_guide>> as guidelines. Each Friday the team held physical meetings, where the state of the project was discussed, keeping each member up to date while answering questions any member might have. Breaking down the work each week, increased understanding of the project, transparency, and ensured openness amongst the team. 
+GitHub allowed for fine-grained inspection through peer-reviewed code inspections facilitated with Pull requests. GitHub also provided a Kanban board to showcase the backlog, as well as the status of ongoing work. 
 
-In the same way the agile principles were introduced to the project. Of the twelve principles; "Welcome changing requirements", was the most prevalent as new requirements were added almost weekly. Even so within those requirements, there where options
+In the same way the agile principles were introduced to the project. Of the twelve principles; "Welcome changing requirements" <<ref_agile_principles>>, was the most prevalent as new requirements were added almost weekly. Furthermore how to meet those requirements wasn't set in stone. In situations where the team would find a better way to fulfill a task, there would be little resistance to incorporating it into the project. 
 
-
-
-Psychological safety \\
-Pair/Mob programming \\
-Kanbanboard/Github project board\\
-// Reflection and description of the "DevOps" style of work.
+Another vital principle was; "The most efficient and effective method of conveying information to and within a development team is face-to-face conversation". To implement this principle, the team had both the weekly physical meeting, but would routinely also hold pair-/ or mob-programming sessions. The latter part, contributed to increasing the ownership of the codebase, generally raises the quality of the code produced, and minimises the time spent on code inspections. *FIND STUDY THAT SHOWS BENEFITS OF PAIRPROGRAMMING*
 
 == Conclusion
 
@@ -135,3 +131,9 @@ Scrum guide https://scrumguides.org/scrum-guide.html
 
 [ref_agile_principles]
 The Agile Manifesto, 12 principles https://agilemanifesto.org/principles.html
+
+[ref_jabbari]
+Jabbari, Ramtin. "What is DevOps? A Systematic Mapping Study on Definitions and Practices"
+https://www.researchgate.net/publication/308857081_What_is_DevOps_A_Systematic_Mapping_Study_on_Definitions_and_Practices
+
+[ref_]
