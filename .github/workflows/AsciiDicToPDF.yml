@@ -14,12 +14,20 @@ jobs:
 
     steps:
     - name: Checkout the repo
-      uses: actions/checkout@v4  # Updated to the latest version supporting Node.js 20
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ github.head_ref }}
+
+    - name: Set up Git config
+      run: |
+        git config --global user.name 'GitHub Action'
+        git config --global user.email 'action@github.com'
+    - uses: actions/checkout@v4
 
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '3.0' # Adjust the Ruby version if needed
+        ruby-version: '3.0'
 
     - name: Install AsciiDoctor and dependencies
       run: |
@@ -30,10 +38,14 @@ jobs:
     - name: Convert AsciiDoc to PDF
       run: asciidoctor-pdf -o report/build/report.pdf report/index.adoc
 
+    - name: Set up Git config
+      run: |
+        git config --global user.name 'GitHub Action'
+        git config --global user.email 'action@github.com'
 
     - name: Commit changes
       run: |
-        git add .
+        git add report/build/report.pdf
         git diff --staged --exit-code || git commit -m "Automated commit: Update PDF"
         BRANCH_NAME="${GITHUB_REF#refs/heads/}"
         git push origin HEAD:$BRANCH_NAME
