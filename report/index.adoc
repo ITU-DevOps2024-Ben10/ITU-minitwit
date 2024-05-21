@@ -26,11 +26,13 @@ robust CI/CD workflows, and to use metrics, monitoring and logging to monitor, a
 * Playwright: A testing library enabling end-to-end (E2E) tests.
 * Prometheus: Monitoring system and time-series database for collecting and querying metrics.
 * Grafana: A visualization tool for Prometheus metrics.f
+* New Relic: A tool used for collecting, storing, and visualizing logs.
 * Xunit: A testing library for integration and unit testing.
 * Coverlet: A tool for determining code coverage in tests.
 * Moq: A test library for generating mock objects for unit testing.
 * Docker: Used for containerization of the application.
-* New Relic: A tool used for collecting, storing, and visualizing logs.
+* Digital Ocean: A cloud provider for hosting the application.
+* Vagrant: A tool for provisioning and managing virtual machines.
 
 //Figures:
 // ONION STRUCTURE THAT MAPS DEPENDENCIES MAYBE GITTRUCK??
