@@ -14,7 +14,7 @@ jobs:
 
     steps:
     - name: Checkout the repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4  # Update to the latest version supporting Node.js 20
 
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
@@ -28,4 +28,13 @@ jobs:
         gem install matrix
 
     - name: Convert AsciiDoc to PDF
-      run: asciidoctor-pdf report/index.adoc
+      run: asciidoctor-pdf -o report/build/report.pdf report/index.adoc
+
+    - name: List report directory contents
+      run: ls -R report
+
+    - name: Upload PDF artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: generated-pdf
+        path: report/build/report.pdf
