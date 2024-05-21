@@ -7,11 +7,16 @@ has been subjected to a simulation simulating real world usage by users. This ha
 durable, more performant, and more maintainable. This has taught us to develop more performant applications, implement 
 robust CI/CD workflows, and to use metrics, monitoring and logging to monitor, and keep our application healthy.
 
-== System's Perspective
+== System's Perspective[MADS, MAGNUS]
 
 === Design and Architecture of ITU-MiniTwit Systems
 
 // Description and illustration of the design and architecture.
+
+// Figures:
+// SHOW THE ENTIRETY OF THE ARCHITECTURE(ZOOMED COMPLETELY OUT)
+//SHOULD ACT AS THE BASIS FOR THE FIGURES BELOW (ZOOMED IN)
+
 
 === Dependencies of ITU-MiniTwit Systems
 
@@ -24,6 +29,9 @@ robust CI/CD workflows, and to use metrics, monitoring and logging to monitor, a
 * Coverlet: A tool for determining code coverage in tests.
 * Moq: A test library for generating mock objects for unit testing.
 
+//Figures:
+// ONION STRUCTURE THAT MAPS DEPENDENCIES MAYBE GITTRUCK??
+
 === Important Interactions of Subsystems
 
 
@@ -33,12 +41,13 @@ robust CI/CD workflows, and to use metrics, monitoring and logging to monitor, a
 
 === Current State of Systems
 
-// Description of the current state of systems.
+//Describe the current state of your systems, for example using results of static analysis and quality assessments.
 
-== Process' Perspective
+
+== Process' Perspective [OLIVER, MIKKEL]
 
 === CI/CD Chains
-
+//UML Deployment Diagrams
 // Description of stages and tools included in the CI/CD chains.
 
 === System Monitoring
@@ -90,12 +99,12 @@ that LLM's have a difficult time understanding the context in which the requeste
 
 // Description of the use of AI-assistants during the project.
 
-== Lessons Learned Perspective
+== Lessons Learned Perspective [EVERYONE]
 
 === Evolution and Refactoring
 
 // Description of the biggest issues, how they were solved, and lessons learned.
-
+//Figures - maybe depict the change in structure
 === Operation
 
 // Description of the biggest issues, how they were solved, and lessons learned.
