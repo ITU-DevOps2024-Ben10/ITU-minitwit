@@ -26,7 +26,10 @@ robust CI/CD workflows, and to use metrics, monitoring and logging to monitor, a
 
 === Important Interactions of Subsystems
 
+
 // Description of important interactions of subsystems.
+- For example, via an illustrative UML Sequence diagram that shows the flow of information through your system from user request in the browser, over all subsystems, hitting the database, and a response that is returned to the user.
+- Similarly, another illustrative sequence diagram that shows how requests from the simulator traverse your system.
 
 === Current State of Systems
 
@@ -57,9 +60,12 @@ We configured the New Relic agent in our Dockerfile, ensuring consistent logging
 
 // Brief results of the security assessment and description of how the system security was hardened.
 
-=== Scaling and Upgrades Strategy
+=== Scaling and Upgrade Strategy
 
 // Description of the applied strategy for scaling and upgrades.
+For scaling the application, Horizontal scaling with Docker Swarm was applied, as it offers numerous benefits, including improved application availability, load balancing, and fault tolerance. By distributing containers across multiple nodes, Docker Swarm ensures that the application can handle increased traffic and continue operating even if some nodes fail. This scalability allows for seamless expansion of resources in response to the growing demands during the course. Given the existing use of Docker in the application, adopting Docker Swarm was a logical choice, leveraging the teams familiarity with Docker's ecosystem while enhancing their ability to manage and scale containerized applications efficiently.
+
+Our upgrade strategy employs the default rolling update mechanism provided by Docker Swarm. This strategy updates one task at a time, ensuring that the application remains available during the upgrade process. Unlike the Blue-Green deployment strategy, where two environments (blue and green) run simultaneously and traffic is switched to the new version only after full deployment, rolling updates offer a more gradual approach. While Blue-Green can provide near-zero downtime and an easy rollback mechanism, it requires double the resources during deployment. In contrast, rolling updates consume fewer resources and offer continuous application availability, albeit with a slightly higher risk of partial downtime during the transition.
 
 === Use of AI-Assistants
 In this project these AI-assistants were used:
@@ -71,14 +77,14 @@ The AI-assistants were mainly used for:
 
 * Breaking down code logic. I.g. In order to recreate the Python API controller provided by the course, the code needed to be translated into C#. ChatGPT was a fitting tool for this task, as it could quickly provide translations. 
 * Code completions. GitHub Copilot acted as an extension of IntelliSense, in the sense that it could auto-complete simple pieces of code, such as loops, if-statements, and method signatures.
-* Research. ChatGPT was also used to provide a secondary explanation when researching new technologies, in situations were the documentation either was difficult to understand, or if subsidiary information was needed. 
+* Research. ChatGPT was also used to provide a secondary explanation when researching new technologies, in situations were the documentation either was difficult to understand, or if subsidary information was needed. 
 * Stacktrace breakdowns. ChatGPT was used to breakdown stracktraces, summarizing the information as well as providing a more user-friendly format to read. 
 * Identify functions that could be made more performant. 
 
 Downsides of using AI-assistants:
 
-* Both ChatGPT and Github Copilot are flawed, which makes them unreliable tools. Sometimes it would take as much time to double check the output of an assistant as would have to complete the task without it, which defeats the purpose of using them.
-* If used without careful inspection of the provided code, the LLM is likely to introduce bugs into the application. This is due to the fact,
+* Both ChatGPT and Github Copilot are flawed, which makes them unreliable tools. Sometimes it would take as much time to doublecheck the output of an assistant as would have to complete the task without it, which defeats the purpose of using them.
+* If used without careful inspeciton of the provided code, the LLM is likely to introduce bugs into the application. This is due to the fact,
 that LLM's have a difficult time understanding the context in which the requested code is supposed to operate.
 
 // Description of the use of AI-assistants during the project.
@@ -98,16 +104,10 @@ that LLM's have a difficult time understanding the context in which the requeste
 // Description of the biggest issues, how they were solved, and lessons learned.
 
 == DevOps Style of Work
-As the entire team has been taking the course "Second Year Project: Software Development in Large Teams" which introduces working by the Agile principles and with Scrum as a framework, it's only natural that some elements has been taken into the project. Especially since these frameworks align well with the DevOps style of work.
-
 Agile principles \\
 Psychological safety \\
 Pair/Mob programming \\
-Kanban board/Github project board\\
-
-Pair programming/mob programming \\
-
-
+Kanbanboard/Github project board\\
 // Reflection and description of the "DevOps" style of work.
 
 == Conclusion
