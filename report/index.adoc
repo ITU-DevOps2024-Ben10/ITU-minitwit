@@ -23,7 +23,7 @@ During the DevOps, Software Evolution, and Software Maintenance course, we enhan
 
 .Architecture Overview
 image::Images/Architecture.png["System Architecture Diagram", align="center", width="70%]
-The system architecture depicted in the figure 1 represents a CI/CD pipeline for deploying a software system.
+The system architecture depicted in figure 1 represents the entire system from source code on a development machine to the deployed solution on virtual containers and everything in between.
 
 . *Development and Source Code Management*: Developers manage the source code locally and on GitHub, which includes a Vagrantfile for environment setup.
 
