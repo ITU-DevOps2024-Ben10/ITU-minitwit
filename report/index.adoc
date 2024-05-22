@@ -27,9 +27,8 @@ The system architecture depicted in the figure 1 represents a CI/CD pipeline for
 . *CI/CD Workflows*: When changes are pushed to the GitHub repository, GitHub Workflows are triggered. These workflows, defined in YAML files, handle the build, test, release, and deployment processes.
 
 . *Containerization and Delivery*: The workflows build the Docker image for Minitwit, before pushing it to Docker Hub. The workflows then pulls the images for Prometheus and Grafana to use in the deployment process.
-//Needs fact checking
 
-. *Provisioning and Deployment*: The deployment process, triggered by GitHub Actions, provisions virtual containers (VContainers) on DigitalOcean. One container runs a Minitwit swarm, while another runs a MySQL DBMS.
+. *Provisioning and Deployment*: The deployment process, triggered by GitHub Actions, provisions virtual containers (VContainers) on DigitalOcean. A collection of containers run a Minitwit swarm, while a single other container runs a MySQL DBMS.
 
 Overall, this architecture automates the continuous integration, delivery, and deployment of the application using GitHub, Docker, and DigitalOcean.
 
