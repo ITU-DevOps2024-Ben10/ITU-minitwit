@@ -16,6 +16,7 @@ robust CI/CD workflows, and to use metrics, monitoring and logging to monitor, a
 // Figures:
 // SHOW THE ENTIRETY OF THE ARCHITECTURE(ZOOMED COMPLETELY OUT)
 //SHOULD ACT AS THE BASIS FOR THE FIGURES BELOW (ZOOMED IN)
+==== Overall Architecture
 
 .Architecture Overview
 image::Images/Architecture.png["System Architecture", align="center", width="70%]
@@ -32,8 +33,15 @@ The system architecture depicted in the figure 1 represents a CI/CD pipeline for
 
 Overall, this architecture automates the continuous integration, delivery, and deployment of the application using GitHub, Docker, and DigitalOcean.
 
+
 //Add more figures for more detailed views of the most important architecture
 //Add short descriptions of the figures
+
+==== Onion Architecture
+
+.Onion Overview
+image::Images/Minitwit-Git-Truck.png["System Architecture", align="center", width="70%]
+As seen in figure 2, the source code is structured according to the Onion Architecture. This architecture divides the application into layers, with the innermost layer containing the domain model and the outermost layer containing the user interface. This structure has been beneficial for the project as it enforces a clear separation of concerns, which allows for easier management of dependencies and testing.
 //Add subsections for relevant views
 
 === Dependencies of ITU-MiniTwit Systems
