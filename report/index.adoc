@@ -49,30 +49,32 @@ As shown in Figure 2, the source code consists of three main layers: Core, Infra
 .Digital Ocean Overview
 image::Images/DigitalOceanVContainers.png["Digital Ocean Architecture", align="center", width="70%]
 
-The Digital Ocean architecture, as seen in figure 3, consists of a collection of VContainers. The VContainers are provisioned by the Vagrantfile during the deployment process and run the Minitwit swarm. The swarm is a collection of containers that run the Minitwit application. The swarm is managed by Docker Swarm, which ensures that the application is highly available, load balanced, and fault tolerant. It also makes the system highly scalable, as more workers can be added to the swarm as wished. The swarm is connected to a single container running a MySQL DBMS, which stores the application's data. This architecture ensures that the application can handle increased traffic and continue operating even if some nodes fail.
+The Digital Ocean architecture, shown in Figure 3, consists of VContainers provisioned by the Vagrantfile during deployment, running the Minitwit swarm. Managed by Docker Swarm, the swarm ensures high availability, load balancing, fault tolerance, and scalability. It connects to a single container running a MySQL DBMS for data storage. This setup ensures the application can handle increased traffic and remain operational despite node failures.
 
 === Dependencies of ITU-MiniTwit Systems
 
 // List and brief description of all technologies and tools applied and depended on.
-The ITU-MiniTwit system is built using a variety of technologies and tools, some of which are used during the development process, while others are important at runtime.
+The ITU-MiniTwit system leverages various technologies and tools for development and runtime:
 
-* ASP.NET Core: The foundation of our application, used for implementing the web server, user authorization and identification, and our minimal web API.
-* Entity Framework: An ORM used in the database abstraction layer and all CRUD operation logic.
-* Playwright: A testing library enabling end-to-end (E2E) tests.
-* Prometheus: Monitoring system and time-series database for collecting and querying metrics.
-* Grafana: A visualization tool for Prometheus metrics.
-* New Relic: A tool used for collecting, storing, and visualizing logs.
-* Xunit: A testing library for integration and unit testing.
-* Coverlet: A tool for determining code coverage in tests.
-* Moq: A test library for generating mock objects for unit testing.
-* Docker: Used for containerization of the application.
-* Docker Hub: A container registry for storing and sharing Docker images.
-* Digital Ocean: A cloud provider for hosting the application.
-* Vagrant: A tool for provisioning and managing virtual machines.
-* GitHub: Used for source code management and task management.
-* GitHub Actions: Used for automating the CI/CD workflows.
-* GitHub Copilot: An AI-assistant for code completion and generation. Read more about the use of AI-assistants in the section <<Use of AI-Assistants>>.
-* ChatGPT: An AI-assistant for code completion and generation. Read more about the use of AI-assistants in the section <<Use of AI-Assistants>>.
+* *ASP.NET Core*: Implements the web server, user authorization, identification, and minimal web API.
+* *Entity Framework*: ORM for database abstraction and CRUD operations.
+* *Playwright*: Enables end-to-end (E2E) tests.
+* *Prometheus*: Collects and queries metrics as a monitoring system and time-series database.
+* *Grafana*: Visualizes Prometheus metrics.
+* *New Relic*: Collects, stores, and visualizes logs.
+* *Xunit*: Library for integration and unit testing.
+* *Coverlet*: Determines code coverage in tests.
+* *Moq*: Generates mock objects for unit testing.
+* *Docker*: Containerizes the application.
+* *Docker Hub*: Stores and shares Docker images.
+* *Digital Ocean*: Hosts the application.
+* *Vagrant*: Provisions and manages virtual machines.
+* *GitHub*: Manages source code and tasks.
+* *GitHub Actions*: Automates CI/CD workflows.
+* *GitHub Copilot*: AI assistant for code completion and generation.
+* *ChatGPT*: AI assistant for code completion and generation.
+
+Read more about AI assistants in the section <<Use of AI-Assistants>>.
 
 === Important Interactions of Subsystems
 
