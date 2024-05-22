@@ -11,8 +11,7 @@ Casper Holten <casho@itu.dk>; Mads Andersen <madsd@itu.dk>; Magnus Kristensen <b
 
 During the DevOps, Software Evolution, and Software Maintenance course, we enhanced a 'Micro Blogging Service' from an earlier course to handle real-world user simulations. This process improved the application's durability, performance, and maintainability. We learned to create more efficient applications, implement robust CI/CD workflows, and use metrics, monitoring, and logging to maintain application health.
 
-== System's Perspective[MADS, MAGNUS]
-
+== System's Perspective
 === Design and Architecture of ITU-MiniTwit Systems
 
 // Description and illustration of the design and architecture.
@@ -91,7 +90,7 @@ Read more about AI assistants in the section <<Use of AI-Assistants>>.
 
 //Run static analysis tools and describe the results
 
-== Process' Perspective [OLIVER, MIKKEL]
+== Process' Perspective
 
 === CI/CD Chains
 //UML Deployment Diagrams
@@ -141,7 +140,7 @@ Rolling updates were chosen as the deployment strategy due to alignment with exi
 
 // Description of the use of AI-assistants during the project.
 
-== Lessons Learned Perspective [EVERYONE]
+== Lessons Learned Perspective
 
 === Evolution and Refactoring
 
