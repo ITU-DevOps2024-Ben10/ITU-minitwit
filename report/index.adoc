@@ -51,7 +51,25 @@ robust CI/CD workflows, and to use metrics, monitoring and logging to monitor, a
 // Description of stages and tools included in the CI/CD chains.
 
 === System Monitoring
+This project utilizes a collaboration between Grafana and Prometheus.
+The flow of the monotoring:
 
+* ASP.Net exposes some perfomance metrics by default
+* Custom metrics that are exposed:
+
+** minitwit_api_requests_total
+** minitwit_api_requests_error_total
+** minitwit_api_requests_success_total
+** minitwit_register_user_total
+** minitwit_login_user_total
+** minitwit_follow_user_total
+** minitwit_unfollow_user_total
+** minitwit_post_message_total
+** minitwit_get_messages_total
+* Prometheus is configured through a YML script, to scrape "/metrics" endpoints at port 8080 and 8081 every 15 seconds this includes both the custom and the default metrics related to the web application.
+* Grafana queries and aggregates the data from the Prometheus Server, and displays them in a custom Dashboard created by the team. 
+
+*MISSING FIGURE OF MONITORING CONFIGURATION*
 // Description of how the systems are monitored and what is monitored.
 
 === System Logging
@@ -61,7 +79,7 @@ We then chose New Relic, which logs everything written to a the node's console, 
 It logs stack traces, exception messages, and preceding events when requests fail, allowing us to monitor API access, 
 track server actions, and identify errors.
 
-The aggregated logs where sent to New Relic and were accessible through their propriotary dashboard.
+The aggregated logs where sent to New Relic and were accessible through their proprietary dashboard.
 
 We configured the New Relic agent in our Dockerfile, ensuring consistent logging across all application nodes.
 
@@ -76,7 +94,7 @@ The team has uncovered three major security threats via risk assessment, the ris
 // Description of the applied strategy for scaling and upgrades.
 For scaling the application, Horizontal scaling with Docker Swarm was applied, as it offers numerous benefits, including improved application availability, load balancing, and fault tolerance. By distributing containers across multiple nodes, Docker Swarm ensures that the application can handle increased traffic and continue operating even if some nodes fail. This scalability allows for seamless expansion of resources in response to the growing demands during the course. Given the existing use of Docker in the application, adopting Docker Swarm was a logical choice, leveraging the teams familiarity with Docker's ecosystem while enhancing their ability to manage and scale containerized applications efficiently.
 
-We chose rolling updates for our deployment strategy as it is the default method in Docker Swarm and aligns well with our existing infrastructure. This approach provides continuous availability by updating services incrementally, minimizing downtime without requiring additional resources. The alternative for this strategy is the Blue-Green upgrade strategy, but the additional ressources and implementation time was what additionally made the team favour Rolling Updates. (<<szulik_2017>>)
+We chose rolling updates for our deployment strategy as it is the default method in Docker Swarm and aligns well with our existing infrastructure. This approach provides continuous availability by updating services incrementally, minimizing downtime without requiring additional resources. The alternative for this strategy is the Blue-Green upgrade strategy, but the additional resources and implementation time was what additionally made the team favour Rolling Updates. (<<szulik_2017>>)
 
 === Use of AI-Assistants
 In this project these AI-assistants were used:
@@ -88,14 +106,14 @@ The AI-assistants were mainly used for:
 
 * Breaking down code logic. I.g. In order to recreate the Python API controller provided by the course, the code needed to be translated into C# and modified to fit our application. ChatGPT was a great tool for understanding each endpoint and what data would be included in a call and a response.
 * Code completions. GitHub Copilot acted as an extension of IntelliSense, in the sense that it could auto-complete simple pieces of code, such as loops, if-statements, and method signatures.
-* Research. ChatGPT was also used to provide a secondary explanation when researching new technologies, in situations were the documentation either was difficult to understand, or if subsidary information was needed. 
+* Research. ChatGPT was also used to provide a secondary explanation when researching new technologies, in situations were the documentation either was difficult to understand, or if subsidiary information was needed. 
 * Stacktrace breakdowns. ChatGPT was used to breakdown stracktraces, summarizing the information as well as providing a more user-friendly format to read. 
 * Identify functions that could be made more performant. 
 
 Downsides of using AI-assistants:
 
-* Both ChatGPT and Github Copilot are flawed, which makes them unreliable tools. Sometimes it would take as much time to doublecheck the output of an assistant as would have to complete the task without it, which defeats the purpose of using them.
-* If used without careful inspeciton of the provided code, the LLM is likely to introduce bugs into the application. This is due to the fact,
+* Both ChatGPT and Github Copilot are flawed, which makes them unreliable tools. Sometimes it would take as much time to double check the output of an assistant as would have to complete the task without it, which defeats the purpose of using them.
+* If used without careful inspector of the provided code, the LLM is likely to introduce bugs into the application. This is due to the fact,
 that LLM's have a difficult time understanding the context in which the requested code is supposed to operate.
 
 // Description of the use of AI-assistants during the project.
@@ -224,7 +242,7 @@ The likeness of this happening, would be the same as for the <<Database Credenti
 
 Improve the security of our system:
 
-There are many options as to how to improve on this threat, a minimum would be to have physical copy of the state of the database on one or more harddrives. DigitalOcean has a Collaboration with SnapShooter, a service that enables virtual backups of databases, that would integrate nicely into the project. 
+There are many options as to how to improve on this threat, a minimum would be to have physical copy of the state of the database on one or more hard drives. DigitalOcean has a Collaboration with SnapShooter, a service that enables virtual backups of databases, that would integrate nicely into the project. 
 
 
 [bibliography]
