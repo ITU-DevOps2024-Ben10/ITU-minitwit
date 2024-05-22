@@ -22,7 +22,7 @@ robust CI/CD workflows, and to use metrics, monitoring and logging to monitor, a
 ==== Overall Architecture
 
 .Architecture Overview
-image::Images/Architecture.png["System Architecture", align="center", width="70%]
+image::Images/Architecture.png["System Architecture Diagram", align="center", width="70%]
 The system architecture depicted in the figure 1 represents a CI/CD pipeline for deploying a software system.
 
 . *Development and Source Code Management*: Developers work on the source code locally and manage it using a GitHub repository. The repository contains the source code and a Vagrantfile for environment setup.
@@ -39,14 +39,14 @@ Overall, this architecture automates the continuous integration, delivery, and d
 ==== Onion Architecture
 
 .Onion Overview
-image::Images/Minitwit-Git-Truck.png["Onion Architecture", align="center", width="70%]
+image::Images/Minitwit-Git-Truck.png["Onion Architecture Diagram", align="center", width="70%]
 
 As seen in figure 2, the source code consists of the three main pillars: Core, Infrastructure, and Web. This coincides with the Onion architecture with the innermost layer, the domain model, being Core. The next layer, infrastructure, holds the business logic. The outermost layer, Web, contains the user interface. These layers each only depend inwards which has been beneficial for the project as it enforces a clear separation of concerns, which allows for easier management of dependencies and testing.
 
 ==== Digital Ocean
 
 .Digital Ocean Overview
-image::Images/DigitalOceanVContainers.png["Digital Ocean Architecture", align="center", width="70%]
+image::Images/DigitalOceanVContainers.png["Digital Ocean Architecture Diagram", align="center", width="70%]
 
 The Digital Ocean architecture, as seen in figure 3, consists of a collection of VContainers. The VContainers are provisioned by the Vagrantfile during the deployment process and run the Minitwit swarm. The swarm is a collection of containers that run the Minitwit application. The swarm is managed by Docker Swarm, which ensures that the application is highly available, load balanced, and fault tolerant. It also makes the system highly scalable, as more workers can be added to the swarm as wished. The swarm is connected to a single container running a MySQL DBMS, which stores the application's data. This architecture ensures that the application can handle increased traffic and continue operating even if some nodes fail.
 
@@ -79,9 +79,10 @@ The ITU-MiniTwit system is built using a variety of technologies and tools, some
 // Description of important interactions of subsystems.
 
 .User Request Sequence via UI
-image::Images/SequenceDiagramUI.png["User Request Sequence", align="center", width="70%]
+image::Images/SequenceDiagramUI.png["User Request Sequence Diagram", align="center", width="70%]
 
-
+.Simulator Request Sequence via API
+image::Images/RegisterAPICallMinitwit.png["Simulator Request Sequence Diagram", align="center", width="70%]
 
 - For example, via an illustrative UML Sequence diagram that shows the flow of information through your system from user request in the browser, over all subsystems, hitting the database, and a response that is returned to the user.
 - Similarly, another illustrative sequence diagram that shows how requests from the simulator traverse your system.
