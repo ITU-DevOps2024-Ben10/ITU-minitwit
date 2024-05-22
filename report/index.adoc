@@ -382,10 +382,10 @@ There are many options as to how to improve on this threat. A minimum effort wou
 [bibliography]
 == References
 
-[[szulik_2017]] Szulik, Maciej. "Colorful deployments: An introduction to blue-green, canary, and rolling deployments." _Opensource.com_, 2 May 2017. https://opensource.com/article/17/5/colorful-deployments
+[[szulik_2017]] Szulik, Maciej. “Colorful Deployments: An Introduction to Blue-Green, Canary, and Rolling Deployments.” Opensource.com. Accessed May 23, 2024. https://opensource.com/article/17/5/colorful-deployments. 
 
-[[scrum_guide_2020]] Scrum guide, 2020. https://scrumguides.org/scrum-guide.html
+[[scrum_guide_2020]] “The 2020 Scrum GUIDETM.” Scrum Guide | Scrum Guides. Accessed May 23, 2024. https://scrumguides.org/scrum-guide.html. 
 
-[[agile_principles_2001]] The Agile Manifesto, 12 principles, 2001. https://agilemanifesto.org/principles.html
+[[agile_principles_2001]] Principles behind the Agile Manifesto. Accessed May 23, 2024. https://agilemanifesto.org/principles.html. 
 
-[[jabbari_2016]] Jabbari, Ramtin. "What is DevOps? A Systematic Mapping Study on Definitions and Practices.", 2016  https://www.researchgate.net/publication/308857081_What_is_DevOps_A_Systematic_Mapping_Study_on_Definitions_and_Practices
+[[jabbari_2016]] (PDF) what is devops?: A systematic mapping study on definitions and practices. Accessed May 22, 2024. https://www.researchgate.net/publication/308857081_What_is_DevOps_A_Systematic_Mapping_Study_on_Definitions_and_Practices. 
