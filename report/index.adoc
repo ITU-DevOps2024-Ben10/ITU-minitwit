@@ -20,7 +20,6 @@ robust CI/CD workflows, and to use metrics, monitoring and logging to monitor, a
 
 .Architecture Overview
 image::Images/Architecture.png["System Architecture", align="center", width="70%]
-//Short description of high abstraction level architecture
 The system architecture depicted in the figure 1 represents a CI/CD pipeline for deploying a software system.
 
 . *Development and Source Code Management*: Developers work on the source code locally and manage it using a GitHub repository. The repository contains the source code and a Vagrantfile for environment setup.
@@ -34,16 +33,12 @@ The system architecture depicted in the figure 1 represents a CI/CD pipeline for
 Overall, this architecture automates the continuous integration, delivery, and deployment of the application using GitHub, Docker, and DigitalOcean.
 
 
-//Add more figures for more detailed views of the most important architecture
-//Add short descriptions of the figures
-
 ==== Onion Architecture
 
 .Onion Overview
 image::Images/Minitwit-Git-Truck.png["Onion Architecture", align="center", width="70%]
 
 As seen in figure 2, the source code consists of the three main pillars: Core, Infrastructure, and Web. This coincides with the Onion architecture with the innermost layer, the domain model, being Core. The next layer, infrastructure, holds the business logic. The outermost layer, Web, contains the user interface. These layers each only depend inwards which has been beneficial for the project as it enforces a clear separation of concerns, which allows for easier management of dependencies and testing.
-//Add subsections for relevant views
 
 ==== Digital Ocean
 
@@ -55,8 +50,10 @@ The Digital Ocean architecture, as seen in figure 3, consists of a collection of
 === Dependencies of ITU-MiniTwit Systems
 
 // List and brief description of all technologies and tools applied and depended on.
+The ITU-MiniTwit system is built using a variety of technologies and tools, some of which are used during the development process, while others are important at runtime.
+
 * ASP.NET Core: The foundation of our application, used for implementing the web server, user authorization and identification, and our minimal web API.
-* Entity Framework: Used for the database abstraction layer and all CRUD operation logic.
+* Entity Framework: An ORM used in the database abstraction layer and all CRUD operation logic.
 * Playwright: A testing library enabling end-to-end (E2E) tests.
 * Prometheus: Monitoring system and time-series database for collecting and querying metrics.
 * Grafana: A visualization tool for Prometheus metrics.
@@ -65,13 +62,13 @@ The Digital Ocean architecture, as seen in figure 3, consists of a collection of
 * Coverlet: A tool for determining code coverage in tests.
 * Moq: A test library for generating mock objects for unit testing.
 * Docker: Used for containerization of the application.
+* Docker Hub: A container registry for storing and sharing Docker images.
 * Digital Ocean: A cloud provider for hosting the application.
 * Vagrant: A tool for provisioning and managing virtual machines.
-//Expand to all levels of abstraction and development stages.
-
-//Figures:
-// ONION STRUCTURE THAT MAPS DEPENDENCIES MAYBE GITTRUCK??
-
+* GitHub: Used for source code management and task management.
+* GitHub Actions: Used for automating the CI/CD workflows.
+* GitHub Copilot: An AI-assistant for code completion and generation. Read more about the use of AI-assistants in the section "Use of AI-Assistants".
+* ChatGPT: An AI-assistant for code completion and generation. Read more about the use of AI-assistants in the section "Use of AI-Assistants".
 === Important Interactions of Subsystems
 
 
