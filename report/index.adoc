@@ -117,7 +117,56 @@ that LLM's have a difficult time understanding the context in which the requeste
 
 === Maintenance
 
-// Description of the biggest issues, how they were solved, and lessons learned.
+==== Challenges
+
+One of the primary challenges encountered during the maintenance phase was identifying the precise elements requiring upkeep. This encompassed several aspects:
+
+* **Error Detection**: Determining the root causes of errors in the system.
+
+* **System Status**: Monitoring the status of the website, including instances of downtime.
+
+* **Issue Diagnosis**: Pinpointing specific failures or malfunctions within the system.
+
+Initially, without proper tools, these tasks appeared daunting and time-consuming. The lack of 
+convenient visibility into system performance and error tracking contributed to uncertainty regarding the system's health. In the beginning, we relied mostly on the general monitoring provided by the course.
+
+==== Solutions Implemented
+
+To address these challenges, we integrated monitoring and logging solutions into our maintenance workflow:
+
+1. **Monitoring Systems**:
+   - Implemented real-time monitoring tools, Prometheus and Grafana, to continuously observe website performance and availability.
+   - Configured alerts in Grafana to notify the team of any anomalies or downtime events.
+
+2. **Logging Mechanisms**:
+   - Established detailed logging processes using New Relic to systematically record all system errors and events.
+   - Utilized the centralized logging platform in New Relic to aggregate and analyze log data, facilitating quicker diagnosis and resolution of issues.
+
+These tools significantly enhanced our ability to manage and maintain the system effectively. Real-time insights and detailed logs provided a clearer picture of the system's operational state, enabling proactive maintenance and faster response times.
+
+==== Outcomes
+
+While the introduction of monitoring and logging tools did not entirely eliminate maintenance issues, it considerably reduced their complexity. Key improvements included:
+
+* **Improved Error Tracking**: Enhanced ability to trace and resolve errors promptly.
+* **Proactive Maintenance**: Ability to detect potential issues before they escalated.
+* **Efficient Response**: Faster response times due to real-time alerts and comprehensive log data.
+
+==== Lessons Learned
+
+* **Scope of Maintenance**:
+Maintenance is inherently a substantial and ongoing task that demands continuous attention and resources.
+
+* **Utility of Monitoring and Logging**:
+Effective monitoring and logging are critical components of a robust maintenance strategy. They provide essential visibility into system operations, aiding in quick issue identification and resolution.
+
+* **Threshold-Based Alerts**:
+Implementing threshold-based alerts is vital for timely intervention, preventing minor issues from escalating.
+
+* **Continuous Improvement**:
+Maintenance processes should be continually refined and improved to adapt to evolving system requirements and comming challenges.
+
+
 
 == DevOps Style of Work
 //Also reflect and describe what was the "DevOps" style of your work. For example, what did you do differently to previous development projects and how did it work?
