@@ -84,9 +84,6 @@ image::Images/SequenceDiagramUI.png["User Request Sequence Diagram", align="cent
 .Simulator Request Sequence via API
 image::Images/RegisterAPICallMinitwit.png["Simulator Request Sequence Diagram", align="center", width="70%]
 
-- For example, via an illustrative UML Sequence diagram that shows the flow of information through your system from user request in the browser, over all subsystems, hitting the database, and a response that is returned to the user.
-- Similarly, another illustrative sequence diagram that shows how requests from the simulator traverse your system.
-
 //Sequence Diagram / Flow Diagram from one subsystem to another
 //Contain 2 start nodes, one for the user request and one for the simulator request
 === Current State of Systems
