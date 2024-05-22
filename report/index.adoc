@@ -41,7 +41,7 @@ Overall, this architecture automates the continuous integration, delivery, and d
 
 .Onion Overview
 image::Images/Minitwit-Git-Truck.png["System Architecture", align="center", width="70%]
-As seen in figure 2, the source code is structured according to the Onion Architecture. This architecture divides the application into layers, with the innermost layer containing the domain model and the outermost layer containing the user interface. This structure has been beneficial for the project as it enforces a clear separation of concerns, which allows for easier management of dependencies and testing.
+As seen in figure 2, the source code is structured according to the Onion Architecture. This architecture divides the application into layers, with the innermost layer containing the domain model and the outermost layer containing the user interface. These layers may never be dependent on a layer outside of themselves. This structure has been beneficial for the project as it enforces a clear separation of concerns, which allows for easier management of dependencies and testing.
 //Add subsections for relevant views
 
 === Dependencies of ITU-MiniTwit Systems
