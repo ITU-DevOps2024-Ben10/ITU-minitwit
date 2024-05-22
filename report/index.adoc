@@ -95,8 +95,21 @@ The ITU-MiniTwit system is built using a variety of technologies and tools, some
 == Process' Perspective
 
 === CI/CD Chains
-//UML Deployment Diagrams
-// Description of stages and tools included in the CI/CD chains.
+
+.Continuous Deployment chain
+image::Images/WorkflowDiagram.jpg["CD chain", align="center", width="100%]
+
+To easily and automatically deploy our application to our servers, we made use of the automatic deployment workflow as seen in 
+figure 4. 
+When a push to main with a tag is made, a workflow is triggered. This workflow builds and packages our application in appropriate
+ways for selected runtime targets.
+
+In general, when a push is made to main, the system is tested, and a Docker Image is compiled, tested and uploaded to Docker Hub. This image is then downloaded to the Swarm Manager,
+and deployed to across Swarm.
+
+To serve as a quality gate when reviewing pull requests, we also made use of a testing workflow. This workflow did not 
+ran the tests written for the application, but did not abort any of our processes. This
+served only as an indicator for program correctness when reviewing code. 
 
 === System Monitoring
 .Monitoring view
