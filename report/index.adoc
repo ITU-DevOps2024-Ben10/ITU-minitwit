@@ -1,17 +1,17 @@
-= Report - DevOps 2024 ITU 
+= Report - DevOps 2024 ITU
+Casper Holten <casho@itu.dk>; Mads Andersen <madsd@itu.dk>; Magnus Kristensen <bekr@itu.dk>; Mikkel Kristensen <mbek@itu.dk>; Oliver Laursen <olau@itu.dk>
+:title-page:
 :appendix-caption:
 :sectnums:
 :toc:
+:docdate: date (ISO)
+
 
 == Introduction
 
-During the course DevOps, Software Evolution and Software Maintenance an application stemming from an earlier course
-has been subjected to a simulation simulating real world usage by users. This has forced us to make the application more
-durable, more performant, and more maintainable. This has taught us to develop more performant applications, implement 
-robust CI/CD workflows, and to use metrics, monitoring and logging to monitor, and keep our application healthy.
+During the DevOps, Software Evolution, and Software Maintenance course, we enhanced a 'Micro Blogging Service' from an earlier course to handle real-world user simulations. This process improved the application's durability, performance, and maintainability. We learned to create more efficient applications, implement robust CI/CD workflows, and use metrics, monitoring, and logging to maintain application health.
 
-== System's Perspective[MADS, MAGNUS]
-
+== System's Perspective
 === Design and Architecture of ITU-MiniTwit Systems
 
 // Description and illustration of the design and architecture.
@@ -25,15 +25,15 @@ robust CI/CD workflows, and to use metrics, monitoring and logging to monitor, a
 image::Images/Architecture.png["System Architecture Diagram", align="center", width="70%]
 The system architecture depicted in the figure 1 represents a CI/CD pipeline for deploying a software system.
 
-. *Development and Source Code Management*: Developers work on the source code locally and manage it using a GitHub repository. The repository contains the source code and a Vagrantfile for environment setup.
+. *Development and Source Code Management*: Developers manage the source code locally and on GitHub, which includes a Vagrantfile for environment setup.
 
-. *CI/CD Workflows*: When changes are pushed to the main branch in the GitHub repository, GitHub Workflows are triggered. These workflows, defined in .yml files, handle the build, test, release, and deployment processes.
+. *CI/CD Workflows*: Pushing changes to the main branch triggers GitHub Workflows, defined in .yml files, to handle build, test, release, and deployment.
 
-. *Containerization and Delivery*: The workflows build the Docker image for Minitwit, before pushing it to Docker Hub. The workflows then pulls the images for Prometheus and Grafana to use in the deployment process.
+. *Containerization and Delivery*: Workflows build the Minitwit Docker image, push it to Docker Hub, and pull Prometheus and Grafana images for deployment.
 
-. *Provisioning and Deployment*: The deployment process, triggered by GitHub Actions, provisions virtual containers (VContainers) on DigitalOcean. A collection of containers run a Minitwit swarm, while a single other container runs a MySQL DBMS.
+. *Provisioning and Deployment*: GitHub Actions provision virtual containers on DigitalOcean. Containers run a Minitwit swarm and a MySQL DBMS.
 
-Overall, this architecture automates the continuous integration, delivery, and deployment of the application using GitHub, Docker, and DigitalOcean.
+This architecture automates continuous integration, delivery, and deployment using GitHub, Docker, and DigitalOcean.
 
 
 ==== Onion Architecture
@@ -41,37 +41,39 @@ Overall, this architecture automates the continuous integration, delivery, and d
 .Onion Overview
 image::Images/Minitwit-Git-Truck.png["Onion Architecture Diagram", align="center", width="70%]
 
-As seen in figure 2, the source code consists of the three main pillars: Core, Infrastructure, and Web. This coincides with the Onion architecture with the innermost layer, the domain model, being Core. The next layer, infrastructure, holds the business logic. The outermost layer, Web, contains the user interface. These layers each only depend inwards which has been beneficial for the project as it enforces a clear separation of concerns, which allows for easier management of dependencies and testing.
+As shown in Figure 2, the source code consists of three main layers: Core, Infrastructure, and Web. This aligns with the Onion architecture. The innermost layer, Core, is the domain model. Infrastructure contains the business logic, and Web holds the user interface. Each layer depends only on the inner layers, enforcing a clear separation of concerns and simplifying dependency management and testing.
 
 ==== Digital Ocean
 
 .Digital Ocean Overview
 image::Images/DigitalOceanVContainers.png["Digital Ocean Architecture Diagram", align="center", width="70%]
 
-The Digital Ocean architecture, as seen in figure 3, consists of a collection of VContainers. The VContainers are provisioned by the Vagrantfile during the deployment process and run the Minitwit swarm. The swarm is a collection of containers that run the Minitwit application. The swarm is managed by Docker Swarm, which ensures that the application is highly available, load balanced, and fault tolerant. It also makes the system highly scalable, as more workers can be added to the swarm as wished. The swarm is connected to a single container running a MySQL DBMS, which stores the application's data. This architecture ensures that the application can handle increased traffic and continue operating even if some nodes fail.
+The Digital Ocean architecture, shown in Figure 3, consists of VContainers provisioned by the Vagrantfile during deployment, running the Minitwit swarm. Managed by Docker Swarm, the swarm ensures high availability, load balancing, fault tolerance, and scalability. It connects to a single container running a MySQL DBMS for data storage. This setup ensures the application can handle increased traffic and remain operational despite node failures.
 
 === Dependencies of ITU-MiniTwit Systems
 
 // List and brief description of all technologies and tools applied and depended on.
-The ITU-MiniTwit system is built using a variety of technologies and tools, some of which are used during the development process, while others are important at runtime.
+The ITU-MiniTwit system leverages various technologies and tools for development and runtime:
 
-* ASP.NET Core: The foundation of our application, used for implementing the web server, user authorization and identification, and our minimal web API.
-* Entity Framework: An ORM used in the database abstraction layer and all CRUD operation logic.
-* Playwright: A testing library enabling end-to-end (E2E) tests.
-* Prometheus: Monitoring system and time-series database for collecting and querying metrics.
-* Grafana: A visualization tool for Prometheus metrics.
-* New Relic: A tool used for collecting, storing, and visualizing logs.
-* Xunit: A testing library for integration and unit testing.
-* Coverlet: A tool for determining code coverage in tests.
-* Moq: A test library for generating mock objects for unit testing.
-* Docker: Used for containerization of the application.
-* Docker Hub: A container registry for storing and sharing Docker images.
-* Digital Ocean: A cloud provider for hosting the application.
-* Vagrant: A tool for provisioning and managing virtual machines.
-* GitHub: Used for source code management and task management.
-* GitHub Actions: Used for automating the CI/CD workflows.
-* GitHub Copilot: An AI-assistant for code completion and generation. Read more about the use of AI-assistants in the section <<Use of AI-Assistants>>.
-* ChatGPT: An AI-assistant for code comprehension and research. Read more about the use of AI-assistants in the section <<Use of AI-Assistants>>.
+* *ASP.NET Core*: Implements the web server, user authorization, identification, and minimal web API.
+* *Entity Framework*: ORM for database abstraction and CRUD operations.
+* *Playwright*: Enables end-to-end (E2E) tests.
+* *Prometheus*: Collects and queries metrics as a monitoring system and time-series database.
+* *Grafana*: Visualizes Prometheus metrics.
+* *New Relic*: Collects, stores, and visualizes logs.
+* *Xunit*: Library for integration and unit testing.
+* *Coverlet*: Determines code coverage in tests.
+* *Moq*: Generates mock objects for unit testing.
+* *Docker*: Containerizes the application.
+* *Docker Hub*: Stores and shares Docker images.
+* *Digital Ocean*: Hosts the application.
+* *Vagrant*: Provisions and manages virtual machines.
+* *GitHub*: Manages source code and tasks.
+* *GitHub Actions*: Automates CI/CD workflows.
+* *GitHub Copilot*: AI assistant for code completion and generation.
+* *ChatGPT*: AI assistant for code completion and generation.
+
+Read more about AI assistants in the section <<Use of AI-Assistants>>.
 
 === Important Interactions of Subsystems
 
@@ -96,11 +98,24 @@ MiniTwit systems are currently running smoothly. Static analysis only detects mi
 
 //Run static analysis tools and describe the results
 
-== Process' Perspective [OLIVER, MIKKEL]
+== Process' Perspective
 
 === CI/CD Chains
-//UML Deployment Diagrams
-// Description of stages and tools included in the CI/CD chains.
+
+.Continuous Deployment chain
+image::Images/WorkflowDiagram.jpg["CD chain", align="center", width="100%]
+
+To easily and automatically deploy our application to our servers, we made use of the automatic deployment workflow as seen in 
+figure 4. 
+When a push to main with a tag is made, a workflow is triggered. This workflow builds and packages our application in appropriate
+ways for selected runtime targets.
+
+In general, when a push is made to main, the system is tested, and a Docker Image is compiled, tested and uploaded to Docker Hub. This image is then downloaded to the Swarm Manager,
+and deployed to across Swarm.
+
+To serve as a quality gate when reviewing pull requests, we also made use of a testing workflow. This workflow did not 
+ran the tests written for the application, but did not abort any of our processes. This
+served only as an indicator for program correctness when reviewing code. 
 
 === System Monitoring
 
@@ -108,51 +123,45 @@ MiniTwit systems are currently running smoothly. Static analysis only detects mi
 
 === System Logging
 
-We initially tried deploying the ELK stack for logging and monitoring but faced difficulties. 
-We then chose New Relic, which logs everything written to a the node's console, similar to local debugging. 
-It logs stack traces, exception messages, and preceding events when requests fail, allowing us to monitor API access, 
-track server actions, and identify errors.
+We initially tried deploying the ELK stack for logging and monitoring but faced difficulties. We then chose New Relic, which logs everything written to the node's console, similar to local debugging. It captures stack traces, exception messages, and preceding events when requests fail, allowing us to monitor API access, track server actions, and identify errors.
 
-The aggregated logs were sent to New Relic and were accessible through their proprietary dashboard.
-
-We configured the New Relic agent in our Dockerfile, ensuring consistent logging across all application nodes.
+Aggregated logs were sent to New Relic and accessed through their proprietary dashboard. We configured the New Relic agent in our Dockerfile, ensuring consistent logging across all application nodes.
 
 === Security Assessment
 
 // Brief results of the security assessment and description of how the system security was hardened.
-The team has uncovered three major security threats via risk assessment. These risks are described in the <<Risk Assessments>> chapter of the Appendix. The team has addressed these threats, but due to the time constraint of the project as well as low probability of an attack, the tasks to implement fixes was underprioritized. 
+The team identified three major security threats through risk assessment, detailed in the <<Risk Assessments>> chapter of the Appendix. Although addressed, these threats were underprioritized due to project time constraints and the low probability of an attack. 
 
 
 === Scaling and Upgrade Strategy
 
 // Description of the applied strategy for scaling and upgrades.
-For scaling the application, Horizontal scaling with Docker Swarm was applied, as it offers numerous benefits, including improved application availability, load balancing, and fault tolerance. By distributing containers across multiple nodes, Docker Swarm ensures that the application can handle increased traffic and continue operating even if some nodes fail. This scalability allows for seamless expansion of resources in response to the growing demands during the course. Given the existing use of Docker in the application, adopting Docker Swarm was a logical choice, leveraging the teams familiarity with Docker's ecosystem while enhancing their ability to manage and scale containerized applications efficiently.
+For scaling the application, Docker Swarm's horizontal scaling was employed, offering improved availability, load balancing, and fault tolerance. By distributing containers across multiple nodes, Docker Swarm ensures seamless handling of increased traffic and continued operation despite node failures. Leveraging Docker's ecosystem familiarity, Docker Swarm was a logical choice for efficient management and scaling of containerized applications.
 
-We chose rolling updates for our deployment strategy as it is the default method in Docker Swarm and aligns well with our existing infrastructure. This approach provides continuous availability by updating services incrementally, minimizing downtime without requiring additional resources. The alternative for this strategy is the Blue-Green upgrade strategy, but the additional ressources and implementation time was what additionally made the team favour Rolling Updates. (<<szulik_2017>>)
+Rolling updates were chosen as the deployment strategy due to alignment with existing infrastructure and minimal downtime. This approach updates services incrementally, maintaining continuous availability without requiring additional resources. While the Blue-Green upgrade strategy was considered, its additional resources and implementation time led the team to favor Rolling Updates. (<<szulik_2017>>)
 
 === Use of AI-Assistants
-In this project these AI-assistants were used:
+==== AI-assistants used
 
 * OpenAI's ChatGPT version 3.5, 4.0.
 * GitHub Copilot
 
-The AI-assistants were mainly used for:
+==== Main uses
 
-* Breaking down code logic. I.g. In order to recreate the Python API controller provided by the course, the code needed to be translated into C# and modified to fit our application. ChatGPT was a great tool for understanding each endpoint and what data would be included in a call and a response.
-* Code completions. GitHub Copilot acted as an extension of IntelliSense, in the sense that it could auto-complete simple pieces of code, such as loops, if-statements, and method signatures.
-* Research. ChatGPT was also used to provide a secondary explanation when researching new technologies, in situations were the documentation either was difficult to understand, or if subsidary information was needed. 
-* Stacktrace breakdowns. ChatGPT was used to breakdown stracktraces, summarizing the information as well as providing a more user-friendly format to read. 
-* Identify functions that could be made more performant. 
+* *Breaking down code logic*: ChatGPT helped translate Python API controllers into C# and understand endpoint data.
+* *Code completions*: GitHub Copilot assisted with auto-completing simple code snippets.
+* *Research*: ChatGPT was also used to provide a secondary explanation when researching new technologies, in situations were the documentation either was difficult to understand, or if subsidary information was needed. 
+* *Stacktrace breakdowns*: ChatGPT was used to breakdown stracktraces, summarizing the information as well as providing a more user-friendly format to read. 
+* *Optimization*: Identifying functions for optimization.
 
-Downsides of using AI-assistants:
+==== Downsides
 
-* Both ChatGPT and Github Copilot are flawed, which makes them unreliable tools. Sometimes it would take as much time to doublecheck the output of an assistant as would have to complete the task without it, which defeats the purpose of using them.
-* If used without careful inspeciton of the provided code, the LLM is likely to introduce bugs into the application. This is due to the fact,
-that LLM's have a difficult time understanding the context in which the requested code is supposed to operate.
+* Both tools are flawed and may require double-checking outputs, sometimes defeating their purpose.
+* If not carefully inspected, AI-assistants may introduce bugs due to misunderstanding context.
 
 // Description of the use of AI-assistants during the project.
 
-== Lessons Learned Perspective [EVERYONE]
+== Lessons Learned Perspective
 
 === Evolution and Refactoring
 
@@ -170,28 +179,20 @@ that LLM's have a difficult time understanding the context in which the requeste
 
 ==== Challenges
 
-One of the primary challenges encountered during the maintenance phase was identifying the precise elements requiring upkeep. This encompassed several aspects:
+*Primary Challenges*:
 
-* **Error Detection**: Determining the root causes of errors in the system.
+* *Error Detection*:  Identifying root causes of system errors.
 
-* **System Status**: Monitoring the status of the website, including instances of downtime.
+* *System Status*: Monitoring website status and downtime instances.
 
-* **Issue Diagnosis**: Pinpointing specific failures or malfunctions within the system.
+* *Issue Diagnosis*: Pinpointing specific failures.
 
-Initially, without proper tools, these tasks appeared daunting and time-consuming. The lack of 
-convenient visibility into system performance and error tracking contributed to uncertainty regarding the system's health. In the beginning, we relied mostly on the general monitoring provided by the course.
+Initially, lacking proper tools made these tasks daunting and time-consuming, relying on general monitoring provided by the course.
 
 ==== Solutions Implemented
 
-To address these challenges, we integrated monitoring and logging solutions into our maintenance workflow:
-
-1. **Monitoring Systems**:
-   - Implemented real-time monitoring tools, Prometheus and Grafana, to continuously observe website performance and availability.
-   - Configured alerts in Grafana to notify the team of any anomalies or downtime events.
-
-2. **Logging Mechanisms**:
-   - Established detailed logging processes using New Relic to systematically record all system errors and events.
-   - Utilized the centralized logging platform in New Relic to aggregate and analyze log data, facilitating quicker diagnosis and resolution of issues.
+* *Monitoring Systems*: Integrated Prometheus and Grafana for real-time performance observation and configured alerts.
+* *Logging Mechanisms*: Established detailed logging with New Relic for systematic error recording and analysis.
 
 These tools significantly enhanced our ability to manage and maintain the system effectively. Real-time insights and detailed logs provided a clearer picture of the system's operational state, enabling proactive maintenance and faster response times.
 
@@ -199,31 +200,31 @@ These tools significantly enhanced our ability to manage and maintain the system
 
 While the introduction of monitoring and logging tools did not entirely eliminate maintenance issues, it considerably reduced their complexity. Key improvements included:
 
-* **Improved Error Tracking**: Enhanced ability to trace and resolve errors promptly.
-* **Proactive Maintenance**: Ability to detect potential issues before they escalated.
-* **Efficient Response**: Faster response times due to real-time alerts and comprehensive log data.
+* *Improved Error Tracking*: Enhanced ability to trace and resolve errors promptly.
+* *Proactive Maintenance*: Detecting potential issues before escalation
+* *Efficient Response*: Faster response times with real-time alerts and comprehensive log data.
 
 ==== Lessons Learned
 
-* **Scope of Maintenance**:
+* *Scope of Maintenance*:
 Maintenance is inherently a substantial and ongoing task that demands continuous attention and resources.
 
-* **Utility of Monitoring and Logging**:
+* *Utility of Monitoring and Logging*:
 Effective monitoring and logging are critical components of a robust maintenance strategy. They provide essential visibility into system operations, aiding in quick issue identification and resolution.
 
-* **Threshold-Based Alerts**:
-Implementing threshold-based alerts is vital for timely intervention, preventing minor issues from escalating.
+* *Threshold-Based Alerts*:
+Vital for timely intervention and preventing minor issues from escalating.
 
-* **Continuous Improvement**:
-Maintenance processes should be continually refined and improved to adapt to evolving system requirements and comming challenges.
+* *Continuous Improvement*:
+Maintenance processes should be continually refined to adapt to evolving system requirements.
 
 
 
 == DevOps Style of Work
 //Also reflect and describe what was the "DevOps" style of your work. For example, what did you do differently to previous development projects and how did it work?
-As the entire team has been taking the course "Second Year Project: Software Development in Large Teams" which introduces working by the Agile principles and with Scrum as a framework, it's only natural that some elements have been taken into the project especially since these frameworks align well with the DevOps style of work as shown in table 7 of (<<jabbari_2016>>). 
+As the entire team has been taking the course "Second Year Project: Software Development in Large Teams" which introduces working by the Agile principles and with Scrum as a framework, it's only natural that some elements have been taken into the project especially since these frameworks align well with the DevOps style of work as shown in table 7 of <<jabbari_2016>>. 
 
-The effects of learning Scrum seeped into the working style of the team, not by introducing scrum events and the like, but by using the 3 pillars of Scrum; Adaptation, Transparency, and Inspection (<<scrum_guide_2020>>) as guidelines. Each Friday the team held physical meetings, where the state of the project was discussed, keeping each member up to date while answering questions any member might have. Breaking down the work each week, increased understanding of the project, transparency, and ensured openness amongst the team. 
+The effects of learning Scrum seeped into the working style of the team, not by introducing scrum events and the like, but by using the 3 pillars of Scrum; Adaptation, Transparency, and Inspection as guidelines (<<scrum_guide_2020>>). Each Friday the team held physical meetings, where the state of the project was discussed, keeping each member up to date while answering questions any member might have. Breaking down the work each week, increased understanding of the project, transparency, and ensured openness amongst the team. 
 GitHub allowed for fine-grained inspection through peer-reviewed code inspections facilitated with Pull requests. GitHub also provided a Kanban board to showcase the backlog, as well as the status of ongoing work. 
 
 In the same way the agile principles were introduced to the project. Of the twelve principles; "Welcome changing requirements" (<<agile_principles_2001>>), was the most prevalent as new requirements were added almost weekly. Furthermore how to meet those requirements wasn't set in stone. In situations where the team would find a better way to fulfill a task, there would be little resistance to incorporating it into the project. 
