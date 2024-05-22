@@ -70,31 +70,7 @@ We configured the New Relic agent in our Dockerfile, ensuring consistent logging
 === Security Assessment
 
 // Brief results of the security assessment and description of how the system security was hardened.
-The team has uncovered three majors flaws in the project.
-
-*Risk Identification*
-
-Assets:
-
-* Dotnet Web Application
-* MySQL Database
-* Prometheus Server
-* Grafana Server
-
-Identify threat sources
-
-* The Web Application uses HTTP as Transfer protocol
-* There are no physical or virtual backup of the database
-* Database credentials are stored in a .env file
-
-Construct risk scenarios
-*
-
-*Risk Analysis*
-
-Determine likelihood
-
-Improve the security of our system
+The team has uncovered three major security threats via risk assessment, the risks are described in the <<Risk Assessments>> chapter of the Appendix. The team has addressed these threats, but due to the time constraint of the project as well as low probability of an attack, the tasks to implement fixes was under prioritized. 
 
 
 === Scaling and Upgrade Strategy
@@ -161,7 +137,7 @@ Another vital principle was; "The most efficient and effective method of conveyi
 [appendix]
 == Appendix
 
-=== Risk assessments
+=== Risk Assessments
 
 ==== HTTP Transfer Protocol
 *Risk Identification*
@@ -192,7 +168,7 @@ Improve the security of our system:
 
 The best course of action would be set up the HTTPS for the web application and redirect the Users to that endpoint. This requires that a SSL certificate gets registered an activated. 
 
-==== Database credentials
+==== Database Credentials
 *Risk Identification*
 
 Assets:
@@ -229,24 +205,28 @@ There are multiple options to remove this threat; any service providing 2FA for 
 
 Assets:
 
+This threat concerns the database.
 
 
 Identify threat source:
 
-* 
+* There's no virtual or physical back-up copy of the state of the database. 
 
 Construct risk scenarios:
 
+* In lue of the threat from <<Database Credentials>>, there wouldn't be a way to restore data if a person with malicious intent gained access to a database node, found the credentials and removed data. 
 
 
 *Risk Analysis*
 
 Determine likelihood:
 
+The likeness of this happening, would be the same as for the <<Database Credentials>> threat. 
 
 
 Improve the security of our system:
 
+There are many options as to how to improve on this threat, a minimum would be to have physical copy of the state of the database on one or more harddrives. DigitalOcean has a Collaboration with SnapShooter, a service that enables virtual backups of databases, that would integrate nicely into the project. 
 
 
 [bibliography]
