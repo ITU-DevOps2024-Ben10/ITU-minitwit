@@ -130,6 +130,20 @@ One of the primary challenges encountered during the maintenance phase was ident
 Initially, without proper tools, these tasks appeared daunting and time-consuming. The lack of 
 convenient visibility into system performance and error tracking contributed to uncertainty regarding the system's health. In the beginning, we relied mostly on the general monitoring provided by the course.
 
+==== Solutions Implemented
+
+To address these challenges, we integrated monitoring and logging solutions into our maintenance workflow:
+
+1. **Monitoring Systems**:
+   - Implemented real-time monitoring tools, Prometheus and Grafana, to continuously observe website performance and availability.
+   - Configured alerts in Grafana to notify the team of any anomalies or downtime events.
+
+2. **Logging Mechanisms**:
+   - Established detailed logging processes using New Relic to systematically record all system errors and events.
+   - Utilized the centralized logging platform in New Relic to aggregate and analyze log data, facilitating quicker diagnosis and resolution of issues.
+
+These tools significantly enhanced our ability to manage and maintain the system effectively. Real-time insights and detailed logs provided a clearer picture of the system's operational state, enabling proactive maintenance and faster response times.
+
 
 
 
