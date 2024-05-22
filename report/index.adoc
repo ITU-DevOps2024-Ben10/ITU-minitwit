@@ -24,7 +24,7 @@ The system architecture depicted in the figure 1 represents a CI/CD pipeline for
 
 . *Development and Source Code Management*: Developers work on the source code locally and manage it using a GitHub repository. The repository contains the source code and a Vagrantfile for environment setup.
 
-. *CI/CD Workflows*: When changes are pushed to the GitHub repository, GitHub Workflows are triggered. These workflows, defined in YAML files, handle the build, test, release, and deployment processes.
+. *CI/CD Workflows*: When changes are pushed to the main branch in the GitHub repository, GitHub Workflows are triggered. These workflows, defined in YAML files, handle the build, test, release, and deployment processes.
 
 . *Containerization and Delivery*: The workflows build the Docker image for Minitwit, before pushing it to Docker Hub. The workflows then pulls the images for Prometheus and Grafana to use in the deployment process.
 
