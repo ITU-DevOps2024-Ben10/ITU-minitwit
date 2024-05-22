@@ -1,14 +1,11 @@
-= Report - DevOps 2024 ITU 
-:doctype: article
+= Report - DevOps 2024 ITU
+Casper Holten <casho@itu.dk>; Mads Dalgaard <madsd@itu.dk>; Magnus Kristensen <bekr@itu.dk>; Mikkel Kristensen <mbek@itu.dk>; Oliver Laursen <olau@itu.dk>
 :title-page:
-//only the HTML 5 and Docbook converters can convert documents with multiple authors.
-Casper Holten <casho@itu.dk>; Mads DalGaard Andersen <madsd@itu.dk>; Magnus Bertram Kristensen <bekr@itu.dk>; Mikkel Bertram Kristensen <mbek@itu.dk>; Oliver Laursen <olau@itu.dk>;
-
-
-
 :appendix-caption:
 :sectnums:
 :toc:
+:docdate: date (ISO)
+
 
 == Introduction
 
