@@ -1,6 +1,7 @@
 = Report - DevOps 2024 ITU 
 :appendix-caption:
 :sectnums:
+:toc:
 
 == Introduction
 
@@ -69,8 +70,8 @@ The ITU-MiniTwit system is built using a variety of technologies and tools, some
 * Vagrant: A tool for provisioning and managing virtual machines.
 * GitHub: Used for source code management and task management.
 * GitHub Actions: Used for automating the CI/CD workflows.
-* GitHub Copilot: An AI-assistant for code completion and generation. Read more about the use of AI-assistants in the section "Use of AI-Assistants".
-* ChatGPT: An AI-assistant for code completion and generation. Read more about the use of AI-assistants in the section "Use of AI-Assistants".
+* GitHub Copilot: An AI-assistant for code completion and generation. Read more about the use of AI-assistants in the section <<Use of AI-Assistants>>.
+* ChatGPT: An AI-assistant for code completion and generation. Read more about the use of AI-assistants in the section <<Use of AI-Assistants>>.
 
 === Important Interactions of Subsystems
 
