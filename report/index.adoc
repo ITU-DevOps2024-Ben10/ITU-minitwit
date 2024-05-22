@@ -1,4 +1,11 @@
 = Report - DevOps 2024 ITU 
+:doctype: article
+:title-page:
+//only the HTML 5 and Docbook converters can convert documents with multiple authors.
+Casper Holten <casho@itu.dk>; Mads DalGaard Andersen <madsd@itu.dk>; Magnus Bertram Kristensen <bekr@itu.dk>; Mikkel Bertram Kristensen <mbek@itu.dk>; Oliver Laursen <olau@itu.dk>;
+
+
+
 :appendix-caption:
 :sectnums:
 
