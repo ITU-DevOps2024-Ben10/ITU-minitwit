@@ -117,7 +117,21 @@ that LLM's have a difficult time understanding the context in which the requeste
 
 === Maintenance
 
-// Description of the biggest issues, how they were solved, and lessons learned.
+==== Challenges
+
+One of the primary challenges encountered during the maintenance phase was identifying the precise elements requiring upkeep. This encompassed several aspects:
+
+* **Error Detection**: Determining the root causes of errors in the system.
+
+* **System Status**: Monitoring the status of the website, including instances of downtime.
+
+* **Issue Diagnosis**: Pinpointing specific failures or malfunctions within the system.
+
+Initially, without proper tools, these tasks appeared daunting and time-consuming. The lack of 
+convenient visibility into system performance and error tracking contributed to uncertainty regarding the system's health. In the beginning, we relied mostly on the general monitoring provided by the course.
+
+
+
 
 == DevOps Style of Work
 //Also reflect and describe what was the "DevOps" style of your work. For example, what did you do differently to previous development projects and how did it work?
