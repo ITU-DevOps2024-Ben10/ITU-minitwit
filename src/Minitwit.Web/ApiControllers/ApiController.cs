@@ -532,8 +532,6 @@ public class ApiController : ControllerBase
 
         await Task.WhenAll(setUserName, setEmail);
 
-        CustomMeters.IncrementRegisterUserCounter();
-
         return await _userManager.CreateAsync(user, password);
     }
 
