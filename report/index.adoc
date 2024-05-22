@@ -99,6 +99,7 @@ The ITU-MiniTwit system is built using a variety of technologies and tools, some
 // Description of stages and tools included in the CI/CD chains.
 
 === System Monitoring
+.Monitoring view
 image::Images/MonitoringInteraction.svg["System monitoring", align="center", width="70%]
 The above graph depicts an abstracted view of the dataflow.
 
@@ -106,6 +107,7 @@ The above graph depicts an abstracted view of the dataflow.
 * The prometheus server scrapes the "/metrics" endpoint every 15 seconds and stores it in a database.
 * Grafana queries the database, and displays the data in a custom dashboard as seen below.
 
+.Grafana Dashboard
 image::Images/GrafanaDashboard.png["Grafana dashboard", align="center", width="70%]
 
 // Description of how the systems are monitored and what is monitored.
