@@ -42,9 +42,7 @@ Overall, this architecture automates the continuous integration, delivery, and d
 .Onion Overview
 image::Images/Minitwit-Git-Truck.png["System Architecture", align="center", width="70%]
 
-As seen in figure 2, the source code consists of the three main pillars; Core, Infrastructure, and Web. This coincides with the Onion architecture with the Core being the innermost layer, the domain model, the next layer, infrastructure, being the business logic, and the outermost layer, Web, being the user interface. These layers each only depend inwards which has been beneficial for the project as it enforces a clear separation of concerns, which allows for easier management of dependencies and testing.
-
-As seen in figure 2, the source code is structured according to the Onion Architecture. This architecture divides the application into layers, with the innermost layer containing the domain model and the outermost layer containing the user interface. These layers may never be dependent on a layer outside of themselves. This structure has been beneficial for the project as it enforces a clear separation of concerns, which allows for easier management of dependencies and testing.
+As seen in figure 2, the source code consists of the three main pillars: Core, Infrastructure, and Web. This coincides with the Onion architecture with the innermost layer, the domain model, being Core. The next layer, infrastructure, holds the business logic. The outermost layer, Web, contains the user interface. These layers each only depend inwards which has been beneficial for the project as it enforces a clear separation of concerns, which allows for easier management of dependencies and testing.
 //Add subsections for relevant views
 
 === Dependencies of ITU-MiniTwit Systems
