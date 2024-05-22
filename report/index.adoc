@@ -23,7 +23,7 @@ During the DevOps, Software Evolution, and Software Maintenance course, we enhan
 ==== Overall Architecture
 
 .Architecture Overview
-image::Images/Architecture.png["System Architecture", align="center", width="70%]
+image::Images/Architecture.png["System Architecture Diagram", align="center", width="70%]
 The system architecture depicted in the figure 1 represents a CI/CD pipeline for deploying a software system.
 
 . *Development and Source Code Management*: Developers manage the source code locally and on GitHub, which includes a Vagrantfile for environment setup.
@@ -40,14 +40,14 @@ This architecture automates continuous integration, delivery, and deployment usi
 ==== Onion Architecture
 
 .Onion Overview
-image::Images/Minitwit-Git-Truck.png["Onion Architecture", align="center", width="70%]
+image::Images/Minitwit-Git-Truck.png["Onion Architecture Diagram", align="center", width="70%]
 
 As shown in Figure 2, the source code consists of three main layers: Core, Infrastructure, and Web. This aligns with the Onion architecture. The innermost layer, Core, is the domain model. Infrastructure contains the business logic, and Web holds the user interface. Each layer depends only on the inner layers, enforcing a clear separation of concerns and simplifying dependency management and testing.
 
 ==== Digital Ocean
 
 .Digital Ocean Overview
-image::Images/DigitalOceanVContainers.png["Digital Ocean Architecture", align="center", width="70%]
+image::Images/DigitalOceanVContainers.png["Digital Ocean Architecture Diagram", align="center", width="70%]
 
 The Digital Ocean architecture, shown in Figure 3, consists of VContainers provisioned by the Vagrantfile during deployment, running the Minitwit swarm. Managed by Docker Swarm, the swarm ensures high availability, load balancing, fault tolerance, and scalability. It connects to a single container running a MySQL DBMS for data storage. This setup ensures the application can handle increased traffic and remain operational despite node failures.
 
@@ -80,14 +80,22 @@ Read more about AI assistants in the section <<Use of AI-Assistants>>.
 
 
 // Description of important interactions of subsystems.
-- For example, via an illustrative UML Sequence diagram that shows the flow of information through your system from user request in the browser, over all subsystems, hitting the database, and a response that is returned to the user.
-- Similarly, another illustrative sequence diagram that shows how requests from the simulator traverse your system.
+
+.User Request Sequence via UI
+image::Images/SequenceDiagramUI.png["User Request Sequence Diagram", align="center", width="70%]
+
+.Simulator Request Sequence via API
+image::Images/RegisterAPICallMinitwit.png["Simulator Request Sequence Diagram", align="center", width="70%]
 
 //Sequence Diagram / Flow Diagram from one subsystem to another
 //Contain 2 start nodes, one for the user request and one for the simulator request
 === Current State of Systems
 
 //Describe the current state of your systems, for example using results of static analysis and quality assessments.
+.Static Analysis Results
+image::Images/QualityGate.png["Static Analysis results", align="center", width="70%]
+
+MiniTwit systems are currently running smoothly. Static analysis only detects minor issues, such as repeated string literals and long methods. Importantly it detects no security issues.
 
 //Run static analysis tools and describe the results
 
@@ -185,30 +193,35 @@ Rolling updates were chosen as the deployment strategy due to alignment with exi
 
 ==== Challenges
 
+One of the primary challenges encountered during the maintenance phase was identifying the root cause of unintended behaviour. This encompassed several aspects:
+
 *Primary Challenges*:
 
-* *Error Detection*:  Identifying root causes of system errors.
+* **Error Detection**: Determining the root causes of errors in the system, and capturing the stacktrace and error messages associated with these.
 
-* *System Status*: Monitoring website status and downtime instances.
+* *System Status*: Monitoring website status and instances of downtime.
 
-* *Issue Diagnosis*: Pinpointing specific failures.
+* **Issue Diagnosis**: Pinpointing failures and malfunctions attributed to unintended behaviour of the subsystems.
 
-Initially, lacking proper tools made these tasks daunting and time-consuming, relying on general monitoring provided by the course.
+Initially, all the described issues were solved in inconvenient and time-consuming manners. In the beginning, we relied on primitive tools
+like logging exceptions to text files, and observing console logs for errors as they occur in real time. 
 
 ==== Solutions Implemented
 
 * *Monitoring Systems*: Integrated Prometheus and Grafana for real-time performance observation and configured alerts.
 * *Logging Mechanisms*: Established detailed logging with New Relic for systematic error recording and analysis.
+* *Integrated New Relic*: Integrated New Relic's Application Performance Monitoring tool, allowing us to view aggregated log, error, and performance metrics.  
 
-These tools significantly enhanced our ability to manage and maintain the system effectively. Real-time insights and detailed logs provided a clearer picture of the system's operational state, enabling proactive maintenance and faster response times.
+These tools significantly enhanced our ability to manage and maintain the system effectively. Real-time insights and detailed 
+logs provided a clearer picture of the system's operational state, enabling proactive and reactive maintenance, and faster response times.
 
 ==== Outcomes
 
-While the introduction of monitoring and logging tools did not entirely eliminate maintenance issues, it considerably reduced their complexity. Key improvements included:
+The logging and monitoring tools did not completely eliminate instances of downtime, but it considerably reduced their duration.
 
-* *Improved Error Tracking*: Enhanced ability to trace and resolve errors promptly.
-* *Proactive Maintenance*: Detecting potential issues before escalation
-* *Efficient Response*: Faster response times with real-time alerts and comprehensive log data.
+* *Improved Error Tracking*: Enhanced ability to trace and resolve errors.
+* *Proactive Maintenance*: Detecting potential issues before escalation.
+* *Efficient Response*: Faster response times with traceable exceptions and comprehensive log data.
 
 ==== Lessons Learned
 
@@ -218,13 +231,8 @@ Maintenance is inherently a substantial and ongoing task that demands continuous
 * *Utility of Monitoring and Logging*:
 Effective monitoring and logging are critical components of a robust maintenance strategy. They provide essential visibility into system operations, aiding in quick issue identification and resolution.
 
-* *Threshold-Based Alerts*:
-Vital for timely intervention and preventing minor issues from escalating.
-
 * *Continuous Improvement*:
 Maintenance processes should be continually refined to adapt to evolving system requirements.
-
-
 
 == DevOps Style of Work
 //Also reflect and describe what was the "DevOps" style of your work. For example, what did you do differently to previous development projects and how did it work?
