@@ -9,10 +9,7 @@ Casper Holten <casho@itu.dk>; Mads Andersen <madsd@itu.dk>; Magnus Kristensen <b
 
 == Introduction
 
-During the course DevOps, Software Evolution and Software Maintenance an application stemming from an earlier course
-has been subjected to a simulation simulating real world usage by users. This has forced us to make the application more
-durable, more performant, and more maintainable. This has taught us to develop more performant applications, implement 
-robust CI/CD workflows, and to use metrics, monitoring and logging to monitor, and keep our application healthy.
+During the DevOps, Software Evolution, and Software Maintenance course, we enhanced a 'Micro Blogging Service' from an earlier course to handle real-world user simulations. This process improved the application's durability, performance, and maintainability. We learned to create more efficient applications, implement robust CI/CD workflows, and use metrics, monitoring, and logging to maintain application health.
 
 == System's Perspective[MADS, MAGNUS]
 
