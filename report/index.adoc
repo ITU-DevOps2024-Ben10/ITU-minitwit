@@ -14,7 +14,7 @@ has been subjected to a simulation simulating real world usage by users. This ha
 durable, more performant, and more maintainable. This has taught us to develop more performant applications, implement 
 robust CI/CD workflows, and to use metrics, monitoring and logging to monitor, and keep our application healthy.
 
-== System's Perspective[MADS, MAGNUS]
+== System's Perspective
 
 === Design and Architecture of ITU-MiniTwit Systems
 
@@ -92,7 +92,7 @@ The ITU-MiniTwit system is built using a variety of technologies and tools, some
 
 //Run static analysis tools and describe the results
 
-== Process' Perspective [OLIVER, MIKKEL]
+== Process' Perspective
 
 === CI/CD Chains
 //UML Deployment Diagrams
@@ -148,12 +148,15 @@ that LLM's have a difficult time understanding the context in which the requeste
 
 // Description of the use of AI-assistants during the project.
 
-== Lessons Learned Perspective [EVERYONE]
+== Lessons Learned Perspective
 
 === Evolution and Refactoring
 
 // Description of the biggest issues, how they were solved, and lessons learned.
-//Figures - maybe depict the change in structure
+// Figures - maybe depict the change in structure
+
+
+
 === Operation
 
 // Description of the biggest issues, how they were solved, and lessons learned.
@@ -226,9 +229,7 @@ In the same way the agile principles were introduced to the project. Of the twel
 
 Another vital principle was; "The most efficient and effective method of conveying information to and within a development team is face-to-face conversation". To implement this principle, the team had both the weekly physical meeting, but would routinely also hold pair-/ or mob-programming sessions. The latter part, contributed to increasing the ownership of the codebase, generally raises the quality of the code produced, and minimises the time spent on code inspections. *FIND STUDY THAT SHOWS BENEFITS OF PAIRPROGRAMMING*
 
-== Conclusion
 
-// Brief conclusion of the report.
 [appendix]
 == Appendix
 
