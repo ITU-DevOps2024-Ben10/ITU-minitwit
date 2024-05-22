@@ -167,7 +167,7 @@ The AI-assistants were mainly used for:
 Downsides of using AI-assistants:
 
 * Both ChatGPT and Github Copilot are flawed, which makes them unreliable tools. Sometimes it would take as much time to double check the output of an assistant as would have to complete the task without it, which defeats the purpose of using them.
-* If used without careful inspector of the provided code, the LLM is likely to introduce bugs into the application. This is due to the fact,
+* If used without careful inspection of the provided code, the LLM is likely to introduce bugs into the application. This is due to the fact,
 that LLM's have a difficult time understanding the context in which the requested code is supposed to operate.
 
 // Description of the use of AI-assistants during the project.
