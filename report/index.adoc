@@ -1,7 +1,11 @@
-= Report - DevOps 2024 ITU 
+= Report - DevOps 2024 ITU
+Casper Holten <casho@itu.dk>; Mads Dalgaard <madsd@itu.dk>; Magnus Kristensen <bekr@itu.dk>; Mikkel Kristensen <mbek@itu.dk>; Oliver Laursen <olau@itu.dk>
+:title-page:
 :appendix-caption:
 :sectnums:
 :toc:
+:docdate: date (ISO)
+
 
 == Introduction
 
