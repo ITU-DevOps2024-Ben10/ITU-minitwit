@@ -1,4 +1,6 @@
-= The Report
+= Report - DevOps 2024 ITU 
+:appendix-caption:
+:sectnums:
 
 == Introduction
 
@@ -109,7 +111,8 @@ We configured the New Relic agent in our Dockerfile, ensuring consistent logging
 === Security Assessment
 
 // Brief results of the security assessment and description of how the system security was hardened.
-*OLIVER*
+The team has uncovered three major security threats via risk assessment. These risks are described in the <<Risk Assessments>> chapter of the Appendix. The team has addressed these threats, but due to the time constraint of the project as well as low probability of an attack, the tasks to implement fixes was underprioritized. 
+
 
 === Scaling and Upgrade Strategy
 
@@ -156,7 +159,56 @@ that LLM's have a difficult time understanding the context in which the requeste
 
 === Maintenance
 
-// Description of the biggest issues, how they were solved, and lessons learned.
+==== Challenges
+
+One of the primary challenges encountered during the maintenance phase was identifying the precise elements requiring upkeep. This encompassed several aspects:
+
+* **Error Detection**: Determining the root causes of errors in the system.
+
+* **System Status**: Monitoring the status of the website, including instances of downtime.
+
+* **Issue Diagnosis**: Pinpointing specific failures or malfunctions within the system.
+
+Initially, without proper tools, these tasks appeared daunting and time-consuming. The lack of 
+convenient visibility into system performance and error tracking contributed to uncertainty regarding the system's health. In the beginning, we relied mostly on the general monitoring provided by the course.
+
+==== Solutions Implemented
+
+To address these challenges, we integrated monitoring and logging solutions into our maintenance workflow:
+
+1. **Monitoring Systems**:
+   - Implemented real-time monitoring tools, Prometheus and Grafana, to continuously observe website performance and availability.
+   - Configured alerts in Grafana to notify the team of any anomalies or downtime events.
+
+2. **Logging Mechanisms**:
+   - Established detailed logging processes using New Relic to systematically record all system errors and events.
+   - Utilized the centralized logging platform in New Relic to aggregate and analyze log data, facilitating quicker diagnosis and resolution of issues.
+
+These tools significantly enhanced our ability to manage and maintain the system effectively. Real-time insights and detailed logs provided a clearer picture of the system's operational state, enabling proactive maintenance and faster response times.
+
+==== Outcomes
+
+While the introduction of monitoring and logging tools did not entirely eliminate maintenance issues, it considerably reduced their complexity. Key improvements included:
+
+* **Improved Error Tracking**: Enhanced ability to trace and resolve errors promptly.
+* **Proactive Maintenance**: Ability to detect potential issues before they escalated.
+* **Efficient Response**: Faster response times due to real-time alerts and comprehensive log data.
+
+==== Lessons Learned
+
+* **Scope of Maintenance**:
+Maintenance is inherently a substantial and ongoing task that demands continuous attention and resources.
+
+* **Utility of Monitoring and Logging**:
+Effective monitoring and logging are critical components of a robust maintenance strategy. They provide essential visibility into system operations, aiding in quick issue identification and resolution.
+
+* **Threshold-Based Alerts**:
+Implementing threshold-based alerts is vital for timely intervention, preventing minor issues from escalating.
+
+* **Continuous Improvement**:
+Maintenance processes should be continually refined and improved to adapt to evolving system requirements and comming challenges.
+
+
 
 == DevOps Style of Work
 //Also reflect and describe what was the "DevOps" style of your work. For example, what did you do differently to previous development projects and how did it work?
@@ -172,6 +224,99 @@ Another vital principle was; "The most efficient and effective method of conveyi
 == Conclusion
 
 // Brief conclusion of the report.
+[appendix]
+== Appendix
+
+=== Risk Assessments
+
+==== HTTP Transfer Protocol
+*Risk Identification*
+
+Assets:
+
+This threat concerns the Web Application, as well as services that communicate over the Web Application. 
+
+Identify threat source:
+
+* The Web Application uses HTTP as Transfer protocol
+
+Construct risk scenarios:
+
+A malicious person gains access to a session, and from there have multiple ways to cause harm;
+
+* As the messages aren't encrypted in HTTP they can eavesdrop on messages sent between a client and the server.
+* They can create man-in-middle attacks, potentially tampering with the data sent between server and client.
+
+*Risk Analysis*
+
+Determine likelihood:
+
+As the team consists of relatively unknown developers, and the project is a course-project with no real users or data, the motivation for attacking the system is low. 
+However there are multiple guides online on how to commit such an attack, making it accessible for any user with basic knowledge about Network communication. 
+
+Improve the security of our system:
+
+The best course of action would be set up the HTTPS for the web application and redirect the Users to that endpoint. This requires that a SSL certificate gets registered an activated. 
+
+==== Database Credentials
+*Risk Identification*
+
+Assets:
+
+This threat concerns the Database, and the nodes which the database is hosted on. 
+
+Identify threat source:
+
+* The credentials for the database is saved in a ".env"-file, which is distributed to any node on which the database runs. 
+
+Construct risk scenarios:
+
+A malicious hacker forces himself into the filesystem of a Node, there they could find ".env" file, giving them multiple options of causing harm including;
+
+* Dropping the database
+* Holding the data ransom
+* Tampering with the User's data
+* Utilizing User data to cause problems for the Users
+* Leaking data
+
+*Risk Analysis*
+
+Determine likelihood:
+
+As mentioned in the previous risk assessment <<HTTP Transfer Protocol>>, the motivation for causing such an attack is low. 
+Compared to the previous threat, this attack requires more orchestration and skill as the hacker would have to gain access to the Node, and know what to look for. 
+
+Improve the security of our system:
+
+There are multiple options to remove this threat, such as any service providing 2FA for secret repositories, like Docker vaults.
+
+==== Database back-up
+*Risk Identification*
+
+Assets:
+
+This threat concerns the database.
+
+
+Identify threat source:
+
+* There's no virtual or physical back-up copy of the state of the database. 
+
+Construct risk scenarios:
+
+* In lue of the threat from <<Database Credentials>>, there wouldn't be a way to restore data if a person with malicious intent gained access to a database node, found the credentials and removed data. 
+
+
+*Risk Analysis*
+
+Determine likelihood:
+
+The likeness of this happening, would be the same as for the <<Database Credentials>> threat. 
+
+
+Improve the security of our system:
+
+There are many options as to how to improve on this threat. A minimum effort would be to have physical copy of the state of the database on one or more harddrives. DigitalOcean has a Collaboration with SnapShooter, a service that enables virtual backups of databases, that would integrate nicely into the project. 
 
 
 [bibliography]
