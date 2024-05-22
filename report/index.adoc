@@ -1,4 +1,6 @@
-= The Report
+= Report - DevOps 2024 ITU 
+:appendix-caption:
+:sectnums:
 
 == Introduction
 
@@ -67,7 +69,8 @@ We configured the New Relic agent in our Dockerfile, ensuring consistent logging
 === Security Assessment
 
 // Brief results of the security assessment and description of how the system security was hardened.
-*OLIVER*
+The team has uncovered three major security threats via risk assessment. These risks are described in the <<Risk Assessments>> chapter of the Appendix. The team has addressed these threats, but due to the time constraint of the project as well as low probability of an attack, the tasks to implement fixes was underprioritized. 
+
 
 === Scaling and Upgrade Strategy
 
@@ -130,6 +133,99 @@ Another vital principle was; "The most efficient and effective method of conveyi
 == Conclusion
 
 // Brief conclusion of the report.
+[appendix]
+== Appendix
+
+=== Risk Assessments
+
+==== HTTP Transfer Protocol
+*Risk Identification*
+
+Assets:
+
+This threat concerns the Web Application, as well as services that communicate over the Web Application. 
+
+Identify threat source:
+
+* The Web Application uses HTTP as Transfer protocol
+
+Construct risk scenarios:
+
+A malicious person gains access to a session, and from there have multiple ways to cause harm;
+
+* As the messages aren't encrypted in HTTP they can eavesdrop on messages sent between a client and the server.
+* They can create man-in-middle attacks, potentially tampering with the data sent between server and client.
+
+*Risk Analysis*
+
+Determine likelihood:
+
+As the team consists of relatively unknown developers, and the project is a course-project with no real users or data, the motivation for attacking the system is low. 
+However there are multiple guides online on how to commit such an attack, making it accessible for any user with basic knowledge about Network communication. 
+
+Improve the security of our system:
+
+The best course of action would be set up the HTTPS for the web application and redirect the Users to that endpoint. This requires that a SSL certificate gets registered an activated. 
+
+==== Database Credentials
+*Risk Identification*
+
+Assets:
+
+This threat concerns the Database, and the nodes which the database is hosted on. 
+
+Identify threat source:
+
+* The credentials for the database is saved in a ".env"-file, which is distributed to any node on which the database runs. 
+
+Construct risk scenarios:
+
+A malicious hacker forces himself into the filesystem of a Node, there they could find ".env" file, giving them multiple options of causing harm including;
+
+* Dropping the database
+* Holding the data ransom
+* Tampering with the User's data
+* Utilizing User data to cause problems for the Users
+* Leaking data
+
+*Risk Analysis*
+
+Determine likelihood:
+
+As mentioned in the previous risk assessment <<HTTP Transfer Protocol>>, the motivation for causing such an attack is low. 
+Compared to the previous threat, this attack requires more orchestration and skill as the hacker would have to gain access to the Node, and know what to look for. 
+
+Improve the security of our system:
+
+There are multiple options to remove this threat, such as any service providing 2FA for secret repositories, like Docker vaults.
+
+==== Database back-up
+*Risk Identification*
+
+Assets:
+
+This threat concerns the database.
+
+
+Identify threat source:
+
+* There's no virtual or physical back-up copy of the state of the database. 
+
+Construct risk scenarios:
+
+* In lue of the threat from <<Database Credentials>>, there wouldn't be a way to restore data if a person with malicious intent gained access to a database node, found the credentials and removed data. 
+
+
+*Risk Analysis*
+
+Determine likelihood:
+
+The likeness of this happening, would be the same as for the <<Database Credentials>> threat. 
+
+
+Improve the security of our system:
+
+There are many options as to how to improve on this threat. A minimum effort would be to have physical copy of the state of the database on one or more harddrives. DigitalOcean has a Collaboration with SnapShooter, a service that enables virtual backups of databases, that would integrate nicely into the project. 
 
 
 [bibliography]
