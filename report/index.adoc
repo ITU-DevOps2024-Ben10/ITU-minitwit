@@ -22,13 +22,14 @@ image::Images/Architecture.png["System Architecture", align="center", width="70%
 //Short description of high abstraction level architecture
 The system architecture depicted in the figure 1 represents a CI/CD pipeline for deploying a software system.
 
-1. *Development and Source Code Management*: Developers work on the source code locally and manage it using a GitHub repository. The repository contains the source code and a Vagrantfile for environment setup.
+. *Development and Source Code Management*: Developers work on the source code locally and manage it using a GitHub repository. The repository contains the source code and a Vagrantfile for environment setup.
 
-2. *CI/CD Workflows*: When changes are pushed to the GitHub repository, GitHub Workflows are triggered. These workflows, defined in YAML files, handle the build, test, release, and deployment processes.
+. *CI/CD Workflows*: When changes are pushed to the GitHub repository, GitHub Workflows are triggered. These workflows, defined in YAML files, handle the build, test, release, and deployment processes.
 
-3. *Containerization and Delivery*: The workflows build Docker images for Minitwit, Prometheus, and Grafana, and deliver these images to Docker Hub.
+. *Containerization and Delivery*: The workflows build the Docker image for Minitwit, before pushing it to Docker Hub. The workflows then pulls the images for Prometheus and Grafana to use in the deployment process.
+//Needs fact checking
 
-4. *Provisioning and Deployment*: The deployment process, triggered by GitHub Actions, provisions virtual containers (VContainers) on DigitalOcean. One container runs a Minitwit swarm, while another runs a MySQL DBMS.
+. *Provisioning and Deployment*: The deployment process, triggered by GitHub Actions, provisions virtual containers (VContainers) on DigitalOcean. One container runs a Minitwit swarm, while another runs a MySQL DBMS.
 
 Overall, this architecture automates the continuous integration, delivery, and deployment of the application using GitHub, Docker, and DigitalOcean.
 
