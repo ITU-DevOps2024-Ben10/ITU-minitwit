@@ -169,10 +169,11 @@ Assets:
 
 This threat concerns the Web Application, as well as services that communicate over the Web Application. 
 
-Identify threat source
+Identify threat source:
+
 * The Web Application uses HTTP as Transfer protocol
 
-Construct risk scenarios
+Construct risk scenarios:
 
 A malicious person gains access to a session, and from there have multiple ways to cause harm;
 
@@ -181,25 +182,28 @@ A malicious person gains access to a session, and from there have multiple ways 
 
 *Risk Analysis*
 
-Determine likelihood
+Determine likelihood:
 
 As the team consists of relatively unknown developers, and the project is a course-project with no real users or data the motivation for attacking the system is low. 
 However there are multiple guides online on how to commit such an attack, making it accessible for any user with basic knowledge about Network communication. 
 
-Improve the security of our system
+Improve the security of our system:
+
 The best course of action would be set up the HTTPS for the web application and redirect the Users to that endpoint. This requires that a SSL certificate gets registered an activated. 
 
 ==== Database credentials
 *Risk Identification*
 
 Assets:
+
 This threat concerns the Database, and the nodes which the database is hosted on. 
 
-Identify threat source
+Identify threat source:
 
 * The credentials for the database is saved in a ".env"-file, which is distributed to any node on which the database runs. 
 
-Construct risk scenarios
+Construct risk scenarios:
+
 A malicious hacker forces himself into the filesystem of a Node, there they could find ".env" file, giving them multiple options of causing harm including;
 
 * Dropping the database
@@ -210,11 +214,13 @@ A malicious hacker forces himself into the filesystem of a Node, there they coul
 
 *Risk Analysis*
 
-Determine likelihood
+Determine likelihood:
+
 As mentioned in the previous risk assessment <<HTTP Transfer Protocol>>, the motivation for causing such an attack is low. 
 Compared to the previous threat, this attack requires more orchestration and skill as the hacker would have to gain access to the Node, and know what to look for. 
 
-Improve the security of our system
+Improve the security of our system:
+
 There are multiple options to remove this threat; any service providing 2FA for secret repositories, like Docker vaults.
 
 [bibliography]
