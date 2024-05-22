@@ -90,7 +90,7 @@ We configured the New Relic agent in our Dockerfile, ensuring consistent logging
 // Description of the applied strategy for scaling and upgrades.
 For scaling the application, Horizontal scaling with Docker Swarm was applied, as it offers numerous benefits, including improved application availability, load balancing, and fault tolerance. By distributing containers across multiple nodes, Docker Swarm ensures that the application can handle increased traffic and continue operating even if some nodes fail. This scalability allows for seamless expansion of resources in response to the growing demands during the course. Given the existing use of Docker in the application, adopting Docker Swarm was a logical choice, leveraging the teams familiarity with Docker's ecosystem while enhancing their ability to manage and scale containerized applications efficiently.
 
-We chose rolling updates for our deployment strategy as it is the default method in Docker Swarm and aligns well with our existing infrastructure. This approach provides continuous availability by updating services incrementally, minimizing downtime without requiring additional resources. The alternative for this strategy is the Blue-Green upgrade strategy, but the additional ressources and implementation time was what additionally made the team favour Rolling Updates. [ref_szulik]
+We chose rolling updates for our deployment strategy as it is the default method in Docker Swarm and aligns well with our existing infrastructure. This approach provides continuous availability by updating services incrementally, minimizing downtime without requiring additional resources. The alternative for this strategy is the Blue-Green upgrade strategy, but the additional ressources and implementation time was what additionally made the team favour Rolling Updates. (<<szulik_2017>>)
 
 === Use of AI-Assistants
 In this project these AI-assistants were used:
@@ -124,18 +124,22 @@ that LLM's have a difficult time understanding the context in which the requeste
 
 // Description of the biggest issues, how they were solved, and lessons learned.
 
+
+
+
+
 === Maintenance
 
 // Description of the biggest issues, how they were solved, and lessons learned.
 
 == DevOps Style of Work
 //Also reflect and describe what was the "DevOps" style of your work. For example, what did you do differently to previous development projects and how did it work?
-As the entire team has been taking the course "Second Year Project: Software Development in Large Teams" which introduces working by the Agile principles and with Scrum as a framework, it's only natural that some elements have been taken into the project especially since these frameworks align well with the DevOps style of work as shown in table 7 of <<ref_jabbari>>. 
+As the entire team has been taking the course "Second Year Project: Software Development in Large Teams" which introduces working by the Agile principles and with Scrum as a framework, it's only natural that some elements have been taken into the project especially since these frameworks align well with the DevOps style of work as shown in table 7 of (<<jabbari_2016>>). 
 
-The effects of learning Scrum seeped into the working style of the team, not by introducing scrum events and the like, but by using the 3 pillars of Scrum; Adaptation, Transparency, and Inspection <<ref_scrum_guide>> as guidelines. Each Friday the team held physical meetings, where the state of the project was discussed, keeping each member up to date while answering questions any member might have. Breaking down the work each week, increased understanding of the project, transparency, and ensured openness amongst the team. 
+The effects of learning Scrum seeped into the working style of the team, not by introducing scrum events and the like, but by using the 3 pillars of Scrum; Adaptation, Transparency, and Inspection (<<scrum_guide_2020>>) as guidelines. Each Friday the team held physical meetings, where the state of the project was discussed, keeping each member up to date while answering questions any member might have. Breaking down the work each week, increased understanding of the project, transparency, and ensured openness amongst the team. 
 GitHub allowed for fine-grained inspection through peer-reviewed code inspections facilitated with Pull requests. GitHub also provided a Kanban board to showcase the backlog, as well as the status of ongoing work. 
 
-In the same way the agile principles were introduced to the project. Of the twelve principles; "Welcome changing requirements" <<ref_agile_principles>>, was the most prevalent as new requirements were added almost weekly. Furthermore how to meet those requirements wasn't set in stone. In situations where the team would find a better way to fulfill a task, there would be little resistance to incorporating it into the project. 
+In the same way the agile principles were introduced to the project. Of the twelve principles; "Welcome changing requirements" (<<agile_principles_2001>>), was the most prevalent as new requirements were added almost weekly. Furthermore how to meet those requirements wasn't set in stone. In situations where the team would find a better way to fulfill a task, there would be little resistance to incorporating it into the project. 
 
 Another vital principle was; "The most efficient and effective method of conveying information to and within a development team is face-to-face conversation". To implement this principle, the team had both the weekly physical meeting, but would routinely also hold pair-/ or mob-programming sessions. The latter part, contributed to increasing the ownership of the codebase, generally raises the quality of the code produced, and minimises the time spent on code inspections. *FIND STUDY THAT SHOWS BENEFITS OF PAIRPROGRAMMING*
 
@@ -147,18 +151,10 @@ Another vital principle was; "The most efficient and effective method of conveyi
 [bibliography]
 == References
 
-[ref_szulik]
-Szulik, Maciej. "Colorful deployments: An introduction to blue-green, canary, and rolling deployments." _Opensource.com_, 2 May 2017. https://opensource.com/article/17/5/colorful-deployments
+[[szulik_2017]] Szulik, Maciej. "Colorful deployments: An introduction to blue-green, canary, and rolling deployments." _Opensource.com_, 2 May 2017. https://opensource.com/article/17/5/colorful-deployments
 
-[ref_scrum_guide]
-Scrum guide https://scrumguides.org/scrum-guide.html
+[[scrum_guide_2020]] Scrum guide, 2020. https://scrumguides.org/scrum-guide.html
 
+[[agile_principles_2001]] The Agile Manifesto, 12 principles, 2001. https://agilemanifesto.org/principles.html
 
-[ref_agile_principles]
-The Agile Manifesto, 12 principles https://agilemanifesto.org/principles.html
-
-
-[ref_jabbari]
-Jabbari, Ramtin. "What is DevOps? A Systematic Mapping Study on Definitions and Practices"
-https://www.researchgate.net/publication/308857081_What_is_DevOps_A_Systematic_Mapping_Study_on_Definitions_and_Practices
-
+[[jabbari_2016]] Jabbari, Ramtin. "What is DevOps? A Systematic Mapping Study on Definitions and Practices.", 2016  https://www.researchgate.net/publication/308857081_What_is_DevOps_A_Systematic_Mapping_Study_on_Definitions_and_Practices
