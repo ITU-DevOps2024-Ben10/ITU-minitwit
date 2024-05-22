@@ -171,30 +171,35 @@ Rolling updates were chosen as the deployment strategy due to alignment with exi
 
 ==== Challenges
 
+One of the primary challenges encountered during the maintenance phase was identifying the root cause of unintended behaviour. This encompassed several aspects:
+
 *Primary Challenges*:
 
-* *Error Detection*:  Identifying root causes of system errors.
+* **Error Detection**: Determining the root causes of errors in the system, and capturing the stacktrace and error messages associated with these.
 
-* *System Status*: Monitoring website status and downtime instances.
+* *System Status*: Monitoring website status and instances of downtime.
 
-* *Issue Diagnosis*: Pinpointing specific failures.
+* **Issue Diagnosis**: Pinpointing failures and malfunctions attributed to unintended behaviour of the subsystems.
 
-Initially, lacking proper tools made these tasks daunting and time-consuming, relying on general monitoring provided by the course.
+Initially, all the described issues were solved in inconvenient and time-consuming manners. In the beginning, we relied on primitive tools
+like logging exceptions to text files, and observing console logs for errors as they occur in real time. 
 
 ==== Solutions Implemented
 
 * *Monitoring Systems*: Integrated Prometheus and Grafana for real-time performance observation and configured alerts.
 * *Logging Mechanisms*: Established detailed logging with New Relic for systematic error recording and analysis.
+* *Integrated New Relic*: Integrated New Relic's Application Performance Monitoring tool, allowing us to view aggregated log, error, and performance metrics.  
 
-These tools significantly enhanced our ability to manage and maintain the system effectively. Real-time insights and detailed logs provided a clearer picture of the system's operational state, enabling proactive maintenance and faster response times.
+These tools significantly enhanced our ability to manage and maintain the system effectively. Real-time insights and detailed 
+logs provided a clearer picture of the system's operational state, enabling proactive and reactive maintenance, and faster response times.
 
 ==== Outcomes
 
-While the introduction of monitoring and logging tools did not entirely eliminate maintenance issues, it considerably reduced their complexity. Key improvements included:
+The logging and monitoring tools did not completely eliminate instances of downtime, but it considerably reduced their duration.
 
-* *Improved Error Tracking*: Enhanced ability to trace and resolve errors promptly.
-* *Proactive Maintenance*: Detecting potential issues before escalation
-* *Efficient Response*: Faster response times with real-time alerts and comprehensive log data.
+* *Improved Error Tracking*: Enhanced ability to trace and resolve errors.
+* *Proactive Maintenance*: Detecting potential issues before escalation.
+* *Efficient Response*: Faster response times with traceable exceptions and comprehensive log data.
 
 ==== Lessons Learned
 
@@ -204,13 +209,8 @@ Maintenance is inherently a substantial and ongoing task that demands continuous
 * *Utility of Monitoring and Logging*:
 Effective monitoring and logging are critical components of a robust maintenance strategy. They provide essential visibility into system operations, aiding in quick issue identification and resolution.
 
-* *Threshold-Based Alerts*:
-Vital for timely intervention and preventing minor issues from escalating.
-
 * *Continuous Improvement*:
 Maintenance processes should be continually refined to adapt to evolving system requirements.
-
-
 
 == DevOps Style of Work
 //Also reflect and describe what was the "DevOps" style of your work. For example, what did you do differently to previous development projects and how did it work?
