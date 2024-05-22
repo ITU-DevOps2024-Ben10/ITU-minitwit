@@ -89,8 +89,10 @@ image::Images/RegisterAPICallMinitwit.png["Simulator Request Sequence Diagram", 
 === Current State of Systems
 
 //Describe the current state of your systems, for example using results of static analysis and quality assessments.
+.Static Analysis Results
+image::Images/QualityGate.png["Static Analysis results", align="center", width="70%]
 
-MiniTwit systems are currently running smoothly. Static analysis only detects minor issues, such as repeated string literals.
+MiniTwit systems are currently running smoothly. Static analysis only detects minor issues, such as repeated string literals and long methods. Importantly it detects no security issues.
 
 //Run static analysis tools and describe the results
 
