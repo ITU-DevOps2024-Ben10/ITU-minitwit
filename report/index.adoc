@@ -71,7 +71,7 @@ The ITU-MiniTwit system is built using a variety of technologies and tools, some
 * GitHub: Used for source code management and task management.
 * GitHub Actions: Used for automating the CI/CD workflows.
 * GitHub Copilot: An AI-assistant for code completion and generation. Read more about the use of AI-assistants in the section <<Use of AI-Assistants>>.
-* ChatGPT: An AI-assistant for code completion and generation. Read more about the use of AI-assistants in the section <<Use of AI-Assistants>>.
+* ChatGPT: An AI-assistant for code comprehension and research. Read more about the use of AI-assistants in the section <<Use of AI-Assistants>>.
 
 === Important Interactions of Subsystems
 
