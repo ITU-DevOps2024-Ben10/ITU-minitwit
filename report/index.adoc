@@ -8,6 +8,7 @@ Casper Holten <casho@itu.dk>; Mads DalGaard Andersen <madsd@itu.dk>; Magnus Bert
 
 :appendix-caption:
 :sectnums:
+:toc:
 
 == Introduction
 
@@ -25,20 +26,59 @@ robust CI/CD workflows, and to use metrics, monitoring and logging to monitor, a
 // Figures:
 // SHOW THE ENTIRETY OF THE ARCHITECTURE(ZOOMED COMPLETELY OUT)
 //SHOULD ACT AS THE BASIS FOR THE FIGURES BELOW (ZOOMED IN)
+==== Overall Architecture
+
+.Architecture Overview
+image::Images/Architecture.png["System Architecture", align="center", width="70%]
+The system architecture depicted in the figure 1 represents a CI/CD pipeline for deploying a software system.
+
+. *Development and Source Code Management*: Developers work on the source code locally and manage it using a GitHub repository. The repository contains the source code and a Vagrantfile for environment setup.
+
+. *CI/CD Workflows*: When changes are pushed to the main branch in the GitHub repository, GitHub Workflows are triggered. These workflows, defined in .yml files, handle the build, test, release, and deployment processes.
+
+. *Containerization and Delivery*: The workflows build the Docker image for Minitwit, before pushing it to Docker Hub. The workflows then pulls the images for Prometheus and Grafana to use in the deployment process.
+
+. *Provisioning and Deployment*: The deployment process, triggered by GitHub Actions, provisions virtual containers (VContainers) on DigitalOcean. A collection of containers run a Minitwit swarm, while a single other container runs a MySQL DBMS.
+
+Overall, this architecture automates the continuous integration, delivery, and deployment of the application using GitHub, Docker, and DigitalOcean.
+
+
+==== Onion Architecture
+
+.Onion Overview
+image::Images/Minitwit-Git-Truck.png["Onion Architecture", align="center", width="70%]
+
+As seen in figure 2, the source code consists of the three main pillars: Core, Infrastructure, and Web. This coincides with the Onion architecture with the innermost layer, the domain model, being Core. The next layer, infrastructure, holds the business logic. The outermost layer, Web, contains the user interface. These layers each only depend inwards which has been beneficial for the project as it enforces a clear separation of concerns, which allows for easier management of dependencies and testing.
+
+==== Digital Ocean
+
+.Digital Ocean Overview
+image::Images/DigitalOceanVContainers.png["Digital Ocean Architecture", align="center", width="70%]
+
+The Digital Ocean architecture, as seen in figure 3, consists of a collection of VContainers. The VContainers are provisioned by the Vagrantfile during the deployment process and run the Minitwit swarm. The swarm is a collection of containers that run the Minitwit application. The swarm is managed by Docker Swarm, which ensures that the application is highly available, load balanced, and fault tolerant. It also makes the system highly scalable, as more workers can be added to the swarm as wished. The swarm is connected to a single container running a MySQL DBMS, which stores the application's data. This architecture ensures that the application can handle increased traffic and continue operating even if some nodes fail.
 
 === Dependencies of ITU-MiniTwit Systems
 
 // List and brief description of all technologies and tools applied and depended on.
+The ITU-MiniTwit system is built using a variety of technologies and tools, some of which are used during the development process, while others are important at runtime.
+
 * ASP.NET Core: The foundation of our application, used for implementing the web server, user authorization and identification, and our minimal web API.
-* Entity Framework: Used for the database abstraction layer and all CRUD operation logic.
+* Entity Framework: An ORM used in the database abstraction layer and all CRUD operation logic.
 * Playwright: A testing library enabling end-to-end (E2E) tests.
 * Prometheus: Monitoring system and time-series database for collecting and querying metrics.
+* Grafana: A visualization tool for Prometheus metrics.
+* New Relic: A tool used for collecting, storing, and visualizing logs.
 * Xunit: A testing library for integration and unit testing.
 * Coverlet: A tool for determining code coverage in tests.
 * Moq: A test library for generating mock objects for unit testing.
-
-//Figures:
-// ONION STRUCTURE THAT MAPS DEPENDENCIES MAYBE GITTRUCK??
+* Docker: Used for containerization of the application.
+* Docker Hub: A container registry for storing and sharing Docker images.
+* Digital Ocean: A cloud provider for hosting the application.
+* Vagrant: A tool for provisioning and managing virtual machines.
+* GitHub: Used for source code management and task management.
+* GitHub Actions: Used for automating the CI/CD workflows.
+* GitHub Copilot: An AI-assistant for code completion and generation. Read more about the use of AI-assistants in the section <<Use of AI-Assistants>>.
+* ChatGPT: An AI-assistant for code completion and generation. Read more about the use of AI-assistants in the section <<Use of AI-Assistants>>.
 
 === Important Interactions of Subsystems
 
@@ -47,10 +87,13 @@ robust CI/CD workflows, and to use metrics, monitoring and logging to monitor, a
 - For example, via an illustrative UML Sequence diagram that shows the flow of information through your system from user request in the browser, over all subsystems, hitting the database, and a response that is returned to the user.
 - Similarly, another illustrative sequence diagram that shows how requests from the simulator traverse your system.
 
+//Sequence Diagram / Flow Diagram from one subsystem to another
+//Contain 2 start nodes, one for the user request and one for the simulator request
 === Current State of Systems
 
 //Describe the current state of your systems, for example using results of static analysis and quality assessments.
 
+//Run static analysis tools and describe the results
 
 == Process' Perspective [OLIVER, MIKKEL]
 
@@ -69,7 +112,7 @@ We then chose New Relic, which logs everything written to a the node's console, 
 It logs stack traces, exception messages, and preceding events when requests fail, allowing us to monitor API access, 
 track server actions, and identify errors.
 
-The aggregated logs where sent to New Relic and were accessible through their propriotary dashboard.
+The aggregated logs were sent to New Relic and were accessible through their proprietary dashboard.
 
 We configured the New Relic agent in our Dockerfile, ensuring consistent logging across all application nodes.
 
