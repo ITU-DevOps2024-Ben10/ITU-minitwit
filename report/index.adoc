@@ -121,7 +121,7 @@ served only as an indicator for program correctness when reviewing code.
 === System Monitoring
 
 .Monitoring view
-image::Images/MonitoringInteraction.svg["System monitoring", align="center", width="70%, height="70%]
+image::Images/MonitoringInteraction.png["System monitoring", align="center", width="70%, height="70%]
 The above graph depicts an abstracted view of the dataflow in the project's monitoring system.
 
 * The Minitwit Web Application exposes ASP.Net metrics as well as the custom metrics seen in <<Custom metrics>> to the "/metrics" endpoint.
