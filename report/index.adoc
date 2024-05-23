@@ -198,7 +198,7 @@ Due the project being based on a former course project, some flaws was brought i
 ===== Long running asynchrous operations
 
 Throughout most of the project, we experienced issues related to scaling the application.
-These scaling issues were not related to vertical scaling, but were fundamental flaws in the code.
+These scaling issues were not related to horizontal scaling, but were fundamental flaws in the code.
 
 One of the earliest performance issues were bugs related to asynchronous function calls in the code. A few asynchronous 
 calls were missing await statements, and could thus, potentially, run indefinitely. This would lead to more and more
@@ -219,10 +219,10 @@ This brought the performance of the application to an acceptable level, and resu
 
 ===== Lessons learned
 
-It became obvious that horizontal and vertical scaling cannot always be used to mitigate performance related issues. Sometimes
+It became obvious that horizontal and horizontal scaling cannot always be used to mitigate performance related issues. Sometimes
 the codebase is unoptimised in a way, where scaling cannot solve the underlying performance issue. 
 
-High performance and well designed systems are integral for scalability, since problems introduced by sloppy implementations 
+High performance and well-designed systems are integral for scalability, since problems introduced by sloppy implementations 
 can be impossible to solve once transitioning to operations and maintenance. 
 
 === Operation
