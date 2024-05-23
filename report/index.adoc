@@ -274,7 +274,7 @@ GitHub allowed for fine-grained inspection through peer-reviewed code inspection
 
 In the same way the agile principles were introduced to the project. Of the twelve principles; "Welcome changing requirements" (<<agile_principles_2001>>), was the most prevalent as new requirements were added almost weekly. Furthermore how to meet those requirements wasn't set in stone. In situations where the team would find a better way to fulfill a task, there would be little resistance to incorporating it into the project. 
 
-Another vital principle was; "The most efficient and effective method of conveying information to and within a development team is face-to-face conversation"(<<agile_principles_2001>>). To implement this principle, the team had both the weekly physical meeting, but would routinely also hold pair-/ or mob-programming sessions. The latter part, contributed to increasing the ownership of the codebase, generally raises the quality of the code produced, and minimises the time spent on code inspections. *FIND STUDY THAT SHOWS BENEFITS OF PAIRPROGRAMMING*
+Another vital principle was; "The most efficient and effective method of conveying information to and within a development team is face-to-face conversation"(<<agile_principles_2001>>). To implement this principle, the team had both the weekly physical meeting, but would routinely also hold pair-/ or mob-programming sessions. The latter part, contributed to increasing the ownership of the codebase, generally raises the quality of the code produced, and minimises the time spent on code inspections. <<Pair_Programming_2009>>
 
 == Conclusion
 
@@ -412,6 +412,13 @@ There are many options as to how to improve on this threat. A minimum effort wou
 
 [bibliography]
 == References
+
+[[Pair_Programming_2009]] Jo E. Hannay, Tore Dybå, Erik Arisholm, Dag I.K. Sjøberg,
+The effectiveness of pair programming: A meta-analysis,
+Information and Software Technology,
+Volume 51, Issue 7, 2009, Pages 1110-1122,
+Accessed May 23, 2024.,
+https://www.sciencedirect.com/science/article/pii/S0950584909000123
 
 [[szulik_2017]] Szulik, Maciej. “Colorful Deployments: An Introduction to Blue-Green, Canary, and Rolling Deployments.” Opensource.com. Accessed May 23, 2024. https://opensource.com/article/17/5/colorful-deployments. 
 
