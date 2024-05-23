@@ -23,7 +23,7 @@ During the DevOps, Software Evolution, and Software Maintenance course, we enhan
 ==== Overall Architecture
 
 .Architecture Overview
-image::Images/Architecture.png["System Architecture Diagram", align="center", width="70%, height="70%"]
+image::Images/Architecture.png["System Architecture Diagram", align="center", width="90%, height="90%"]
 The system architecture depicted in the figure 1 represents a CI/CD pipeline for deploying a software system.
 
 . *Development and Source Code Management*: Developers manage the source code locally and on GitHub, which includes a Vagrantfile for environment setup.
@@ -40,7 +40,7 @@ This architecture automates continuous integration, delivery, and deployment usi
 ==== Onion Architecture
 
 .Onion Overview
-image::Images/Minitwit-Git-Truck.png["Onion Architecture Diagram", align="center", width="70%, height="70%"]
+image::Images/Minitwit-Git-Truck.png["Onion Architecture Diagram", align="center", width="90%, height="90%"]
 
 As shown in Figure 2, the source code consists of three main layers: Core, Infrastructure, and Web. This aligns with the Onion architecture. The innermost layer, Core, is the domain model. Infrastructure contains the business logic, and Web holds the user interface. Each layer depends only on the inner layers, enforcing a clear separation of concerns and simplifying dependency management and testing.
 
@@ -85,7 +85,7 @@ Read more about AI assistants in the section <<Use of AI-Assistants>>.
 image::Images/SequenceDiagramUI.png["User Request Sequence Diagram", align="center", width="70%, height="70%"]
 
 .Simulator Request Sequence via API
-image::Images/SequenceDiagramPublicTimelineMinitwit.png[]["Simulator Request Sequence Diagram", align="center", width="70%, height="70%"]
+image::Images/SequenceDiagramPublicTimelineMinitwit.png[]["Simulator Request Sequence Diagram", align="center", width="100%, height="100%"]
 
 //Sequence Diagram / Flow Diagram from one subsystem to another
 //Contain 2 start nodes, one for the user request and one for the simulator request
@@ -93,7 +93,7 @@ image::Images/SequenceDiagramPublicTimelineMinitwit.png[]["Simulator Request Seq
 
 //Describe the current state of your systems, for example using results of static analysis and quality assessments.
 .Static Analysis Results
-image::Images/QualityGate.png["Static Analysis results", align="center", width="70%, height="70%"]
+image::Images/QualityGate.png["Static Analysis results", align="center", width="90%, height="90%"]
 
 MiniTwit systems are currently running smoothly. Static analysis only detects minor issues, such as repeated string literals and long methods. Importantly it detects no security issues.
 
@@ -104,7 +104,7 @@ MiniTwit systems are currently running smoothly. Static analysis only detects mi
 === CI/CD Chains
 
 .Continuous Deployment chain
-image::Images/WorkflowDiagram.jpg["CD chain", align="center", width="70%, height="70%"]
+image::Images/WorkflowDiagram.jpg["CD chain", align="center", width="80%, height="80%"]
 
 To easily and automatically deploy our application to our servers, we made use of the automatic deployment workflow as seen in 
 figure 4. 
@@ -128,7 +128,7 @@ The above graph depicts an abstracted view of the dataflow.
 * Grafana queries the database, and displays the data in a custom dashboard as seen below.
 
 .Grafana Dashboard
-image::Images/GrafanaDashboard.png["Grafana dashboard", align="center", width="70%, height="70%"]
+image::Images/GrafanaDashboard.png["Grafana dashboard", align="center", width="90%, height="90%"]
 
 // Description of how the systems are monitored and what is monitored.
 
