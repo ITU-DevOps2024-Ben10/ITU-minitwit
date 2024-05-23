@@ -78,6 +78,8 @@ The ITU-MiniTwit system leverages various technologies and tools for development
 
 Read more about AI assistants in the section <<Use of AI-Assistants>>.
 
+<<<
+
 === Important Interactions of Subsystems
 // Description of important interactions of subsystems.
 
