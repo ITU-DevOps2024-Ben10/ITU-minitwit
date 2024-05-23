@@ -24,7 +24,7 @@ During the DevOps, Software Evolution, and Software Maintenance course, we enhan
 
 .Architecture Overview
 image::Images/Architecture.png["System Architecture Diagram", align="center", width="90%, height="90%"]
-The system architecture depicted in the figure 1 represents a CI/CD pipeline for deploying a software system.
+The system architecture of the MiniTwit project is depicted in figure 1.
 
 . *Development and Source Code Management*: Developers manage the source code locally and on GitHub, which includes a Vagrantfile for environment setup.
 
