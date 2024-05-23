@@ -184,7 +184,6 @@ Rolling updates were chosen as the deployment strategy due to alignment with exi
 Due the project being based on a former course project, some flaws was brought in from the start of the course. One of which was a cartesian explosion caused by navigation properties used by EF Core, this is a common issue with ORMs. The issues was fixed by refactoring the Author-, Cheep-, CreateCheep-, Follow-, and reaction-entities to only contain ID's to other entities, instead of containing the entity itself. Furthermore, unnecessary relations between entities were removed, such as the Author-entity containing a list of all Cheeps they've created. 
 
 
-* Circular dependencies in database, caused by entities holding references to eachother
 * Asynchronous actions where not awaited(debugging)
 * Initial inability to deal with concurrent requests
 * Change of database provider(Complexity in setup)
