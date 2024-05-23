@@ -183,7 +183,7 @@ Rolling updates were chosen as the deployment strategy due to alignment with exi
 ==== Cartesian Explosion
 Due the project being based on a former course project, some flaws were brought in from the start of the course. One of which was a cartesian explosion caused by navigation properties used by EF Core, which is a common issue with ORMs. The issues were fixed by refactoring the Author-, Cheep-, CreateCheep-, Follow-, and reaction-entities to only contain ID's to other entities, instead of containing a reference to the entity itself. Furthermore, unnecessary relations between entities were removed, such as the Author-entity containing a list of all Cheeps they've created. 
 
-==== Learned lessons
+==== Lessons Learned
 As a consequence of identifying the presence of the Cartesian explosion, it became evident that the database design was significantly suboptimal. This led to the realization that the database design should be thoroughly planned before implementation, to avoid potential performance issues and scalability problems. 
 
 
