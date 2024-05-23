@@ -47,7 +47,7 @@ As shown in Figure 2, the source code consists of three main layers: Core, Infra
 ==== Digital Ocean
 
 .Digital Ocean Overview
-image::Images/DigitalOceanVContainers.png["Digital Ocean Architecture Diagram", align="center", width="70%, height="70%"]
+image::Images/DigitalOceanVContainers.png["Digital Ocean Architecture Diagram", align="center", width="60%, height="60%"]
 
 The Digital Ocean architecture, shown in Figure 3, consists of VContainers provisioned by the Vagrantfile during deployment, running the Minitwit swarm. Managed by Docker Swarm, the swarm ensures high availability, load balancing, fault tolerance, and scalability. It connects to a single container running a MySQL DBMS for data storage. This setup ensures the application can handle increased traffic and remain operational despite node failures.
 
