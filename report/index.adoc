@@ -184,14 +184,43 @@ Rolling updates were chosen as the deployment strategy due to alignment with exi
 //Figures - maybe depict the change in structure
 
 * Circular dependencies in database, caused by entities holding references to eachother
-* Asynchronous actions where not awaited(debugging)
-* Initial inability to deal with concurrent requests
 * Change of database provider(Complexity in setup)
 
 * Transitioning to Docker Swarm
 ** How we tackled zero downtime
 * Slow response time on public timeline on GUI
-* Connection errors, Errors on API - Server downtime
+
+==== Performance issues and subsequent server crashes
+
+===== Long running asynchrous operations
+
+Throughout most of the project, we experienced issues related to scaling the application.
+These scaling issues were not related to vertical scaling, but were fundamental flaws in the code.
+
+One of the earliest performance issues were bugs related to asynchronous function calls in the code. A few asynchronous 
+calls were missing await statements, and could thus, potentially, run indefinitely. This would lead to more and more
+Database connections in the database being occupied, without ever being released. After some hours, this would lead to a crash
+of the webserver. Normally the database would have 1-8 threads used, but with the emergence of this issue, the amount of used database
+threads could rise to 70+ at any given time, thus overwhelming the database.
+
+===== High amount of database roundtrips
+
+Mitigating the exhaustion of the connection pool to the database solved our stability issues for some time.
+With the onset of the 3rd round of the simulator, and the subsequent rise in request/second, our application experienced new issues.
+Requests would be processed too slow, resulting in the requester cancelling the request, thus giving us HTTP 499 errors.
+This was solved by increasing the amount of concurrency in our application code, and reducing the amount of separate database queries made.
+We identified a function, that resulted in 32 different database requests. We bundled these 32 requests into a single query, thus eliminating
+a lot of redundant network roundtrips and performance degradation that stems from having to process many different requests compared to one.
+
+This brought the performance of the application to an acceptable level, and resulted in the 499 errors disappearing.
+
+===== Lessons learned
+
+It became obvious that horizontal and vertical scaling cannot always be used to mitigate performance related issues. Sometimes
+the codebase is unoptimised in a way, where scaling cannot solve the underlying performance issue. 
+
+High performance and well designed systems are integral for scalability, since problems introduced by sloppy implementations 
+can be impossible to solve once transitioning to operations and maintenance. 
 
 === Operation
 * Accessibility to nodes through DigitalOcean across developers. The truckfactor was through the word.
