@@ -45,7 +45,7 @@ jobs:
 
     - name: Commit changes
       run: |
-        git add -f report/build/report.pdf
+        git add -f report/build/BSc_group_j.pdf
         git diff --staged --exit-code || git commit -m "Automated commit: Update PDF"
         BRANCH_NAME="${GITHUB_REF#refs/heads/}"
         git push origin HEAD:$BRANCH_NAME
@@ -59,4 +59,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: generated-pdf
-        path: report/build/report.pdf
+        path: report/build/BSc_group_j.pdf
