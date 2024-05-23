@@ -36,7 +36,7 @@ jobs:
         gem install matrix
 
     - name: Convert AsciiDoc to PDF
-      run: asciidoctor-pdf -o report/build/report.pdf report/index.adoc
+      run: asciidoctor-pdf -o report/build/BSc_group_j.pdf report/index.adoc
 
     - name: Set up Git config
       run: |
