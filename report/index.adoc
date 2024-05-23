@@ -84,7 +84,7 @@ Read more about AI assistants in the section <<Use of AI-Assistants>>.
 .User Request Sequence via UI
 image::Images/SequenceDiagramUI.png["User Request Sequence Diagram", align="center", width="70%, height="70%"]
 
-.Simulator Request Sequence via API
+.Successful simulator API request to public timeline
 image::Images/SequenceDiagramPublicTimelineMinitwit.png[]["Simulator Request Sequence Diagram", align="center", width="100%, height="100%"]
 
 //Sequence Diagram / Flow Diagram from one subsystem to another
