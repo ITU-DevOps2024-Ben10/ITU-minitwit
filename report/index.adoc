@@ -40,14 +40,14 @@ This architecture automates continuous integration, delivery, and deployment usi
 ==== Onion Architecture
 
 .Onion Overview
-image::Images/Minitwit-Git-Truck.png["Onion Architecture Diagram", align="center", width="90%, height="90%"]
+image::Images/OnionArchitectureMinitwit.png["Digital Ocean Architecture Diagram", align="center", width="100%, height="100%"]
 
 As shown in Figure 2, the source code consists of three main layers: Core, Infrastructure, and Web. This aligns with the Onion architecture. The innermost layer, Core, is the domain model. Infrastructure contains the business logic, and Web holds the user interface. Each layer depends only on the inner layers, enforcing a clear separation of concerns and simplifying dependency management and testing.
 
 ==== Digital Ocean
 
 .Digital Ocean Overview
-image::Images/OnionArchitectureMinitwit.png["Digital Ocean Architecture Diagram", align="center", width="100%, height="100%"]
+image::Images/DigitalOceanVContainers.png["Digital Ocean Architecture Diagram", align="center", width="60%, height="60%"]
 
 The Digital Ocean architecture, shown in Figure 3, consists of VContainers provisioned by the Vagrantfile during deployment, running the Minitwit swarm. Managed by Docker Swarm, the swarm ensures high availability, load balancing, fault tolerance, and scalability. It connects to a single container running a MySQL DBMS for data storage. This setup ensures the application can handle increased traffic and remain operational despite node failures.
 
