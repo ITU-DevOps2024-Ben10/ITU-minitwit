@@ -11,6 +11,7 @@ Casper Holten <casho@itu.dk>; Mads Andersen <madsd@itu.dk>; Magnus Kristensen <b
 
 During the DevOps, Software Evolution, and Software Maintenance course, we enhanced a 'Micro Blogging Service' from an earlier course to handle real-world user simulations. This process improved the application's durability, performance, and maintainability. We learned to create more efficient applications, implement robust CI/CD workflows, and use metrics, monitoring, and logging to maintain application health.
 
+
 == System's Perspective
 === Design and Architecture of ITU-MiniTwit Systems
 
@@ -84,7 +85,7 @@ Read more about AI assistants in the section <<Use of AI-Assistants>>.
 image::Images/SequenceDiagramUI.png["User Request Sequence Diagram", align="center", width="70%]
 
 .Simulator Request Sequence via API
-image::Images/RegisterAPICallMinitwit.png["Simulator Request Sequence Diagram", align="center", width="70%]
+image::Images/SequenceDiagramPublicTimelineMinitwit.png[]["Simulator Request Sequence Diagram", align="center", width="70%]
 
 //Sequence Diagram / Flow Diagram from one subsystem to another
 //Contain 2 start nodes, one for the user request and one for the simulator request
@@ -118,6 +119,16 @@ ran the tests written for the application, but did not abort any of our processe
 served only as an indicator for program correctness when reviewing code. 
 
 === System Monitoring
+.Monitoring view
+image::Images/MonitoringInteraction.svg["System monitoring", align="center", width="70%]
+The above graph depicts an abstracted view of the dataflow.
+
+* The Minitwit Web Application exposes ASP.Net metrics as well as the custom metrics seen in <<Custom metrics>> to the "/metrics" endpoint.
+* The prometheus server scrapes the "/metrics" endpoint every 15 seconds and stores it in a database.
+* Grafana queries the database, and displays the data in a custom dashboard as seen below.
+
+.Grafana Dashboard
+image::Images/GrafanaDashboard.png["Grafana dashboard", align="center", width="70%]
 
 // Description of how the systems are monitored and what is monitored.
 
@@ -125,7 +136,8 @@ served only as an indicator for program correctness when reviewing code.
 
 We initially tried deploying the ELK stack for logging and monitoring but faced difficulties. We then chose New Relic, which logs everything written to the node's console, similar to local debugging. It captures stack traces, exception messages, and preceding events when requests fail, allowing us to monitor API access, track server actions, and identify errors.
 
-Aggregated logs were sent to New Relic and accessed through their proprietary dashboard. We configured the New Relic agent in our Dockerfile, ensuring consistent logging across all application nodes.
+The aggregated logs were sent to New Relic and were accessible through their proprietary dashboard.
+
 
 === Security Assessment
 
@@ -140,6 +152,7 @@ For scaling the application, Docker Swarm's horizontal scaling was employed, off
 
 Rolling updates were chosen as the deployment strategy due to alignment with existing infrastructure and minimal downtime. This approach updates services incrementally, maintaining continuous availability without requiring additional resources. While the Blue-Green upgrade strategy was considered, its additional resources and implementation time led the team to favor Rolling Updates. (<<szulik_2017>>)
 
+
 === Use of AI-Assistants
 ==== AI-assistants used
 
@@ -153,6 +166,7 @@ Rolling updates were chosen as the deployment strategy due to alignment with exi
 * *Research*: ChatGPT was also used to provide a secondary explanation when researching new technologies, in situations were the documentation either was difficult to understand, or if subsidary information was needed. 
 * *Stacktrace breakdowns*: ChatGPT was used to breakdown stracktraces, summarizing the information as well as providing a more user-friendly format to read. 
 * *Optimization*: Identifying functions for optimization.
+
 
 ==== Downsides
 
@@ -179,30 +193,35 @@ Rolling updates were chosen as the deployment strategy due to alignment with exi
 
 ==== Challenges
 
+One of the primary challenges encountered during the maintenance phase was identifying the root cause of unintended behaviour. This encompassed several aspects:
+
 *Primary Challenges*:
 
-* *Error Detection*:  Identifying root causes of system errors.
+* **Error Detection**: Determining the root causes of errors in the system, and capturing the stacktrace and error messages associated with these.
 
-* *System Status*: Monitoring website status and downtime instances.
+* *System Status*: Monitoring website status and instances of downtime.
 
-* *Issue Diagnosis*: Pinpointing specific failures.
+* **Issue Diagnosis**: Pinpointing failures and malfunctions attributed to unintended behaviour of the subsystems.
 
-Initially, lacking proper tools made these tasks daunting and time-consuming, relying on general monitoring provided by the course.
+Initially, all the described issues were solved in inconvenient and time-consuming manners. In the beginning, we relied on primitive tools
+like logging exceptions to text files, and observing console logs for errors as they occur in real time. 
 
 ==== Solutions Implemented
 
 * *Monitoring Systems*: Integrated Prometheus and Grafana for real-time performance observation and configured alerts.
 * *Logging Mechanisms*: Established detailed logging with New Relic for systematic error recording and analysis.
+* *Integrated New Relic*: Integrated New Relic's Application Performance Monitoring tool, allowing us to view aggregated log, error, and performance metrics.  
 
-These tools significantly enhanced our ability to manage and maintain the system effectively. Real-time insights and detailed logs provided a clearer picture of the system's operational state, enabling proactive maintenance and faster response times.
+These tools significantly enhanced our ability to manage and maintain the system effectively. Real-time insights and detailed 
+logs provided a clearer picture of the system's operational state, enabling proactive and reactive maintenance, and faster response times.
 
 ==== Outcomes
 
-While the introduction of monitoring and logging tools did not entirely eliminate maintenance issues, it considerably reduced their complexity. Key improvements included:
+The logging and monitoring tools did not completely eliminate instances of downtime, but it considerably reduced their duration.
 
-* *Improved Error Tracking*: Enhanced ability to trace and resolve errors promptly.
-* *Proactive Maintenance*: Detecting potential issues before escalation
-* *Efficient Response*: Faster response times with real-time alerts and comprehensive log data.
+* *Improved Error Tracking*: Enhanced ability to trace and resolve errors.
+* *Proactive Maintenance*: Detecting potential issues before escalation.
+* *Efficient Response*: Faster response times with traceable exceptions and comprehensive log data.
 
 ==== Lessons Learned
 
@@ -212,13 +231,8 @@ Maintenance is inherently a substantial and ongoing task that demands continuous
 * *Utility of Monitoring and Logging*:
 Effective monitoring and logging are critical components of a robust maintenance strategy. They provide essential visibility into system operations, aiding in quick issue identification and resolution.
 
-* *Threshold-Based Alerts*:
-Vital for timely intervention and preventing minor issues from escalating.
-
 * *Continuous Improvement*:
 Maintenance processes should be continually refined to adapt to evolving system requirements.
-
-
 
 == DevOps Style of Work
 //Also reflect and describe what was the "DevOps" style of your work. For example, what did you do differently to previous development projects and how did it work?
@@ -236,6 +250,41 @@ Another vital principle was; "The most efficient and effective method of conveyi
 // Brief conclusion of the report.
 [appendix]
 == Appendix
+
+=== Custom metrics
+
+|===
+|Metric |Description
+
+|minitwit_api_requests_total
+|The total amount of API interactions received.
+
+|minitwit_api_requests_error_total
+|The sum of all API errors. 
+
+|minitwit_api_requests_success_total
+|The sum of all succesful API requests handled. 
+
+|minitwit_register_user_total
+|The sum of registered users received through the API.
+
+|minitwit_login_user_total
+|The sum of login requests received through the API. 
+
+|minitwit_follow_user_total
+|The sum of follow requests received through the API. 
+
+|minitwit_unfollow_user_total
+|The sum of unfollow requests received through the API. 
+
+|minitwit_post_message_total
+|The sum of posted cheeps through the API. 
+
+|minitwit_get_messages_total
+|The sum of requests to view cheeps received through the API. 
+
+|===
+
 
 === Risk Assessments
 
@@ -329,13 +378,14 @@ Improve the security of our system:
 There are many options as to how to improve on this threat. A minimum effort would be to have physical copy of the state of the database on one or more harddrives. DigitalOcean has a Collaboration with SnapShooter, a service that enables virtual backups of databases, that would integrate nicely into the project. 
 
 
+
 [bibliography]
 == References
 
-[[szulik_2017]] Szulik, Maciej. "Colorful deployments: An introduction to blue-green, canary, and rolling deployments." _Opensource.com_, 2 May 2017. https://opensource.com/article/17/5/colorful-deployments
+[[szulik_2017]] Szulik, Maciej. “Colorful Deployments: An Introduction to Blue-Green, Canary, and Rolling Deployments.” Opensource.com. Accessed May 23, 2024. https://opensource.com/article/17/5/colorful-deployments. 
 
-[[scrum_guide_2020]] Scrum guide, 2020. https://scrumguides.org/scrum-guide.html
+[[scrum_guide_2020]] “The 2020 Scrum GUIDETM.” Scrum Guide | Scrum Guides. Accessed May 23, 2024. https://scrumguides.org/scrum-guide.html. 
 
-[[agile_principles_2001]] The Agile Manifesto, 12 principles, 2001. https://agilemanifesto.org/principles.html
+[[agile_principles_2001]] Principles behind the Agile Manifesto. Accessed May 23, 2024. https://agilemanifesto.org/principles.html. 
 
-[[jabbari_2016]] Jabbari, Ramtin. "What is DevOps? A Systematic Mapping Study on Definitions and Practices.", 2016  https://www.researchgate.net/publication/308857081_What_is_DevOps_A_Systematic_Mapping_Study_on_Definitions_and_Practices
+[[jabbari_2016]] (PDF) what is devops?: A systematic mapping study on definitions and practices. Accessed May 22, 2024. https://www.researchgate.net/publication/308857081_What_is_DevOps_A_Systematic_Mapping_Study_on_Definitions_and_Practices. 

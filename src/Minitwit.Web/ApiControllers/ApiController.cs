@@ -146,13 +146,7 @@ public class ApiController : ControllerBase
             var authorIds = cheeps.Select(c => c.AuthorId).Distinct();
             var users = await _authorRepository.GetAuthorsByIdAsync(authorIds);
 
-            var lst = cheeps
-                .Select(cheep => new CheepViewModelApi(
-                    users.FirstOrDefault(a => a.Id == cheep.AuthorId)?.UserName ?? "Unknown",
-                    cheep.Text,
-                    cheep.TimeStamp
-                ))
-                .ToList();
+            var lst = ConvertToCheepViewModelApiCollection(cheeps, users);
 
             CustomMeters.IncrementApiRequestsSuccessCounter();
             return Ok(lst);
@@ -601,4 +595,18 @@ public class ApiController : ControllerBase
         stringBuilderError.Append("}");
         return stringBuilderError.ToString();
     }
+
+    private ICollection<CheepViewModelApi> ConvertToCheepViewModelApiCollection(ICollection<Cheep> cheeps, ICollection<Author> users)
+    {
+        var lst = cheeps
+                .Select(cheep => new CheepViewModelApi(
+                    users.FirstOrDefault(a => a.Id == cheep.AuthorId)?.UserName ?? "Unknown",
+                    cheep.Text,
+                    cheep.TimeStamp
+                ))
+                .ToList();
+
+        return lst;
+    }
+
 }
