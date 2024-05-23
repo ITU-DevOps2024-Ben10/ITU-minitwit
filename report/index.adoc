@@ -1,4 +1,4 @@
-= Report - DevOps 2024 ITU
+= Group J | Exam assignment - DevOps, Software Evolution and Software Maintenance
 Casper Holten <casho@itu.dk>; Mads Dalgaard Andersen <madsd@itu.dk>; Magnus Kristensen <bekr@itu.dk>; Mikkel Kristensen <mbek@itu.dk>; Oliver Laursen <olau@itu.dk>
 :title-page:
 :appendix-caption:
