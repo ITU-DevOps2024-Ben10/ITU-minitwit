@@ -47,7 +47,7 @@ As shown in Figure 2, the source code consists of three main layers: Core, Infra
 ==== Digital Ocean
 
 .Digital Ocean Overview
-image::Images/DigitalOceanVContainers.png["Digital Ocean Architecture Diagram", align="center", width="70%]
+image::Images/DigitalOceanVContainers.png["Digital Ocean Architecture Diagram", align="center", width="70%, height="70%"]
 
 The Digital Ocean architecture, shown in Figure 3, consists of VContainers provisioned by the Vagrantfile during deployment, running the Minitwit swarm. Managed by Docker Swarm, the swarm ensures high availability, load balancing, fault tolerance, and scalability. It connects to a single container running a MySQL DBMS for data storage. This setup ensures the application can handle increased traffic and remain operational despite node failures.
 
@@ -82,10 +82,10 @@ Read more about AI assistants in the section <<Use of AI-Assistants>>.
 // Description of important interactions of subsystems.
 
 .User Request Sequence via UI
-image::./Images/SequenceDiagramUI.png["User Request Sequence Diagram", align="center", width="70%]
+image::Images/SequenceDiagramUI.png["User Request Sequence Diagram", align="center", width="70%]
 
 .Simulator Request Sequence via API
-image::./Images/SequenceDiagramPublicTimelineMinitwit.png[]["Simulator Request Sequence Diagram", align="center", width="70%]
+image::Images/SequenceDiagramPublicTimelineMinitwit.png[]["Simulator Request Sequence Diagram", align="center", width="70%]
 
 //Sequence Diagram / Flow Diagram from one subsystem to another
 //Contain 2 start nodes, one for the user request and one for the simulator request
@@ -120,7 +120,7 @@ served only as an indicator for program correctness when reviewing code.
 
 === System Monitoring
 .Monitoring view
-image::Images/MonitoringInteraction.svg["System monitoring", align="center", width="70%]
+image::Images/MonitoringInteraction.svg["System monitoring", align="center", width="70%, height="70%]
 The above graph depicts an abstracted view of the dataflow.
 
 * The Minitwit Web Application exposes ASP.Net metrics as well as the custom metrics seen in <<Custom metrics>> to the "/metrics" endpoint.
