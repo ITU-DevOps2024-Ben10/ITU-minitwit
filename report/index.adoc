@@ -44,6 +44,8 @@ image::Images/OnionArchitectureMinitwit.png["Digital Ocean Architecture Diagram"
 
 As shown in Figure 2, the source code consists of three main layers: Core, Infrastructure, and Web. The innermost layer, Core, is the domain model. Infrastructure contains the business logic, and Web holds the user interface. Each layer depends only on the inner layers, enforcing a clear separation of concerns and simplifying dependency management and testing.
 
+<<<
+
 ==== Digital Ocean
 
 .Digital Ocean Overview
