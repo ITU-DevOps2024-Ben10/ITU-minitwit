@@ -1,6 +1,6 @@
-= Group J | Exam assignment : DevOps, Software Evolution and Software Maintenance
+= Group J | Exam assignment
+{doctitle} DevOps, Software Evolution and Software Maintenance
 Casper Holten <casho@itu.dk>; Mads Dalgaard Andersen <madsd@itu.dk>; Magnus Kristensen <bekr@itu.dk>; Mikkel Kristensen <mbek@itu.dk>; Oliver Laursen <olau@itu.dk>
-:subtitle: DevOps, Software Evolution and Software Maintenance
 :title-page:
 :appendix-caption:
 :sectnums:
