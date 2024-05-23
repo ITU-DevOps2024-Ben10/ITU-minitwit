@@ -181,7 +181,7 @@ Rolling updates were chosen as the deployment strategy due to alignment with exi
 // Description of the biggest issues, how they were solved, and lessons learned.
 //Figures - maybe depict the change in structure
 ==== Circular dependencies in entities
-Due the project being based on a former course project, some flaws was brought in from the start of the course. One of which was a cartesian explosion caused by navigation properties used by EF Core, this is a common issue with ORMs. The issues was fixed by refactoring the Author-, Cheep-, CreateCheep-, Follow-, and reaction-entities to only contain ID's to other entities, instead of containing the entity itself. Furthermore, unnecessary relations between entities were removed, such as the Author-entity containing a list of all Cheeps they've created. 
+Due the project being based on a former course project, some flaws was brought in from the start of the course. One of which was a cartesian explosion caused by navigation properties used by EF Core, this is a common issue with ORMs. The issues was fixed by refactoring the Author-, Cheep-, CreateCheep-, Follow-, and reaction-entities to only contain ID's to other entities, instead of containing a reference to the entity itself. Furthermore, unnecessary relations between entities were removed, such as the Author-entity containing a list of all Cheeps they've created. 
 
 
 * Asynchronous actions where not awaited(debugging)
