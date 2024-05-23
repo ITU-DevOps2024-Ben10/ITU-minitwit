@@ -104,8 +104,6 @@ MiniTwit systems are currently running smoothly. Static analysis only detects mi
 
 //Run static analysis tools and describe the results
 
-<<<
-
 == Process' Perspective
 
 === CI/CD Chains
