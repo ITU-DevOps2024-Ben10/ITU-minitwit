@@ -182,6 +182,11 @@ Rolling updates were chosen as the deployment strategy due to alignment with exi
 
 // Description of the biggest issues, how they were solved, and lessons learned.
 //Figures - maybe depict the change in structure
+
+* Circular dependencies in database, caused by entities holding references to eachother
+* Asynchronous actions where not awaited
+* 
+
 === Operation
 
 // Description of the biggest issues, how they were solved, and lessons learned.
@@ -244,7 +249,7 @@ GitHub allowed for fine-grained inspection through peer-reviewed code inspection
 
 In the same way the agile principles were introduced to the project. Of the twelve principles; "Welcome changing requirements" (<<agile_principles_2001>>), was the most prevalent as new requirements were added almost weekly. Furthermore how to meet those requirements wasn't set in stone. In situations where the team would find a better way to fulfill a task, there would be little resistance to incorporating it into the project. 
 
-Another vital principle was; "The most efficient and effective method of conveying information to and within a development team is face-to-face conversation". To implement this principle, the team had both the weekly physical meeting, but would routinely also hold pair-/ or mob-programming sessions. The latter part, contributed to increasing the ownership of the codebase, generally raises the quality of the code produced, and minimises the time spent on code inspections. *FIND STUDY THAT SHOWS BENEFITS OF PAIRPROGRAMMING*
+Another vital principle was; "The most efficient and effective method of conveying information to and within a development team is face-to-face conversation"(<<agile_principles_2001>>). To implement this principle, the team had both the weekly physical meeting, but would routinely also hold pair-/ or mob-programming sessions. The latter part, contributed to increasing the ownership of the codebase, generally raises the quality of the code produced, and minimises the time spent on code inspections. *FIND STUDY THAT SHOWS BENEFITS OF PAIRPROGRAMMING*
 
 == Conclusion
 
