@@ -184,16 +184,18 @@ Rolling updates were chosen as the deployment strategy due to alignment with exi
 //Figures - maybe depict the change in structure
 
 * Circular dependencies in database, caused by entities holding references to eachother
-* Asynchronous actions where not awaited
-* 
+* Asynchronous actions where not awaited(debugging)
+* Initial inability to deal with concurrent requests
+* Change of database provider(Complexity in setup)
+
+* Transitioning to Docker Swarm
+** How we tackled zero downtime
+* Slow response time on public timeline on GUI
+* Connection errors, Errors on API - Server downtime
 
 === Operation
-
-// Description of the biggest issues, how they were solved, and lessons learned.
-
-
-
-
+* Accessibility to nodes through DigitalOcean across developers. The truckfactor was through the word.
+* Logging(EFK Stack) too complex changed to new relic
 
 === Maintenance
 
