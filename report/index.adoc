@@ -287,6 +287,7 @@ Another vital principle was; "The most efficient and effective method of conveyi
 
 In conclusion, the DevOps, Software Evolution, and Software Maintenance course enabled the team to enhance the MiniTwit application through real-world user simulations, improving durability, performance, and maintainability. Implementing CI/CD workflows, containerization, and effective monitoring and logging strategies streamlined deployment and maintenance. Addressing challenges like performance issues and security risks deepened the team's understanding of scalable, efficient systems. Adopting DevOps principles facilitated collaboration and continuous improvement, ensuring the applications robust performance and reliability.
 
+<<<
 
 // Brief conclusion of the report.
 [appendix]
@@ -418,7 +419,7 @@ Improve the security of our system:
 
 There are many options as to how to improve on this threat. A minimum effort would be to have physical copy of the state of the database on one or more harddrives. DigitalOcean has a Collaboration with SnapShooter, a service that enables virtual backups of databases, that would integrate nicely into the project. 
 
-
+<<<
 
 [bibliography]
 == References
