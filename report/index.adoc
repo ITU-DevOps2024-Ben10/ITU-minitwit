@@ -112,7 +112,7 @@ MiniTwit systems are currently running smoothly. Static analysis only detects mi
 image::Images/WorkflowDiagram.jpg["CD chain", align="center", width="80%, height="80%"]
 
 To easily and automatically deploy our application to our servers, we made use of the automatic deployment workflow as seen in 
-figure 4. 
+figure 7. 
 When a push to main with a tag is made, a workflow is triggered. This workflow builds and packages our application in appropriate
 ways for selected runtime targets.
 
